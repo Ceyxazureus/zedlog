@@ -23,10 +23,10 @@ import java.net.URL;
  *
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
-public final class Config {
+public enum Config {
 
 	/** Singleton instance. */
-	public static final Config INSTANCE = new Config();
+	INSTANCE;
 
 	/** Major version number. */
 	public final int VERSION_MAJOR = 0;
