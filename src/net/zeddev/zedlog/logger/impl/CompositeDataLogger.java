@@ -18,7 +18,7 @@ package net.zeddev.zedlog.logger.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
+import net.zeddev.litelogger.Logger;
 import net.zeddev.zedlog.logger.AbstractDataLogger;
 import net.zeddev.zedlog.logger.DataLogger;
 import net.zeddev.zedlog.logger.DataLoggerObserver;
@@ -31,7 +31,7 @@ import net.zeddev.zedlog.logger.LogEntry;
  */
 public final class CompositeDataLogger extends AbstractDataLogger implements DataLoggerObserver {
 
-	private static final Logger LOGGER = Logger.getLogger(CompositeDataLogger.class.getName());
+	private final Logger logger = Logger.getLogger(this);
 
 	private StringBuilder log = new StringBuilder();
 

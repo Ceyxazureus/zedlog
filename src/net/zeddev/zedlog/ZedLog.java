@@ -19,14 +19,14 @@ package net.zeddev.zedlog;
 import java.awt.EventQueue;
 import net.zeddev.zedlog.logger.impl.KeyLogger;
 import net.zeddev.zedlog.logger.impl.CompositeDataLogger;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.UnsupportedLookAndFeelException;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 import net.zeddev.zedlog.gui.ZedLogFrame;
 import net.zeddev.zedlog.gui.ZedLogFrameController;
 import net.zeddev.zedlog.logger.impl.MouseClickLogger;
+import net.zeddev.litelogger.Logger;
+import net.zeddev.litelogger.handlers.SimpleGuiLogHandler;
 
 /**
  * ZedLog application class.
@@ -35,10 +35,10 @@ import net.zeddev.zedlog.logger.impl.MouseClickLogger;
  */
 public class ZedLog {
 
-	private static final Logger LOGGER = Logger.getLogger(ZedLog.class.getName());
+	private final Logger logger = Logger.getLogger(this);
 
 	private void die() {
-		LOGGER.severe("Dying!");
+		logger.info("Dying!");
 		System.exit(1);
 	}
 
@@ -69,6 +69,9 @@ public class ZedLog {
 
 		addShutdownHook();
 
+		// add the gui logger handler
+		Logger.addHandler(new SimpleGuiLogHandler());
+
 		// initalise the GUI look and feel
 		try {
 
@@ -84,8 +87,7 @@ public class ZedLog {
 				 IllegalAccessException |
 				 UnsupportedLookAndFeelException ex) {
 
-			LOGGER.log(java.util.logging.Level.SEVERE, "Unable to set GUI look and feel.", ex);
-			die();
+			logger.error("Unable to set GUI look and feel.", ex);
 
 		}
 
@@ -97,7 +99,7 @@ public class ZedLog {
 		try {
 			GlobalScreen.registerNativeHook();
 		} catch (NativeHookException ex) {
-			LOGGER.log(Level.SEVERE, "Unable to secure native hook!", ex);
+			logger.fatal("Unable to secure native hook!", ex);
 			die();
 		}
 

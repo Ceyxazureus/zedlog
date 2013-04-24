@@ -20,8 +20,7 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import net.zeddev.litelogger.Logger;
 import sun.misc.IOUtils;
 
 /**
@@ -31,7 +30,7 @@ import sun.misc.IOUtils;
  */
 public final class HelpDoc {
 
-	private static final Logger LOGGER = Logger.getLogger(HelpDoc.class.getName());
+	private final Logger logger = Logger.getLogger(this);
 
 	/** Singleton instance. */
 	public static final HelpDoc INSTANCE = new HelpDoc();
@@ -55,7 +54,7 @@ public final class HelpDoc {
 			out.close();
 
 		} catch (IOException ex) {
-			LOGGER.log(Level.SEVERE, null, ex);
+			logger.error(String.format("Cannot create temp file %s", TMP_HELP_FILE.getPath()), ex);
 		}
 
 	}

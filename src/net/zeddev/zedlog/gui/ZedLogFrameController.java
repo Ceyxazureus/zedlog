@@ -19,9 +19,8 @@ package net.zeddev.zedlog.gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JTabbedPane;
+import net.zeddev.litelogger.Logger;
 import net.zeddev.zedlog.HelpDoc;
 import net.zeddev.zedlog.gui.dialog.NewLoggerDialog;
 import net.zeddev.zedlog.gui.dialog.SimpleDialog;
@@ -36,7 +35,7 @@ import net.zeddev.zedlog.logger.impl.CompositeDataLogger;
  */
 public final class ZedLogFrameController {
 
-	private static final Logger LOGGER = Logger.getLogger(ZedLogFrameController.class.getName());
+	private final Logger logger = Logger.getLogger(this);
 
 	// the view
 	private final ZedLogFrame frame;
@@ -119,7 +118,7 @@ public final class ZedLogFrameController {
 
 		addLoggerTab(logger);
 
-		LOGGER.info(String.format("Added logger %s", logger.type()));
+		this.logger.info(String.format("Added logger %s", logger.type()));
 
     }
 
@@ -134,7 +133,7 @@ public final class ZedLogFrameController {
 			// catch attempt to remove CompositeDataLogger
 			if (logger instanceof CompositeDataLogger) {
 
-				SimpleDialog.error(frame, "Cannot remove composite logger!");
+				this.logger.error("Cannot remove composite logger!");
 
 			} else {
 
@@ -157,7 +156,7 @@ public final class ZedLogFrameController {
 		try {
 			HelpDoc.INSTANCE.showInBrowser();
 		} catch (IOException ex) {
-			Logger.getLogger(ZedLogFrameController.class.getName()).log(Level.SEVERE, null, ex);
+			logger.error("Cannot open help documentation in the web browser!", ex);
 		}
 
     }
