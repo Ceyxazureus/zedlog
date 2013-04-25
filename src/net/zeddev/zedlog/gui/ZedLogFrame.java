@@ -61,7 +61,6 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         mitemLogFile = new javax.swing.JMenuItem();
         javax.swing.JPopupMenu.Separator jSeparator1 = new javax.swing.JPopupMenu.Separator();
         mitemQuit = new javax.swing.JMenuItem();
-        menuTools = new javax.swing.JMenu();
         menuHelp = new javax.swing.JMenu();
         mitemHelp = new javax.swing.JMenuItem();
         sep1 = new javax.swing.JPopupMenu.Separator();
@@ -90,9 +89,6 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         menuFile.add(mitemQuit);
 
         menubar.add(menuFile);
-
-        menuTools.setText("Tools");
-        menubar.add(menuTools);
 
         menuHelp.setMnemonic('H');
         menuHelp.setText("Help");
@@ -180,7 +176,6 @@ public final class ZedLogFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenu menuFile;
     private javax.swing.JMenu menuHelp;
-    private javax.swing.JMenu menuTools;
     private javax.swing.JMenuBar menubar;
     private javax.swing.JMenuItem mitemAbout;
     private javax.swing.JMenuItem mitemHelp;
