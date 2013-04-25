@@ -114,17 +114,17 @@ public final class ZedLogFrameController {
 	private void btnAddActionPerformed(final ActionEvent event) {
 
 		NewLoggerDialog dialog = new NewLoggerDialog(frame, true);
-		DataLogger logger = dialog.getLoggerFromUser();
+		DataLogger dataLogger = dialog.getLoggerFromUser();
 
 		// dont add if logger not specified
 		if (logger == null)
 			return;
 
-		getLoggers().addLogger(logger);
+		getLoggers().addLogger(dataLogger);
 
-		addLoggerTab(logger);
+		addLoggerTab(dataLogger);
 
-		this.logger.info(String.format("Added logger %s", logger.type()));
+		logger.info(String.format("Added logger %s", dataLogger.type()));
 
     }
 
@@ -134,19 +134,19 @@ public final class ZedLogFrameController {
 
 		if (tabs.getSelectedIndex() > 0) {
 
-			DataLogger logger = loggers.getLogger(tabs.getSelectedIndex() - 1);
+			DataLogger dataLogger = loggers.getLogger(tabs.getSelectedIndex() - 1);
 
 			// catch attempt to remove CompositeDataLogger
-			if (logger instanceof CompositeDataLogger) {
-
-				this.logger.error("Cannot remove composite logger!");
-
+			if (dataLogger instanceof CompositeDataLogger) {
+				logger.error("Cannot remove composite logger!");
 			} else {
 
-				loggers.removeLogger(logger);
+				loggers.removeLogger(dataLogger);
 				tabs.remove(tabs.getSelectedIndex());
 
 			}
+
+			logger.info(String.format("Removed %s logger.", dataLogger.type()));
 
 		}
 
