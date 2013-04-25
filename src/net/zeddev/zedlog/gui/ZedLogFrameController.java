@@ -68,6 +68,12 @@ public final class ZedLogFrameController {
             }
         });
 
+        frame.getMItemQuit().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemQuitActionPerformed(evt);
+            }
+        });
+
 		frame.getMItemHelp().addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent event) {
                 mitemHelpActionPerformed(event);
@@ -145,6 +151,11 @@ public final class ZedLogFrameController {
 		}
 
     }
+
+	private void mitemQuitActionPerformed(ActionEvent evt) {
+		frame.setVisible(false);
+		System.exit(0);
+	}
 
 	private void mitemAboutActionPerformed(java.awt.event.ActionEvent evt) {
         AboutDialog aboutBox = new AboutDialog(frame, true);

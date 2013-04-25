@@ -52,16 +52,22 @@ public final class ZedLogFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem2 = new javax.swing.JMenuItem();
         tabs = new javax.swing.JTabbedPane();
         btnAdd = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
         menubar = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
+        mitemLogFile = new javax.swing.JMenuItem();
+        javax.swing.JPopupMenu.Separator jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        mitemQuit = new javax.swing.JMenuItem();
         menuTools = new javax.swing.JMenu();
         menuHelp = new javax.swing.JMenu();
         mitemHelp = new javax.swing.JMenuItem();
         sep1 = new javax.swing.JPopupMenu.Separator();
         mitemAbout = new javax.swing.JMenuItem();
+
+        jMenuItem2.setText("jMenuItem2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle(Config.INSTANCE.FULL_NAME);
@@ -72,6 +78,17 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         btnRemove.setText("Remove");
 
         menuFile.setText("File");
+
+        mitemLogFile.setMnemonic('L');
+        mitemLogFile.setText("Set Log File");
+        menuFile.add(mitemLogFile);
+        menuFile.add(jSeparator1);
+
+        mitemQuit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
+        mitemQuit.setMnemonic('q');
+        mitemQuit.setText("Quit");
+        menuFile.add(mitemQuit);
+
         menubar.add(menuFile);
 
         menuTools.setText("Tools");
@@ -83,11 +100,6 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         mitemHelp.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
         mitemHelp.setMnemonic('H');
         mitemHelp.setText("Help");
-        mitemHelp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mitemHelpActionPerformed(evt);
-            }
-        });
         menuHelp.add(mitemHelp);
         menuHelp.add(sep1);
 
@@ -126,9 +138,13 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mitemHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemHelpActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mitemHelpActionPerformed
+	public JMenuItem getMItemLogFile() {
+		return mitemLogFile;
+	}
+
+	public JMenuItem getMItemQuit() {
+		return mitemQuit;
+	}
 
 	public JButton getBtnAdd() {
 		return btnAdd;
@@ -161,12 +177,15 @@ public final class ZedLogFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnRemove;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenu menuFile;
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenu menuTools;
     private javax.swing.JMenuBar menubar;
     private javax.swing.JMenuItem mitemAbout;
     private javax.swing.JMenuItem mitemHelp;
+    private javax.swing.JMenuItem mitemLogFile;
+    private javax.swing.JMenuItem mitemQuit;
     private javax.swing.JPopupMenu.Separator sep1;
     private javax.swing.JTabbedPane tabs;
     // End of variables declaration//GEN-END:variables
