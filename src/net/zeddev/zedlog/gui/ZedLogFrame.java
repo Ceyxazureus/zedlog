@@ -58,6 +58,7 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         btnRemove = new javax.swing.JButton();
         menubar = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
+        mitemSave = new javax.swing.JMenuItem();
         mitemLogFile = new javax.swing.JMenuItem();
         javax.swing.JPopupMenu.Separator jSeparator1 = new javax.swing.JPopupMenu.Separator();
         mitemQuit = new javax.swing.JMenuItem();
@@ -77,6 +78,9 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         btnRemove.setText("Remove");
 
         menuFile.setText("File");
+
+        mitemSave.setText("Save");
+        menuFile.add(mitemSave);
 
         mitemLogFile.setMnemonic('L');
         mitemLogFile.setText("Set Log File");
@@ -134,6 +138,10 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+	public JMenuItem getMItemSave() {
+		return mitemSave;
+	}
+
 	public JMenuItem getMItemLogFile() {
 		return mitemLogFile;
 	}
@@ -181,6 +189,7 @@ public final class ZedLogFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem mitemHelp;
     private javax.swing.JMenuItem mitemLogFile;
     private javax.swing.JMenuItem mitemQuit;
+    private javax.swing.JMenuItem mitemSave;
     private javax.swing.JPopupMenu.Separator sep1;
     private javax.swing.JTabbedPane tabs;
     // End of variables declaration//GEN-END:variables

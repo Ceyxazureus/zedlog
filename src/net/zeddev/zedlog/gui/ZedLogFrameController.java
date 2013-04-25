@@ -18,7 +18,11 @@ package net.zeddev.zedlog.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.logging.Level;
+import javax.swing.JFileChooser;
 import javax.swing.JTabbedPane;
 import net.zeddev.litelogger.Logger;
 import net.zeddev.zedlog.HelpDoc;
@@ -65,6 +69,12 @@ public final class ZedLogFrameController {
 		frame.getBtnRemove().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 btnRemoveActionPerformed(event);
+            }
+        });
+
+		frame.getMItemSave().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemSaveActionPerformed(evt);
             }
         });
 
@@ -151,6 +161,43 @@ public final class ZedLogFrameController {
 		}
 
     }
+
+	private void saveToFile(File saveFile) throws IOException {
+
+		FileWriter output = new FileWriter(saveFile);
+		output.write(loggers.toString());
+		output.close();
+
+	}
+
+	private void mitemSaveActionPerformed(ActionEvent evt) {
+
+		JFileChooser fileChooser = new JFileChooser();
+		int ret = fileChooser.showSaveDialog(frame);
+
+		if (ret == JFileChooser.APPROVE_OPTION) {
+
+			File saveFile = fileChooser.getSelectedFile();
+
+			logger.info(String.format("Saving to %s.", saveFile.getPath()));
+
+			// save the log output to file
+			try {
+				saveToFile(saveFile);
+			} catch (IOException ex) {
+				logger.error(String.format("Error saving log to file '%s'.", saveFile.getPath()), ex);
+				return;
+			}
+
+			logger.info(String.format("Log saved successfully to '%s'.", saveFile.getPath()));
+
+		} else if (ret == JFileChooser.ERROR_OPTION) {
+			logger.warning("Error occured with file chooser when saving.");
+		} else {
+			logger.info("User cancelled saving log to file.");
+		}
+
+	}
 
 	private void mitemQuitActionPerformed(ActionEvent evt) {
 		frame.setVisible(false);
