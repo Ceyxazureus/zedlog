@@ -26,7 +26,7 @@ import net.zeddev.zedlog.gui.ZedLogFrame;
 import net.zeddev.zedlog.gui.ZedLogFrameController;
 import net.zeddev.zedlog.logger.impl.MouseClickLogger;
 import net.zeddev.litelogger.Logger;
-import net.zeddev.litelogger.handlers.SimpleGuiLogHandler;
+import net.zeddev.litelogger.handlers.MsgBoxLogHandler;
 
 /**
  * ZedLog application class.
@@ -70,7 +70,7 @@ public class ZedLog {
 		addShutdownHook();
 
 		// add the gui logger handler
-		Logger.addHandler(new SimpleGuiLogHandler());
+		Logger.addHandler(new MsgBoxLogHandler());
 
 		// initalise the GUI look and feel
 		try {
