@@ -21,13 +21,12 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.logging.Level;
 import javax.swing.JFileChooser;
 import javax.swing.JTabbedPane;
 import net.zeddev.litelogger.Logger;
+import net.zeddev.litelogger.handlers.WindowLogHandler;
 import net.zeddev.zedlog.HelpDoc;
 import net.zeddev.zedlog.gui.dialog.NewLoggerDialog;
-import net.zeddev.zedlog.gui.dialog.SimpleDialog;
 import net.zeddev.zedlog.gui.dialog.AboutDialog;
 import net.zeddev.zedlog.logger.DataLogger;
 import net.zeddev.zedlog.logger.impl.CompositeDataLogger;
@@ -47,6 +46,8 @@ public final class ZedLogFrameController {
 	// the data
 	private final CompositeDataLogger loggers;
 
+	private final WindowLogHandler logWindow = new WindowLogHandler();
+
 	/**
 	 * Creates a new <code>ZedLogFrameController</code> for the given <code>ZedLogFrame</code>.
 	 *
@@ -59,6 +60,8 @@ public final class ZedLogFrameController {
 
 		this.frame = frame;
 		this.loggers = loggers;
+
+		Logger.addHandler(logWindow);
 
 		frame.getBtnAdd().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
@@ -75,6 +78,12 @@ public final class ZedLogFrameController {
 		frame.getMItemSave().addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mitemSaveActionPerformed(evt);
+            }
+        });
+
+		frame.getMItemLogWindow().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemLogWindowActionPerformed(evt);
             }
         });
 
@@ -218,5 +227,9 @@ public final class ZedLogFrameController {
 		}
 
     }
+
+	private void mitemLogWindowActionPerformed(ActionEvent evt) {
+		logWindow.setVisible(true);
+	}
 
 }

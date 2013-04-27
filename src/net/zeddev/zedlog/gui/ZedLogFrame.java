@@ -59,12 +59,14 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         menubar = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         mitemSave = new javax.swing.JMenuItem();
-        mitemLogFile = new javax.swing.JMenuItem();
         javax.swing.JPopupMenu.Separator jSeparator1 = new javax.swing.JPopupMenu.Separator();
         mitemQuit = new javax.swing.JMenuItem();
+        menuTools = new javax.swing.JMenu();
+        mitemLogFile = new javax.swing.JMenuItem();
+        mitemLogWindow = new javax.swing.JMenuItem();
         menuHelp = new javax.swing.JMenu();
         mitemHelp = new javax.swing.JMenuItem();
-        sep1 = new javax.swing.JPopupMenu.Separator();
+        javax.swing.JPopupMenu.Separator sep1 = new javax.swing.JPopupMenu.Separator();
         mitemAbout = new javax.swing.JMenuItem();
 
         jMenuItem2.setText("jMenuItem2");
@@ -81,10 +83,6 @@ public final class ZedLogFrame extends javax.swing.JFrame {
 
         mitemSave.setText("Save");
         menuFile.add(mitemSave);
-
-        mitemLogFile.setMnemonic('L');
-        mitemLogFile.setText("Set Log File");
-        menuFile.add(mitemLogFile);
         menuFile.add(jSeparator1);
 
         mitemQuit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
@@ -93,6 +91,18 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         menuFile.add(mitemQuit);
 
         menubar.add(menuFile);
+
+        menuTools.setMnemonic('T');
+        menuTools.setText("Tools");
+
+        mitemLogFile.setMnemonic('L');
+        mitemLogFile.setText("Set Log File");
+        menuTools.add(mitemLogFile);
+
+        mitemLogWindow.setText("Show Log Window");
+        menuTools.add(mitemLogWindow);
+
+        menubar.add(menuTools);
 
         menuHelp.setMnemonic('H');
         menuHelp.setText("Help");
@@ -142,6 +152,10 @@ public final class ZedLogFrame extends javax.swing.JFrame {
 		return mitemSave;
 	}
 
+	public JMenuItem getMItemLogWindow() {
+		return mitemLogWindow;
+	}
+
 	public JMenuItem getMItemLogFile() {
 		return mitemLogFile;
 	}
@@ -184,13 +198,14 @@ public final class ZedLogFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenu menuFile;
     private javax.swing.JMenu menuHelp;
+    private javax.swing.JMenu menuTools;
     private javax.swing.JMenuBar menubar;
     private javax.swing.JMenuItem mitemAbout;
     private javax.swing.JMenuItem mitemHelp;
     private javax.swing.JMenuItem mitemLogFile;
+    private javax.swing.JMenuItem mitemLogWindow;
     private javax.swing.JMenuItem mitemQuit;
     private javax.swing.JMenuItem mitemSave;
-    private javax.swing.JPopupMenu.Separator sep1;
     private javax.swing.JTabbedPane tabs;
     // End of variables declaration//GEN-END:variables
 

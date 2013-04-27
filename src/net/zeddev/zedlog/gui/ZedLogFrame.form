@@ -19,12 +19,6 @@
                 <Property name="text" type="java.lang.String" value="Save"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mitemLogFile">
-              <Properties>
-                <Property name="mnemonic" type="int" value="76"/>
-                <Property name="text" type="java.lang.String" value="Set Log File"/>
-              </Properties>
-            </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
@@ -38,6 +32,25 @@
                 </Property>
                 <Property name="mnemonic" type="int" value="113"/>
                 <Property name="text" type="java.lang.String" value="Quit"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="menuTools">
+          <Properties>
+            <Property name="mnemonic" type="int" value="84"/>
+            <Property name="text" type="java.lang.String" value="Tools"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="mitemLogFile">
+              <Properties>
+                <Property name="mnemonic" type="int" value="76"/>
+                <Property name="text" type="java.lang.String" value="Set Log File"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mitemLogWindow">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Show Log Window"/>
               </Properties>
             </MenuItem>
           </SubComponents>
@@ -58,6 +71,10 @@
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep1">
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
+              </AuxValues>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mitemAbout">
               <Properties>
