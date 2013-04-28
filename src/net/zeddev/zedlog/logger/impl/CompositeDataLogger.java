@@ -109,7 +109,6 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	@Override
 	public void notifyLog(final DataLogger logger, final LogEntry logEntry) {
 
-		log.append(logEntry);
 
 		// add newline to separate different logger messages
 		if (lastToNotify == null) {
@@ -123,6 +122,8 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 			lastToNotify = logger;
 
 		}
+
+		log.append(logEntry);
 
 		notifyDataLoggerObservers(logger, logEntry);
 
