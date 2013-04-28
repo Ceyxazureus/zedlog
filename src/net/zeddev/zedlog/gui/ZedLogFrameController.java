@@ -189,7 +189,7 @@ public final class ZedLogFrameController {
 		DataLogger dataLogger = dialog.getLoggerFromUser();
 
 		// dont add if logger not specified
-		if (logger == null)
+		if (dataLogger == null)
 			return;
 
 		getLoggers().addLogger(dataLogger);
