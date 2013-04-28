@@ -97,6 +97,18 @@ public final class ZedLogFrameController {
             }
         });
 
+		frame.getMItemAdd().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemAddActionPerformed(evt);
+            }
+        });
+
+		frame.getMItemRemove().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemRemoveActionPerformed(evt);
+            }
+        });
+
 		frame.getMItemSave().addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mitemSaveActionPerformed(evt);
@@ -171,7 +183,7 @@ public final class ZedLogFrameController {
 		closeWindow();
 	}
 
-	private void btnAddActionPerformed(final ActionEvent event) {
+	private void addDataLogger() {
 
 		NewLoggerDialog dialog = new NewLoggerDialog(frame, true);
 		DataLogger dataLogger = dialog.getLoggerFromUser();
@@ -186,9 +198,9 @@ public final class ZedLogFrameController {
 
 		logger.info(String.format("Added logger %s", dataLogger.type()));
 
-    }
+	}
 
-	private void btnRemoveActionPerformed(final ActionEvent event) {
+	private void removeDataLogger() {
 
 		JTabbedPane tabs = frame.getTabs();
 
@@ -210,6 +222,14 @@ public final class ZedLogFrameController {
 
 		}
 
+	}
+
+	private void btnAddActionPerformed(final ActionEvent event) {
+		addDataLogger();
+    }
+
+	private void btnRemoveActionPerformed(final ActionEvent event) {
+		removeDataLogger();
     }
 
 	private void btnNextActionPerformed(final ActionEvent event) {
@@ -236,6 +256,14 @@ public final class ZedLogFrameController {
 		output.write(loggers.toString());
 		output.close();
 
+	}
+
+	private void mitemAddActionPerformed(ActionEvent evt) {
+		addDataLogger();
+	}
+
+	private void mitemRemoveActionPerformed(ActionEvent evt) {
+		removeDataLogger();
 	}
 
 	private void mitemSaveActionPerformed(ActionEvent evt) {

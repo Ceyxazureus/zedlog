@@ -64,6 +64,8 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         javax.swing.JPopupMenu.Separator jSeparator1 = new javax.swing.JPopupMenu.Separator();
         mitemQuit = new javax.swing.JMenuItem();
         menuTools = new javax.swing.JMenu();
+        mitemAdd = new javax.swing.JMenuItem();
+        mitemRemove = new javax.swing.JMenuItem();
         javax.swing.JMenuItem mitemProgramLog = new javax.swing.JMenuItem();
         mitemMsgLogFile = new javax.swing.JMenuItem();
         mitemLogWindow = new javax.swing.JMenuItem();
@@ -105,6 +107,16 @@ public final class ZedLogFrame extends javax.swing.JFrame {
 
         menuTools.setMnemonic('T');
         menuTools.setText("Tools");
+
+        mitemAdd.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_EQUALS, java.awt.event.InputEvent.CTRL_MASK));
+        mitemAdd.setMnemonic('A');
+        mitemAdd.setText("Add Logger");
+        menuTools.add(mitemAdd);
+
+        mitemRemove.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_MINUS, java.awt.event.InputEvent.CTRL_MASK));
+        mitemRemove.setMnemonic('R');
+        mitemRemove.setText("Remove Logger");
+        menuTools.add(mitemRemove);
 
         mitemProgramLog.setText("----- Program Log -----");
         mitemProgramLog.setEnabled(false);
@@ -166,6 +178,14 @@ public final class ZedLogFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+	public JMenuItem getMItemAdd() {
+		return mitemAdd;
+	}
+
+	public JMenuItem getMItemRemove() {
+		return mitemRemove;
+	}
 
 	public JMenuItem getMItemSave() {
 		return mitemSave;
@@ -233,11 +253,13 @@ public final class ZedLogFrame extends javax.swing.JFrame {
     private javax.swing.JMenu menuTools;
     private javax.swing.JMenuBar menubar;
     private javax.swing.JMenuItem mitemAbout;
+    private javax.swing.JMenuItem mitemAdd;
     private javax.swing.JMenuItem mitemHelp;
     private javax.swing.JMenuItem mitemLogFile;
     private javax.swing.JMenuItem mitemLogWindow;
     private javax.swing.JMenuItem mitemMsgLogFile;
     private javax.swing.JMenuItem mitemQuit;
+    private javax.swing.JMenuItem mitemRemove;
     private javax.swing.JMenuItem mitemSave;
     private javax.swing.JTabbedPane tabs;
     // End of variables declaration//GEN-END:variables
