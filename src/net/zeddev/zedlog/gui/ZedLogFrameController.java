@@ -67,6 +67,12 @@ public final class ZedLogFrameController {
 
 		Logger.addHandler(logWindow);
 
+		frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
+
 		frame.getBtnAdd().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 btnAddActionPerformed(event);
@@ -138,6 +144,19 @@ public final class ZedLogFrameController {
 		// add a logger panel tab for the new logger
 		frame.getTabs().add(logger.type(), loggerPanel);
 
+	}
+
+	private void closeWindow() {
+
+		logger.info("User quit.");
+
+		frame.setVisible(false);
+		System.exit(0);
+
+	}
+
+	private void formWindowClosing(WindowEvent evt) {
+		closeWindow();
 	}
 
 	private void btnAddActionPerformed(final ActionEvent event) {
