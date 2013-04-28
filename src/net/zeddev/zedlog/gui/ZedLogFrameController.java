@@ -91,9 +91,9 @@ public final class ZedLogFrameController {
             }
         });
 
-		frame.getMItemLogFile().addActionListener(new java.awt.event.ActionListener() {
+		frame.getMItemMsgLogFile().addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mitemLogFileActionPerformed(evt);
+                mitemMsgLogFileActionPerformed(evt);
             }
         });
 
@@ -237,7 +237,7 @@ public final class ZedLogFrameController {
 
 	}
 
-	private void mitemLogFileActionPerformed(ActionEvent evt) {
+	private void mitemMsgLogFileActionPerformed(ActionEvent evt) {
 
 		JFileChooser fileChooser = new JFileChooser();
 		int ret = fileChooser.showSaveDialog(frame);
