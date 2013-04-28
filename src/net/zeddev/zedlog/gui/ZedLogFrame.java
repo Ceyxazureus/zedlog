@@ -55,6 +55,8 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         tabs = new javax.swing.JTabbedPane();
         btnAdd = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
+        btnNext = new javax.swing.JButton();
+        btnPrev = new javax.swing.JButton();
         menubar = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         mitemSave = new javax.swing.JMenuItem();
@@ -77,6 +79,10 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         btnAdd.setText("Add");
 
         btnRemove.setText("Remove");
+
+        btnNext.setText(">");
+
+        btnPrev.setText("<");
 
         menuFile.setText("File");
 
@@ -138,7 +144,10 @@ public final class ZedLogFrame extends javax.swing.JFrame {
                 .addComponent(btnAdd)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRemove)
-                .addContainerGap(502, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 414, Short.MAX_VALUE)
+                .addComponent(btnPrev)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnNext))
             .addComponent(tabs)
         );
         layout.setVerticalGroup(
@@ -146,7 +155,9 @@ public final class ZedLogFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd)
-                    .addComponent(btnRemove))
+                    .addComponent(btnRemove)
+                    .addComponent(btnNext)
+                    .addComponent(btnPrev))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tabs, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE))
         );
@@ -184,6 +195,14 @@ public final class ZedLogFrame extends javax.swing.JFrame {
 		return btnRemove;
 	}
 
+	public JButton getBtnNext() {
+		return btnNext;
+	}
+
+	public JButton getBtnPrev() {
+		return btnPrev;
+	}
+
 	public JMenu getMenuHelp() {
 		return menuHelp;
 	}
@@ -206,6 +225,8 @@ public final class ZedLogFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnNext;
+    private javax.swing.JButton btnPrev;
     private javax.swing.JButton btnRemove;
     private javax.swing.JMenu menuFile;
     private javax.swing.JMenu menuHelp;

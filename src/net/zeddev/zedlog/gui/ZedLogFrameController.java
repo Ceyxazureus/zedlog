@@ -85,6 +85,18 @@ public final class ZedLogFrameController {
             }
         });
 
+		frame.getBtnNext().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                btnNextActionPerformed(event);
+            }
+        });
+
+		frame.getBtnPrev().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                btnPrevActionPerformed(event);
+            }
+        });
+
 		frame.getMItemSave().addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mitemSaveActionPerformed(evt);
@@ -197,6 +209,24 @@ public final class ZedLogFrameController {
 			logger.info(String.format("Removed %s logger.", dataLogger.type()));
 
 		}
+
+    }
+
+	private void btnNextActionPerformed(final ActionEvent event) {
+
+		int current = frame.getTabs().getSelectedIndex();
+
+		if (current < frame.getTabs().getTabCount()-1)
+			frame.getTabs().setSelectedIndex(current + 1);
+
+    }
+
+	private void btnPrevActionPerformed(final ActionEvent event) {
+
+		int current = frame.getTabs().getSelectedIndex();
+
+		if (current > 0)
+			frame.getTabs().setSelectedIndex(current - 1);
 
     }
 
