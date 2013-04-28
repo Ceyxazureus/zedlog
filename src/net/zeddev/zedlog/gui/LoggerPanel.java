@@ -54,6 +54,7 @@ public final class LoggerPanel extends javax.swing.JPanel {
 
         txtLogEntries.setEditable(false);
         txtLogEntries.setColumns(20);
+        txtLogEntries.setLineWrap(true);
         txtLogEntries.setRows(5);
         scrollLogEntries.setViewportView(txtLogEntries);
 
