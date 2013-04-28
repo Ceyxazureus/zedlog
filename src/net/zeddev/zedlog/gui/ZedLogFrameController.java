@@ -32,6 +32,7 @@ import net.zeddev.zedlog.gui.dialog.NewLoggerDialog;
 import net.zeddev.zedlog.gui.dialog.AboutDialog;
 import net.zeddev.zedlog.logger.DataLogger;
 import net.zeddev.zedlog.logger.impl.CompositeDataLogger;
+import net.zeddev.zedlog.logger.impl.DataLoggerWriter;
 
 /**
  * Controller for the <code>ZedLogFrame</code>.
@@ -50,7 +51,11 @@ public final class ZedLogFrameController {
 
 	private final WindowLogHandler logWindow = new WindowLogHandler();
 
-	private WriterLogHandler logFile = null;
+	// the program log output file
+	private WriterLogHandler msgLogFile = null;
+
+	// the data logger output log file
+	private DataLoggerWriter logFile = null;
 
 	/**
 	 * Creates a new <code>ZedLogFrameController</code> for the given <code>ZedLogFrame</code>.
@@ -112,6 +117,12 @@ public final class ZedLogFrameController {
 		frame.getMItemSave().addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mitemSaveActionPerformed(evt);
+            }
+        });
+
+		frame.getMItemLogFile().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemLogFileActionPerformed(evt);
             }
         });
 
@@ -295,7 +306,7 @@ public final class ZedLogFrameController {
 
 	}
 
-	private void mitemMsgLogFileActionPerformed(ActionEvent evt) {
+	private void mitemLogFileActionPerformed(ActionEvent evt) {
 
 		JFileChooser fileChooser = new JFileChooser();
 		int ret = fileChooser.showSaveDialog(frame);
@@ -304,23 +315,23 @@ public final class ZedLogFrameController {
 
 			File file = fileChooser.getSelectedFile();
 
-			logger.info(String.format("Saving to %s.", file.getPath()));
+			logger.info(String.format("Setting log file to '%s'.", file.getPath()));
 
 			// set the log file output
 			try {
 
 				// close the old log file
 				if (logFile != null) {
-					Logger.removeHandler(logFile);
+					loggers.removeObserver(logFile);
 					logFile.close();
 				}
 
 				// add the log handler
-				logFile = new WriterLogHandler(new FileWriter(file));
-				Logger.addHandler(logFile);
+				logFile = new DataLoggerWriter(new FileWriter(file));
+				loggers.addObserver(logFile);
 
 			} catch (IOException ex) {
-				logger.error(String.format("Error setting log file '%s'.", file.getPath()), ex);
+				logger.error(String.format("Error setting log file to '%s'.", file.getPath()), ex);
 				return;
 			}
 
@@ -330,6 +341,49 @@ public final class ZedLogFrameController {
 			logger.warning("Error occured with file chooser when saving.");
 		} else {
 			logger.info("User cancelled setting log file.");
+		}
+
+	}
+
+	private void mitemLogWindowActionPerformed(ActionEvent evt) {
+		logWindow.setVisible(true);
+	}
+
+	private void mitemMsgLogFileActionPerformed(ActionEvent evt) {
+
+		JFileChooser fileChooser = new JFileChooser();
+		int ret = fileChooser.showSaveDialog(frame);
+
+		if (ret == JFileChooser.APPROVE_OPTION) {
+
+			File file = fileChooser.getSelectedFile();
+
+			logger.info(String.format("Setting program log file to '%s'.", file.getPath()));
+
+			// set the log file output
+			try {
+
+				// close the old log file
+				if (msgLogFile != null) {
+					Logger.removeHandler(msgLogFile);
+					msgLogFile.close();
+				}
+
+				// add the log handler
+				msgLogFile = new WriterLogHandler(new FileWriter(file));
+				Logger.addHandler(msgLogFile);
+
+			} catch (IOException ex) {
+				logger.error(String.format("Error setting program log file to '%s'.", file.getPath()), ex);
+				return;
+			}
+
+			logger.info(String.format("Program log file set to '%s'.", file.getPath()));
+
+		} else if (ret == JFileChooser.ERROR_OPTION) {
+			logger.warning("Error occured with file chooser when saving.");
+		} else {
+			logger.info("User cancelled setting program log file.");
 		}
 
 	}
@@ -353,9 +407,5 @@ public final class ZedLogFrameController {
 		}
 
     }
-
-	private void mitemLogWindowActionPerformed(ActionEvent evt) {
-		logWindow.setVisible(true);
-	}
 
 }
