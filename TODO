@@ -2,9 +2,9 @@
 TODO list for ZedLog
 ~~~~~~~~~~~~~~~~~~~~
 
- * Move mouse logger to multiple classes.
-	-> such as MouseMovementLogger, MouseClickLogger, etc.
+ * Fix faulty key logger
+	-> Use key pressed event
+	-> Use better mnemonics
  * Add screenshot logger.
 	-> time based
  * Add animation tool.
- * Add logger with gui output.
