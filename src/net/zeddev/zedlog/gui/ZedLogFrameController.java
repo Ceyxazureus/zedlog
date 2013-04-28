@@ -160,28 +160,20 @@ public final class ZedLogFrameController {
 
 	}
 
-	public ZedLogFrame getFrame() {
-		return frame;
-	}
-
-	public CompositeDataLogger getLoggers() {
-		return loggers;
-	}
-
 	private void addLoggerTab(final DataLogger logger) {
 
 		assert(logger != null);
 
 		// create logger view panel (and view controller)
 		LoggerPanel loggerPanel = new LoggerPanel();
-		LoggerPanelController loggerPanelController = new LoggerPanelController(loggerPanel, logger);
+		new LoggerPanelController(loggerPanel, logger);
 
 		// add a logger panel tab for the new logger
 		frame.getTabs().add(logger.type(), loggerPanel);
 
 	}
 
-	private void closeWindow() {
+	private void userQuit() {
 
 		logger.info("User quit.");
 
@@ -191,7 +183,7 @@ public final class ZedLogFrameController {
 	}
 
 	private void formWindowClosing(WindowEvent evt) {
-		closeWindow();
+		userQuit();
 	}
 
 	private void addDataLogger() {
@@ -203,7 +195,7 @@ public final class ZedLogFrameController {
 		if (dataLogger == null)
 			return;
 
-		getLoggers().addLogger(dataLogger);
+		loggers.addLogger(dataLogger);
 
 		addLoggerTab(dataLogger);
 
@@ -277,14 +269,33 @@ public final class ZedLogFrameController {
 		removeDataLogger();
 	}
 
-	private void mitemSaveActionPerformed(ActionEvent evt) {
+	private File openSaveDialog() {
 
 		JFileChooser fileChooser = new JFileChooser();
 		int ret = fileChooser.showSaveDialog(frame);
 
 		if (ret == JFileChooser.APPROVE_OPTION) {
 
-			File saveFile = fileChooser.getSelectedFile();
+			return fileChooser.getSelectedFile();
+
+		} else if (ret == JFileChooser.ERROR_OPTION) {
+
+			logger.warning("Error occured with file chooser when saving.");
+			return null;
+
+		} else {
+
+			logger.info("User cancelled saving file.");
+			return null;
+
+		}
+
+	}
+
+	private void mitemSaveActionPerformed(ActionEvent evt) {
+
+		File saveFile = openSaveDialog();
+		if (saveFile != null) {
 
 			logger.info(String.format("Saving to %s.", saveFile.getPath()));
 
@@ -298,24 +309,16 @@ public final class ZedLogFrameController {
 
 			logger.info(String.format("Log saved successfully to '%s'.", saveFile.getPath()));
 
-		} else if (ret == JFileChooser.ERROR_OPTION) {
-			logger.warning("Error occured with file chooser when saving.");
-		} else {
-			logger.info("User cancelled saving log to file.");
 		}
 
 	}
 
 	private void mitemLogFileActionPerformed(ActionEvent evt) {
 
-		JFileChooser fileChooser = new JFileChooser();
-		int ret = fileChooser.showSaveDialog(frame);
+		File saveFile = openSaveDialog();
+		if (saveFile != null) {
 
-		if (ret == JFileChooser.APPROVE_OPTION) {
-
-			File file = fileChooser.getSelectedFile();
-
-			logger.info(String.format("Setting log file to '%s'.", file.getPath()));
+			logger.info(String.format("Setting log file to '%s'.", saveFile.getPath()));
 
 			// set the log file output
 			try {
@@ -327,20 +330,16 @@ public final class ZedLogFrameController {
 				}
 
 				// add the log handler
-				logFile = new DataLoggerWriter(new FileWriter(file));
+				logFile = new DataLoggerWriter(new FileWriter(saveFile));
 				loggers.addObserver(logFile);
 
 			} catch (IOException ex) {
-				logger.error(String.format("Error setting log file to '%s'.", file.getPath()), ex);
+				logger.error(String.format("Error setting log file to '%s'.", saveFile.getPath()), ex);
 				return;
 			}
 
-			logger.info(String.format("Log file set to '%s'.", file.getPath()));
+			logger.info(String.format("Log file set to '%s'.", saveFile.getPath()));
 
-		} else if (ret == JFileChooser.ERROR_OPTION) {
-			logger.warning("Error occured with file chooser when saving.");
-		} else {
-			logger.info("User cancelled setting log file.");
 		}
 
 	}
@@ -389,13 +388,16 @@ public final class ZedLogFrameController {
 	}
 
 	private void mitemQuitActionPerformed(ActionEvent evt) {
-		frame.setVisible(false);
-		System.exit(0);
+		userQuit();
 	}
 
 	private void mitemAboutActionPerformed(java.awt.event.ActionEvent evt) {
+
+		logger.info("Displaying 'About' infobox.");
+
         AboutDialog aboutBox = new AboutDialog(frame, true);
 		aboutBox.setVisible(true);
+
     }
 
 	private void mitemHelpActionPerformed(java.awt.event.ActionEvent evt) {

@@ -48,6 +48,7 @@ public class ZedLog {
 
 			@Override
 			public void run() {
+				logger.info("Shutdown hook called.");
 				shutdown();
 			}
 
@@ -57,6 +58,8 @@ public class ZedLog {
 
 	// shutdown the program
 	private void shutdown() {
+
+		logger.info("Shutting down.");
 
 		// remove the native event hook
 		if (GlobalScreen.isNativeHookRegistered())

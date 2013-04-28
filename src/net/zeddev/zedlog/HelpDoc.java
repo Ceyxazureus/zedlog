@@ -74,6 +74,7 @@ public final class HelpDoc {
 	 * @throws IOException If the documentation cannot be displayed in the web browser.
 	 */
 	public void showInBrowser() throws IOException {
+		logger.info("Opening help documentation in web browser.");
 		Desktop.getDesktop().browse(getTempFile().toURI());
 	}
 

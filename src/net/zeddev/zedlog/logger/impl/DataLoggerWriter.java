@@ -66,6 +66,7 @@ public class DataLoggerWriter implements DataLoggerObserver, Closeable {
 
 	@Override
 	public void close() throws IOException {
+		output.flush();
 		output.close();
 	}
 
