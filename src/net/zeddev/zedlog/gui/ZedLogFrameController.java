@@ -18,6 +18,7 @@ package net.zeddev.zedlog.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -25,6 +26,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JTabbedPane;
 import net.zeddev.litelogger.Logger;
 import net.zeddev.litelogger.handlers.WindowLogHandler;
+import net.zeddev.litelogger.handlers.WriterLogHandler;
 import net.zeddev.zedlog.HelpDoc;
 import net.zeddev.zedlog.gui.dialog.NewLoggerDialog;
 import net.zeddev.zedlog.gui.dialog.AboutDialog;
@@ -47,6 +49,8 @@ public final class ZedLogFrameController {
 	private final CompositeDataLogger loggers;
 
 	private final WindowLogHandler logWindow = new WindowLogHandler();
+
+	private WriterLogHandler logFile = null;
 
 	/**
 	 * Creates a new <code>ZedLogFrameController</code> for the given <code>ZedLogFrame</code>.
@@ -78,6 +82,12 @@ public final class ZedLogFrameController {
 		frame.getMItemSave().addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mitemSaveActionPerformed(evt);
+            }
+        });
+
+		frame.getMItemLogFile().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemLogFileActionPerformed(evt);
             }
         });
 
@@ -204,6 +214,45 @@ public final class ZedLogFrameController {
 			logger.warning("Error occured with file chooser when saving.");
 		} else {
 			logger.info("User cancelled saving log to file.");
+		}
+
+	}
+
+	private void mitemLogFileActionPerformed(ActionEvent evt) {
+
+		JFileChooser fileChooser = new JFileChooser();
+		int ret = fileChooser.showSaveDialog(frame);
+
+		if (ret == JFileChooser.APPROVE_OPTION) {
+
+			File file = fileChooser.getSelectedFile();
+
+			logger.info(String.format("Saving to %s.", file.getPath()));
+
+			// set the log file output
+			try {
+
+				// close the old log file
+				if (logFile != null) {
+					Logger.removeHandler(logFile);
+					logFile.close();
+				}
+
+				// add the log handler
+				logFile = new WriterLogHandler(new FileWriter(file));
+				Logger.addHandler(logFile);
+
+			} catch (IOException ex) {
+				logger.error(String.format("Error setting log file '%s'.", file.getPath()), ex);
+				return;
+			}
+
+			logger.info(String.format("Log file set to '%s'.", file.getPath()));
+
+		} else if (ret == JFileChooser.ERROR_OPTION) {
+			logger.warning("Error occured with file chooser when saving.");
+		} else {
+			logger.info("User cancelled setting log file.");
 		}
 
 	}

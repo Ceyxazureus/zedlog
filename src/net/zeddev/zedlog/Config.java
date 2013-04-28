@@ -16,7 +16,8 @@
 
 package net.zeddev.zedlog;
 
-import java.net.URL;
+import net.zeddev.litelogger.LogLevel;
+import net.zeddev.litelogger.Logger;
 
 /**
  * Configuration for ZedLog.
@@ -55,6 +56,13 @@ public enum Config {
 	 *
 	 */
 	public static final String HELPDOC = "/net/zeddev/zedlog/doc/helpdoc.html";
+
+	static {
+
+		// set the logger level
+		Logger.setLevelThreshold(LogLevel.CONFIG);
+
+	}
 
 	private Config() {
 	}
