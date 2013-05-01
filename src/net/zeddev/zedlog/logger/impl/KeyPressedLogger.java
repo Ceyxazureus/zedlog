@@ -25,7 +25,7 @@ import net.zeddev.zedlog.logger.AbstractDataLogger;
 import net.zeddev.zedlog.logger.LogEntry;
 
 /**
- * A <code>DataLogger</code> for character typed events.
+ * A <code>DataLogger</code> for key pressed events.
  *
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
