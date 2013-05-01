@@ -79,6 +79,12 @@ public final class ZedLogFrameController {
             }
         });
 
+		frame.getBtnHide().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                btnHideActionPerformed(event);
+            }
+        });
+
 		frame.getBtnAdd().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 btnAddActionPerformed(event);
@@ -100,6 +106,12 @@ public final class ZedLogFrameController {
 		frame.getBtnPrev().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 btnPrevActionPerformed(event);
+            }
+        });
+
+		frame.getMItemHide().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemHideActionPerformed(evt);
             }
         });
 
@@ -202,6 +214,12 @@ public final class ZedLogFrameController {
 		userQuit();
 	}
 
+	// show or hide the ZedLog frame
+	private void showHide() {
+		boolean visible = frame.isVisible();
+		frame.setVisible(!visible);
+	}
+
 	private void addDataLogger() {
 
 		NewLoggerDialog dialog = new NewLoggerDialog(frame, true);
@@ -243,6 +261,10 @@ public final class ZedLogFrameController {
 
 	}
 
+	private void btnHideActionPerformed(final ActionEvent event) {
+		showHide();
+    }
+
 	private void btnAddActionPerformed(final ActionEvent event) {
 		addDataLogger();
     }
@@ -275,6 +297,10 @@ public final class ZedLogFrameController {
 		output.write(loggers.toString());
 		output.close();
 
+	}
+
+	private void mitemHideActionPerformed(ActionEvent evt) {
+		showHide();
 	}
 
 	private void mitemAddActionPerformed(ActionEvent evt) {
