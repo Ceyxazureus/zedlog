@@ -64,11 +64,12 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         mitemLogFile = new javax.swing.JMenuItem();
         javax.swing.JPopupMenu.Separator jSeparator1 = new javax.swing.JPopupMenu.Separator();
         mitemQuit = new javax.swing.JMenuItem();
+        menuLoggers = new javax.swing.JMenu();
+        mitemAdd = new javax.swing.JMenuItem();
+        mitemRemove = new javax.swing.JMenuItem();
         menuTools = new javax.swing.JMenu();
         mitemHide = new javax.swing.JMenuItem();
         sep = new javax.swing.JPopupMenu.Separator();
-        mitemAdd = new javax.swing.JMenuItem();
-        mitemRemove = new javax.swing.JMenuItem();
         javax.swing.JMenuItem mitemProgramLog = new javax.swing.JMenuItem();
         mitemMsgLogFile = new javax.swing.JMenuItem();
         mitemLogWindow = new javax.swing.JMenuItem();
@@ -112,6 +113,21 @@ public final class ZedLogFrame extends javax.swing.JFrame {
 
         menubar.add(menuFile);
 
+        menuLoggers.setMnemonic('L');
+        menuLoggers.setText("Loggers");
+
+        mitemAdd.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_EQUALS, java.awt.event.InputEvent.CTRL_MASK));
+        mitemAdd.setMnemonic('A');
+        mitemAdd.setText("Add Logger");
+        menuLoggers.add(mitemAdd);
+
+        mitemRemove.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_MINUS, java.awt.event.InputEvent.CTRL_MASK));
+        mitemRemove.setMnemonic('R');
+        mitemRemove.setText("Remove Logger");
+        menuLoggers.add(mitemRemove);
+
+        menubar.add(menuLoggers);
+
         menuTools.setMnemonic('T');
         menuTools.setText("Tools");
 
@@ -119,16 +135,6 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         mitemHide.setText("Hide");
         menuTools.add(mitemHide);
         menuTools.add(sep);
-
-        mitemAdd.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_EQUALS, java.awt.event.InputEvent.CTRL_MASK));
-        mitemAdd.setMnemonic('A');
-        mitemAdd.setText("Add Logger");
-        menuTools.add(mitemAdd);
-
-        mitemRemove.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_MINUS, java.awt.event.InputEvent.CTRL_MASK));
-        mitemRemove.setMnemonic('R');
-        mitemRemove.setText("Remove Logger");
-        menuTools.add(mitemRemove);
 
         mitemProgramLog.setText("----- Program Log -----");
         mitemProgramLog.setEnabled(false);
@@ -274,6 +280,7 @@ public final class ZedLogFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnRemove;
     private javax.swing.JMenu menuFile;
     private javax.swing.JMenu menuHelp;
+    private javax.swing.JMenu menuLoggers;
     private javax.swing.JMenu menuTools;
     private javax.swing.JMenuBar menubar;
     private javax.swing.JMenuItem mitemAbout;
