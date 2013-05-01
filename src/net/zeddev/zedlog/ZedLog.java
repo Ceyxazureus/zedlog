@@ -59,7 +59,11 @@ public class ZedLog {
 	// shutdown the program
 	private void shutdown() {
 
-		logger.info("Shutting down.");
+		logger.info(String.format(
+			"Shutting down in thread - %s (#%d).",
+			Thread.currentThread().getName(),
+			Thread.currentThread().getId()
+		));
 
 		// remove the native event hook
 		if (GlobalScreen.isNativeHookRegistered())
