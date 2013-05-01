@@ -38,6 +38,7 @@ public final class KeyPressedLogger extends AbstractDataLogger implements Native
 	 *
 	 */
 	public KeyPressedLogger() {
+		super();
 		GlobalScreen.getInstance().addNativeKeyListener(this);
 	}
 
