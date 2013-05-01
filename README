@@ -1,0 +1,59 @@
+
+                 ______         _ _                 
+                |___  /        | | |                
+                   / /  ___  __| | |     ___   __ _ 
+                  / /  / _ \/ _` | |    / _ \ / _` |
+                ./ /__|  __/ (_| | |___| (_) | (_| |
+                \_____/\___|\__,_\_____/\___/ \__, |
+                                               __/ |
+                                              |___/ 
+
+ZedLog v0.1alpha
+================
+
+ZedLog is a robust cross-platform input logging tool (AKA a key 
+logger).  It is based on a flexible data logging system which makes it 
+easy to get the required data.  The current features include the 
+following;
+
+    -> All keyboard and mouse events.
+    -> Full GUI
+    -> Logging to file
+    -> Basic hiding
+
+Getting Started
+===============
+
+The ZedLog GUI is fairly intuitive but there is also full usage doc-
+umentation under the help menu (or just press F1)
+
+Development
+===========
+
+If you are a Java developer (or maybe a user who wants to help with 
+documentation or something) and want help out with the development just
+send me an email (below).  Any help would be greatly appreaciated.
+
+Author
+======
+
+Zachary Scott <zscott.dev@gmail.com>
+
+License
+=======
+
+Copyright (C) 2013  Zachary Scott <zscott.dev@gmail.com>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
