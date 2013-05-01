@@ -16,15 +16,12 @@
 
 package net.zeddev.zedlog.logger;
 
-import java.util.Iterator;
-import java.util.List;
-
 /**
  * A generic data log interface.
  *
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
-public interface DataLogger extends Iterable<LogEntry> {
+public interface DataLogger {
 
 	/**
 	 * Returns the type name of the <code>DataLogger</code>.
@@ -34,12 +31,14 @@ public interface DataLogger extends Iterable<LogEntry> {
 	 */
 	public String type();
 
-	/**
-	 * Returns all log entries in this <code>DataLog</code>.
-	 *
-	 * @return All current entries in this log (never <code>null</code>).
-	 */
-	public List<LogEntry> logEntries();
+	// Depreciated 2013.05.01
+	// /**
+	//  * Returns all log entries in this <code>DataLog</code>.
+	//  *
+	//  * @return All current entries in this log (never <code>null</code>).
+	//  */
+	// public List<LogEntry> logEntries();
+
 
 	/**
 	 * Shuts-down the <code>DataLog</code> (and any resources it may consume).
@@ -61,9 +60,6 @@ public interface DataLogger extends Iterable<LogEntry> {
 	 * @param observer The observer to remove from the list.
 	 */
 	public void removeObserver(final DataLoggerObserver observer);
-
-	@Override
-	public Iterator<LogEntry> iterator();
 
 	@Override
 	public String toString();

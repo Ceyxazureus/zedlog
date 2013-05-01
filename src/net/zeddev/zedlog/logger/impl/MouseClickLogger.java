@@ -53,11 +53,6 @@ public final class MouseClickLogger extends AbstractDataLogger
 		return "mouse click";
 	}
 
-	@Override
-	public List<LogEntry> logEntries() {
-		return new ArrayList(log);
-	}
-
 	/**
 	 * Returns the current list mouse clicked events.
 	 *

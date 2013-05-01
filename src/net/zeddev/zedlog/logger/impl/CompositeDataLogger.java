@@ -99,11 +99,6 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 		loggers.remove(index);
 	}
 
-	@Override
-	public List<LogEntry> logEntries() {
-		throw new UnsupportedOperationException("CompositeDataLogger.logEntries not supported.");
-	}
-
 	private DataLogger lastToNotify = null;
 
 	@Override

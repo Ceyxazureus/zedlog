@@ -53,10 +53,6 @@ public final class MouseMovementLogger extends AbstractDataLogger
 		return "mouse movement";
 	}
 
-	@Override
-	public List<LogEntry> logEntries() {
-		return new ArrayList(log);
-	}
 
 	/**
 	 * Returns the current list mouse movement events.

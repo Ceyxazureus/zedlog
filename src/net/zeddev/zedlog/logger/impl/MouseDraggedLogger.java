@@ -53,10 +53,6 @@ public final class MouseDraggedLogger extends AbstractDataLogger
 		return "mouse drag";
 	}
 
-	@Override
-	public List<LogEntry> logEntries() {
-		return new ArrayList(log);
-	}
 
 	/**
 	 * Returns the current list mouse dragged events.

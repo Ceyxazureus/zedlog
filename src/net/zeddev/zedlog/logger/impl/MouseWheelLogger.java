@@ -54,10 +54,6 @@ public final class MouseWheelLogger extends AbstractDataLogger
 		return "mouse wheel";
 	}
 
-	@Override
-	public List<LogEntry> logEntries() {
-		return new ArrayList(log);
-	}
 
 	/**
 	 * Returns the current list mouse wheel movement events.

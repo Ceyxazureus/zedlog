@@ -47,11 +47,6 @@ public final class KeyLogger extends AbstractDataLogger implements NativeKeyList
 	}
 
 	@Override
-	public List<LogEntry> logEntries() {
-		return new ArrayList(log);
-	}
-
-	@Override
 	public void shutdown() {
 		GlobalScreen.getInstance().removeNativeKeyListener(this);
 	}
@@ -93,11 +88,6 @@ public final class KeyLogger extends AbstractDataLogger implements NativeKeyList
 		}
 
 		LogEntry logEntry = new LogEntry(logMsg.toString());
-
-		// log the key press
-		log.add(logEntry);
-
-		// notify observers
 		notifyDataLoggerObservers(this, logEntry);
 
 	}

@@ -66,20 +66,8 @@ public abstract class AbstractDataLogger implements DataLogger {
 	}
 
 	@Override
-	public Iterator<LogEntry> iterator() {
-		return new DataLoggerIterator(this);
-	}
-
-	@Override
 	public String toString() {
-
-		StringBuilder log = new StringBuilder();
-
-		for (LogEntry logEntry : this)
-			log.append(logEntry.getMessage());
-
-		return log.toString();
-
+		return type();
 	}
 
 	@Override
