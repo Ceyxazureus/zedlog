@@ -40,7 +40,7 @@ public class DataLoggers {
 
 		// the list of available logger instances
 		final DataLogger[] instances = {
-			new KeyLogger(),
+			new CharTypedLogger(),
 			new MouseClickLogger(),
 			new MouseMovementLogger(),
 			new MouseDraggedLogger(),
@@ -84,7 +84,7 @@ public class DataLoggers {
 	 * <code>newDataLogger()</code>.
 	 * The currently supported types are;
 	 * <ul>
-	 *	<li>"keyboard" - <code>KeyLogger</code>.</li>
+	 *	<li>"char typed" - <code>CharTypedLogger</code>.</li>
 	 *  <li>"mouse click" - <code>MouseClickLogger</code>.</li>
 	 *  <li>"mouse movement" - <code>MouseMovementLogger</code>.</li>
 	 *  <li>"mouse dragged" - <code>MouseDraggedLogger</code>.</li>

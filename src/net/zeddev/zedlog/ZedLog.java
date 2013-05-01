@@ -17,7 +17,7 @@
 package net.zeddev.zedlog;
 
 import java.awt.EventQueue;
-import net.zeddev.zedlog.logger.impl.KeyLogger;
+import net.zeddev.zedlog.logger.impl.CharTypedLogger;
 import net.zeddev.zedlog.logger.impl.CompositeDataLogger;
 import javax.swing.UnsupportedLookAndFeelException;
 import org.jnativehook.GlobalScreen;
@@ -116,7 +116,7 @@ public class ZedLog {
 	private void testLoggers() {
 
 		CompositeDataLogger loggers = new CompositeDataLogger();
-		loggers.addLogger(new KeyLogger());
+		loggers.addLogger(new CharTypedLogger());
 		loggers.addLogger(new MouseClickLogger());
 
 		System.out.println(loggers.type());

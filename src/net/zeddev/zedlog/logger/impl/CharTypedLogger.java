@@ -25,25 +25,25 @@ import net.zeddev.zedlog.logger.AbstractDataLogger;
 import net.zeddev.zedlog.logger.LogEntry;
 
 /**
- * A <code>DataLogger</code> for keyboard events.
+ * A <code>DataLogger</code> for character typed events.
  *
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
-public final class KeyLogger extends AbstractDataLogger implements NativeKeyListener {
+public final class CharTypedLogger extends AbstractDataLogger implements NativeKeyListener {
 
 	final List<LogEntry> log = new ArrayList();
 
 	/**
-	 * Creates a new <code>KeyLogger</code>.
+	 * Creates a new <code>CharTypedLogger</code>.
 	 *
 	 */
-	public KeyLogger() {
+	public CharTypedLogger() {
 		GlobalScreen.getInstance().addNativeKeyListener(this);
 	}
 
 	@Override
 	public String type() {
-		return "key logger";
+		return "char typed";
 	}
 
 	@Override
@@ -75,16 +75,8 @@ public final class KeyLogger extends AbstractDataLogger implements NativeKeyList
 			logMsg.append("[Tab]");
 		} else if (ch == ' ') {
 			logMsg.append("[Space]");
-		} else if (Character.isLetterOrDigit(ch) || Character.isWhitespace(ch)) {
-			logMsg.append(ch);
 		} else {
-
-			String key = NativeKeyEvent.getKeyText(event.getKeyChar());
-
-			logMsg.append("[");
-			logMsg.append(key);
-			logMsg.append("]");
-
+			logMsg.append(ch);
 		}
 
 		LogEntry logEntry = new LogEntry(logMsg.toString());
