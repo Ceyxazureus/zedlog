@@ -74,7 +74,7 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         javax.swing.JPopupMenu.Separator sep1 = new javax.swing.JPopupMenu.Separator();
         mitemAbout = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(Config.INSTANCE.FULL_NAME);
         setPreferredSize(new java.awt.Dimension(640, 480));
 
