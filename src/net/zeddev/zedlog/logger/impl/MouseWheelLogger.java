@@ -19,7 +19,6 @@ package net.zeddev.zedlog.logger.impl;
 import java.util.ArrayList;
 import java.util.List;
 import org.jnativehook.GlobalScreen;
-import org.jnativehook.mouse.NativeMouseEvent;
 import org.jnativehook.mouse.NativeMouseWheelEvent;
 import org.jnativehook.mouse.NativeMouseWheelListener;
 import net.zeddev.zedlog.logger.AbstractDataLogger;
@@ -32,9 +31,6 @@ import net.zeddev.zedlog.logger.LogEntry;
  */
 public final class MouseWheelLogger extends AbstractDataLogger
 		implements NativeMouseWheelListener {
-
-	final List<LogEntry> log = new ArrayList();
-	final List<MouseWheelMovedEvent> mouseWheelMoves = new ArrayList<>();
 
 	/**
 	 * Creates a new <code>MouseWheelLogger</code>.
@@ -54,40 +50,14 @@ public final class MouseWheelLogger extends AbstractDataLogger
 		return "mouse wheel";
 	}
 
-
-	/**
-	 * Returns the current list mouse wheel movement events.
-	 *
-	 * @return The current list mouse movement events.
-	 */
-	public List<MouseWheelMovedEvent> getWheelMovedEvents() {
-		return new ArrayList<>(mouseWheelMoves);
-	}
-
-	private void log(String msg) {
-
-		LogEntry logEntry = new LogEntry(msg.toString());
-
-		// log the event
-		log.add(logEntry);
-
-		// notiy observers of event
-		notifyDataLoggerObservers(this, logEntry);
-
-	}
-
 	@Override
 	public void nativeMouseWheelMoved(NativeMouseWheelEvent event) {
 
 		MouseWheelMovedEvent wheelEvent =
 			new MouseWheelMovedEvent(event);
 
-		String msg = wheelEvent.toString();
-
-		// log the wheel moved event details
-		mouseWheelMoves.add(wheelEvent);
-
-		log(msg);
+		LogEntry logEntry = new LogEntry(wheelEvent.toString());
+		notifyDataLoggerObservers(this, logEntry);
 
 	}
 

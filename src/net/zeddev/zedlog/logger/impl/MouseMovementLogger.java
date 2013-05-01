@@ -32,9 +32,6 @@ import net.zeddev.zedlog.logger.LogEntry;
 public final class MouseMovementLogger extends AbstractDataLogger
 		implements NativeMouseMotionListener {
 
-	final List<LogEntry> log = new ArrayList();
-	final List<MouseMovedEvent> mouseMoves = new ArrayList<>();
-
 	/**
 	 * Creates a new <code>MouseMovementLogger</code>.
 	 *
@@ -53,38 +50,13 @@ public final class MouseMovementLogger extends AbstractDataLogger
 		return "mouse movement";
 	}
 
-
-	/**
-	 * Returns the current list mouse movement events.
-	 *
-	 * @return The current list mouse movement events.
-	 */
-	public List<MouseMovedEvent> getMovedEvents() {
-		return new ArrayList<>(mouseMoves);
-	}
-
-	private void log(String msg) {
-
-		LogEntry logEntry = new LogEntry(msg.toString());
-
-		// log the event
-		log.add(logEntry);
-
-		// notiy observers of event
-		notifyDataLoggerObservers(this, logEntry);
-
-	}
-
 	@Override
 	public void nativeMouseMoved(NativeMouseEvent event) {
 
 		MouseMovedEvent moveEvent = new MouseMovedEvent(event);
-		String msg = moveEvent.toString();
 
-		// log the mouse moved event details
-		mouseMoves.add(moveEvent);
-
-		log(msg);
+		LogEntry logEntry = new LogEntry(moveEvent.toString());
+		notifyDataLoggerObservers(this, logEntry);
 
 	}
 

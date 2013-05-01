@@ -32,9 +32,6 @@ import net.zeddev.zedlog.logger.LogEntry;
 public final class MouseClickLogger extends AbstractDataLogger
 		implements NativeMouseListener {
 
-	final List<LogEntry> log = new ArrayList();
-	final List<MouseClickedEvent> mouseClicks = new ArrayList<>();
-
 	/**
 	 * Creates a new <code>MouseLogger</code>.
 	 *
@@ -53,39 +50,14 @@ public final class MouseClickLogger extends AbstractDataLogger
 		return "mouse click";
 	}
 
-	/**
-	 * Returns the current list mouse clicked events.
-	 *
-	 * @return The current list mouse clicked events.
-	 */
-	public List<MouseClickedEvent> getClickedEvents() {
-		return new ArrayList<>(mouseClicks);
-	}
-
-	private void log(String msg) {
-
-		LogEntry logEntry = new LogEntry(msg.toString());
-
-		// log the event
-		log.add(logEntry);
-
-		// notiy observers of event
-		notifyDataLoggerObservers(this, logEntry);
-
-	}
-
 	@Override
 	public void nativeMouseClicked(final NativeMouseEvent event) {
 
 		MouseClickedEvent clickEvent =
 			new MouseClickedEvent(event);
 
-		String msg = clickEvent.toString();
-
-		// log the clicked event details
-		mouseClicks.add(clickEvent);
-
-		log(msg);
+		LogEntry logEntry = new LogEntry(clickEvent.toString());
+		notifyDataLoggerObservers(this, logEntry);
 
 	}
 

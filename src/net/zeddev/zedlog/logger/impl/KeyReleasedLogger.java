@@ -31,8 +31,6 @@ import net.zeddev.zedlog.logger.LogEntry;
  */
 public final class KeyReleasedLogger extends AbstractDataLogger implements NativeKeyListener {
 
-	final List<LogEntry> log = new ArrayList();
-
 	/**
 	 * Creates a new <code>KeyPressedLogger</code>.
 	 *

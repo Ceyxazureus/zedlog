@@ -32,9 +32,6 @@ import net.zeddev.zedlog.logger.LogEntry;
 public final class MouseDraggedLogger extends AbstractDataLogger
 		implements NativeMouseMotionListener {
 
-	final List<LogEntry> log = new ArrayList();
-	final List<MouseDraggedEvent> mouseDrags = new ArrayList<>();
-
 	/**
 	 * Creates a new <code>MouseDraggedLogger</code>.
 	 *
@@ -53,28 +50,6 @@ public final class MouseDraggedLogger extends AbstractDataLogger
 		return "mouse drag";
 	}
 
-
-	/**
-	 * Returns the current list mouse dragged events.
-	 *
-	 * @return The current list mouse dragged events.
-	 */
-	public List<MouseDraggedEvent> getDraggedEvents() {
-		return new ArrayList<>(mouseDrags);
-	}
-
-	private void log(String msg) {
-
-		LogEntry logEntry = new LogEntry(msg.toString());
-
-		// log the event
-		log.add(logEntry);
-
-		// notiy observers of event
-		notifyDataLoggerObservers(this, logEntry);
-
-	}
-
 	@Override
 	public void nativeMouseMoved(NativeMouseEvent event) {
 		// IGNORED
@@ -86,12 +61,8 @@ public final class MouseDraggedLogger extends AbstractDataLogger
 		MouseDraggedEvent draggedEvent =
 			new MouseDraggedEvent(event);
 
-		String msg = draggedEvent.toString();
-
-		// log the wheel moved event details
-		mouseDrags.add(draggedEvent);
-
-		log(msg);
+		LogEntry logEntry = new LogEntry(draggedEvent.toString());
+		notifyDataLoggerObservers(this, logEntry);
 
 	}
 
