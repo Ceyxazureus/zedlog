@@ -41,6 +41,7 @@ public class DataLoggers {
 		// the list of available logger instances
 		final DataLogger[] instances = {
 			new CharTypedLogger(),
+			new KeyPressedLogger(),
 			new MouseClickLogger(),
 			new MouseMovementLogger(),
 			new MouseDraggedLogger(),
