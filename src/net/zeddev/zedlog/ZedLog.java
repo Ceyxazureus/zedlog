@@ -17,6 +17,7 @@
 package net.zeddev.zedlog;
 
 import java.awt.EventQueue;
+import java.lang.Thread.UncaughtExceptionHandler;
 import net.zeddev.zedlog.logger.impl.CharTypedLogger;
 import net.zeddev.zedlog.logger.impl.CompositeDataLogger;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -33,7 +34,7 @@ import net.zeddev.litelogger.handlers.MsgBoxLogHandler;
  *
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
-public class ZedLog {
+public class ZedLog implements UncaughtExceptionHandler {
 
 	private final Logger logger = Logger.getLogger(this);
 
@@ -71,10 +72,26 @@ public class ZedLog {
 
 	}
 
+	@Override
+	public void uncaughtException(Thread thread, Throwable ex) {
+
+		String msg = String.format(
+			"Uncaught exception %s in thread - %s (%d)",
+			ex.getClass().getName(),
+			thread.getName(), thread.getId()
+		);
+
+		logger.warning(msg, ex);
+
+	}
+
 	// initialise the program before starting
 	private void init() {
 
 		addShutdownHook();
+
+		// add global uncaught exception handler
+		Thread.setDefaultUncaughtExceptionHandler(this);
 
 		// add the gui logger handler
 		Logger.addHandler(new MsgBoxLogHandler());
