@@ -153,19 +153,19 @@ public class ZedLog implements UncaughtExceptionHandler {
 	// starts the gui
 	private void startGui() {
 
-		final CompositeDataLogger loggers = new CompositeDataLogger();
-
-		final ZedLogFrame zedlogFrame = new ZedLogFrame();
-
-		final ZedLogFrameController zedLogFrameController =
-				new ZedLogFrameController(zedlogFrame, loggers);
-
 		// start gui on event queue
 		EventQueue.invokeLater(new Runnable() {
 
 			public void run() {
 
 				initNativeHook();
+
+				final CompositeDataLogger loggers = new CompositeDataLogger();
+
+				final ZedLogFrame zedlogFrame = new ZedLogFrame();
+
+				final ZedLogFrameController zedLogFrameController =
+						new ZedLogFrameController(zedlogFrame, loggers);
 
 				zedlogFrame.setVisible(true);
 				loggers.shutdown();

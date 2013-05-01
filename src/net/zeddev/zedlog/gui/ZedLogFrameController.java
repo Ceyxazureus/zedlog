@@ -16,6 +16,7 @@
 
 package net.zeddev.zedlog.gui;
 
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -34,13 +35,16 @@ import net.zeddev.zedlog.gui.dialog.SimpleDialog;
 import net.zeddev.zedlog.logger.DataLogger;
 import net.zeddev.zedlog.logger.impl.CompositeDataLogger;
 import net.zeddev.zedlog.logger.impl.DataLoggerWriter;
+import org.jnativehook.GlobalScreen;
+import org.jnativehook.mouse.NativeMouseEvent;
+import org.jnativehook.mouse.NativeMouseListener;
 
 /**
  * Controller for the <code>ZedLogFrame</code>.
  *
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
-public final class ZedLogFrameController {
+public final class ZedLogFrameController implements NativeMouseListener {
 
 	private final Logger logger = Logger.getLogger(this);
 
@@ -72,6 +76,8 @@ public final class ZedLogFrameController {
 		this.loggers = loggers;
 
 		Logger.addHandler(logWindow);
+
+		GlobalScreen.getInstance().addNativeMouseListener(this);
 
 		frame.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -216,8 +222,17 @@ public final class ZedLogFrameController {
 
 	// show or hide the ZedLog frame
 	private void showHide() {
-		boolean visible = frame.isVisible();
-		frame.setVisible(!visible);
+
+		boolean show = !frame.isVisible();
+
+		frame.setVisible(show);
+
+		// give the window focus
+		if (show) {
+			frame.toFront();
+			frame.requestFocus();
+		}
+
 	}
 
 	private void addDataLogger() {
@@ -451,5 +466,27 @@ public final class ZedLogFrameController {
 		}
 
     }
+
+	@Override
+	public void nativeMouseClicked(NativeMouseEvent event) {
+
+		if (event.getButton() == 3 && event.getPoint().equals(new Point(0, 0))) {
+			// FIXME This really needs to be done better.
+
+			showHide();
+
+		}
+
+	}
+
+	@Override
+	public void nativeMousePressed(NativeMouseEvent event) {
+		// IGNORED
+	}
+
+	@Override
+	public void nativeMouseReleased(NativeMouseEvent nme) {
+		// IGNORED
+	}
 
 }
