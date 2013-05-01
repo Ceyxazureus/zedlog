@@ -48,7 +48,8 @@ public enum Config {
 	public final String FULL_NAME = NAME + " " + VERSION;
 
 	/** A short description about the program. */
-	public final String DESCRIPTION = "A small yet powerful input logger tool.";
+	public final String DESCRIPTION =
+		"A robust cross-platform input logging tool (AKA a key logger).";
 
 	/**
 	 * The help documentation resource Url.
