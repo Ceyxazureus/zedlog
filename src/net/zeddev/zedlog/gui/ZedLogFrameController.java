@@ -30,6 +30,7 @@ import net.zeddev.litelogger.handlers.WriterLogHandler;
 import net.zeddev.zedlog.HelpDoc;
 import net.zeddev.zedlog.gui.dialog.NewLoggerDialog;
 import net.zeddev.zedlog.gui.dialog.AboutDialog;
+import net.zeddev.zedlog.gui.dialog.SimpleDialog;
 import net.zeddev.zedlog.logger.DataLogger;
 import net.zeddev.zedlog.logger.impl.CompositeDataLogger;
 import net.zeddev.zedlog.logger.impl.DataLoggerWriter;
@@ -174,6 +175,21 @@ public final class ZedLogFrameController {
 	}
 
 	private void userQuit() {
+
+		if (logFile == null) {
+
+			boolean quit = SimpleDialog.yesno(
+				frame, "Really Quit?",
+				"There is unsaved log data which could be lost.\n"
+				+ "Are you sure you want to quit?"
+			);
+
+			if (!quit) {
+				logger.info("Quit cancelled.");
+				return;
+			}
+
+		}
 
 		logger.info("User quit.");
 
