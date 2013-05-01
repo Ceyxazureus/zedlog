@@ -16,8 +16,10 @@
 
 package net.zeddev.zedlog.logger.impl;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import net.zeddev.zedlog.logger.DataLogger;
 
 /**
@@ -26,6 +28,32 @@ import net.zeddev.zedlog.logger.DataLogger;
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
 public class DataLoggers {
+
+	// the cached logger instances
+	private static final Map<String, DataLogger> LOGGERS = new HashMap<>();
+		// NOTE They can be cached because cannot be modified during execution.
+
+	// the available logger types
+	private static final List<String> TYPES = new ArrayList<>();
+
+	static {
+
+		// the list of available logger instances
+		final DataLogger[] instances = {
+			new KeyLogger(),
+			new MouseClickLogger(),
+			new MouseMovementLogger(),
+			new MouseDraggedLogger(),
+			new MouseWheelLogger()
+		};
+
+		// set all available loggers
+		for (DataLogger loggerInstance : instances) {
+			LOGGERS.put(loggerInstance.type(), loggerInstance);
+			TYPES.add(loggerInstance.type());
+		}
+
+	}
 
 	private DataLoggers() {
 	}
@@ -39,16 +67,12 @@ public class DataLoggers {
 	 */
 	public static DataLogger newDataLogger(String type) {
 
-		if (type.equalsIgnoreCase("keyboard")) {
-			return new KeyLogger();
-		} else if (type.equalsIgnoreCase("mouse click")) {
-			return new MouseClickLogger();
-		} else if (type.equalsIgnoreCase("mouse movement")) {
-			return new MouseMovementLogger();
-		} else if (type.equalsIgnoreCase("mouse dragged")) {
-			return new MouseDraggedLogger();
-		} else if (type.equalsIgnoreCase("mouse wheel")) {
-			return new MouseWheelLogger();
+		assert(type != null);
+
+		type = type.toLowerCase();
+
+		if (LOGGERS.containsKey(type)) {
+			return LOGGERS.get(type);
 		} else {
 			return null;
 		}
@@ -70,17 +94,7 @@ public class DataLoggers {
 	 * @return The list of available <code>DataLogger</code> types.
 	 */
 	public static List<String> typeList() {
-
-		final String[] types = {
-			"keyboard",
-			"mouse click",
-			"mouse movement",
-			"mouse dragged",
-			"mouse wheel"
-		};
-
-		return Arrays.asList(types);
-
+		return new ArrayList<>(TYPES);
 	}
 
 }
