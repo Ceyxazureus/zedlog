@@ -2,9 +2,8 @@
 TODO list for ZedLog
 ~~~~~~~~~~~~~~~~~~~~
 
- * Fix faulty key logger
-	-> Use key pressed event
-	-> Use better mnemonics
+ * Add replaying tool, to replay all logged events.
+	-> Use java.awt.Robot to simuate key presses and move movement/presses.
  * Add screenshot logger.
 	-> time based
  * Add animation tool.
