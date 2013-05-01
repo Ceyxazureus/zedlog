@@ -16,8 +16,6 @@
 
 package net.zeddev.zedlog.logger.impl;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
@@ -71,8 +69,6 @@ public final class CharTypedLogger extends AbstractDataLogger implements NativeK
 			logMsg = "[Return]";
 		} else if (ch == '\t') {
 			logMsg = "[Tab]";
-		} else if (ch == ' ') {
-			logMsg = "[Space]";
 		} else {
 			logMsg = Character.toString(ch);
 		}
