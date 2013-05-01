@@ -61,7 +61,7 @@ public final class MouseDraggedLogger extends AbstractDataLogger
 		MouseDraggedEvent draggedEvent =
 			new MouseDraggedEvent(event);
 
-		LogEntry logEntry = new LogEntry(draggedEvent.toString());
+		LogEntry logEntry = new LogEntry(draggedEvent.toString(), draggedEvent);
 		notifyDataLoggerObservers(this, logEntry);
 
 	}

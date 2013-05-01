@@ -53,9 +53,10 @@ public final class KeyPressedLogger extends AbstractDataLogger implements Native
 	@Override
 	public void nativeKeyPressed(NativeKeyEvent event) {
 
+		KeyEvent keyEvent = new KeyEvent(KeyEvent.Type.RELEASED, event.getKeyCode(), event.getKeyChar());
 		String key = NativeKeyEvent.getKeyText(event.getKeyCode());
 
-		LogEntry logEntry = new LogEntry(String.format("%s ", key));
+		LogEntry logEntry = new LogEntry(String.format("%s ", key), keyEvent);
 		notifyDataLoggerObservers(this, logEntry);
 
 	}

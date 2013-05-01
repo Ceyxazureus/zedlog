@@ -17,41 +17,12 @@
 package net.zeddev.zedlog.logger;
 
 /**
- * A single log record by a <code>DataLogger</code>.
+ * A single event which is logged by a <code>DataLogger</code>.
  *
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
-public class LogEntry {
+public abstract class LogEvent {
 
-	private final String message;
-	private final LogEvent event;
-	private final long timestamp = System.currentTimeMillis();
-
-	/**
-	 * Creates a new <code>LogEntry</code> with the given detail message.
-	 *
-	 * @param message The logged message.
-	 */
-	public LogEntry(final String message, final LogEvent event) {
-		this.message = message;
-		this.event = event;
-	}
-
-	public final String getMessage() {
-		return message;
-	}
-
-	public LogEvent getEvent() {
-		return event;
-	}
-
-	public final long getTimestamp() {
-		return timestamp;
-	}
-
-	@Override
-	public String toString() {
-		return getMessage();
-	}
+	// NOTE Has no methods, here purley as a parent to all events
 
 }

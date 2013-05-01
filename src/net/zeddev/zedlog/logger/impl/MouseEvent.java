@@ -16,6 +16,7 @@
 
 package net.zeddev.zedlog.logger.impl;
 
+import net.zeddev.zedlog.logger.LogEvent;
 import org.jnativehook.mouse.NativeMouseEvent;
 
 /**
@@ -23,7 +24,7 @@ import org.jnativehook.mouse.NativeMouseEvent;
  *
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
-public class MouseEvent {
+public class MouseEvent extends LogEvent {
 
    private int x, y;
    private long timestamp = System.currentTimeMillis();
