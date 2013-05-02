@@ -1,10 +1,266 @@
-
 <!DOCTYPE html>
+
 <html>
+	
 	<head>
-		<title></title>
+		
+		<title>ZedLog Documentation</title>
+		
+<style type="text/css" >
+<!--
+
+h1 {
+	color: black;
+	font-family:"Arial", Arial, sans-serif;
+	font-size: 32px;
+	padding: 0px;
+}
+
+h2 {
+	color: black;
+	font-family:"Arial", Arial, sans-serif;
+	font-size: 24px;
+	padding: 0px;
+}
+
+h3 {
+	color: black;
+	font-family:"Arial", Arial, sans-serif;
+	font-size: 20px;
+	padding: 0px;
+}
+
+body {
+	color: black;
+	font-size: 18px;
+	font-family: "Times New Roman", Times, serif;
+}
+
+p {
+	padding-bottom: 10px;
+}
+
+th {
+	color: black;
+	font-size: 18px;
+	font-weight: bold;
+	font-family:"Arial", Arial, sans-serif;
+	text-align: center;
+	width: auto;
+	border-width: 1px 1px 0 0;
+}
+
+td {
+	color: black;
+	font-size: 18px;
+	font-family: "Times New Roman", Times, serif;
+	width: auto;
+	border-width: 1px 1px 0 0;
+}
+
+table, td, th {
+	width: 100%;
+    border-color: #000;
+    border-style: solid;
+}
+
+table {
+	table-layout: fixed;
+    border-width: 0 0 1px 1px;
+    border-spacing: 0;
+    border-collapse: collapse;
+    width: 80%;
+    margin: auto;
+}
+
+img {
+	display: block;
+	padding: 10px;
+	margin-left: auto; 
+	margin-right: auto; 
+}
+
+-->	
+</style>
+		
 	</head>
 	<body>
-		<div>TODO write content</div>
+
+		<h1>ZedLog</h1>
+
+		<h2>Table of Contents</h2>
+		<ul>
+			<li><a href="#start" >Getting Started</a></li>
+			<li><a href="#add" >Adding a Logger</a></li>
+			<li><a href="#view" >Viewing Logged Data</a></li>
+			<li><a href="#save" >Saving a Log to File</a></li>
+			<li><a href="#remove" >Removing a Logger</a></li>
+			<li><a href="#hide" >Hiding ZedLog</a></li>
+			<li><a href="#shortcuts" >Keyboard/Mouse Shortcuts</a></li>
+			<li><a href="#about" >About</a></li>
+		</ul>
+		
+		<h2 id="start" >Getting Started</h2>
+		
+		<p>
+		When you first start ZedLog you will be presented with the following 
+		screen.  This is the main screen from which all functions are available,
+		such as adding/removing loggers.
+		
+		</p>
+		
+		<img src="StartScreen.png" />
+		
+		<h2 id="add" >Adding a Logger</h2>
+		
+		<p>
+		To add a logger click the <code>[Add]</code> button on the screen
+		(or the <code>Loggers > Add Logger</code> menu) which will bring up 
+		the following dialog;
+		</p>
+		
+		<img src="AddLogger.png" />
+		
+		<p>
+		Select the logger type from the drop down list and press <code>[Okay]</code>
+		to add it to ZedLog.  Once you have added the logger it will automatically 
+		start logging, like so:
+		</p>
+		
+		<img src="CharTyped.png" />
+		
+		<p>
+		Multiple loggers can be added in this way to produce a customised
+		'composite' logger, which compiles all log data together.
+		</p>
+		
+		<h2 id="view" >Viewing Logged Data</h2>
+		
+		<p>
+		The logged data can be viewed on the main window.  The default logger
+		is the previously mentioned 'composite' logger, which displays all logged 
+		data.  Such as below:
+		</p>
+		
+		<img src="CompositeLogger.png" />
+		
+		<p>
+		Each logger also has its own tab in the main window which will display 
+		the  data from that logger only.  Such as the following;
+		</p>
+		
+		<img src="CharTypedTab.png" />
+		<br />
+		
+		<img src="MouseClickTab.png" />
+		
+		<h2 id="save" >Saving a Log to File</h2>
+		
+		<p>
+		The logged data can be saved to a file in two ways.  Firstly the
+		currently logged data can be saved by selecting <code>File > Save</code>
+		in the menu and choosing the file.  Like so;
+		</p>
+		
+		<img src="Save.png" />
+		
+		<p>
+		The second way is to set a log file, which automatically saves the
+		log data.  This allows for the log to be saved without explicitly 
+		saving the file.  The log file is set by selecting <code>File > Set Log File</code>
+		in the menu, like so;
+		</p>
+		
+		<img src="SetLogFile.png" />
+		
+		<h2 id="remove" >Removing a Logger</h2>
+		
+		<p>
+		An unwanted log file can be removed simply by selecting the loggers
+		tab and pressing the remove button (or the <code>Loggers > Remove Logger</code>
+		in the menu).
+		</p>
+		
+		<img src="RemoveLogger.png" />
+		
+		<h2 id="hide" >Hiding ZedLog</h2>
+		
+		<p>
+		ZedLog has a handy feature which allows you to 'hide' it while still
+		logging.  This can be done by pressing the <code>[Hide]</code> button
+		main window.
+		</p>
+		
+		<img src="Hide.png" />
+		
+		<p>
+		To bring the ZedLog window back you have to middle click (that is 
+		the mouse wheel) in the far upper left corner of the screen.  This
+		trick can also be used to quickly hide ZedLog aswell.
+		</p>
+		
+		<h2 id="shortcuts">Keyboard/Mouse Shortcuts</h2>
+		
+		<table>
+			<tr>
+				<th>Function</th>
+				<th>Shortcut</th>
+			</tr>
+			<tr>
+				<td>Show Help</td>
+				<td>
+					<code>F1</code>
+				</td>
+			</tr>
+			<tr>
+				<td>Add Logger</td>
+				<td>
+					<code>Ctrl + Plus</code>
+				</td>
+			</tr>
+			<tr>
+				<td>Remove Logger</td>
+				<td>
+					<code>Ctrl + Minus</code>
+				</td>
+			</tr>
+			<tr>
+				<td>Save Log</td>
+				<td>
+					<code>Ctrl + S</code>
+				</td>
+			</tr>
+			<tr>
+				<td>Set Log File</td>
+				<td>
+					<code>Ctrl + Shift + S</code>
+				</td>
+			</tr>
+			<tr>
+				<td>Show/Hide ZedLog</td>
+				<td>
+					Middle click (mouse) in top left corner of screen.
+				</td>
+			</tr>
+			<tr>
+				<td>Quit</td>
+				<td>
+					<code>Ctrl + Q</code>
+				</td>
+			</tr>
+		</table>
+		
+		<h2 id="about" >About</h2>
+		
+		<img src="About.png" />
+		
+		<br /> <hr />
+		<center>
+			<code>
+				Copyright &copy; 2013, Zachary Scott &lt;zscott.dev@gmail.com&gt;
+			</code>
+		</center>
+		
 	</body>
+	
 </html>
