@@ -28,33 +28,72 @@ import sun.misc.IOUtils;
  *
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
-public final class HelpDoc {
+public enum HelpDoc {
+
+	/** The singleton instance. */
+	INSTANCE;
 
 	private final Logger logger = Logger.getLogger(this);
 
-	/** Singleton instance. */
-	public static final HelpDoc INSTANCE = new HelpDoc();
+	// the main helpdoc html filename
+	private final String HELPDOC = Config.HELPDOC;
 
-	private File TMP_HELP_FILE;
+	// all help documentation files
+	private final String[] HELP_FILES = {
+		HELPDOC,
+		"About.png",
+		"AddLogger.png",
+		"CharTyped.png",
+		"CharTypedTab.png",
+		"CompositeLogger.png",
+		"Hide.png",
+		"MouseClickTab.png",
+		"RemoveLogger.png",
+		"Save.png",
+		"SetLogFile.png",
+		"StartScreen.png",
+	};
+
+	private File TMP_HELP_FILE = new File(tempFile(HELPDOC));
+
+	// returns a new temporary filename for the given filename
+	private String tempFile(final String filename) {
+
+		return String.format("%s%s%s",
+			System.getProperty("java.io.tmpdir"),
+			System.getProperty("file.separator"),
+			filename
+		);
+
+	}
 
 	private HelpDoc() {
 
-		try {
+		// create each temp help file
+		for (String helpFile : HELP_FILES) {
 
-			TMP_HELP_FILE = File.createTempFile("helpdoc.", ".html");
+			String tmpfile = tempFile(helpFile);
 
-			// write the resource to temp file
-			FileOutputStream out = new FileOutputStream(TMP_HELP_FILE);
-			out.write(
-				IOUtils.readFully(
-					getClass().getResourceAsStream(Config.HELPDOC), -1, false
-				)
-			);
+			// attempt to copy the given resource file to the temporary file on disk
+			try {
 
-			out.close();
+				String resource = String.format("%s/%s", Config.DOCDIR, helpFile);
 
-		} catch (IOException ex) {
-			logger.error(String.format("Cannot create temp file %s", TMP_HELP_FILE.getPath()), ex);
+				// write the resource to temp file
+				FileOutputStream out = new FileOutputStream(tmpfile);
+				out.write(
+					IOUtils.readFully(
+						getClass().getResourceAsStream(resource), -1, false
+					)
+				);
+
+				out.flush();
+				out.close();
+
+			} catch (IOException ex) {
+				logger.error(String.format("Cannot create temp file %s", tmpfile), ex);
+			}
+
 		}
 
 	}

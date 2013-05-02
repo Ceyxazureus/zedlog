@@ -52,11 +52,17 @@ public enum Config {
 		"A robust cross-platform input logging tool (AKA a key logger).";
 
 	/**
-	 * The help documentation resource Url.
+	 * The documentation resource directory.
+	 *
+	 */
+	public static final String DOCDIR = "/net/zeddev/zedlog/doc/";
+
+	/**
+	 * The help html file name (relative to <code>Config.HELPDIR</code>).
 	 * i.e. Needs to be loaded using <code>Class.getResource()</code>.
 	 *
 	 */
-	public static final String HELPDOC = "/net/zeddev/zedlog/doc/helpdoc.html";
+	public static final String HELPDOC = "helpdoc.html";
 
 	static {
 
