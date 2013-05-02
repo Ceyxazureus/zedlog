@@ -2,6 +2,10 @@
 TODO list for ZedLog
 ~~~~~~~~~~~~~~~~~~~~
 
+ * Add a cli
+	-> add loggers
+	-> hide on startup
+	-> set log file
  * Add replaying tool, to replay all logged events.
 	-> Use java.awt.Robot to simuate key presses and move movement/presses.
  * Add screenshot logger.
