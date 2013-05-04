@@ -1,0 +1,23 @@
+
+=pod
+
+=head1 Changes in ZedLog
+
+=head2 v0.2
+
+=over 4
+
+=item * Added individual DataLogger log files.  As opposed to the previous
+method of logging in a single composite log file.
+
+=back
+
+=head2 v0.1 - Released 2-May-2013
+
+Initial version.
+
+=head2 Author
+
+ Zachary Scott <zscott.dev@gmail.com>
+
+=cut
