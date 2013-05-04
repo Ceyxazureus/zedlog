@@ -16,8 +16,6 @@
 
 package net.zeddev.zedlog.logger.impl;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
