@@ -42,7 +42,7 @@ public final class KeyReleasedLogger extends AbstractDataLogger implements Nativ
 
 	@Override
 	public String type() {
-		return "key released";
+		return "KeyReleased";
 	}
 
 	@Override

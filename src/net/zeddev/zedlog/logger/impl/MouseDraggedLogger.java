@@ -47,7 +47,7 @@ public final class MouseDraggedLogger extends AbstractDataLogger
 
 	@Override
 	public String type() {
-		return "mouse drag";
+		return "MouseDrag";
 	}
 
 	@Override

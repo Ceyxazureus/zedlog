@@ -42,7 +42,7 @@ public final class KeyPressedLogger extends AbstractDataLogger implements Native
 
 	@Override
 	public String type() {
-		return "key pressed";
+		return "KeyPressed";
 	}
 
 	@Override

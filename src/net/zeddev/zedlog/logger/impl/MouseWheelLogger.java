@@ -47,7 +47,7 @@ public final class MouseWheelLogger extends AbstractDataLogger
 
 	@Override
 	public String type() {
-		return "mouse wheel";
+		return "MouseWheel";
 	}
 
 	@Override

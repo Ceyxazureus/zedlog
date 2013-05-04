@@ -25,9 +25,9 @@ public interface DataLogger {
 
 	/**
 	 * Returns the type name of the <code>DataLogger</code>.
-	 * For example "KeyLogger" or "MouseLogger".
+	 * Must not have any spaces, for example "KeyLogger" or "MouseLogger".
 	 *
-	 * @return the type name of the <code>DataLogger</code>.
+	 * @return The type name of the <code>DataLogger</code>.
 	 */
 	public String type();
 
@@ -38,7 +38,6 @@ public interface DataLogger {
 	//  * @return All current entries in this log (never <code>null</code>).
 	//  */
 	// public List<LogEntry> logEntries();
-
 
 	/**
 	 * Shuts-down the <code>DataLog</code> (and any resources it may consume).

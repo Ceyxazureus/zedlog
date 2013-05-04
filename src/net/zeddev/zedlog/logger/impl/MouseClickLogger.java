@@ -47,7 +47,7 @@ public final class MouseClickLogger extends AbstractDataLogger
 
 	@Override
 	public String type() {
-		return "mouse click";
+		return "MouseClick";
 	}
 
 	@Override

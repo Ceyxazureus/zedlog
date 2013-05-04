@@ -46,7 +46,7 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 
 	@Override
 	public String type() {
-		return "logger composite";
+		return "CompositeLogger";
 	}
 
 	/**

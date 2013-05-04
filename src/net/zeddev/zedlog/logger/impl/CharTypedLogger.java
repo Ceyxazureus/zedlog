@@ -39,7 +39,7 @@ public final class CharTypedLogger extends AbstractDataLogger implements NativeK
 
 	@Override
 	public String type() {
-		return "char typed";
+		return "CharTyped";
 	}
 
 	@Override
