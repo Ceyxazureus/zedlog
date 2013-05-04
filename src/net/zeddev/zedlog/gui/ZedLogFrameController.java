@@ -31,7 +31,7 @@ import net.zeddev.litelogger.handlers.WindowLogHandler;
 import net.zeddev.litelogger.handlers.WriterLogHandler;
 import net.zeddev.zedlog.HelpDoc;
 import net.zeddev.zedlog.gui.dialog.NewLoggerDialog;
-import net.zeddev.zedlog.gui.dialog.AboutDialog;
+import net.zeddev.zedlog.gui.dialog.AboutDialog; 
 import net.zeddev.zedlog.gui.dialog.SimpleDialog;
 import net.zeddev.zedlog.logger.DataLogger;
 import net.zeddev.zedlog.logger.impl.CompositeDataLogger;

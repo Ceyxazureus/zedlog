@@ -30,6 +30,7 @@
                 </Property>
                 <Property name="mnemonic" type="int" value="83"/>
                 <Property name="text" type="java.lang.String" value="Save"/>
+                <Property name="toolTipText" type="java.lang.String" value="Save the composite logger output."/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mitemLogDir">
@@ -38,6 +39,7 @@
                   <KeyStroke key="Shift+Ctrl+S"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Set Log Directory"/>
+                <Property name="toolTipText" type="java.lang.String" value="Set the output log file directory."/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
@@ -47,6 +49,7 @@
                 </Property>
                 <Property name="mnemonic" type="int" value="79"/>
                 <Property name="text" type="java.lang.String" value="Open Log Directory"/>
+                <Property name="toolTipText" type="java.lang.String" value="Open logged data."/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
@@ -62,6 +65,7 @@
                 </Property>
                 <Property name="mnemonic" type="int" value="113"/>
                 <Property name="text" type="java.lang.String" value="Quit"/>
+                <Property name="toolTipText" type="java.lang.String" value="Quit ZedLog."/>
               </Properties>
             </MenuItem>
           </SubComponents>
@@ -79,6 +83,7 @@
                 </Property>
                 <Property name="mnemonic" type="int" value="65"/>
                 <Property name="text" type="java.lang.String" value="Add Logger"/>
+                <Property name="toolTipText" type="java.lang.String" value="Add a new logger to ZedLog."/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mitemRemove">
@@ -88,6 +93,7 @@
                 </Property>
                 <Property name="mnemonic" type="int" value="82"/>
                 <Property name="text" type="java.lang.String" value="Remove Logger"/>
+                <Property name="toolTipText" type="java.lang.String" value="Remove the selected logger from ZedLog."/>
               </Properties>
             </MenuItem>
           </SubComponents>
@@ -102,6 +108,7 @@
               <Properties>
                 <Property name="mnemonic" type="int" value="72"/>
                 <Property name="text" type="java.lang.String" value="Hide"/>
+                <Property name="toolTipText" type="java.lang.String" value="Hide the ZedLog window."/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mitemReplay">
@@ -111,7 +118,7 @@
                 </Property>
                 <Property name="mnemonic" type="int" value="82"/>
                 <Property name="text" type="java.lang.String" value="Replay Events"/>
-                <Property name="toolTipText" type="java.lang.String" value="Replay the events recorded by the loggers."/>
+                <Property name="toolTipText" type="java.lang.String" value="Replay the events recorded by ZedLog."/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep">
@@ -127,11 +134,13 @@
                 <MenuItem class="javax.swing.JMenuItem" name="mitemMsgLogFile">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Set Log File"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Set the program log file."/>
                   </Properties>
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mitemLogWindow">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Show Log Window"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Show the program log window."/>
                   </Properties>
                 </MenuItem>
               </SubComponents>
@@ -151,6 +160,7 @@
                 </Property>
                 <Property name="mnemonic" type="int" value="72"/>
                 <Property name="text" type="java.lang.String" value="Help"/>
+                <Property name="toolTipText" type="java.lang.String" value="Display the program documentation."/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep1">
@@ -163,6 +173,7 @@
               <Properties>
                 <Property name="mnemonic" type="int" value="65"/>
                 <Property name="text" type="java.lang.String" value="About"/>
+                <Property name="toolTipText" type="java.lang.String" value="Display information about ZedLog."/>
               </Properties>
             </MenuItem>
           </SubComponents>
@@ -241,11 +252,13 @@
     <Component class="javax.swing.JButton" name="btnAdd">
       <Properties>
         <Property name="text" type="java.lang.String" value="Add"/>
+        <Property name="toolTipText" type="java.lang.String" value="Add a new logger to ZedLog."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnRemove">
       <Properties>
         <Property name="text" type="java.lang.String" value="Remove"/>
+        <Property name="toolTipText" type="java.lang.String" value="Remove the selected logger from ZedLog."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnNext">
@@ -256,13 +269,14 @@
     <Component class="javax.swing.JButton" name="btnPrev">
       <Properties>
         <Property name="text" type="java.lang.String" value="&lt;"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnHide">
       <Properties>
         <Property name="mnemonic" type="int" value="72"/>
         <Property name="text" type="java.lang.String" value="Hide"/>
-        <Property name="toolTipText" type="java.lang.String" value="Hide the ZedLog window"/>
+        <Property name="toolTipText" type="java.lang.String" value="Hide the ZedLog window."/>
       </Properties>
     </Component>
   </SubComponents>

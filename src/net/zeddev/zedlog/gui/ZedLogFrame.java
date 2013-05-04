@@ -91,37 +91,44 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(640, 480));
 
         btnAdd.setText("Add");
+        btnAdd.setToolTipText("Add a new logger to ZedLog.");
 
         btnRemove.setText("Remove");
+        btnRemove.setToolTipText("Remove the selected logger from ZedLog.");
 
         btnNext.setText(">");
 
         btnPrev.setText("<");
+        btnPrev.setToolTipText("");
 
         btnHide.setMnemonic('H');
         btnHide.setText("Hide");
-        btnHide.setToolTipText("Hide the ZedLog window");
+        btnHide.setToolTipText("Hide the ZedLog window.");
 
         menuFile.setText("File");
 
         mitemSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         mitemSave.setMnemonic('S');
         mitemSave.setText("Save");
+        mitemSave.setToolTipText("Save the composite logger output.");
         menuFile.add(mitemSave);
 
         mitemLogDir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         mitemLogDir.setText("Set Log Directory");
+        mitemLogDir.setToolTipText("Set the output log file directory.");
         menuFile.add(mitemLogDir);
 
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem2.setMnemonic('O');
         jMenuItem2.setText("Open Log Directory");
+        jMenuItem2.setToolTipText("Open logged data.");
         menuFile.add(jMenuItem2);
         menuFile.add(jSeparator1);
 
         mitemQuit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
         mitemQuit.setMnemonic('q');
         mitemQuit.setText("Quit");
+        mitemQuit.setToolTipText("Quit ZedLog.");
         menuFile.add(mitemQuit);
 
         menubar.add(menuFile);
@@ -132,11 +139,13 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         mitemAdd.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_EQUALS, java.awt.event.InputEvent.CTRL_MASK));
         mitemAdd.setMnemonic('A');
         mitemAdd.setText("Add Logger");
+        mitemAdd.setToolTipText("Add a new logger to ZedLog.");
         menuLoggers.add(mitemAdd);
 
         mitemRemove.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_MINUS, java.awt.event.InputEvent.CTRL_MASK));
         mitemRemove.setMnemonic('R');
         mitemRemove.setText("Remove Logger");
+        mitemRemove.setToolTipText("Remove the selected logger from ZedLog.");
         menuLoggers.add(mitemRemove);
 
         menubar.add(menuLoggers);
@@ -146,12 +155,13 @@ public final class ZedLogFrame extends javax.swing.JFrame {
 
         mitemHide.setMnemonic('H');
         mitemHide.setText("Hide");
+        mitemHide.setToolTipText("Hide the ZedLog window.");
         menuTools.add(mitemHide);
 
         mitemReplay.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         mitemReplay.setMnemonic('R');
         mitemReplay.setText("Replay Events");
-        mitemReplay.setToolTipText("Replay the events recorded by the loggers.");
+        mitemReplay.setToolTipText("Replay the events recorded by ZedLog.");
         menuTools.add(mitemReplay);
         menuTools.add(sep);
 
@@ -159,9 +169,11 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         menuProgramLog.setToolTipText(null);
 
         mitemMsgLogFile.setText("Set Log File");
+        mitemMsgLogFile.setToolTipText("Set the program log file.");
         menuProgramLog.add(mitemMsgLogFile);
 
         mitemLogWindow.setText("Show Log Window");
+        mitemLogWindow.setToolTipText("Show the program log window.");
         menuProgramLog.add(mitemLogWindow);
 
         menuTools.add(menuProgramLog);
@@ -174,11 +186,13 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         mitemHelp.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
         mitemHelp.setMnemonic('H');
         mitemHelp.setText("Help");
+        mitemHelp.setToolTipText("Display the program documentation.");
         menuHelp.add(mitemHelp);
         menuHelp.add(sep1);
 
         mitemAbout.setMnemonic('A');
         mitemAbout.setText("About");
+        mitemAbout.setToolTipText("Display information about ZedLog.");
         menuHelp.add(mitemAbout);
 
         menubar.add(menuHelp);
