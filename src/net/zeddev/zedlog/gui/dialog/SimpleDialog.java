@@ -17,14 +17,19 @@
 package net.zeddev.zedlog.gui.dialog;
 
 import java.awt.Frame;
+import java.io.File;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import net.zeddev.litelogger.Logger;
 
 /**
- * Provides some simple dialogs boxes.
+ * Provides some common, simple dialogs.
  *
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
 public final class SimpleDialog {
+
+	private static final Logger logger = Logger.getLogger(SimpleDialog.class);
 
 	private SimpleDialog() {
 	}
@@ -95,6 +100,57 @@ public final class SimpleDialog {
 			JOptionPane.YES_NO_OPTION,
 			JOptionPane.PLAIN_MESSAGE
 		) == JOptionPane.YES_OPTION;
+
+	}
+
+	/**
+	 * Opens a save-file chooser dialog.
+	 *
+	 * @param parent The parent frame (can be <code>null</code>).
+	 * @return The selected file (or <code>null</code> if error).
+	 */
+	public static File saveFile(final Frame parent) {
+
+		JFileChooser fileChooser = new JFileChooser();
+		int ret = fileChooser.showSaveDialog(parent);
+
+		if (ret == JFileChooser.APPROVE_OPTION) {
+
+			return fileChooser.getSelectedFile();
+
+		} else if (ret == JFileChooser.ERROR_OPTION) {
+			logger.warning("Error occured with file chooser when saving.");
+			return null;
+		} else {
+			logger.info("User cancelled saving file.");
+			return null;
+		}
+
+	}
+
+	/**
+	 * Opens a directory chooser dialog.
+	 *
+	 * @param parent The parent frame (can be <code>null</code>).
+	 * @return The selected directory (or <code>null</code> if error).
+	 */
+	public static File selectDir(final Frame parent) {
+
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+		int ret = fileChooser.showSaveDialog(parent);
+		if (ret == JFileChooser.APPROVE_OPTION) {
+
+			return fileChooser.getSelectedFile();
+
+		} else if (ret == JFileChooser.ERROR_OPTION) {
+			logger.warning("Error occured with file chooser when selecting directory.");
+			return null;
+		} else {
+			logger.info("User cancelled selecting directory.");
+			return null;
+		}
 
 	}
 
