@@ -129,6 +129,7 @@ public class ZedLog implements UncaughtExceptionHandler {
 
 	}
 
+	/* Removed 2013-05-04
 	// a simple test for loggers
 	private void testLoggers() {
 
@@ -148,7 +149,7 @@ public class ZedLog implements UncaughtExceptionHandler {
 
 		System.out.print(loggers.toString());
 
-	}
+	}*/
 
 	// starts the gui
 	private void startGui() {

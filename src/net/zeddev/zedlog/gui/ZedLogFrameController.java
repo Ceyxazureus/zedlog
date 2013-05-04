@@ -23,6 +23,7 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.logging.Level;
 import javax.swing.JFileChooser;
 import javax.swing.JTabbedPane;
 import net.zeddev.litelogger.Logger;
@@ -58,9 +59,6 @@ public final class ZedLogFrameController implements NativeMouseListener {
 
 	// the program log output file
 	private WriterLogHandler msgLogFile = null;
-
-	// the data logger output log file
-	private DataLoggerWriter logFile = null;
 
 	/**
 	 * Creates a new <code>ZedLogFrameController</code> for the given <code>ZedLogFrame</code>.
@@ -139,9 +137,9 @@ public final class ZedLogFrameController implements NativeMouseListener {
             }
         });
 
-		frame.getMItemLogFile().addActionListener(new java.awt.event.ActionListener() {
+		frame.getMItemLogDir().addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mitemLogFileActionPerformed(evt);
+                mitemLogDirActionPerformed(evt);
             }
         });
 
@@ -194,7 +192,7 @@ public final class ZedLogFrameController implements NativeMouseListener {
 
 	private void userQuit() {
 
-		if (logFile == null) {
+		if (loggers.getLogDirectory() == null) {
 
 			boolean quit = SimpleDialog.yesno(
 				frame, "Really Quit?",
@@ -244,7 +242,18 @@ public final class ZedLogFrameController implements NativeMouseListener {
 		if (dataLogger == null)
 			return;
 
-		loggers.addLogger(dataLogger);
+		// add the logger
+		try {
+			loggers.addLogger(dataLogger);
+		} catch (IOException ex) {
+
+			String msg =
+				String.format("Failed to add %s logger!", dataLogger.type());
+			logger.error(msg, ex);
+
+			return;
+
+		}
 
 		addLoggerTab(dataLogger);
 
@@ -265,7 +274,19 @@ public final class ZedLogFrameController implements NativeMouseListener {
 				logger.error("Cannot remove composite logger!");
 			} else {
 
-				loggers.removeLogger(dataLogger);
+				// remove the logger from the composite logger
+				try {
+					loggers.removeLogger(dataLogger);
+				} catch (IOException ex) {
+
+					String msg =
+						String.format("Failed to remove %s logger!", dataLogger.type());
+					logger.error(msg,ex);
+
+					// XXX continue despite error and remove from GUI
+
+				}
+
 				tabs.remove(tabs.getSelectedIndex());
 
 			}
@@ -326,32 +347,9 @@ public final class ZedLogFrameController implements NativeMouseListener {
 		removeDataLogger();
 	}
 
-	private File openSaveDialog() {
-
-		JFileChooser fileChooser = new JFileChooser();
-		int ret = fileChooser.showSaveDialog(frame);
-
-		if (ret == JFileChooser.APPROVE_OPTION) {
-
-			return fileChooser.getSelectedFile();
-
-		} else if (ret == JFileChooser.ERROR_OPTION) {
-
-			logger.warning("Error occured with file chooser when saving.");
-			return null;
-
-		} else {
-
-			logger.info("User cancelled saving file.");
-			return null;
-
-		}
-
-	}
-
 	private void mitemSaveActionPerformed(ActionEvent evt) {
 
-		File saveFile = openSaveDialog();
+		File saveFile = SimpleDialog.saveFile(frame);
 		if (saveFile != null) {
 
 			logger.info(String.format("Saving to %s.", saveFile.getPath()));
@@ -370,32 +368,26 @@ public final class ZedLogFrameController implements NativeMouseListener {
 
 	}
 
-	private void mitemLogFileActionPerformed(ActionEvent evt) {
+	private void mitemLogDirActionPerformed(ActionEvent evt) {
 
-		File saveFile = openSaveDialog();
-		if (saveFile != null) {
+		File logDir = SimpleDialog.selectDir(frame);
+		if (logDir != null) {
 
-			logger.info(String.format("Setting log file to '%s'.", saveFile.getPath()));
+			logger.info(String.format("Setting log directory to '%s'.", logDir.getPath()));
 
-			// set the log file output
 			try {
-
-				// close the old log file
-				if (logFile != null) {
-					loggers.removeObserver(logFile);
-					logFile.close();
-				}
-
-				// add the log handler
-				logFile = new DataLoggerWriter(new FileWriter(saveFile));
-				loggers.addObserver(logFile);
-
+				loggers.setLogDirectory(logDir);
 			} catch (IOException ex) {
-				logger.error(String.format("Error setting log file to '%s'.", saveFile.getPath()), ex);
+
+				String msg =
+					String.format("Failed to set the log directory to '%s'.", logDir.getPath());
+				logger.error(msg, ex);
+
 				return;
+
 			}
 
-			logger.info(String.format("Log file set to '%s'.", saveFile.getPath()));
+			logger.info(String.format("Log directory set to '%s'.", logDir.getPath()));
 
 		}
 

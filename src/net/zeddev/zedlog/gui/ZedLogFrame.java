@@ -61,7 +61,7 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         menubar = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         mitemSave = new javax.swing.JMenuItem();
-        mitemLogFile = new javax.swing.JMenuItem();
+        mitemLogDir = new javax.swing.JMenuItem();
         javax.swing.JPopupMenu.Separator jSeparator1 = new javax.swing.JPopupMenu.Separator();
         mitemQuit = new javax.swing.JMenuItem();
         menuLoggers = new javax.swing.JMenu();
@@ -101,9 +101,9 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         mitemSave.setText("Save");
         menuFile.add(mitemSave);
 
-        mitemLogFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        mitemLogFile.setText("Set Log File");
-        menuFile.add(mitemLogFile);
+        mitemLogDir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        mitemLogDir.setText("Set Log Directory");
+        menuFile.add(mitemLogDir);
         menuFile.add(jSeparator1);
 
         mitemQuit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
@@ -220,8 +220,8 @@ public final class ZedLogFrame extends javax.swing.JFrame {
 		return mitemSave;
 	}
 
-	public JMenuItem getMItemLogFile() {
-		return mitemLogFile;
+	public JMenuItem getMItemLogDir() {
+		return mitemLogDir;
 	}
 
 	public JMenuItem getMItemLogWindow() {
@@ -287,7 +287,7 @@ public final class ZedLogFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem mitemAdd;
     private javax.swing.JMenuItem mitemHelp;
     private javax.swing.JMenuItem mitemHide;
-    private javax.swing.JMenuItem mitemLogFile;
+    private javax.swing.JMenuItem mitemLogDir;
     private javax.swing.JMenuItem mitemLogWindow;
     private javax.swing.JMenuItem mitemMsgLogFile;
     private javax.swing.JMenuItem mitemQuit;
