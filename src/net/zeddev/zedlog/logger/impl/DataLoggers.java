@@ -71,8 +71,6 @@ public class DataLoggers {
 
 		assert(type != null);
 
-		type = type.toLowerCase();
-
 		if (LOGGERS.containsKey(type)) {
 			return LOGGERS.get(type);
 		} else {
