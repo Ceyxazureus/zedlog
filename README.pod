@@ -34,6 +34,13 @@ following;
 The ZedLog GUI is fairly intuitive but there is also full usage doc-
 umentation under the help menu (or just press F1).
 
+=head2 Cross-Platform
+
+ZedLog is implemented completely in Java and is therefore cross-platform.  
+Most PC platforms (Windows, Linux and Max OS) are supported, only 
+limited by the L<JNativeHook|https://code.google.com/p/jnativehook/> 
+library which provides the native mouse and keyboard support.
+
 =head2 Development
 
 If you are a Java developer (or maybe a user who wants to help with 
