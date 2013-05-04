@@ -64,8 +64,10 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 		if (logDirectory == null)
 			return;
 
+		String logFile = String.format("%s.log", logger.type());
+
 		final FileWriter fileWriter = new FileWriter(
-			new File(logDirectory.getAbsolutePath(), logger.type())
+			new File(logDirectory, logFile)
 		);
 
 		DataLoggerWriter dataWriter = new DataLoggerWriter(fileWriter);
