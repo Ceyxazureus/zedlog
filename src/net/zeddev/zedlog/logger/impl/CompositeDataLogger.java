@@ -129,6 +129,9 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 			for (DataLogger logger : loggers)
 				addLogWriter(logger);
 
+			// add the composite logger itself
+			addLogWriter(this);
+
 		}
 
 	}
