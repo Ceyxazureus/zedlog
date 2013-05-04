@@ -52,6 +52,8 @@ public final class ZedLogFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         tabs = new javax.swing.JTabbedPane();
         btnAdd = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
@@ -62,6 +64,7 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         menuFile = new javax.swing.JMenu();
         mitemSave = new javax.swing.JMenuItem();
         mitemLogDir = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         javax.swing.JPopupMenu.Separator jSeparator1 = new javax.swing.JPopupMenu.Separator();
         mitemQuit = new javax.swing.JMenuItem();
         menuLoggers = new javax.swing.JMenu();
@@ -69,14 +72,19 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         mitemRemove = new javax.swing.JMenuItem();
         menuTools = new javax.swing.JMenu();
         mitemHide = new javax.swing.JMenuItem();
+        mitemReplay = new javax.swing.JMenuItem();
         sep = new javax.swing.JPopupMenu.Separator();
-        javax.swing.JMenuItem mitemProgramLog = new javax.swing.JMenuItem();
+        menuProgramLog = new javax.swing.JMenu();
         mitemMsgLogFile = new javax.swing.JMenuItem();
         mitemLogWindow = new javax.swing.JMenuItem();
         menuHelp = new javax.swing.JMenu();
         mitemHelp = new javax.swing.JMenuItem();
         javax.swing.JPopupMenu.Separator sep1 = new javax.swing.JPopupMenu.Separator();
         mitemAbout = new javax.swing.JMenuItem();
+
+        jMenu1.setText("jMenu1");
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(Config.INSTANCE.FULL_NAME);
@@ -104,6 +112,11 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         mitemLogDir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         mitemLogDir.setText("Set Log Directory");
         menuFile.add(mitemLogDir);
+
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem2.setMnemonic('O');
+        jMenuItem2.setText("Open Log Directory");
+        menuFile.add(jMenuItem2);
         menuFile.add(jSeparator1);
 
         mitemQuit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
@@ -134,17 +147,24 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         mitemHide.setMnemonic('H');
         mitemHide.setText("Hide");
         menuTools.add(mitemHide);
+
+        mitemReplay.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
+        mitemReplay.setMnemonic('R');
+        mitemReplay.setText("Replay Events");
+        mitemReplay.setToolTipText("Replay the events recorded by the loggers.");
+        menuTools.add(mitemReplay);
         menuTools.add(sep);
 
-        mitemProgramLog.setText("----- Program Log -----");
-        mitemProgramLog.setEnabled(false);
-        menuTools.add(mitemProgramLog);
+        menuProgramLog.setText("Program Log");
+        menuProgramLog.setToolTipText(null);
 
         mitemMsgLogFile.setText("Set Log File");
-        menuTools.add(mitemMsgLogFile);
+        menuProgramLog.add(mitemMsgLogFile);
 
         mitemLogWindow.setText("Show Log Window");
-        menuTools.add(mitemLogWindow);
+        menuProgramLog.add(mitemLogWindow);
+
+        menuTools.add(menuProgramLog);
 
         menubar.add(menuTools);
 
@@ -278,9 +298,13 @@ public final class ZedLogFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnNext;
     private javax.swing.JButton btnPrev;
     private javax.swing.JButton btnRemove;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenu menuFile;
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenu menuLoggers;
+    private javax.swing.JMenu menuProgramLog;
     private javax.swing.JMenu menuTools;
     private javax.swing.JMenuBar menubar;
     private javax.swing.JMenuItem mitemAbout;
@@ -292,6 +316,7 @@ public final class ZedLogFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem mitemMsgLogFile;
     private javax.swing.JMenuItem mitemQuit;
     private javax.swing.JMenuItem mitemRemove;
+    private javax.swing.JMenuItem mitemReplay;
     private javax.swing.JMenuItem mitemSave;
     private javax.swing.JPopupMenu.Separator sep;
     private javax.swing.JTabbedPane tabs;
