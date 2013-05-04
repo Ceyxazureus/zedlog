@@ -84,13 +84,13 @@ public class DataLoggers {
 	 * <code>newDataLogger()</code>.
 	 * The currently supported types are;
 	 * <ul>
-	 *	<li>"char typed" - <code>CharTypedLogger</code>.</li>
-	 *	<li>"key pressed" - <code>KeyPressedLogger</code>.</li>
-	 *  <li>"key released" - <code>CharTypedLogger</code>.</li>
-	 *  <li>"mouse click" - <code>MouseClickLogger</code>.</li>
-	 *  <li>"mouse movement" - <code>MouseMovementLogger</code>.</li>
-	 *  <li>"mouse dragged" - <code>MouseDraggedLogger</code>.</li>
-	 *  <li>"mouse wheel" - <code>MouseWheelLogger</code>.</li>
+	 *	<li>"CharTyped" - <code>CharTypedLogger</code>.</li>
+	 *	<li>"keyPressed" - <code>KeyPressedLogger</code>.</li>
+	 *  <li>"KeyReleased" - <code>CharTypedLogger</code>.</li>
+	 *  <li>"MouseClick" - <code>MouseClickLogger</code>.</li>
+	 *  <li>"MouseMovement" - <code>MouseMovementLogger</code>.</li>
+	 *  <li>"MouseDrag" - <code>MouseDraggedLogger</code>.</li>
+	 *  <li>"MouseWheel" - <code>MouseWheelLogger</code>.</li>
 	 * </ul>
 	 *
 	 * @return The list of available <code>DataLogger</code> types.
