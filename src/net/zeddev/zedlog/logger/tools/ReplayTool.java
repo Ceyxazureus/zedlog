@@ -187,6 +187,15 @@ public final class ReplayTool {
 
 	}
 
+	// notifies observers when the replay tool has finished
+	private void notifyFinished() {
+
+		// notify of finish
+		for (ReplayToolObserver observer : observers)
+			observer.replayFinished();
+
+	}
+
 	/**
 	 * Returns a <code>Runnable</code>, which replays the events, timed the same
 	 * as the original events.
@@ -197,13 +206,21 @@ public final class ReplayTool {
 		return new ReplayTimed();
 	}
 
+	/**
+	 * Returns a <code>Runnable</code> which replays the events, as fast as
+	 * possible.
+	 *
+	 * @return
+	 */
+	public Runnable replayFast() {
+		return new ReplayFast();
+	}
+
 	// Replays the events, timed the same as the original events
 	private class ReplayTimed implements Runnable {
 
 		@Override
 		public void run() {
-
-			logger.info("Replay tool simulation started.");
 
 			// the robot used to simulate keyboard and mouse events
 			Robot robot;
@@ -244,11 +261,45 @@ public final class ReplayTool {
 
 			}
 
-			// notify of finish
-			for (ReplayToolObserver observer : observers)
-				observer.replayFinished();
+			notifyFinished();
 
-			logger.info("Replay tool simulation finished.");
+		}
+
+	}
+
+	// Replays the events, aas fast as possible
+	private class ReplayFast implements Runnable {
+
+		@Override
+		public void run() {
+
+			// the robot used to simulate keyboard and mouse events
+			Robot robot;
+			try {
+				robot = new Robot();
+			} catch (AWTException ex) {
+				logger.error("Failed to initialise input control!", ex);
+				return;
+			}
+
+			running = true;
+
+			// simulate each logged event
+			for (int i = 0; running && i < logEntries.size(); i++) {
+				// NOTE it is assumed that the log entries are in chronological order
+
+				simEvent(robot, logEntries.get(i).getEvent());
+
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException ex) { }
+
+			}
+
+			// wait for events to finish
+			robot.waitForIdle();
+
+			notifyFinished();
 
 		}
 
@@ -261,7 +312,6 @@ public final class ReplayTool {
 	 */
 	public void stop() {
 		running = false;
-		logger.info("Replay tool simulation stopped.");
 	}
 
 }
