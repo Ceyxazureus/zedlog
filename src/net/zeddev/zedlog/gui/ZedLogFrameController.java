@@ -23,6 +23,7 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.logging.Level;
 import javax.swing.JFileChooser;
 import javax.swing.JTabbedPane;
 import net.zeddev.litelogger.Logger;
@@ -100,6 +101,12 @@ public final class ZedLogFrameController implements NativeMouseListener {
             }
         });
 
+		frame.getBtnClear().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                btnClearActionPerformed(event);
+            }
+        });
+
 		frame.getBtnNext().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 btnNextActionPerformed(event);
@@ -127,6 +134,12 @@ public final class ZedLogFrameController implements NativeMouseListener {
 		frame.getMItemRemove().addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mitemRemoveActionPerformed(evt);
+            }
+        });
+
+		frame.getMItemClear().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemClearActionPerformed(evt);
             }
         });
 
@@ -313,6 +326,31 @@ public final class ZedLogFrameController implements NativeMouseListener {
 	private void btnRemoveActionPerformed(final ActionEvent event) {
 		removeDataLogger();
     }
+
+	private void clearAllLoggers() {
+
+		try {
+			loggers.clear();
+		} catch (IOException ex) {
+			logger.error("Failed to clear loggers!", ex);
+		}
+
+		// clear the loggers tabs
+		while (frame.getTabs().getTabCount() > 0)
+			frame.getTabs().remove(0);
+
+		// put the composite logger back on the frame
+		addLoggerTab(loggers);
+
+	}
+
+	private void btnClearActionPerformed(final ActionEvent event) {
+		clearAllLoggers();
+    }
+
+	private void mitemClearActionPerformed(final ActionEvent event) {
+		clearAllLoggers();
+	}
 
 	private void btnNextActionPerformed(final ActionEvent event) {
 

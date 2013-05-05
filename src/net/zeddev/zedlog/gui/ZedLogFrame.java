@@ -60,6 +60,7 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         btnNext = new javax.swing.JButton();
         btnPrev = new javax.swing.JButton();
         btnHide = new javax.swing.JButton();
+        btnClear = new javax.swing.JButton();
         menubar = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         mitemSave = new javax.swing.JMenuItem();
@@ -70,6 +71,7 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         menuLoggers = new javax.swing.JMenu();
         mitemAdd = new javax.swing.JMenuItem();
         mitemRemove = new javax.swing.JMenuItem();
+        mitemClear = new javax.swing.JMenuItem();
         menuTools = new javax.swing.JMenu();
         mitemHide = new javax.swing.JMenuItem();
         mitemReplay = new javax.swing.JMenuItem();
@@ -104,6 +106,10 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         btnHide.setMnemonic('H');
         btnHide.setText("Hide");
         btnHide.setToolTipText("Hide the ZedLog window.");
+
+        btnClear.setMnemonic('C');
+        btnClear.setText("Clear");
+        btnClear.setToolTipText("Clear all loggers and all logged data.");
 
         menuFile.setText("File");
 
@@ -147,6 +153,11 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         mitemRemove.setText("Remove Logger");
         mitemRemove.setToolTipText("Remove the selected logger from ZedLog.");
         menuLoggers.add(mitemRemove);
+
+        mitemClear.setMnemonic('C');
+        mitemClear.setText("Clear All");
+        mitemClear.setToolTipText("Clear all loggers and all logged data.");
+        menuLoggers.add(mitemClear);
 
         menubar.add(menuLoggers);
 
@@ -208,9 +219,11 @@ public final class ZedLogFrame extends javax.swing.JFrame {
                 .addComponent(btnAdd)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRemove)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 180, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnClear)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
                 .addComponent(btnHide)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 181, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 189, Short.MAX_VALUE)
                 .addComponent(btnPrev)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnNext))
@@ -224,7 +237,8 @@ public final class ZedLogFrame extends javax.swing.JFrame {
                     .addComponent(btnRemove)
                     .addComponent(btnNext)
                     .addComponent(btnPrev)
-                    .addComponent(btnHide))
+                    .addComponent(btnHide)
+                    .addComponent(btnClear))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tabs, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE))
         );
@@ -282,6 +296,14 @@ public final class ZedLogFrame extends javax.swing.JFrame {
 		return btnRemove;
 	}
 
+	public JButton getBtnClear() {
+		return btnClear;
+	}
+
+	public JMenuItem getMItemClear() {
+		return mitemClear;
+	}
+
 	public JButton getBtnNext() {
 		return btnNext;
 	}
@@ -312,6 +334,7 @@ public final class ZedLogFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnClear;
     private javax.swing.JButton btnHide;
     private javax.swing.JButton btnNext;
     private javax.swing.JButton btnPrev;
@@ -327,6 +350,7 @@ public final class ZedLogFrame extends javax.swing.JFrame {
     private javax.swing.JMenuBar menubar;
     private javax.swing.JMenuItem mitemAbout;
     private javax.swing.JMenuItem mitemAdd;
+    private javax.swing.JMenuItem mitemClear;
     private javax.swing.JMenuItem mitemHelp;
     private javax.swing.JMenuItem mitemHide;
     private javax.swing.JMenuItem mitemLogDir;
