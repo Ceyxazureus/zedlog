@@ -2,6 +2,7 @@
 TODO list for ZedLog
 ~~~~~~~~~~~~~~~~~~~~
 
+ * Add mouse pressed/released handlers
  * Add a cli
 	-> add loggers
 	-> hide on startup
