@@ -96,6 +96,11 @@
                 <Property name="toolTipText" type="java.lang.String" value="Remove the selected logger from ZedLog."/>
               </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mitemClearAll">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Clear All"/>
+              </Properties>
+            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuTools">
@@ -218,9 +223,11 @@
               <Component id="btnAdd" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnRemove" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="180" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnClearAll" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="102" max="32767" attributes="0"/>
               <Component id="btnHide" max="-2" attributes="0"/>
-              <EmptySpace pref="181" max="32767" attributes="0"/>
+              <EmptySpace pref="182" max="32767" attributes="0"/>
               <Component id="btnPrev" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnNext" min="-2" max="-2" attributes="0"/>
@@ -237,6 +244,7 @@
                   <Component id="btnNext" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnPrev" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnHide" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnClearAll" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="tabs" pref="430" max="32767" attributes="0"/>
@@ -277,6 +285,13 @@
         <Property name="mnemonic" type="int" value="72"/>
         <Property name="text" type="java.lang.String" value="Hide"/>
         <Property name="toolTipText" type="java.lang.String" value="Hide the ZedLog window."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnClearAll">
+      <Properties>
+        <Property name="mnemonic" type="int" value="67"/>
+        <Property name="text" type="java.lang.String" value="Clear All"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
     </Component>
   </SubComponents>
