@@ -161,7 +161,7 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         mitemReplay.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         mitemReplay.setMnemonic('R');
         mitemReplay.setText("Replay Events");
-        mitemReplay.setToolTipText("Replay the events recorded by ZedLog.");
+        mitemReplay.setToolTipText("Replay/simulate the events recorded by ZedLog.");
         menuTools.add(mitemReplay);
         menuTools.add(sep);
 
@@ -240,6 +240,10 @@ public final class ZedLogFrame extends javax.swing.JFrame {
 
 	public JMenuItem getMItemRemove() {
 		return mitemRemove;
+	}
+
+	public JMenuItem getMItemReplay() {
+		return mitemReplay;
 	}
 
 	public JButton getBtnHide() {

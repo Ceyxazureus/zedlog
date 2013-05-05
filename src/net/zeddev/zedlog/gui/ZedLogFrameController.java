@@ -23,7 +23,6 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.logging.Level;
 import javax.swing.JFileChooser;
 import javax.swing.JTabbedPane;
 import net.zeddev.litelogger.Logger;
@@ -31,11 +30,11 @@ import net.zeddev.litelogger.handlers.WindowLogHandler;
 import net.zeddev.litelogger.handlers.WriterLogHandler;
 import net.zeddev.zedlog.HelpDoc;
 import net.zeddev.zedlog.gui.dialog.NewLoggerDialog;
-import net.zeddev.zedlog.gui.dialog.AboutDialog; 
+import net.zeddev.zedlog.gui.dialog.AboutDialog;
 import net.zeddev.zedlog.gui.dialog.SimpleDialog;
+import net.zeddev.zedlog.gui.dialog.ReplayToolDialog;
 import net.zeddev.zedlog.logger.DataLogger;
 import net.zeddev.zedlog.logger.impl.CompositeDataLogger;
-import net.zeddev.zedlog.logger.impl.DataLoggerWriter;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.mouse.NativeMouseEvent;
 import org.jnativehook.mouse.NativeMouseListener;
@@ -128,6 +127,12 @@ public final class ZedLogFrameController implements NativeMouseListener {
 		frame.getMItemRemove().addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mitemRemoveActionPerformed(evt);
+            }
+        });
+
+		frame.getMItemReplay().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemReplayActionPerformed(evt);
             }
         });
 
@@ -345,6 +350,11 @@ public final class ZedLogFrameController implements NativeMouseListener {
 
 	private void mitemRemoveActionPerformed(ActionEvent evt) {
 		removeDataLogger();
+	}
+
+	private void mitemReplayActionPerformed(ActionEvent evt) {
+		ReplayToolDialog replayTool = new ReplayToolDialog(frame, loggers);
+		replayTool.setVisible(true);
 	}
 
 	private void mitemSaveActionPerformed(ActionEvent evt) {

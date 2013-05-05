@@ -118,7 +118,7 @@
                 </Property>
                 <Property name="mnemonic" type="int" value="82"/>
                 <Property name="text" type="java.lang.String" value="Replay Events"/>
-                <Property name="toolTipText" type="java.lang.String" value="Replay the events recorded by ZedLog."/>
+                <Property name="toolTipText" type="java.lang.String" value="Replay/simulate the events recorded by ZedLog."/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="sep">
