@@ -60,7 +60,7 @@ public final class CharTypedLogger extends AbstractDataLogger implements NativeK
 	@Override
 	public void nativeKeyTyped(NativeKeyEvent event) {
 
-		KeyEvent keyEvent = new KeyEvent(KeyEvent.Type.RELEASED, event.getKeyCode(), event.getKeyChar());
+		KeyEvent keyEvent = new KeyEvent(KeyEvent.Type.TYPED, -1, event.getKeyChar());
 		String logMsg;
 
 		// add spacing if not alphanumeric char
