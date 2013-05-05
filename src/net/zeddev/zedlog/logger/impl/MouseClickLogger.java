@@ -74,15 +74,25 @@ public final class MouseClickLogger extends AbstractDataLogger
 	 *
 	 * @author Zachary Scott <zscott.dev@gmail.com>
 	 */
-	public final class MouseClickedEvent extends MouseEvent {
+	public static final class MouseClickedEvent extends MouseEvent {
 
+		private int buttonCode;
 		private String button;
 		private int clickCount;
 
 		protected MouseClickedEvent(final NativeMouseEvent event) {
 			super(event);
+			setButtonCode(event.getButton());
 			setButton(buttonName(event.getButton()));
 			setClickCount(event.getClickCount());
+		}
+
+		public final int getButtonCode() {
+			return buttonCode;
+		}
+
+		public final void setButtonCode(int buttonCode) {
+			this.buttonCode = buttonCode;
 		}
 
 		public final String getButton() {
