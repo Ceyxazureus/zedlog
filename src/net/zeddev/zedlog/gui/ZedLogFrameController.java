@@ -341,6 +341,8 @@ public final class ZedLogFrameController implements NativeMouseListener {
 
 		addLoggerTab(loggers);
 
+		logger.info("Cleared data loggers.");
+
 	}
 
 	private void btnClearAllActionPerformed(final ActionEvent event) {
