@@ -40,6 +40,9 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 
 	private StringBuilder log = new StringBuilder();
 
+	// each log entry made by the children loggers
+	private List<LogEntry> logEntries = new ArrayList<>();
+
 	private List<DataLogger> loggers = new ArrayList<>();
 
 	private File logDirectory = null;
@@ -208,6 +211,15 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 		loggers.remove(index);
 	}
 
+	/**
+	 * Returns a list of all entries made by children loggers.
+	 *
+	 * @return A list of all entries made by children loggers.
+	 */
+	public List<LogEntry> logEntries() {
+		return new ArrayList<>(logEntries);
+	}
+
 	private DataLogger lastToNotify = null;
 
 	@Override
@@ -230,6 +242,7 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 		}
 
 		log.append(logEntry);
+		logEntries.add(logEntry);
 
 		notifyDataLoggerObservers(logger, logEntry);
 
