@@ -67,7 +67,7 @@ public class ReplayToolDialog extends javax.swing.JDialog implements ReplayToolO
 
         progressBar = new javax.swing.JProgressBar();
         lblCurrent = new javax.swing.JLabel();
-        btnRun = new javax.swing.JToggleButton();
+        btnRunTimed = new javax.swing.JToggleButton();
         btnClose = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -84,11 +84,12 @@ public class ReplayToolDialog extends javax.swing.JDialog implements ReplayToolO
         lblCurrent.setText(" ");
         lblCurrent.setToolTipText("");
 
-        btnRun.setText("Run");
-        btnRun.setToolTipText("Start/stop the replay tool.");
-        btnRun.addActionListener(new java.awt.event.ActionListener() {
+        btnRunTimed.setMnemonic('T');
+        btnRunTimed.setText("Run Timed");
+        btnRunTimed.setToolTipText("Replay the events, with original timing.");
+        btnRunTimed.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRunActionPerformed(evt);
+                btnRunTimedActionPerformed(evt);
             }
         });
 
@@ -112,7 +113,7 @@ public class ReplayToolDialog extends javax.swing.JDialog implements ReplayToolO
                     .addComponent(lblCurrent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnRun)
+                        .addComponent(btnRunTimed)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnClose)))
                 .addContainerGap())
@@ -126,7 +127,7 @@ public class ReplayToolDialog extends javax.swing.JDialog implements ReplayToolO
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRun)
+                    .addComponent(btnRunTimed)
                     .addComponent(btnClose))
                 .addContainerGap())
         );
@@ -134,21 +135,21 @@ public class ReplayToolDialog extends javax.swing.JDialog implements ReplayToolO
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRunActionPerformed
+    private void btnRunTimedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRunTimedActionPerformed
 
-		if (btnRun.isSelected()) {
+		if (btnRunTimed.isSelected()) {
 
 			progressBar.setValue(0);
 
 			// start the simulation
-			Thread toolThread = new Thread(tool);
+			Thread toolThread = new Thread(tool.replayTimed());
 			toolThread.start();
 
 		} else {
 			tool.stop();
 		}
 
-    }//GEN-LAST:event_btnRunActionPerformed
+    }//GEN-LAST:event_btnRunTimedActionPerformed
 
 	private void shutdown() {
 		tool.removeObserver(this);
@@ -178,12 +179,12 @@ public class ReplayToolDialog extends javax.swing.JDialog implements ReplayToolO
 
 	@Override
 	public void replayFinished() {
-		btnRun.setSelected(false);
+		btnRunTimed.setSelected(false);
 	}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
-    private javax.swing.JToggleButton btnRun;
+    private javax.swing.JToggleButton btnRunTimed;
     private javax.swing.JLabel lblCurrent;
     private javax.swing.JProgressBar progressBar;
     // End of variables declaration//GEN-END:variables

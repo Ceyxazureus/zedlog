@@ -34,7 +34,7 @@
                   <Component id="lblCurrent" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="btnRun" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnRunTimed" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnClose" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -52,7 +52,7 @@
               <Component id="progressBar" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnRun" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnRunTimed" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnClose" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -73,13 +73,14 @@
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JToggleButton" name="btnRun">
+    <Component class="javax.swing.JToggleButton" name="btnRunTimed">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Run"/>
-        <Property name="toolTipText" type="java.lang.String" value="Start/stop the replay tool."/>
+        <Property name="mnemonic" type="int" value="84"/>
+        <Property name="text" type="java.lang.String" value="Run Timed"/>
+        <Property name="toolTipText" type="java.lang.String" value="Replay the events, with original timing."/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRunActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRunTimedActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnClose">

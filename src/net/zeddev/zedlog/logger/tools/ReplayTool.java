@@ -39,7 +39,7 @@ import net.zeddev.zedlog.logger.impl.MouseWheelLogger;
  *
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
-public final class ReplayTool implements Runnable {
+public final class ReplayTool {
 
 	private final Logger logger = Logger.getLogger(this);
 
@@ -188,58 +188,69 @@ public final class ReplayTool implements Runnable {
 	}
 
 	/**
-	 * Replays the events, timed the same as the original events.
+	 * Returns a <code>Runnable</code>, which replays the events, timed the same
+	 * as the original events.
 	 *
+	 * @returns
 	 */
-	@Override
-	public void run() {
+	public Runnable replayTimed() {
+		return new ReplayTimed();
+	}
 
-		logger.info("Replay tool simulation started.");
+	// Replays the events, timed the same as the original events
+	private class ReplayTimed implements Runnable {
 
-		// the robot used to simulate keyboard and mouse events
-		Robot robot;
-		try {
-			robot = new Robot();
-		} catch (AWTException ex) {
-			logger.error("Failed to initialise input control!", ex);
-			return;
-		}
+		@Override
+		public void run() {
 
-		running = true;
+			logger.info("Replay tool simulation started.");
 
-		// simulate each logged event
-		for (int i = 0; running && i < logEntries.size(); i++) {
-			// NOTE it is assumed that the log entries are in chronological order
+			// the robot used to simulate keyboard and mouse events
+			Robot robot;
+			try {
+				robot = new Robot();
+			} catch (AWTException ex) {
+				logger.error("Failed to initialise input control!", ex);
+				return;
+			}
 
-			long startTime = System.currentTimeMillis();
+			running = true;
 
-			simEvent(robot, logEntries.get(i).getEvent());
+			// simulate each logged event
+			for (int i = 0; running && i < logEntries.size(); i++) {
+				// NOTE it is assumed that the log entries are in chronological order
 
-			long timeTaken = System.currentTimeMillis() - startTime;
+				long startTime = System.currentTimeMillis();
 
-			// time the next event correctly
-			if ((i + 1) < logEntries.size()) {
+				simEvent(robot, logEntries.get(i).getEvent());
 
-				long delayTime = logEntries.get(i + 1).getTimestamp() - logEntries.get(i).getTimestamp();
-				delayTime -= timeTaken; // compensate for time taken simulating event
+				long timeTaken = System.currentTimeMillis() - startTime;
 
-				if (delayTime > 0) {
+				// time the next event correctly
+				if ((i + 1) < logEntries.size()) {
 
-					try {
-						Thread.sleep((int) delayTime);
-					} catch (InterruptedException ex) { }
+					long delayTime = logEntries.get(i + 1).getTimestamp() - logEntries.get(i).getTimestamp();
+					delayTime -= timeTaken; // compensate for time taken simulating event
+
+					if (delayTime > 0) {
+
+						try {
+							Thread.sleep((int) delayTime);
+						} catch (InterruptedException ex) { }
+
+					}
 
 				}
 
 			}
 
+			// notify of finish
+			for (ReplayToolObserver observer : observers)
+				observer.replayFinished();
+
+			logger.info("Replay tool simulation finished.");
+
 		}
-
-		// notify of finish
-		for (ReplayToolObserver observer : observers)
-			observer.replayFinished();
-
-		logger.info("Replay tool simulation finished.");
 
 	}
 
