@@ -21,6 +21,7 @@ import java.awt.Robot;
 import java.awt.event.InputEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import net.zeddev.litelogger.Logger;
 import net.zeddev.zedlog.logger.LogEntry;
 import net.zeddev.zedlog.logger.LogEvent;
@@ -222,8 +223,13 @@ public final class ReplayTool implements Runnable {
 				long delayTime = logEntries.get(i + 1).getTimestamp() - logEntries.get(i).getTimestamp();
 				delayTime -= timeTaken; // compensate for time taken simulating event
 
-				if (delayTime > 0)
-					robot.delay((int) delayTime);
+				if (delayTime > 0) {
+
+					try {
+						Thread.sleep((int) delayTime);
+					} catch (InterruptedException ex) { }
+
+				}
 
 			}
 
