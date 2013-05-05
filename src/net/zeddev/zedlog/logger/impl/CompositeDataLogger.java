@@ -211,6 +211,16 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 		loggers.remove(index);
 	}
 
+	public void clearAll() throws IOException {
+
+		for (int i = 0; i < loggers.size(); i++)
+			removeLogger(loggers.get(i));
+
+		logEntries.clear();
+		log = new StringBuilder();
+
+	}
+
 	/**
 	 * Returns a list of all entries made by children loggers.
 	 *
