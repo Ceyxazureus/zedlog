@@ -18,6 +18,7 @@ package net.zeddev.zedlog.gui.dialog;
 
 import java.awt.Frame;
 import java.util.List;
+import net.zeddev.litelogger.Logger;
 import net.zeddev.zedlog.logger.LogEntry;
 import net.zeddev.zedlog.logger.LogEvent;
 import net.zeddev.zedlog.logger.impl.CompositeDataLogger;
@@ -30,6 +31,8 @@ import net.zeddev.zedlog.logger.tools.ReplayToolObserver;
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
 public class ReplayToolDialog extends javax.swing.JDialog implements ReplayToolObserver {
+
+	private final Logger logger = Logger.getLogger(this);
 
 	private final ReplayTool tool;
 
@@ -69,6 +72,7 @@ public class ReplayToolDialog extends javax.swing.JDialog implements ReplayToolO
         lblCurrent = new javax.swing.JLabel();
         btnRunTimed = new javax.swing.JToggleButton();
         btnClose = new javax.swing.JButton();
+        btnRun = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Replay Events Tool");
@@ -102,6 +106,15 @@ public class ReplayToolDialog extends javax.swing.JDialog implements ReplayToolO
             }
         });
 
+        btnRun.setMnemonic('R');
+        btnRun.setText("Run");
+        btnRun.setToolTipText("Replay events as-fast-as-possible.");
+        btnRun.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRunActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -113,6 +126,8 @@ public class ReplayToolDialog extends javax.swing.JDialog implements ReplayToolO
                     .addComponent(lblCurrent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnRun)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnRunTimed)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnClose)))
@@ -128,7 +143,8 @@ public class ReplayToolDialog extends javax.swing.JDialog implements ReplayToolO
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRunTimed)
-                    .addComponent(btnClose))
+                    .addComponent(btnClose)
+                    .addComponent(btnRun))
                 .addContainerGap())
         );
 
@@ -136,7 +152,6 @@ public class ReplayToolDialog extends javax.swing.JDialog implements ReplayToolO
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRunTimedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRunTimedActionPerformed
-
 		if (btnRunTimed.isSelected()) {
 
 			progressBar.setValue(0);
@@ -144,6 +159,8 @@ public class ReplayToolDialog extends javax.swing.JDialog implements ReplayToolO
 			// start the simulation
 			Thread toolThread = new Thread(tool.replayTimed());
 			toolThread.start();
+
+			logger.info("Timed replay started.");
 
 		} else {
 			tool.stop();
@@ -166,6 +183,23 @@ public class ReplayToolDialog extends javax.swing.JDialog implements ReplayToolO
 		shutdown();
     }//GEN-LAST:event_formWindowClosing
 
+    private void btnRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRunActionPerformed
+        if (btnRun.isSelected()) {
+
+			progressBar.setValue(0);
+
+			// start the simulation
+			Thread toolThread = new Thread(tool.replayFast());
+			toolThread.start();
+
+			logger.info("Fast replay started.");
+
+		} else {
+			tool.stop();
+		}
+
+    }//GEN-LAST:event_btnRunActionPerformed
+
 	@Override
 	public void replayedEvent(LogEvent event) {
 
@@ -179,11 +213,17 @@ public class ReplayToolDialog extends javax.swing.JDialog implements ReplayToolO
 
 	@Override
 	public void replayFinished() {
+
 		btnRunTimed.setSelected(false);
+		btnRun.setSelected(false);
+
+		logger.info("Replay tool finished.");
+
 	}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
+    private javax.swing.JToggleButton btnRun;
     private javax.swing.JToggleButton btnRunTimed;
     private javax.swing.JLabel lblCurrent;
     private javax.swing.JProgressBar progressBar;
