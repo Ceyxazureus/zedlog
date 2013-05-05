@@ -69,10 +69,21 @@ public final class MouseDraggedLogger extends AbstractDataLogger
 	 *
 	 * @author Zachary Scott <zscott.dev@gmail.com>
 	 */
-	public final class MouseDraggedEvent extends MouseEvent {
+	public static final class MouseDraggedEvent extends MouseEvent {
+
+		private int buttonCode;
 
 		protected MouseDraggedEvent(final NativeMouseEvent event) {
 			super(event);
+			setButtonCode(event.getButton());
+		}
+
+		public final int getButtonCode() {
+			return buttonCode;
+		}
+
+		public final void setButtonCode(int buttonCode) {
+			this.buttonCode = buttonCode;
 		}
 
 		@Override
