@@ -139,7 +139,7 @@ public final class SimpleDialog {
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
-		int ret = fileChooser.showSaveDialog(parent);
+		int ret = fileChooser.showDialog(parent, "Select");
 		if (ret == JFileChooser.APPROVE_OPTION) {
 
 			return fileChooser.getSelectedFile();
