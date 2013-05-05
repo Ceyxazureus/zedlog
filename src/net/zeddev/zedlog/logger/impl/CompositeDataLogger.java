@@ -20,7 +20,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -120,7 +119,7 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	 *         existing loggers.
 	 * @throws IOException If error occurs while removing existing log directory.
 	 */
-	public synchronized void setLogDirectory(final File dir) throws IOException {
+	public void setLogDirectory(final File dir) throws IOException {
 
 		assert(dir != null && dir.isDirectory());
 
@@ -163,7 +162,7 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	 * @param index The index of the logger to get.
 	 * @return The <code>DataLogger</code> at the given index.
 	 */
-	public synchronized DataLogger getLogger(int index) {
+	public DataLogger getLogger(int index) {
 		assert(index >= 0 && index < loggers.size());
 		return loggers.get(index);
 	}
@@ -174,7 +173,7 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	 * @param logger The logger to add.
 	 * @throws IOException If exception occurs while establishing log file.
 	 */
-	public synchronized void addLogger(final DataLogger logger) throws IOException {
+	public void addLogger(final DataLogger logger) throws IOException {
 
 		assert(logger != null);
 
@@ -191,7 +190,7 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	 * @param logger The logger to be removed.
 	 * @throws IOException If error occured when closing log file for the logger.
 	 */
-	public synchronized void removeLogger(final DataLogger logger) throws IOException {
+	public void removeLogger(final DataLogger logger) throws IOException {
 
 		assert(logger != null);
 
@@ -203,27 +202,11 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	}
 
 	/**
-	 * Clears all <code>DataLogger</code>s and <code>LogEntry</code>s.
-	 *
-	 */
-	public synchronized void clear() throws IOException {
-
-		// remove all of the loggers
-		for (int i = 0; i < loggers.size(); i++)
-			removeLogger(loggers.get(i));
-
-		loggers.clear();
-		logEntries.clear();
-		log = new StringBuilder();
-
-	}
-
-	/**
 	 * Removes the <code>DataLogger</code> at the given index.
 	 *
 	 * @param index The index of the <code>DataLogger</code> to be removed.
 	 */
-	public synchronized void removeLogger(int index) {
+	public void removeLogger(int index) {
 		assert(index >= 0 && index < loggers.size());
 		loggers.remove(index);
 	}
@@ -233,14 +216,14 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	 *
 	 * @return A list of all entries made by children loggers.
 	 */
-	public synchronized List<LogEntry> logEntries() {
+	public List<LogEntry> logEntries() {
 		return new ArrayList<>(logEntries);
 	}
 
 	private DataLogger lastToNotify = null;
 
 	@Override
-	public synchronized void notifyLog(final DataLogger logger, final LogEntry logEntry) {
+	public void notifyLog(final DataLogger logger, final LogEntry logEntry) {
 
 		assert(logger != null);
 		assert(logEntry != null);
