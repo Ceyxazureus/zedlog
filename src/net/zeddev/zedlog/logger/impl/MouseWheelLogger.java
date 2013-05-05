@@ -64,7 +64,7 @@ public final class MouseWheelLogger extends AbstractDataLogger
 	 *
 	 * @author Zachary Scott <zscott.dev@gmail.com>
 	 */
-	public final class MouseWheelMovedEvent extends MouseEvent {
+	public static final class MouseWheelMovedEvent extends MouseEvent {
 
 		private int rotation;
 
