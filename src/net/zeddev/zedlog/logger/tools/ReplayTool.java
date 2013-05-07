@@ -173,6 +173,7 @@ public final class ReplayTool {
 	// simulates a mouse wheel movement
 	private void simMouseWheelEvent(Robot robot, MouseWheelLogger.MouseWheelMovedEvent event) {
 
+		robot.mouseMove(event.getX(), event.getY());
 		robot.mouseWheel(event.getRotation());
 
 	}
