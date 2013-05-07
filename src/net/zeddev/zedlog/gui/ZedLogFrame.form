@@ -204,7 +204,7 @@
       <Connection code="Config.INSTANCE.FULL_NAME" type="code"/>
     </Property>
     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[640, 480]"/>
+      <Dimension value="[500, 400]"/>
     </Property>
   </Properties>
   <AccessibilityProperties>

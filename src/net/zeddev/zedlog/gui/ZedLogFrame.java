@@ -98,7 +98,7 @@ public final class ZedLogFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(Config.INSTANCE.FULL_NAME);
-        setPreferredSize(new java.awt.Dimension(640, 480));
+        setPreferredSize(new java.awt.Dimension(500, 400));
 
         toolbar.setFloatable(false);
         toolbar.setRollover(true);
