@@ -23,7 +23,6 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.logging.Level;
 import javax.swing.JFileChooser;
 import javax.swing.JTabbedPane;
 import net.zeddev.litelogger.Logger;
@@ -199,9 +198,8 @@ public final class ZedLogFrameController implements NativeMouseListener {
 
 		assert(logger != null);
 
-		// create logger view panel (and view controller)
-		LoggerPanel loggerPanel = new LoggerPanel();
-		new LoggerPanelController(loggerPanel, logger);
+		// create logger panel view
+		LoggerPanel loggerPanel = new LoggerPanel(logger);
 
 		// add a logger panel tab for the new logger
 		frame.getTabs().add(logger.type(), loggerPanel);
