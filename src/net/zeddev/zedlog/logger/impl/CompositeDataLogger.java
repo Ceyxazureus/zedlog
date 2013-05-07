@@ -193,9 +193,10 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 		assert(logger != null);
 
 		logger.removeObserver(this);
-		loggers.remove(logger);
 
 		removeLogWriter(logger);
+
+		loggers.remove(logger);
 
 	}
 
@@ -216,8 +217,8 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	 */
 	public void clearAll() throws IOException {
 
-		for (int i = 0; i < loggers.size(); i++)
-			removeLogger(loggers.get(i));
+		for (DataLogger logger : new ArrayList<>(loggers))
+			removeLogger(logger);
 
 		logEntries.clear();
 
