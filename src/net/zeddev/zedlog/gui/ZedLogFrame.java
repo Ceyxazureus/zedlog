@@ -98,16 +98,18 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         toolbar.setFloatable(false);
         toolbar.setRollover(true);
 
+        btnAdd.setIcon(Icons.getInstance().getIcon("add"));
         btnAdd.setText("Add");
         btnAdd.setToolTipText("Add a new logger to ZedLog.");
         toolbar.add(btnAdd);
 
+        btnRemove.setIcon(Icons.getInstance().getIcon("remove"));
         btnRemove.setText("Remove");
         btnRemove.setToolTipText("Remove the selected logger from ZedLog.");
         toolbar.add(btnRemove);
 
         btnClearAll.setMnemonic('C');
-        btnClearAll.setText("Clear All");
+        btnClearAll.setText("Clear");
         btnClearAll.setToolTipText("Clears all log entries from all loggers.");
         toolbar.add(btnClearAll);
         toolbar.add(jSeparator2);
@@ -157,12 +159,14 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         menuLoggers.setText("Loggers");
 
         mitemAdd.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_EQUALS, java.awt.event.InputEvent.CTRL_MASK));
+        mitemAdd.setIcon(Icons.getInstance().getIcon("add"));
         mitemAdd.setMnemonic('A');
         mitemAdd.setText("Add Logger");
         mitemAdd.setToolTipText("Add a new logger to ZedLog.");
         menuLoggers.add(mitemAdd);
 
         mitemRemove.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_MINUS, java.awt.event.InputEvent.CTRL_MASK));
+        mitemRemove.setIcon(Icons.getInstance().getIcon("remove"));
         mitemRemove.setMnemonic('R');
         mitemRemove.setText("Remove Logger");
         mitemRemove.setToolTipText("Remove the selected logger from ZedLog.");
