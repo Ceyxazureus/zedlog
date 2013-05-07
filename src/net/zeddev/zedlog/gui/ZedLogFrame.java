@@ -16,6 +16,7 @@
 
 package net.zeddev.zedlog.gui;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -38,6 +39,10 @@ public final class ZedLogFrame extends javax.swing.JFrame {
 	public ZedLogFrame() {
 
 		initComponents();
+
+		// set frame icon
+		ImageIcon ico = (ImageIcon) Icons.getInstance().getIcon("zedlog");
+		setIconImage(ico.getImage());
 
 		// center on screen
 		setLocationRelativeTo(null);
@@ -122,6 +127,7 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         toolbar.add(btnPause);
         toolbar.add(jSeparator3);
 
+        btnHide.setIcon(Icons.getInstance().getIcon("hide"));
         btnHide.setMnemonic('H');
         btnHide.setText("Hide");
         btnHide.setToolTipText("Hide the ZedLog window.");
@@ -180,6 +186,7 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         menuTools.setMnemonic('T');
         menuTools.setText("Tools");
 
+        mitemHide.setIcon(Icons.getInstance().getIcon("hide"));
         mitemHide.setMnemonic('H');
         mitemHide.setText("Hide");
         mitemHide.setToolTipText("Hide the ZedLog window.");
@@ -217,6 +224,7 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         menuHelp.add(mitemHelp);
         menuHelp.add(sep1);
 
+        mitemAbout.setIcon(Icons.getInstance().getIcon("about"));
         mitemAbout.setMnemonic('A');
         mitemAbout.setText("About");
         mitemAbout.setToolTipText("Display information about ZedLog.");

@@ -117,6 +117,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mitemHide">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="Icons.getInstance().getIcon(&quot;hide&quot;)" type="code"/>
+                </Property>
                 <Property name="mnemonic" type="int" value="72"/>
                 <Property name="text" type="java.lang.String" value="Hide"/>
                 <Property name="toolTipText" type="java.lang.String" value="Hide the ZedLog window."/>
@@ -182,6 +185,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mitemAbout">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="Icons.getInstance().getIcon(&quot;about&quot;)" type="code"/>
+                </Property>
                 <Property name="mnemonic" type="int" value="65"/>
                 <Property name="text" type="java.lang.String" value="About"/>
                 <Property name="toolTipText" type="java.lang.String" value="Display information about ZedLog."/>
@@ -305,6 +311,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnHide">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Icons.getInstance().getIcon(&quot;hide&quot;)" type="code"/>
+            </Property>
             <Property name="mnemonic" type="int" value="72"/>
             <Property name="text" type="java.lang.String" value="Hide"/>
             <Property name="toolTipText" type="java.lang.String" value="Hide the ZedLog window."/>
