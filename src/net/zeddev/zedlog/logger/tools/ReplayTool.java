@@ -259,10 +259,10 @@ public final class ReplayTool {
 
 				}
 
-			}
+				// wait for the event to finish
+				robot.waitForIdle();
 
-			// wait for events to finish
-			robot.waitForIdle();
+			}
 
 			notifyFinished();
 
