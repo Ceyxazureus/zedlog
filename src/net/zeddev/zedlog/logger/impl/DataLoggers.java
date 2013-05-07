@@ -44,6 +44,8 @@ public class DataLoggers {
 			new KeyPressedLogger(),
 			new KeyReleasedLogger(),
 			new MouseClickLogger(),
+			new MousePressedLogger(),
+			new MouseReleasedLogger(),
 			new MouseMovementLogger(),
 			new MouseDraggedLogger(),
 			new MouseWheelLogger()
