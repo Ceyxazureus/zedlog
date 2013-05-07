@@ -211,17 +211,23 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	}
 
 	/**
-	 * Clears all loggers, log entries and the log files.
+	 * Clears all log entries and the log files.
 	 *
 	 * @throws IOException If an error occurs when the log files are closed.
 	 */
 	public void clearAll() throws IOException {
 
-		for (DataLogger logger : new ArrayList<>(loggers))
-			removeLogger(logger);
-
 		logEntries.clear();
 
+	}
+
+	/**
+	 * Returns the children <code>DataLogger</code>s.
+	 *
+	 * @return The children <code>DataLogger</code>s.
+	 */
+	public List<DataLogger> getLoggers() {
+		return new ArrayList<>(loggers);
 	}
 
 	/**

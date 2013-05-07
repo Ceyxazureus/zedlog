@@ -337,7 +337,12 @@ public final class ZedLogFrameController implements NativeMouseListener {
 		while (frame.getTabs().getTabCount() > 0)
 			frame.getTabs().remove(0);
 
+		// re-add the composite logger tab
 		addLoggerTab(loggers);
+
+		// re-add the composite loggers children loggers
+		for (DataLogger logger : loggers.getLoggers())
+			addLoggerTab(logger);
 
 		logger.info("Cleared data loggers.");
 
