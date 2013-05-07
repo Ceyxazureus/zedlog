@@ -150,6 +150,7 @@ public final class ReplayTool {
 		int button = convertMouseButtonCode(event.getButtonCode());
 
 		// simulate a click
+		robot.mouseMove(event.getX(), event.getY());
 		robot.mousePress(button);
 		robot.mouseRelease(button);
 
@@ -157,12 +158,14 @@ public final class ReplayTool {
 
 	private void simMousePressedEvent(Robot robot, MousePressedLogger.MousePressedEvent event) {
 
+		robot.mouseMove(event.getX(), event.getY());
 		robot.mousePress(convertMouseButtonCode(event.getButtonCode()));
 
 	}
 
 	private void simMouseReleasedEvent(Robot robot, MouseReleasedLogger.MouseReleasedEvent event) {
 
+		robot.mouseMove(event.getX(), event.getY());
 		robot.mouseRelease(convertMouseButtonCode(event.getButtonCode()));
 
 	}
