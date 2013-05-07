@@ -106,18 +106,6 @@ public final class ZedLogFrameController implements NativeMouseListener {
             }
         });
 
-		frame.getBtnNext().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                btnNextActionPerformed(event);
-            }
-        });
-
-		frame.getBtnPrev().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                btnPrevActionPerformed(event);
-            }
-        });
-
 		frame.getBtnPause().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 btnPauseActionPerformed(event);
@@ -362,31 +350,15 @@ public final class ZedLogFrameController implements NativeMouseListener {
 		clearAll();
     }
 
-	private void btnNextActionPerformed(final ActionEvent event) {
-
-		int current = frame.getTabs().getSelectedIndex();
-
-		if (current < frame.getTabs().getTabCount()-1)
-			frame.getTabs().setSelectedIndex(current + 1);
-
-    }
-
-	private void btnPrevActionPerformed(final ActionEvent event) {
-
-		int current = frame.getTabs().getSelectedIndex();
-
-		if (current > 0)
-			frame.getTabs().setSelectedIndex(current - 1);
-
-    }
-
 	private void btnPauseActionPerformed(final ActionEvent event) {
 
-		loggers.setRecording(!frame.getBtnPause().isSelected());
+		loggers.setRecording(!loggers.isRecording());
 
 		if (loggers.isRecording()) {
+			frame.getBtnPause().setIcon(Icons.getInstance().getIcon("pause"));
 			logger.info("Recording resumed.");
 		} else {
+			frame.getBtnPause().setIcon(Icons.getInstance().getIcon("record"));
 			logger.info("Recording paused.");
 		}
 

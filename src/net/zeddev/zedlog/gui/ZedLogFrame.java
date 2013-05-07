@@ -56,13 +56,14 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         tabs = new javax.swing.JTabbedPane();
+        javax.swing.JToolBar toolbar = new javax.swing.JToolBar();
         btnAdd = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
-        btnNext = new javax.swing.JButton();
-        btnPrev = new javax.swing.JButton();
-        btnHide = new javax.swing.JButton();
         btnClearAll = new javax.swing.JButton();
-        btnPause = new javax.swing.JToggleButton();
+        javax.swing.JToolBar.Separator jSeparator2 = new javax.swing.JToolBar.Separator();
+        btnPause = new javax.swing.JButton();
+        javax.swing.JToolBar.Separator jSeparator3 = new javax.swing.JToolBar.Separator();
+        btnHide = new javax.swing.JButton();
         menubar = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         mitemSave = new javax.swing.JMenuItem();
@@ -94,28 +95,35 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         setTitle(Config.INSTANCE.FULL_NAME);
         setPreferredSize(new java.awt.Dimension(640, 480));
 
+        toolbar.setFloatable(false);
+        toolbar.setRollover(true);
+
         btnAdd.setText("Add");
         btnAdd.setToolTipText("Add a new logger to ZedLog.");
+        toolbar.add(btnAdd);
 
         btnRemove.setText("Remove");
         btnRemove.setToolTipText("Remove the selected logger from ZedLog.");
-
-        btnNext.setText(">");
-
-        btnPrev.setText("<");
-        btnPrev.setToolTipText("");
-
-        btnHide.setMnemonic('H');
-        btnHide.setText("Hide");
-        btnHide.setToolTipText("Hide the ZedLog window.");
+        toolbar.add(btnRemove);
 
         btnClearAll.setMnemonic('C');
         btnClearAll.setText("Clear All");
         btnClearAll.setToolTipText("Clears all log entries from all loggers.");
+        toolbar.add(btnClearAll);
+        toolbar.add(jSeparator2);
 
-        btnPause.setMnemonic('P');
-        btnPause.setText("Pause");
-        btnPause.setToolTipText("Pause logging data.");
+        btnPause.setIcon(Icons.getInstance().getIcon("pause"));
+        btnPause.setToolTipText("Pause/resume recording events.");
+        btnPause.setFocusable(false);
+        btnPause.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPause.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolbar.add(btnPause);
+        toolbar.add(jSeparator3);
+
+        btnHide.setMnemonic('H');
+        btnHide.setText("Hide");
+        btnHide.setToolTipText("Hide the ZedLog window.");
+        toolbar.add(btnHide);
 
         menuFile.setText("File");
 
@@ -218,36 +226,15 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnAdd)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnRemove)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnClearAll)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnPause)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addComponent(btnHide)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
-                .addComponent(btnPrev)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnNext))
-            .addComponent(tabs)
+            .addComponent(tabs, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
+            .addComponent(toolbar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdd)
-                    .addComponent(btnRemove)
-                    .addComponent(btnNext)
-                    .addComponent(btnPrev)
-                    .addComponent(btnHide)
-                    .addComponent(btnClearAll)
-                    .addComponent(btnPause))
+                .addComponent(toolbar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tabs, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE))
+                .addComponent(tabs, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE))
         );
 
         getAccessibleContext().setAccessibleName("zedlog");
@@ -279,7 +266,7 @@ public final class ZedLogFrame extends javax.swing.JFrame {
 		return btnHide;
 	}
 
-	public JToggleButton getBtnPause() {
+	public JButton getBtnPause() {
 		return btnPause;
 	}
 
@@ -315,14 +302,6 @@ public final class ZedLogFrame extends javax.swing.JFrame {
 		return btnRemove;
 	}
 
-	public JButton getBtnNext() {
-		return btnNext;
-	}
-
-	public JButton getBtnPrev() {
-		return btnPrev;
-	}
-
 	public JMenu getMenuHelp() {
 		return menuHelp;
 	}
@@ -347,9 +326,7 @@ public final class ZedLogFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnClearAll;
     private javax.swing.JButton btnHide;
-    private javax.swing.JButton btnNext;
-    private javax.swing.JToggleButton btnPause;
-    private javax.swing.JButton btnPrev;
+    private javax.swing.JButton btnPause;
     private javax.swing.JButton btnRemove;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;

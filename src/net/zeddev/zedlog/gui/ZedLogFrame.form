@@ -218,39 +218,16 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="btnAdd" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="btnRemove" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="btnClearAll" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="btnPause" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="40" max="32767" attributes="0"/>
-              <Component id="btnHide" max="-2" attributes="0"/>
-              <EmptySpace pref="177" max="32767" attributes="0"/>
-              <Component id="btnPrev" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="btnNext" min="-2" max="-2" attributes="0"/>
-          </Group>
-          <Component id="tabs" max="32767" attributes="0"/>
+          <Component id="tabs" pref="640" max="32767" attributes="0"/>
+          <Component id="toolbar" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnAdd" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnRemove" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnNext" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnPrev" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnHide" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnClearAll" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnPause" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="toolbar" min="-2" pref="25" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="tabs" pref="430" max="32767" attributes="0"/>
+              <Component id="tabs" pref="428" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -260,49 +237,68 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
     </Container>
-    <Component class="javax.swing.JButton" name="btnAdd">
+    <Container class="javax.swing.JToolBar" name="toolbar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Add"/>
-        <Property name="toolTipText" type="java.lang.String" value="Add a new logger to ZedLog."/>
+        <Property name="floatable" type="boolean" value="false"/>
+        <Property name="rollover" type="boolean" value="true"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnRemove">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Remove"/>
-        <Property name="toolTipText" type="java.lang.String" value="Remove the selected logger from ZedLog."/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnNext">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&gt;"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnPrev">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&lt;"/>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnHide">
-      <Properties>
-        <Property name="mnemonic" type="int" value="72"/>
-        <Property name="text" type="java.lang.String" value="Hide"/>
-        <Property name="toolTipText" type="java.lang.String" value="Hide the ZedLog window."/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnClearAll">
-      <Properties>
-        <Property name="mnemonic" type="int" value="67"/>
-        <Property name="text" type="java.lang.String" value="Clear All"/>
-        <Property name="toolTipText" type="java.lang.String" value="Clears all log entries from all loggers."/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JToggleButton" name="btnPause">
-      <Properties>
-        <Property name="mnemonic" type="int" value="80"/>
-        <Property name="text" type="java.lang.String" value="Pause"/>
-        <Property name="toolTipText" type="java.lang.String" value="Pause logging data."/>
-      </Properties>
-    </Component>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JButton" name="btnAdd">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Add"/>
+            <Property name="toolTipText" type="java.lang.String" value="Add a new logger to ZedLog."/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnRemove">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Remove"/>
+            <Property name="toolTipText" type="java.lang.String" value="Remove the selected logger from ZedLog."/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnClearAll">
+          <Properties>
+            <Property name="mnemonic" type="int" value="67"/>
+            <Property name="text" type="java.lang.String" value="Clear All"/>
+            <Property name="toolTipText" type="java.lang.String" value="Clears all log entries from all loggers."/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JToolBar$Separator" name="jSeparator2">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnPause">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="Icons.getInstance().getIcon(&quot;pause&quot;)" type="code"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Pause/resume recording events."/>
+            <Property name="focusable" type="boolean" value="false"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JToolBar$Separator" name="jSeparator3">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnHide">
+          <Properties>
+            <Property name="mnemonic" type="int" value="72"/>
+            <Property name="text" type="java.lang.String" value="Hide"/>
+            <Property name="toolTipText" type="java.lang.String" value="Hide the ZedLog window."/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
   </SubComponents>
 </Form>
