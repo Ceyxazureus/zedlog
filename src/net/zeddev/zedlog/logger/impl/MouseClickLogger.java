@@ -54,7 +54,7 @@ public final class MouseClickLogger extends AbstractDataLogger
 		MouseClickedEvent clickEvent =
 			new MouseClickedEvent(event);
 
-		LogEntry logEntry = new LogEntry(clickEvent.toString(), clickEvent);
+		LogEntry logEntry = new LogEntry(this, clickEvent.toString(), clickEvent);
 		notifyDataLoggerObservers(this, logEntry);
 
 	}

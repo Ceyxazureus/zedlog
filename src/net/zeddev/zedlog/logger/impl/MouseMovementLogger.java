@@ -53,7 +53,7 @@ public final class MouseMovementLogger extends AbstractDataLogger
 
 		MouseMovedEvent moveEvent = new MouseMovedEvent(event);
 
-		LogEntry logEntry = new LogEntry(moveEvent.toString(), moveEvent);
+		LogEntry logEntry = new LogEntry(this, moveEvent.toString(), moveEvent);
 		notifyDataLoggerObservers(this, logEntry);
 
 	}

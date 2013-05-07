@@ -54,7 +54,7 @@ public final class MouseWheelLogger extends AbstractDataLogger
 		MouseWheelMovedEvent wheelEvent =
 			new MouseWheelMovedEvent(event);
 
-		LogEntry logEntry = new LogEntry(wheelEvent.toString(), wheelEvent);
+		LogEntry logEntry = new LogEntry(this, wheelEvent.toString(), wheelEvent);
 		notifyDataLoggerObservers(this, logEntry);
 
 	}

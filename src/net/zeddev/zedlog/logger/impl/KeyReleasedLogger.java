@@ -59,7 +59,7 @@ public final class KeyReleasedLogger extends AbstractDataLogger implements Nativ
 		KeyEvent keyEvent = new KeyEvent(KeyEvent.Type.RELEASED, event.getKeyCode(), event.getKeyChar());
 		String key = NativeKeyEvent.getKeyText(event.getKeyCode());
 
-		LogEntry logEntry = new LogEntry(String.format("%s ", key), keyEvent);
+		LogEntry logEntry = new LogEntry(this, String.format("%s ", key), keyEvent);
 		notifyDataLoggerObservers(this, logEntry);
 
 	}

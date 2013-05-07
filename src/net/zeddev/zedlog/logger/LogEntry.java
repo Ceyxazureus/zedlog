@@ -23,6 +23,7 @@ package net.zeddev.zedlog.logger;
  */
 public class LogEntry {
 
+	private final DataLogger parent;
 	private final String message;
 	private final LogEvent event;
 	private final long timestamp = System.currentTimeMillis();
@@ -32,9 +33,14 @@ public class LogEntry {
 	 *
 	 * @param message The logged message.
 	 */
-	public LogEntry(final String message, final LogEvent event) {
+	public LogEntry(final DataLogger parent, final String message, final LogEvent event) {
+		this.parent = parent;
 		this.message = message;
 		this.event = event;
+	}
+
+	public DataLogger getParent() {
+		return parent;
 	}
 
 	public final String getMessage() {

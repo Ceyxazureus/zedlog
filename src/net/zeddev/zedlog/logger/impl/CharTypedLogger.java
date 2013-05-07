@@ -73,7 +73,7 @@ public final class CharTypedLogger extends AbstractDataLogger implements NativeK
 			logMsg = Character.toString(ch);
 		}
 
-		LogEntry logEntry = new LogEntry(logMsg, keyEvent);
+		LogEntry logEntry = new LogEntry(this, logMsg, keyEvent);
 		notifyDataLoggerObservers(this, logEntry);
 
 	}
