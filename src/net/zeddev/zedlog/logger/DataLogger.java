@@ -60,6 +60,20 @@ public interface DataLogger {
 	 */
 	public void removeObserver(final DataLoggerObserver observer);
 
+	/**
+	 * Returns whether the log entries are being recorded.
+	 *
+	 * @return Whether the log entries are being recorded.
+	 */
+	public boolean isRecording();
+
+	/**
+	 * Sets whether to record the log entries (or not).
+	 *
+	 * @param record Whether to record the log entries (or not).
+	 */
+	public void setRecording(boolean record);
+
 	@Override
 	public String toString();
 

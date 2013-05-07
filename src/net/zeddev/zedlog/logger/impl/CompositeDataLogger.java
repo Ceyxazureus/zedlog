@@ -245,9 +245,24 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 		assert(logger != null);
 		assert(logEntry != null);
 
-		logEntries.add(logEntry); // TODO optimise using fast(er) list implementation
+		if (isRecording()) {
 
-		notifyDataLoggerObservers(logger, logEntry);
+			logEntries.add(logEntry); // TODO optimise using fast(er) list implementation
+
+			notifyDataLoggerObservers(logger, logEntry);
+
+		}
+
+	}
+
+	@Override
+	public final void setRecording(boolean recording) {
+
+		// set for all children
+		for (DataLogger logger : loggers)
+			logger.setRecording(recording);
+
+		super.setRecording(recording);
 
 	}
 

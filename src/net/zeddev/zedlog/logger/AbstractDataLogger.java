@@ -30,6 +30,9 @@ public abstract class AbstractDataLogger implements DataLogger {
 
 	private List<DataLoggerObserver> observers = new ArrayList<>();
 
+	// whether or not to record the log entries
+	private boolean recording = true;
+
 	// just a precaution in case shutdown() is not called
 	@Override
 	public void finalize() throws Throwable {
@@ -60,9 +63,24 @@ public abstract class AbstractDataLogger implements DataLogger {
 	 */
 	protected void notifyDataLoggerObservers(final DataLogger logger, final LogEntry logEntry) {
 
-		for (DataLoggerObserver observer : observers)
-			observer.notifyLog(logger, logEntry);
+		if (isRecording()) {
+			// XXX notify observers only if recording
 
+			for (DataLoggerObserver observer : observers)
+				observer.notifyLog(logger, logEntry);
+
+		}
+
+	}
+
+	@Override
+	public boolean isRecording() {
+		return recording;
+	}
+
+	@Override
+	public void setRecording(boolean recording) {
+		this.recording = recording;
 	}
 
 	@Override
