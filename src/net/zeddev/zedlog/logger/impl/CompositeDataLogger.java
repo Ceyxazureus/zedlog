@@ -175,6 +175,8 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 
 		assert(logger != null);
 
+		logger.setRecording(isRecording());
+
 		logger.addObserver(this);
 		loggers.add(logger);
 
