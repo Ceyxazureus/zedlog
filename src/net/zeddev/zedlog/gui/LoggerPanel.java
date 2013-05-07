@@ -82,16 +82,25 @@ public final class LoggerPanel extends javax.swing.JPanel implements DataLoggerO
 
 		getTxtLogEntries().setText(logEntries.toString());
 
+		// move the end of the text area
+		getTxtLogEntries().setCaretPosition(
+			getTxtLogEntries().getText().length() - 1
+		);
+
+
 	}
 
 	@Override
 	public void notifyLog(final DataLogger logger, final LogEntry logEntry) {
 
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run(){
-				addLog(logger, logEntry);
-			}
-		});
+		// Removed 2013-05-07
+		//SwingUtilities.invokeLater(new Runnable() {
+		//	public void run(){
+		//		addLog(logger, logEntry);
+		//	}
+		//});
+
+		addLog(logger, logEntry);
 
 	}
 
