@@ -293,14 +293,10 @@ public final class ReplayTool {
 
 				simEvent(robot, logEntries.get(i).getEvent());
 
-				try {
-					Thread.sleep(10);
-				} catch (InterruptedException ex) { }
+				// wait for the event to finish before continuing
+				robot.waitForIdle();
 
 			}
-
-			// wait for events to finish
-			robot.waitForIdle();
 
 			notifyFinished();
 
