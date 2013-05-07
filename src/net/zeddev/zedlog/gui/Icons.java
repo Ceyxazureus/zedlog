@@ -16,6 +16,8 @@
 
 package net.zeddev.zedlog.gui;
 
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import net.zeddev.litelogger.Logger;
@@ -34,6 +36,9 @@ public enum Icons {
 	public static final String EXT = ".png";
 
 	private final Logger logger = Logger.getLogger(this);
+
+	// the cached icons
+	private Map<String, Icon> icons = new HashMap<>();
 
 	public static Icons getInstance() {
 		return INSTANCE;
@@ -56,7 +61,12 @@ public enum Icons {
 	 * @return The <code>Icon</code> instance.
 	 */
 	public Icon getIcon(final String name) {
-		return loadIcon(name);
+
+		if (!icons.containsKey(name))
+			icons.put(name, loadIcon(name));
+
+		return icons.get(name);
+
 	}
 
 }
