@@ -225,9 +225,11 @@
               <Component id="btnRemove" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnClearAll" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="126" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnPause" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="40" max="32767" attributes="0"/>
               <Component id="btnHide" max="-2" attributes="0"/>
-              <EmptySpace pref="158" max="32767" attributes="0"/>
+              <EmptySpace pref="177" max="32767" attributes="0"/>
               <Component id="btnPrev" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnNext" min="-2" max="-2" attributes="0"/>
@@ -245,6 +247,7 @@
                   <Component id="btnPrev" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnHide" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnClearAll" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnPause" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="tabs" pref="430" max="32767" attributes="0"/>
@@ -292,6 +295,13 @@
         <Property name="mnemonic" type="int" value="67"/>
         <Property name="text" type="java.lang.String" value="Clear All"/>
         <Property name="toolTipText" type="java.lang.String" value="Clears all log entries from all loggers."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JToggleButton" name="btnPause">
+      <Properties>
+        <Property name="mnemonic" type="int" value="80"/>
+        <Property name="text" type="java.lang.String" value="Pause"/>
+        <Property name="toolTipText" type="java.lang.String" value="Pause logging data."/>
       </Properties>
     </Component>
   </SubComponents>

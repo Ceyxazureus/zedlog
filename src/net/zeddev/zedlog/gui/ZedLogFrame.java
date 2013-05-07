@@ -21,6 +21,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
+import javax.swing.JToggleButton;
 import net.zeddev.zedlog.Config;
 
 /**
@@ -61,6 +62,7 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         btnPrev = new javax.swing.JButton();
         btnHide = new javax.swing.JButton();
         btnClearAll = new javax.swing.JButton();
+        btnPause = new javax.swing.JToggleButton();
         menubar = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         mitemSave = new javax.swing.JMenuItem();
@@ -110,6 +112,10 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         btnClearAll.setMnemonic('C');
         btnClearAll.setText("Clear All");
         btnClearAll.setToolTipText("Clears all log entries from all loggers.");
+
+        btnPause.setMnemonic('P');
+        btnPause.setText("Pause");
+        btnPause.setToolTipText("Pause logging data.");
 
         menuFile.setText("File");
 
@@ -219,9 +225,11 @@ public final class ZedLogFrame extends javax.swing.JFrame {
                 .addComponent(btnRemove)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnClearAll)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnPause)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(btnHide)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
                 .addComponent(btnPrev)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnNext))
@@ -236,7 +244,8 @@ public final class ZedLogFrame extends javax.swing.JFrame {
                     .addComponent(btnNext)
                     .addComponent(btnPrev)
                     .addComponent(btnHide)
-                    .addComponent(btnClearAll))
+                    .addComponent(btnClearAll)
+                    .addComponent(btnPause))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tabs, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE))
         );
@@ -268,6 +277,10 @@ public final class ZedLogFrame extends javax.swing.JFrame {
 
 	public JButton getBtnHide() {
 		return btnHide;
+	}
+
+	public JToggleButton getBtnPause() {
+		return btnPause;
 	}
 
 	public JMenuItem getMItemHide() {
@@ -335,6 +348,7 @@ public final class ZedLogFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnClearAll;
     private javax.swing.JButton btnHide;
     private javax.swing.JButton btnNext;
+    private javax.swing.JToggleButton btnPause;
     private javax.swing.JButton btnPrev;
     private javax.swing.JButton btnRemove;
     private javax.swing.JMenu jMenu1;

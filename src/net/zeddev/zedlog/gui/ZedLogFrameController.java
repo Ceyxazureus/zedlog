@@ -118,6 +118,12 @@ public final class ZedLogFrameController implements NativeMouseListener {
             }
         });
 
+		frame.getBtnPause().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                btnPauseActionPerformed(event);
+            }
+        });
+
 		frame.getMItemHide().addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mitemHideActionPerformed(evt);
@@ -371,6 +377,18 @@ public final class ZedLogFrameController implements NativeMouseListener {
 
 		if (current > 0)
 			frame.getTabs().setSelectedIndex(current - 1);
+
+    }
+
+	private void btnPauseActionPerformed(final ActionEvent event) {
+
+		loggers.setRecording(!frame.getBtnPause().isSelected());
+
+		if (loggers.isRecording()) {
+			logger.info("Recording resumed.");
+		} else {
+			logger.info("Recording paused.");
+		}
 
     }
 
