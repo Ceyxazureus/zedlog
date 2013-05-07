@@ -16,6 +16,7 @@
 
 package net.zeddev.zedlog.gui.dialog;
 
+import net.zeddev.zedlog.gui.Icons;
 import net.zeddev.zedlog.Config;
 
 /**
@@ -51,6 +52,7 @@ public class AboutDialog extends javax.swing.JDialog {
         lblTitle = new javax.swing.JLabel();
         lblCopyright = new javax.swing.JLabel();
         lblDesc = new javax.swing.JLabel();
+        lblIcon = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("About " + Config.INSTANCE.NAME);
@@ -76,6 +78,8 @@ public class AboutDialog extends javax.swing.JDialog {
         lblDesc.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblDesc.setText(Config.INSTANCE.DESCRIPTION);
 
+        lblIcon.setIcon(Icons.getInstance().getIcon("zedlog"));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -86,7 +90,10 @@ public class AboutDialog extends javax.swing.JDialog {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnOkay))
-                    .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblIcon)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(lblCopyright, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
                     .addComponent(lblDesc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -95,7 +102,9 @@ public class AboutDialog extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(24, Short.MAX_VALUE)
-                .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblIcon, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                    .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblDesc)
                 .addGap(18, 18, 18)
@@ -116,6 +125,7 @@ public class AboutDialog extends javax.swing.JDialog {
     private javax.swing.JButton btnOkay;
     private javax.swing.JLabel lblCopyright;
     private javax.swing.JLabel lblDesc;
+    private javax.swing.JLabel lblIcon;
     private javax.swing.JLabel lblTitle;
     // End of variables declaration//GEN-END:variables
 
