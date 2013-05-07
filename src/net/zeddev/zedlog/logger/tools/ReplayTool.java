@@ -151,7 +151,6 @@ public final class ReplayTool {
 
 		// simulate a click
 		robot.mousePress(button);
-		robot.delay(10);
 		robot.mouseRelease(button);
 
 	}
@@ -164,7 +163,7 @@ public final class ReplayTool {
 
 	private void simMouseReleasedEvent(Robot robot, MouseReleasedLogger.MouseReleasedEvent event) {
 
-		robot.mousePress(convertMouseButtonCode(event.getButtonCode()));
+		robot.mouseRelease(convertMouseButtonCode(event.getButtonCode()));
 
 	}
 
