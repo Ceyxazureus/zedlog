@@ -30,6 +30,8 @@ import net.zeddev.zedlog.logger.impl.KeyEvent;
 import net.zeddev.zedlog.logger.impl.MouseClickLogger;
 import net.zeddev.zedlog.logger.impl.MouseDraggedLogger;
 import net.zeddev.zedlog.logger.impl.MouseMovementLogger;
+import net.zeddev.zedlog.logger.impl.MousePressedLogger;
+import net.zeddev.zedlog.logger.impl.MouseReleasedLogger;
 import net.zeddev.zedlog.logger.impl.MouseWheelLogger;
 
 /**
@@ -154,6 +156,18 @@ public final class ReplayTool {
 
 	}
 
+	private void simMousePressedEvent(Robot robot, MousePressedLogger.MousePressedEvent event) {
+
+		robot.mousePress(convertMouseButtonCode(event.getButtonCode()));
+
+	}
+
+	private void simMouseReleasedEvent(Robot robot, MouseReleasedLogger.MouseReleasedEvent event) {
+
+		robot.mousePress(convertMouseButtonCode(event.getButtonCode()));
+
+	}
+
 	// simulates a mouse wheel movement
 	private void simMouseWheelEvent(Robot robot, MouseWheelLogger.MouseWheelMovedEvent event) {
 
@@ -174,6 +188,10 @@ public final class ReplayTool {
 				simMouseDragEvent(robot, (MouseDraggedLogger.MouseDraggedEvent) event);
 			} else if (event instanceof MouseClickLogger.MouseClickedEvent) {
 				simMouseClickEvent(robot, (MouseClickLogger.MouseClickedEvent) event);
+			} else if (event instanceof MousePressedLogger.MousePressedEvent) {
+				simMousePressedEvent(robot, (MousePressedLogger.MousePressedEvent) event);
+			} else if (event instanceof MouseReleasedLogger.MouseReleasedEvent) {
+				simMouseReleasedEvent(robot, (MouseReleasedLogger.MouseReleasedEvent) event);
 			} else if (event instanceof MouseWheelLogger.MouseWheelMovedEvent) {
 				simMouseWheelEvent(robot, (MouseWheelLogger.MouseWheelMovedEvent) event);
 			} else {
