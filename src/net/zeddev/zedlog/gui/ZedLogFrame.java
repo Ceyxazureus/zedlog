@@ -109,7 +109,7 @@ public final class ZedLogFrame extends javax.swing.JFrame {
 
         btnClearAll.setMnemonic('C');
         btnClearAll.setText("Clear All");
-        btnClearAll.setToolTipText("");
+        btnClearAll.setToolTipText("Clears all log entries from all loggers.");
 
         menuFile.setText("File");
 
@@ -219,9 +219,9 @@ public final class ZedLogFrame extends javax.swing.JFrame {
                 .addComponent(btnRemove)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnClearAll)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
                 .addComponent(btnHide)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 182, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
                 .addComponent(btnPrev)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnNext))
