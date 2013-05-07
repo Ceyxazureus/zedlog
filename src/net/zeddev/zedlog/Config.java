@@ -51,6 +51,9 @@ public enum Config {
 	public final String DESCRIPTION =
 		"A robust cross-platform input logging tool (AKA a key logger).";
 
+	/** The GUI icon directory. */
+	public static final String ICON_DIR = "/net/zeddev/zedlog/gui/icons";
+
 	/**
 	 * The documentation resource directory.
 	 *
