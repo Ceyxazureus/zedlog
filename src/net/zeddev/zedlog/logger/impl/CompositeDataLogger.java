@@ -38,8 +38,6 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 
 	private final Logger logger = Logger.getLogger(this);
 
-	private StringBuilder log = new StringBuilder();
-
 	// each log entry made by the children loggers
 	private List<LogEntry> logEntries = new ArrayList<>();
 
@@ -222,7 +220,6 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 			removeLogger(loggers.get(i));
 
 		logEntries.clear();
-		log = new StringBuilder();
 
 	}
 
@@ -235,29 +232,13 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 		return new ArrayList<>(logEntries);
 	}
 
-	private DataLogger lastToNotify = null;
-
 	@Override
 	public void notifyLog(final DataLogger logger, final LogEntry logEntry) {
 
 		assert(logger != null);
 		assert(logEntry != null);
 
-		// add newline to separate different logger messages
-		if (lastToNotify == null) {
-			lastToNotify = logger;
-		} else if (logger != lastToNotify) {
-
-			// dont append if already a newline
-			if (log.charAt(log.length()-1) != '\n')
-				log.append("\n");
-
-			lastToNotify = logger;
-
-		}
-
-		log.append(logEntry);
-		logEntries.add(logEntry);
+		logEntries.add(logEntry); // TODO optimise using fast(er) list implementation
 
 		notifyDataLoggerObservers(logger, logEntry);
 
@@ -265,7 +246,31 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 
 	@Override
 	public String toString() {
+
+		final StringBuilder log = new StringBuilder();
+		DataLogger lastLogger = null;
+
+		for (LogEntry logEntry : logEntries) {
+
+			// add newline to separate different logger messages
+			if (lastLogger == null) {
+				lastLogger = logEntry.getParent();
+			} else if (logger != lastLogger) {
+
+				// dont append if already a newline
+				if (log.charAt(log.length()-1) != '\n')
+					log.append("\n");
+
+				lastLogger = logEntry.getParent();
+
+			}
+
+			log.append(logEntry);
+
+		}
+
 		return log.toString();
+
 	}
 
 }
