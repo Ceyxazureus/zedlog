@@ -39,9 +39,9 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	private final Logger logger = Logger.getLogger(this);
 
 	// each log entry made by the children loggers
-	private List<LogEntry> logEntries = new ArrayList<>();
+	private final List<LogEntry> logEntries = new ArrayList<>();
 
-	private List<DataLogger> loggers = new ArrayList<>();
+	private final List<DataLogger> loggers = new ArrayList<>();
 
 	private File logDirectory = null;
 
@@ -161,8 +161,13 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	 * @return The <code>DataLogger</code> at the given index.
 	 */
 	public DataLogger getLogger(int index) {
+
 		assert(index >= 0 && index < loggers.size());
-		return loggers.get(index);
+
+		synchronized (loggers) {
+			return loggers.get(index);
+		}
+
 	}
 
 	/**
@@ -175,12 +180,16 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 
 		assert(logger != null);
 
-		logger.setRecording(isRecording());
+		synchronized (loggers) {
 
-		logger.addObserver(this);
-		loggers.add(logger);
+			logger.setRecording(isRecording());
 
-		addLogWriter(logger);
+			logger.addObserver(this);
+			loggers.add(logger);
+
+			addLogWriter(logger);
+
+		}
 
 	}
 
@@ -194,11 +203,15 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 
 		assert(logger != null);
 
-		logger.removeObserver(this);
+		synchronized (loggers) {
 
-		removeLogWriter(logger);
+			logger.removeObserver(this);
 
-		loggers.remove(logger);
+			removeLogWriter(logger);
+
+			loggers.remove(logger);
+
+		}
 
 	}
 
@@ -260,11 +273,15 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	@Override
 	public final void setRecording(boolean recording) {
 
-		// set for all children
-		for (DataLogger logger : loggers)
-			logger.setRecording(recording);
+		synchronized (loggers) {
 
-		super.setRecording(recording);
+			// set for all children
+			for (DataLogger logger : loggers)
+				logger.setRecording(recording);
+
+			super.setRecording(recording);
+
+		}
 
 	}
 
