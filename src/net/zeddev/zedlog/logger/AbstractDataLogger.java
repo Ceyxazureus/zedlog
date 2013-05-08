@@ -47,12 +47,20 @@ public abstract class AbstractDataLogger implements DataLogger {
 
 	@Override
 	public void addObserver(DataLoggerObserver observer) {
-		observers.add(observer);
+
+		synchronized (observers) {
+			observers.add(observer);
+		}
+
 	}
 
 	@Override
 	public void removeObserver(DataLoggerObserver observer) {
-		observers.remove(observer);
+
+		synchronized (observers) {
+			observers.remove(observer);
+		}
+		
 	}
 
 	/**
@@ -66,8 +74,12 @@ public abstract class AbstractDataLogger implements DataLogger {
 		if (isRecording()) {
 			// XXX notify observers only if recording
 
-			for (DataLoggerObserver observer : observers)
-				observer.notifyLog(logger, logEntry);
+			synchronized (observers) {
+
+				for (DataLoggerObserver observer : observers)
+					observer.notifyLog(logger, logEntry);
+
+			}
 
 		}
 
