@@ -23,7 +23,17 @@ import javax.swing.JOptionPane;
 import net.zeddev.litelogger.Logger;
 
 /**
- * Provides some common, simple dialogs.
+ * Provides some common swing dialogs.
+ * Supported dialogs include the following;
+ * <ul>
+ * <li>message - A simple message box.</li>
+ * <li>warning - A warning message box.</li>
+ * <li>error - A error message box.</li>
+ * <li>okcancel - A confirmation dialog.</li>
+ * <li>yesno - A another confirmation dialog.</li>
+ * <li>saveFile - A save file chooser dialog.</li>
+ * <li>selectDir - A directory chooser dialog</li>
+ * </ul>
  *
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
