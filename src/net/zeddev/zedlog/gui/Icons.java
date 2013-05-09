@@ -48,7 +48,7 @@ public enum Icons {
 	private Icon loadIcon(String name) {
 
 		String resource = Config.ICON_DIR + "/" + name + EXT;
-		logger.info(String.format("Loading icon '%s'.", resource));
+		logger.info("Loading icon '%s'.", null, resource);
 
 		return new ImageIcon(getClass().getResource(resource));
 
