@@ -38,6 +38,7 @@ import net.zeddev.zedlog.logger.impl.MousePressedLogger;
 import net.zeddev.zedlog.logger.impl.MouseReleasedEvent;
 import net.zeddev.zedlog.logger.impl.MouseReleasedLogger;
 import net.zeddev.zedlog.logger.impl.MouseWheelLogger;
+import net.zeddev.zedlog.logger.impl.MouseWheelMovedEvent;
 
 /**
  * Replays/simulates logged <code>LogEvent</code>s.
@@ -176,7 +177,7 @@ public final class ReplayTool {
 	}
 
 	// simulates a mouse wheel movement
-	private void simMouseWheelEvent(Robot robot, MouseWheelLogger.MouseWheelMovedEvent event) {
+	private void simMouseWheelEvent(Robot robot, MouseWheelMovedEvent event) {
 
 		robot.mouseMove(event.getX(), event.getY());
 		robot.mouseWheel(event.getRotation());
@@ -200,8 +201,8 @@ public final class ReplayTool {
 				simMousePressedEvent(robot, (MousePressedEvent) event);
 			} else if (event instanceof MouseReleasedEvent) {
 				simMouseReleasedEvent(robot, (MouseReleasedEvent) event);
-			} else if (event instanceof MouseWheelLogger.MouseWheelMovedEvent) {
-				simMouseWheelEvent(robot, (MouseWheelLogger.MouseWheelMovedEvent) event);
+			} else if (event instanceof MouseWheelMovedEvent) {
+				simMouseWheelEvent(robot, (MouseWheelMovedEvent) event);
 			} else {
 				// IGNORE - unknown event type
 			}
