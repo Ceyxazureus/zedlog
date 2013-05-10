@@ -272,6 +272,11 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
         btnSave.setFocusable(false);
         btnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
         toolbar.add(btnSave);
 
         btnOpen.setIcon(Icons.getInstance().getIcon("open"));
@@ -281,6 +286,11 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
         btnOpen.setFocusable(false);
         btnOpen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnOpen.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOpenActionPerformed(evt);
+            }
+        });
         toolbar.add(btnOpen);
         toolbar.add(jSeparator4);
 
@@ -484,7 +494,8 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 
 	}
 
-    private void mitemSetLogFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemSetLogFileActionPerformed
+	private void setLogFile() {
+
 		File logFile = SimpleDialog.saveFile(this);
 
 		// select and set the new log file
@@ -503,10 +514,16 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 
 		}
 
+	}
+
+    private void mitemSetLogFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemSetLogFileActionPerformed
+		setLogFile();
+
     }//GEN-LAST:event_mitemSetLogFileActionPerformed
 
-    private void mitemOpenLogFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemOpenLogFileActionPerformed
-        File logFile = SimpleDialog.openFile(this);
+	private void openLogFile() {
+
+		File logFile = SimpleDialog.openFile(this);
 		if (logFile == null) return;
 
 		// select and set the new log file
@@ -535,7 +552,22 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 
 		logger.info("Log file %s opened successfully.", null, logFile.getPath());
 
+	}
+
+    private void mitemOpenLogFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemOpenLogFileActionPerformed
+        openLogFile();
+
     }//GEN-LAST:event_mitemOpenLogFileActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+		setLogFile();
+
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOpenActionPerformed
+        openLogFile();
+
+    }//GEN-LAST:event_btnOpenActionPerformed
 
 	private void addLoggerTab(final DataLogger logger) {
 
