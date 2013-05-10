@@ -31,6 +31,7 @@ import net.zeddev.zedlog.logger.impl.MouseClickLogger;
 import net.zeddev.zedlog.logger.impl.MouseClickedEvent;
 import net.zeddev.zedlog.logger.impl.MouseDraggedEvent;
 import net.zeddev.zedlog.logger.impl.MouseDraggedLogger;
+import net.zeddev.zedlog.logger.impl.MouseMovedEvent;
 import net.zeddev.zedlog.logger.impl.MouseMovementLogger;
 import net.zeddev.zedlog.logger.impl.MousePressedLogger;
 import net.zeddev.zedlog.logger.impl.MouseReleasedLogger;
@@ -113,7 +114,7 @@ public final class ReplayTool {
 	}
 
 	// simulates a mouse movement
-	private void simMouseMoveEvent(Robot robot, MouseMovementLogger.MouseMovedEvent event) {
+	private void simMouseMoveEvent(Robot robot, MouseMovedEvent event) {
 
 		robot.mouseMove(event.getX(), event.getY());
 
@@ -187,8 +188,8 @@ public final class ReplayTool {
 		if (event != null) {
 			if (event instanceof KeyEvent) {
 				simKeyEvent(robot, (KeyEvent) event);
-			} else if (event instanceof MouseMovementLogger.MouseMovedEvent) {
-				simMouseMoveEvent(robot, (MouseMovementLogger.MouseMovedEvent) event);
+			} else if (event instanceof MouseMovedEvent) {
+				simMouseMoveEvent(robot, (MouseMovedEvent) event);
 			} else if (event instanceof MouseDraggedEvent) {
 				simMouseDragEvent(robot, (MouseDraggedEvent) event);
 			} else if (event instanceof MouseClickedEvent) {

@@ -63,31 +63,5 @@ public final class MouseMovementLogger extends AbstractDataLogger
 		// IGNORED
 	}
 
-	/**
-	 * A mouse event describing a mouse movement.
-	 *
-	 * @author Zachary Scott <zscott.dev@gmail.com>
-	 */
-	public final class MouseMovedEvent extends MouseEvent {
-
-		protected MouseMovedEvent(final NativeMouseEvent event) {
-			super(event);
-		}
-
-		@Override
-		public String toString() {
-
-			StringBuilder msg = new StringBuilder();
-
-			msg.append("Mouse moved - at ");
-			msg.append(posString(getX(), getY()));
-			msg.append(".\n");
-
-			return msg.toString();
-
-		}
-
-	}
-
 }
 
