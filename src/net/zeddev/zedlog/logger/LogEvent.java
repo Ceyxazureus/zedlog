@@ -16,6 +16,9 @@
 
 package net.zeddev.zedlog.logger;
 
+import java.io.Writer;
+import java.util.Scanner;
+
 /**
  * A single event which is logged by a <code>DataLogger</code>.
  *
@@ -23,6 +26,8 @@ package net.zeddev.zedlog.logger;
  */
 public abstract class LogEvent {
 
-	// NOTE Has no methods, here purley as a parent to all events
+	public abstract void write(final Writer output) throws Exception;
+
+	public abstract void read(final Scanner scanner) throws Exception;
 
 }

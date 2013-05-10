@@ -16,6 +16,9 @@
 
 package net.zeddev.zedlog.logger.impl;
 
+import java.io.Reader;
+import java.io.Writer;
+import java.util.Scanner;
 import net.zeddev.zedlog.logger.LogEvent;
 import org.jnativehook.keyboard.NativeKeyEvent;
 
@@ -44,9 +47,12 @@ public class KeyEvent extends LogEvent {
 
 	}
 
-	private final Type eventType;
-	private final int keyCode;
-	private final char ch;
+	private Type eventType = null;
+	private int keyCode = -1;
+	private char ch = (char) -1;
+
+	public KeyEvent() {
+	}
 
 	public KeyEvent(Type eventType, int keyCode, char ch) {
 		this.eventType = eventType;
@@ -54,16 +60,64 @@ public class KeyEvent extends LogEvent {
 		this.ch = ch;
 	}
 
-	public final Type getEventType() {
+	public Type getEventType() {
 		return eventType;
 	}
 
-	public final int getKeyCode() {
+	public void setEventType(Type eventType) {
+		this.eventType = eventType;
+	}
+
+	public int getKeyCode() {
 		return keyCode;
 	}
 
-	public final char getChar() {
+	public void setKeyCode(int keyCode) {
+		this.keyCode = keyCode;
+	}
+
+	public char getChar() {
 		return ch;
+	}
+
+	public void setChar(char ch) {
+		this.ch = ch;
+	}
+
+	@Override
+	public void write(Writer output) throws Exception {
+
+		assert(output != null);
+
+		output.write(getEventType().toString());
+		output.write("|");
+		output.write(Integer.toString(getKeyCode()));
+		output.write("|");
+		output.write(Short.toString((short) getChar()));
+
+	}
+
+	@Override
+	public void read(Scanner scanner) throws Exception {
+
+		readEventType(scanner);
+		setKeyCode(scanner.nextInt());
+		setChar((char) scanner.nextShort());
+
+	}
+
+	private void readEventType(Scanner scanner) {
+
+		String type = scanner.next();
+
+		if (type.equalsIgnoreCase(Type.PRESSED.toString())) {
+			setEventType(Type.PRESSED);
+		} else if (type.equalsIgnoreCase(Type.RELEASED.toString())) {
+			setEventType(Type.RELEASED);
+		} else if (type.equalsIgnoreCase(Type.TYPED.toString())) {
+			setEventType(Type.TYPED);
+		} // XXX IGNORED if not known
+
 	}
 
 	@Override

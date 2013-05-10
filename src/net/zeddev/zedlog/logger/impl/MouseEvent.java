@@ -16,6 +16,9 @@
 
 package net.zeddev.zedlog.logger.impl;
 
+import java.io.Reader;
+import java.io.Writer;
+import java.util.Scanner;
 import net.zeddev.zedlog.logger.LogEvent;
 import org.jnativehook.mouse.NativeMouseEvent;
 
@@ -101,6 +104,25 @@ public class MouseEvent extends LogEvent {
 		pos.append(")");
 
 		return pos.toString();
+
+	}
+
+	@Override
+	public void write(Writer output) throws Exception {
+
+		assert(output != null);
+
+		output.write(Integer.toString(getX()));
+		output.write("|");
+		output.write(Integer.toString(getY()));
+
+	}
+
+	@Override
+	public void read(Scanner scanner) throws Exception {
+
+		setX(scanner.nextInt());
+		setY(scanner.nextInt());
 
 	}
 

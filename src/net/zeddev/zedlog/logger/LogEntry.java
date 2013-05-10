@@ -17,7 +17,6 @@
 package net.zeddev.zedlog.logger;
 
 import java.io.Writer;
-import java.io.Reader;
 import java.util.Scanner;
 
 /**
@@ -27,13 +26,13 @@ import java.util.Scanner;
  */
 public class LogEntry {
 
-	private final DataLogger parent;
-	private final String message;
-	private final LogEvent event;
-	private final long timestamp = System.currentTimeMillis();
+	private DataLogger parent = null;
+	private String message = null;
+	private LogEvent event = null;
+	private long timestamp = System.currentTimeMillis();
 
 	/**
-	 * Creates a new <code>LogEntry</code> with the given detail message.
+	 * Creates a new <code>LogEntry</code> with the given details.
 	 *
 	 * @param message The logged message.
 	 */
@@ -43,20 +42,43 @@ public class LogEntry {
 		this.event = event;
 	}
 
+	/**
+	 * Creates a new, empty <code>LogEntry</code>.
+	 *
+	 */
+	public LogEntry() {
+	}
+
 	public DataLogger getParent() {
 		return parent;
 	}
 
-	public final String getMessage() {
+	public void setParent(DataLogger parent) {
+		this.parent = parent;
+	}
+
+	public String getMessage() {
 		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
 	public LogEvent getEvent() {
 		return event;
 	}
 
-	public final long getTimestamp() {
+	public void setEvent(LogEvent event) {
+		this.event = event;
+	}
+
+	public long getTimestamp() {
 		return timestamp;
+	}
+
+	public void setTimestamp(long timestamp) {
+		this.timestamp = timestamp;
 	}
 
 	/**
@@ -64,26 +86,44 @@ public class LogEntry {
 	 *
 	 * @return A <code>Tuple</code> containing the data in the <code>LogEntry</code>.
 	 */
-	public void write(final Writer output) {
+	public void write(final Writer output) throws Exception {
 
 		assert(output != null);
 
-		
+		output.write(getMessage().replace("\n", ""));
+		output.write("|");
+		output.write(Long.toString(getTimestamp()));
+		output.write("|");
+		output.write(getEvent().getClass().getName());
+		output.write("|");
+		getEvent().write(output);
 
 	}
 
 	/**
-	 * Reads the <code>LogEntry</code> from the data <code>Tuple</code>.
+	 * Reads the <code>LogEntry</code> from the given input.
 	 *
-	 * @param tuple The <code>Tuple</code> which contains the <code>LogEntry</code>
+	 * @param scanner The input scanner in which to be parsed.
+	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws Exception
 	 */
-	public void read(final Reader input) {
+	public void read(final Scanner scanner)
+			throws ClassNotFoundException, InstantiationException,
+			       IllegalAccessException, Exception {
 
-		assert(input != null);
+		setMessage(String.format("%s\n", scanner.next()));
+		setTimestamp(scanner.nextLong());
 
-		Scanner scanner = new Scanner(input);
+		String eventClass = scanner.next();
 
-		scanner.next(message);
+		LogEvent event = (LogEvent) Class.forName(eventClass).newInstance();
+		event.read(scanner);
+
+		setEvent(event);
+
+		// NOTE The parent is not stored/read.
 
 	}
 
