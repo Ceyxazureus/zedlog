@@ -21,16 +21,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.logging.Level;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFileChooser;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JTabbedPane;
-import javax.swing.JToggleButton;
 import net.zeddev.litelogger.Logger;
 import net.zeddev.litelogger.handlers.WindowLogHandler;
 import net.zeddev.litelogger.handlers.WriterLogHandler;
@@ -54,10 +50,9 @@ import org.jnativehook.mouse.NativeMouseListener;
 public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouseListener {
 
 	private final Logger logger = Logger.getLogger(this);
-
-	private final CompositeDataLogger loggers = new CompositeDataLogger();
-
 	private final WindowLogHandler logWindow = new WindowLogHandler();
+
+	private CompositeDataLogger loggers;
 
 	// the program log output file
 	private WriterLogHandler msgLogFile = null;
@@ -79,6 +74,8 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 		// center on screen
 		setLocationRelativeTo(null);
 
+		initLoggers();
+
 		Logger.addHandler(logWindow);
 
 		GlobalScreen.getInstance().addNativeMouseListener(this);
@@ -97,6 +94,11 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 	public void finalize() throws Throwable {
 		super.finalize();
 		shutdown();
+	}
+
+	private void initLoggers() {
+		loggers = new CompositeDataLogger();
+		addLoggerTab(loggers);
 	}
 
 	// initialise the event listeners
@@ -204,8 +206,6 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
             }
         });
 
-		addLoggerTab(loggers);
-
 	}
 
 	/**
@@ -231,6 +231,8 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
         menubar = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         mitemSave = new javax.swing.JMenuItem();
+        mitemSetLogFile = new javax.swing.JMenuItem();
+        mitemOpenLogFile = new javax.swing.JMenuItem();
         javax.swing.JPopupMenu.Separator jSeparator1 = new javax.swing.JPopupMenu.Separator();
         mitemQuit = new javax.swing.JMenuItem();
         menuLoggers = new javax.swing.JMenu();
@@ -297,6 +299,28 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
         mitemSave.setText("Save");
         mitemSave.setToolTipText("Save the composite logger output.");
         menuFile.add(mitemSave);
+
+        mitemSetLogFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        mitemSetLogFile.setMnemonic('L');
+        mitemSetLogFile.setText("Set Log File");
+        mitemSetLogFile.setToolTipText("Set the log file to which log entries are automatically stored.");
+        mitemSetLogFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemSetLogFileActionPerformed(evt);
+            }
+        });
+        menuFile.add(mitemSetLogFile);
+
+        mitemOpenLogFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        mitemOpenLogFile.setMnemonic('O');
+        mitemOpenLogFile.setText("Open Log File");
+        mitemOpenLogFile.setToolTipText("Open a previously create log file.");
+        mitemOpenLogFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemOpenLogFileActionPerformed(evt);
+            }
+        });
+        menuFile.add(mitemOpenLogFile);
         menuFile.add(jSeparator1);
 
         mitemQuit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
@@ -399,6 +423,80 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+	// removes teh logger tabs from the frame
+	private void removeLoggerTabs() {
+
+		// remove the logger tabs
+		while (tabs.getTabCount() > 0)
+			tabs.remove(0);
+
+	}
+
+	// re-initialise the loggers display
+	private void reInitLoggersView() {
+
+		removeLoggerTabs();
+
+		// re-add the composite logger tab
+		addLoggerTab(loggers);
+
+		// re-add the composite loggers children loggers
+		for (DataLogger logger : loggers.getLoggers())
+			addLoggerTab(logger);
+
+	}
+
+    private void mitemSetLogFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemSetLogFileActionPerformed
+		File logFile = null;
+
+		// select and set the new log file
+		try {
+			logFile = SimpleDialog.saveFile(this);
+			loggers.setLogFile(logFile);
+		} catch (IOException ex) {
+
+			if (logFile == null) {
+				logger.error("Failed to set log file.", ex);
+			} else {
+				logger.error("Failed to set log file %s.", ex, logFile.getPath());
+			}
+
+		}
+
+    }//GEN-LAST:event_mitemSetLogFileActionPerformed
+
+    private void mitemOpenLogFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemOpenLogFileActionPerformed
+        File logFile = SimpleDialog.openFile(this);
+		if (logFile == null) return;
+
+		// select and set the new log file
+		try {
+
+			logger.info("Opening log file %s.", null, logFile.toString());
+
+			// re-initialise the composite logger
+			removeLoggerTabs();
+			initLoggers();
+
+			loggers.openLogFile(logFile);
+
+		} catch (FileNotFoundException ex) {
+			logger.error("Log file %s does not exist!", ex, logFile.getPath());
+		} catch (IOException ex) {
+			logger.error("Failed to open log file %s.", ex, logFile.getPath());
+		} catch (Exception ex) {
+
+			logger.error(
+				"Failed to read the log file %s.  It may be corrupt.",
+				ex, logFile.getPath()
+			);
+
+		}
+
+		logger.info("Log file %s opened successfully.", null, logFile.getPath());
+
+    }//GEN-LAST:event_mitemOpenLogFileActionPerformed
 
 	private void addLoggerTab(final DataLogger logger) {
 
@@ -537,16 +635,7 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 			logger.error("Failed to clear data loggers!", ex);
 		}
 
-		// remove the logger tabs
-		while (tabs.getTabCount() > 0)
-			tabs.remove(0);
-
-		// re-add the composite logger tab
-		addLoggerTab(loggers);
-
-		// re-add the composite loggers children loggers
-		for (DataLogger logger : loggers.getLoggers())
-			addLoggerTab(logger);
+		reInitLoggersView();
 
 		logger.info("Cleared data loggers.");
 
@@ -729,10 +818,12 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
     private javax.swing.JMenuItem mitemHide;
     private javax.swing.JMenuItem mitemLogWindow;
     private javax.swing.JMenuItem mitemMsgLogFile;
+    private javax.swing.JMenuItem mitemOpenLogFile;
     private javax.swing.JMenuItem mitemQuit;
     private javax.swing.JMenuItem mitemRemove;
     private javax.swing.JMenuItem mitemReplay;
     private javax.swing.JMenuItem mitemSave;
+    private javax.swing.JMenuItem mitemSetLogFile;
     private javax.swing.JPopupMenu.Separator sep;
     private javax.swing.JTabbedPane tabs;
     // End of variables declaration//GEN-END:variables
