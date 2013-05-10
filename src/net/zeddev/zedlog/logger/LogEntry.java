@@ -18,6 +18,7 @@ package net.zeddev.zedlog.logger;
 
 import java.io.Writer;
 import java.util.Scanner;
+import net.zeddev.zedlog.logger.impl.LogEvents;
 
 /**
  * A single log record by a <code>DataLogger</code>.
@@ -94,7 +95,7 @@ public class LogEntry {
 		output.write("|");
 		output.write(Long.toString(getTimestamp()));
 		output.write("|");
-		output.write(getEvent().getClass().getName());
+		output.write(getEvent().type());
 		output.write("|");
 		getEvent().write(output);
 
@@ -116,9 +117,9 @@ public class LogEntry {
 		setMessage(String.format("%s\n", scanner.next()));
 		setTimestamp(scanner.nextLong());
 
-		String eventClass = scanner.next();
-
-		LogEvent event = (LogEvent) Class.forName(eventClass).newInstance();
+		// read the log event
+		String eventType = scanner.next();
+		LogEvent event = LogEvents.newLogEvent(eventType);
 		event.read(scanner);
 
 		setEvent(event);
