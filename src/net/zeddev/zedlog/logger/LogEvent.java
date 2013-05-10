@@ -31,7 +31,8 @@ public abstract class LogEvent {
 	 * The format should be as follows:
 	 * <ul>
 	 * <li>Fields should be separated by a single vertical bar (<code>|</code></li>
-	 * <li>fields should not contain the following characters;
+	 * <li>Should contain only readable characters.</li>
+	 * <li>Fields should not contain the following characters;
 	 *	<ul>
 	 *		<li>Vertical bars <code>|</code></li>
 	 *		<li>Newlines (both <code>\n</code> and <code>\r</code></li>
