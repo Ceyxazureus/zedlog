@@ -27,7 +27,6 @@ import org.jnativehook.mouse.NativeMouseEvent;
 public class MouseEvent extends LogEvent {
 
    private int x, y;
-   private long timestamp = System.currentTimeMillis();
 
    protected MouseEvent(final NativeMouseEvent event) {
 	   setX(event.getX());
@@ -48,10 +47,6 @@ public class MouseEvent extends LogEvent {
 
    public final void setY(int y) {
 	   this.y = y;
-   }
-
-   public final long timeOccured() {
-	   return timestamp;
    }
 
 	/**
