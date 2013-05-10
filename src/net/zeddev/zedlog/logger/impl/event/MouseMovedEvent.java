@@ -34,6 +34,11 @@ public final class MouseMovedEvent extends MouseEvent {
 	}
 
 	@Override
+	public String type() {
+		return "MouseMoved";
+	}
+
+	@Override
 	public String toString() {
 
 		StringBuilder msg = new StringBuilder();

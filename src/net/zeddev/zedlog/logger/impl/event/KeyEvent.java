@@ -85,6 +85,11 @@ public class KeyEvent extends LogEvent {
 	}
 
 	@Override
+	public String type() {
+		return "KeyEvent";
+	}
+
+	@Override
 	public void write(Writer output) throws Exception {
 
 		assert(output != null);

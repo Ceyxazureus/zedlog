@@ -54,4 +54,12 @@ public abstract class LogEvent {
 	 */
 	public abstract void read(final Scanner scanner) throws Exception;
 
+	/**
+	 * Returns a human-readable name for the event type.
+	 * Must be unique among all events.
+	 *
+	 * @return The type of the event.
+	 */
+	public abstract String type();
+
 }

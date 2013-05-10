@@ -56,6 +56,11 @@ public final class MousePressedEvent extends MouseEvent {
 	}
 
 	@Override
+	public String type() {
+		return "MousePressed";
+	}
+
+	@Override
 	public void write(Writer output) throws Exception {
 
 		assert(output != null);
