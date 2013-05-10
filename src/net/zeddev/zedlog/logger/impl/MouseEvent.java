@@ -27,9 +27,13 @@ import org.jnativehook.mouse.NativeMouseEvent;
  *
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
-public class MouseEvent extends LogEvent {
+public abstract class MouseEvent extends LogEvent {
 
    private int x, y;
+
+   protected MouseEvent() {
+	   x = y = -1;
+   }
 
    protected MouseEvent(final NativeMouseEvent event) {
 	   setX(event.getX());
