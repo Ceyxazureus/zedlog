@@ -8,6 +8,7 @@ TODO list for ZedLog
 	-> set log file
  * Add DataLogger.read() & DataLogger.write()
 	-> use ZedCsv
+ * Add LogEvent factory to produce LogEntrys by name.
  * Add screenshot logger.
 	-> time based
  * Add animation tool.
