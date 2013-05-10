@@ -56,8 +56,8 @@ public final class MousePressedLogger extends AbstractDataLogger
 	@Override
 	public void nativeMousePressed(NativeMouseEvent event) {
 
-		MousePressedLogger.MousePressedEvent clickEvent =
-			new MousePressedLogger.MousePressedEvent(event);
+		MousePressedEvent clickEvent =
+			new MousePressedEvent(event);
 
 		LogEntry logEntry = new LogEntry(this, clickEvent.toString(), clickEvent);
 		notifyDataLoggerObservers(this, logEntry);
@@ -67,55 +67,6 @@ public final class MousePressedLogger extends AbstractDataLogger
 	@Override
 	public void nativeMouseReleased(NativeMouseEvent event) {
 		// IGNORED
-	}
-
-	/**
-	 * A mouse event describing a button press.
-	 *
-	 * @author Zachary Scott <zscott.dev@gmail.com>
-	 */
-	public static final class MousePressedEvent extends MouseEvent {
-
-		private int buttonCode;
-		private String button;
-
-		protected MousePressedEvent(final NativeMouseEvent event) {
-			super(event);
-			setButtonCode(event.getButton());
-			setButton(buttonName(event.getButton()));
-		}
-
-		public final int getButtonCode() {
-			return buttonCode;
-		}
-
-		public final void setButtonCode(int buttonCode) {
-			this.buttonCode = buttonCode;
-		}
-
-		public final String getButton() {
-			return button;
-		}
-
-		public final void setButton(String button) {
-			this.button = button;
-		}
-
-		@Override
-		public String toString() {
-
-			StringBuilder msg = new StringBuilder();
-
-			msg.append("Mouse pressed - ");
-			msg.append(getButton());
-			msg.append(" at ");
-			msg.append(posString(getX(), getY()));
-			msg.append(".\n");
-
-			return msg.toString();
-
-		}
-
 	}
 
 }
