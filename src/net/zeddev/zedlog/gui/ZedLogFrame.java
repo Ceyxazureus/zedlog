@@ -16,21 +16,51 @@
 
 package net.zeddev.zedlog.gui;
 
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
 import javax.swing.JToggleButton;
+import net.zeddev.litelogger.Logger;
+import net.zeddev.litelogger.handlers.WindowLogHandler;
+import net.zeddev.litelogger.handlers.WriterLogHandler;
 import net.zeddev.zedlog.Config;
+import net.zeddev.zedlog.HelpDoc;
+import net.zeddev.zedlog.gui.dialog.AboutDialog;
+import net.zeddev.zedlog.gui.dialog.NewLoggerDialog;
+import net.zeddev.zedlog.gui.dialog.ReplayToolDialog;
+import net.zeddev.zedlog.gui.dialog.SimpleDialog;
+import net.zeddev.zedlog.logger.DataLogger;
+import net.zeddev.zedlog.logger.impl.CompositeDataLogger;
+import org.jnativehook.GlobalScreen;
+import org.jnativehook.mouse.NativeMouseEvent;
+import org.jnativehook.mouse.NativeMouseListener;
 
 /**
  * The main GUI frame.
  *
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
-public final class ZedLogFrame extends javax.swing.JFrame {
+public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouseListener {
+
+	private final Logger logger = Logger.getLogger(this);
+
+	private final CompositeDataLogger loggers = new CompositeDataLogger();
+
+	private final WindowLogHandler logWindow = new WindowLogHandler();
+
+	// the program log output file
+	private WriterLogHandler msgLogFile = null;
 
 	/**
 	 * Creates new form <code>ZedLogFrame</code>.
@@ -44,8 +74,143 @@ public final class ZedLogFrame extends javax.swing.JFrame {
 		ImageIcon ico = (ImageIcon) Icons.getInstance().getIcon("zedlog");
 		setIconImage(ico.getImage());
 
+		initListeners();
+
 		// center on screen
 		setLocationRelativeTo(null);
+
+		Logger.addHandler(logWindow);
+
+		GlobalScreen.getInstance().addNativeMouseListener(this);
+
+	}
+
+	/**
+	 * Shuts-down the ZedLog frame.
+	 *
+	 */
+	public void shutdown() {
+		loggers.shutdown();
+	}
+
+	@Override
+	public void finalize() throws Throwable {
+		super.finalize();
+		shutdown();
+	}
+
+	// initialise the event listeners
+	private void initListeners() {
+
+		addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
+
+		btnHide.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                btnHideActionPerformed(event);
+            }
+        });
+
+		btnAdd.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                btnAddActionPerformed(event);
+            }
+        });
+
+		btnClearAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearAllActionPerformed(evt);
+            }
+        });
+
+		btnRemove.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                btnRemoveActionPerformed(event);
+            }
+        });
+
+		btnPause.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                btnPauseActionPerformed(event);
+            }
+        });
+
+		mitemHide.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemHideActionPerformed(evt);
+            }
+        });
+
+		mitemAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemAddActionPerformed(evt);
+            }
+        });
+
+		mitemRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemRemoveActionPerformed(evt);
+            }
+        });
+
+		mitemClearAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemClearAllActionPerformed(evt);
+            }
+        });
+
+		mitemReplay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemReplayActionPerformed(evt);
+            }
+        });
+
+		mitemSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemSaveActionPerformed(evt);
+            }
+        });
+
+		mitemLogDir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemLogDirActionPerformed(evt);
+            }
+        });
+
+		mitemMsgLogFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemMsgLogFileActionPerformed(evt);
+            }
+        });
+
+		mitemLogWindow.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemLogWindowActionPerformed(evt);
+            }
+        });
+
+        mitemQuit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemQuitActionPerformed(evt);
+            }
+        });
+
+		mitemHelp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent event) {
+                mitemHelpActionPerformed(event);
+            }
+        });
+
+		mitemAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent event) {
+                mitemAboutActionPerformed(event);
+            }
+        });
+
+		addLoggerTab(loggers);
 
 	}
 
@@ -254,84 +419,337 @@ public final class ZedLogFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-	public JButton getBtnClearAll() {
-		return btnClearAll;
+	private void addLoggerTab(final DataLogger logger) {
+
+		assert(logger != null);
+
+		// create logger panel view
+		LoggerPanel loggerPanel = new LoggerPanel(logger);
+
+		// add a logger panel tab for the new logger
+		tabs.add(logger.type(), loggerPanel);
+
 	}
 
-	public JMenuItem getMItemClearAll() {
-		return mitemClearAll;
+	private void userQuit() {
+
+		if (loggers.getLogDirectory() == null) {
+
+			boolean quit = SimpleDialog.yesno(
+				this, "Really Quit?",
+				"There is unsaved log data which could be lost.\n"
+				+ "Are you sure you want to quit?"
+			);
+
+			if (!quit) {
+				logger.info("Quit cancelled.");
+				return;
+			}
+
+		}
+
+		logger.info("User quit.");
+
+		setVisible(false);
+		System.exit(0);
+
 	}
 
-	public JMenuItem getMItemAdd() {
-		return mitemAdd;
+	private void formWindowClosing(WindowEvent evt) {
+		userQuit();
 	}
 
-	public JMenuItem getMItemRemove() {
-		return mitemRemove;
+	// show or hide the ZedLog frame
+	private void showHide() {
+
+		boolean show = !isVisible();
+
+		setVisible(show);
+
+		// give the window focus
+		if (show) {
+			toFront();
+			requestFocus();
+		}
+
 	}
 
-	public JMenuItem getMItemReplay() {
-		return mitemReplay;
+	private void addDataLogger() {
+
+		NewLoggerDialog dialog = new NewLoggerDialog(this, true);
+		DataLogger dataLogger = dialog.getLoggerFromUser();
+
+		// dont add if logger not specified
+		if (dataLogger == null)
+			return;
+
+		// add the logger
+		try {
+			loggers.addLogger(dataLogger);
+		} catch (IOException ex) {
+
+			String msg =
+				String.format("Failed to add %s logger!", dataLogger.type());
+			logger.error(msg, ex);
+
+			return;
+
+		}
+
+		addLoggerTab(dataLogger);
+
+		logger.info(String.format("Added logger %s", dataLogger.type()));
+
 	}
 
-	public JButton getBtnHide() {
-		return btnHide;
+	private void removeDataLogger() {
+
+		if (tabs.getSelectedIndex() > 0) {
+
+			DataLogger dataLogger = loggers.getLogger(tabs.getSelectedIndex() - 1);
+
+			// catch attempt to remove CompositeDataLogger
+			if (dataLogger instanceof CompositeDataLogger) {
+				logger.error("Cannot remove composite logger!");
+			} else {
+
+				// remove the logger from the composite logger
+				try {
+					loggers.removeLogger(dataLogger);
+				} catch (IOException ex) {
+
+					String msg =
+						String.format("Failed to remove %s logger!", dataLogger.type());
+					logger.error(msg,ex);
+
+					// XXX continue despite error and remove from GUI
+
+				}
+
+				tabs.remove(tabs.getSelectedIndex());
+
+			}
+
+			logger.info(String.format("Removed %s logger.", dataLogger.type()));
+
+		}
+
 	}
 
-	public JButton getBtnPause() {
-		return btnPause;
+	private void btnHideActionPerformed(final ActionEvent event) {
+		showHide();
+    }
+
+	private void btnAddActionPerformed(final ActionEvent event) {
+		addDataLogger();
+    }
+
+	private void btnRemoveActionPerformed(final ActionEvent event) {
+		removeDataLogger();
+    }
+
+	private void clearAll() {
+
+		try {
+			loggers.clearAll();
+		} catch (IOException ex) {
+			logger.error("Failed to clear data loggers!", ex);
+		}
+
+		// remove the logger tabs
+		while (tabs.getTabCount() > 0)
+			tabs.remove(0);
+
+		// re-add the composite logger tab
+		addLoggerTab(loggers);
+
+		// re-add the composite loggers children loggers
+		for (DataLogger logger : loggers.getLoggers())
+			addLoggerTab(logger);
+
+		logger.info("Cleared data loggers.");
+
 	}
 
-	public JMenuItem getMItemHide() {
-		return mitemHide;
+	private void btnClearAllActionPerformed(final ActionEvent event) {
+		clearAll();
+    }
+
+	private void mitemClearAllActionPerformed(final ActionEvent event) {
+		clearAll();
+    }
+
+	private void btnPauseActionPerformed(final ActionEvent event) {
+
+		loggers.setRecording(!loggers.isRecording());
+
+		if (loggers.isRecording()) {
+			btnPause.setIcon(Icons.getInstance().getIcon("pause"));
+			logger.info("Recording resumed.");
+		} else {
+			btnPause.setIcon(Icons.getInstance().getIcon("record"));
+			logger.info("Recording paused.");
+		}
+
+    }
+
+	private void saveToFile(File saveFile) throws IOException {
+
+		FileWriter output = new FileWriter(saveFile);
+		output.write(loggers.toString());
+		output.close();
+
 	}
 
-	public JMenuItem getMItemSave() {
-		return mitemSave;
+	private void mitemHideActionPerformed(ActionEvent evt) {
+		showHide();
 	}
 
-	public JMenuItem getMItemLogDir() {
-		return mitemLogDir;
+	private void mitemAddActionPerformed(ActionEvent evt) {
+		addDataLogger();
 	}
 
-	public JMenuItem getMItemLogWindow() {
-		return mitemLogWindow;
+	private void mitemRemoveActionPerformed(ActionEvent evt) {
+		removeDataLogger();
 	}
 
-	public JMenuItem getMItemMsgLogFile() {
-		return mitemMsgLogFile;
+	private void mitemReplayActionPerformed(ActionEvent evt) {
+		ReplayToolDialog replayTool = new ReplayToolDialog(this, loggers);
+		replayTool.setVisible(true);
 	}
 
-	public JMenuItem getMItemQuit() {
-		return mitemQuit;
+	private void mitemSaveActionPerformed(ActionEvent evt) {
+
+		File saveFile = SimpleDialog.saveFile(this);
+		if (saveFile != null) {
+
+			logger.info(String.format("Saving to %s.", saveFile.getPath()));
+
+			// save the log output to file
+			try {
+				saveToFile(saveFile);
+			} catch (IOException ex) {
+				logger.error(String.format("Error saving log to file '%s'.", saveFile.getPath()), ex);
+				return;
+			}
+
+			logger.info(String.format("Log saved successfully to '%s'.", saveFile.getPath()));
+
+		}
+
 	}
 
-	public JButton getBtnAdd() {
-		return btnAdd;
+	private void mitemLogDirActionPerformed(ActionEvent evt) {
+
+		File logDir = SimpleDialog.selectDir(this);
+		if (logDir != null) {
+
+			logger.info(String.format("Setting log directory to '%s'.", logDir.getPath()));
+
+			try {
+				loggers.setLogDirectory(logDir);
+			} catch (IOException ex) {
+
+				String msg =
+					String.format("Failed to set the log directory to '%s'.", logDir.getPath());
+				logger.error(msg, ex);
+
+				return;
+
+			}
+
+			logger.info(String.format("Log directory set to '%s'.", logDir.getPath()));
+
+		}
+
 	}
 
-	public JButton getBtnRemove() {
-		return btnRemove;
+	private void mitemLogWindowActionPerformed(ActionEvent evt) {
+		logWindow.setVisible(true);
 	}
 
-	public JMenu getMenuHelp() {
-		return menuHelp;
+	private void mitemMsgLogFileActionPerformed(ActionEvent evt) {
+
+		JFileChooser fileChooser = new JFileChooser();
+		int ret = fileChooser.showSaveDialog(this);
+
+		if (ret == JFileChooser.APPROVE_OPTION) {
+
+			File file = fileChooser.getSelectedFile();
+
+			logger.info(String.format("Setting program log file to '%s'.", file.getPath()));
+
+			// set the log file output
+			try {
+
+				// close the old log file
+				if (msgLogFile != null) {
+					Logger.removeHandler(msgLogFile);
+					msgLogFile.close();
+				}
+
+				// add the log handler
+				msgLogFile = new WriterLogHandler(new FileWriter(file));
+				Logger.addHandler(msgLogFile);
+
+			} catch (IOException ex) {
+				logger.error(String.format("Error setting program log file to '%s'.", file.getPath()), ex);
+				return;
+			}
+
+			logger.info(String.format("Program log file set to '%s'.", file.getPath()));
+
+		} else if (ret == JFileChooser.ERROR_OPTION) {
+			logger.warning("Error occured with file chooser when saving.");
+		} else {
+			logger.info("User cancelled setting program log file.");
+		}
+
 	}
 
-	public JMenuBar getMenubar() {
-		return menubar;
+	private void mitemQuitActionPerformed(ActionEvent evt) {
+		userQuit();
 	}
 
-	public JTabbedPane getTabs() {
-		return tabs;
+	private void mitemAboutActionPerformed(java.awt.event.ActionEvent evt) {
+
+		logger.info("Displaying 'About' infobox.");
+
+        AboutDialog aboutBox = new AboutDialog(this, true);
+		aboutBox.setVisible(true);
+
+    }
+
+	private void mitemHelpActionPerformed(java.awt.event.ActionEvent evt) {
+
+		try {
+			HelpDoc.INSTANCE.showInBrowser();
+		} catch (IOException ex) {
+			logger.error("Cannot open help documentation in the web browser!", ex);
+		}
+
+    }
+
+	@Override
+	public void nativeMouseClicked(NativeMouseEvent event) {
+
+		if (event.getButton() == 3 && event.getPoint().equals(new Point(0, 0))) {
+			// FIXME This really needs to be done better.
+
+			showHide();
+
+		}
+
 	}
 
-	public JMenuItem getMItemAbout() {
-		return mitemAbout;
+	@Override
+	public void nativeMousePressed(NativeMouseEvent event) {
+		// IGNORED
 	}
 
-	public JMenuItem getMItemHelp() {
-		return mitemHelp;
+	@Override
+	public void nativeMouseReleased(NativeMouseEvent nme) {
+		// IGNORED
 	}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

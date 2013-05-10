@@ -231,7 +231,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="tabs" pref="640" max="32767" attributes="0"/>
-          <Component id="toolbar" alignment="0" max="32767" attributes="0"/>
+          <Component id="toolbar" alignment="0" pref="500" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -239,7 +239,7 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="toolbar" min="-2" pref="25" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="tabs" pref="428" max="32767" attributes="0"/>
+              <Component id="tabs" pref="348" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

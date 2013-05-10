@@ -18,14 +18,10 @@ package net.zeddev.zedlog;
 
 import java.awt.EventQueue;
 import java.lang.Thread.UncaughtExceptionHandler;
-import net.zeddev.zedlog.logger.impl.CharTypedLogger;
-import net.zeddev.zedlog.logger.impl.CompositeDataLogger;
 import javax.swing.UnsupportedLookAndFeelException;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 import net.zeddev.zedlog.gui.ZedLogFrame;
-import net.zeddev.zedlog.gui.ZedLogFrameController;
-import net.zeddev.zedlog.logger.impl.MouseClickLogger;
 import net.zeddev.litelogger.Logger;
 import net.zeddev.litelogger.handlers.MsgBoxLogHandler;
 
@@ -161,15 +157,10 @@ public class ZedLog implements UncaughtExceptionHandler {
 
 				initNativeHook();
 
-				final CompositeDataLogger loggers = new CompositeDataLogger();
-
 				final ZedLogFrame zedlogFrame = new ZedLogFrame();
 
-				final ZedLogFrameController zedLogFrameController =
-						new ZedLogFrameController(zedlogFrame, loggers);
-
 				zedlogFrame.setVisible(true);
-				loggers.shutdown();
+				zedlogFrame.shutdown();
 
 			}
 
