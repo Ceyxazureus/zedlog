@@ -26,8 +26,31 @@ import java.util.Scanner;
  */
 public abstract class LogEvent {
 
+	/**
+	 * Writes the <code>LogEvent</code> to the given output stream.
+	 * The format should be as follows:
+	 * <ul>
+	 * <li>Fields should be separated by a single vertical bar (<code>|</code></li>
+	 * <li>fields should not contain the following characters;
+	 *	<ul>
+	 *		<li>Vertical bars <code>|</code></li>
+	 *		<li>Newlines (both <code>\n</code> and <code>\r</code></li>
+	 *	</ul>
+	 * </li>
+	 * </ul>
+	 *
+	 * @param output The output stream to write to.
+	 * @throws Exception
+	 */
 	public abstract void write(final Writer output) throws Exception;
 
+	/**
+	 * Parses the <code>LogEntry</code> from the given input scanner.
+	 * The delimiter is preset and should not be modified.
+	 *
+	 * @param scanner The scanner to be read from.
+	 * @throws Exception
+	 */
 	public abstract void read(final Scanner scanner) throws Exception;
 
 }
