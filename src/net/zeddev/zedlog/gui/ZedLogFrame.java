@@ -310,6 +310,7 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
         toolbar.add(jSeparator2);
 
         btnPause.setIcon(Icons.getInstance().getIcon("pause"));
+        btnPause.setText("Pause");
         btnPause.setToolTipText("Pause/resume recording events.");
         btnPause.setFocusable(false);
         btnPause.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -692,11 +693,19 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 		loggers.setRecording(!loggers.isRecording());
 
 		if (loggers.isRecording()) {
+
 			btnPause.setIcon(Icons.getInstance().getIcon("pause"));
+			btnPause.setText("Pause");
+
 			logger.info("Recording resumed.");
+
 		} else {
+
 			btnPause.setIcon(Icons.getInstance().getIcon("record"));
+			btnPause.setText("Record");
+
 			logger.info("Recording paused.");
+			
 		}
 
     }

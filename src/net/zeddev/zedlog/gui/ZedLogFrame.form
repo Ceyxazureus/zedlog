@@ -356,6 +356,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="Icons.getInstance().getIcon(&quot;pause&quot;)" type="code"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="Pause"/>
             <Property name="toolTipText" type="java.lang.String" value="Pause/resume recording events."/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
