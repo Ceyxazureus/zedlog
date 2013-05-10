@@ -64,42 +64,5 @@ public final class MouseDraggedLogger extends AbstractDataLogger
 
 	}
 
-	/**
-	 * A mouse event describing a button click.
-	 *
-	 * @author Zachary Scott <zscott.dev@gmail.com>
-	 */
-	public static final class MouseDraggedEvent extends MouseEvent {
-
-		private int buttonCode;
-
-		protected MouseDraggedEvent(final NativeMouseEvent event) {
-			super(event);
-			setButtonCode(event.getButton());
-		}
-
-		public final int getButtonCode() {
-			return buttonCode;
-		}
-
-		public final void setButtonCode(int buttonCode) {
-			this.buttonCode = buttonCode;
-		}
-
-		@Override
-		public String toString() {
-
-			StringBuilder msg = new StringBuilder();
-
-			msg.append("Mouse dragged - at ");
-			msg.append(posString(getX(), getY()));
-			msg.append(".\n");
-
-			return msg.toString();
-
-		}
-
-	}
-
 }
 

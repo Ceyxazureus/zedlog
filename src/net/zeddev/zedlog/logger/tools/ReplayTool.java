@@ -28,6 +28,8 @@ import net.zeddev.zedlog.logger.LogEvent;
 import net.zeddev.zedlog.logger.impl.CompositeDataLogger;
 import net.zeddev.zedlog.logger.impl.KeyEvent;
 import net.zeddev.zedlog.logger.impl.MouseClickLogger;
+import net.zeddev.zedlog.logger.impl.MouseClickedEvent;
+import net.zeddev.zedlog.logger.impl.MouseDraggedEvent;
 import net.zeddev.zedlog.logger.impl.MouseDraggedLogger;
 import net.zeddev.zedlog.logger.impl.MouseMovementLogger;
 import net.zeddev.zedlog.logger.impl.MousePressedLogger;
@@ -134,7 +136,7 @@ public final class ReplayTool {
 	}
 
 	// simulates a mouse drag
-	private void simMouseDragEvent(Robot robot, MouseDraggedLogger.MouseDraggedEvent event) {
+	private void simMouseDragEvent(Robot robot, MouseDraggedEvent event) {
 
 		int button = convertMouseButtonCode(event.getButtonCode());
 
@@ -145,7 +147,7 @@ public final class ReplayTool {
 	}
 
 	// simulate a mouse click
-	private void simMouseClickEvent(Robot robot, MouseClickLogger.MouseClickedEvent event) {
+	private void simMouseClickEvent(Robot robot, MouseClickedEvent event) {
 
 		int button = convertMouseButtonCode(event.getButtonCode());
 
@@ -187,10 +189,10 @@ public final class ReplayTool {
 				simKeyEvent(robot, (KeyEvent) event);
 			} else if (event instanceof MouseMovementLogger.MouseMovedEvent) {
 				simMouseMoveEvent(robot, (MouseMovementLogger.MouseMovedEvent) event);
-			} else if (event instanceof MouseDraggedLogger.MouseDraggedEvent) {
-				simMouseDragEvent(robot, (MouseDraggedLogger.MouseDraggedEvent) event);
-			} else if (event instanceof MouseClickLogger.MouseClickedEvent) {
-				simMouseClickEvent(robot, (MouseClickLogger.MouseClickedEvent) event);
+			} else if (event instanceof MouseDraggedEvent) {
+				simMouseDragEvent(robot, (MouseDraggedEvent) event);
+			} else if (event instanceof MouseClickedEvent) {
+				simMouseClickEvent(robot, (MouseClickedEvent) event);
 			} else if (event instanceof MousePressedLogger.MousePressedEvent) {
 				simMousePressedEvent(robot, (MousePressedLogger.MousePressedEvent) event);
 			} else if (event instanceof MouseReleasedLogger.MouseReleasedEvent) {
