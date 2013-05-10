@@ -27,45 +27,45 @@ import org.jnativehook.mouse.NativeMouseEvent;
  */
 public final class MouseClickedEvent extends MouseEvent {
 
-   private int buttonCode = -1;
-   private String button = null;
-   private int clickCount = -1;
+	private int buttonCode = -1;
+	private String button = null;
+	private int clickCount = -1;
 
-   public MouseClickedEvent() {
-   }
+	public MouseClickedEvent() {
+	}
 
-   public MouseClickedEvent(final NativeMouseEvent event) {
-	   super(event);
-	   setButtonCode(event.getButton());
-	   setButton(buttonName(event.getButton()));
-	   setClickCount(event.getClickCount());
-   }
+	public MouseClickedEvent(final NativeMouseEvent event) {
+		super(event);
+		setButtonCode(event.getButton());
+		setButton(buttonName(event.getButton()));
+		setClickCount(event.getClickCount());
+	}
 
-   public final int getButtonCode() {
-	   return buttonCode;
-   }
+	public final int getButtonCode() {
+		return buttonCode;
+	}
 
-   public final void setButtonCode(int buttonCode) {
-	   this.buttonCode = buttonCode;
-   }
+	public final void setButtonCode(int buttonCode) {
+		this.buttonCode = buttonCode;
+	}
 
-   public final String getButton() {
-	   return button;
-   }
+	public final String getButton() {
+		return button;
+	}
 
-   public final void setButton(String button) {
-	   this.button = button;
-   }
+	public final void setButton(String button) {
+		this.button = button;
+	}
 
-   public final int getClickCount() {
-	   return clickCount;
-   }
+	public final int getClickCount() {
+		return clickCount;
+	}
 
-   public final void setClickCount(int clickCount) {
-	   this.clickCount = clickCount;
-   }
+	public final void setClickCount(int clickCount) {
+		this.clickCount = clickCount;
+	}
 
-   @Override
+	@Override
 	public void write(Writer output) throws Exception {
 
 		assert(output != null);
@@ -87,19 +87,19 @@ public final class MouseClickedEvent extends MouseEvent {
 
 	}
 
-   @Override
-   public String toString() {
+	@Override
+	public String toString() {
 
-	   StringBuilder msg = new StringBuilder();
+		StringBuilder msg = new StringBuilder();
 
-	   msg.append("Mouse clicked - ");
-	   msg.append(getButton());
-	   msg.append(" at ");
-	   msg.append(posString(getX(), getY()));
-	   msg.append(".\n");
+		msg.append("Mouse clicked - ");
+		msg.append(getButton());
+		msg.append(" at ");
+		msg.append(posString(getX(), getY()));
+		msg.append(".\n");
 
-	   return msg.toString();
+		return msg.toString();
 
-   }
+	}
 
-}
+ }
