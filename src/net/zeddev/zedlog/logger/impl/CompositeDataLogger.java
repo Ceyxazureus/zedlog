@@ -43,109 +43,11 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 
 	private final List<DataLogger> loggers = new ArrayList<>();
 
-	private File logDirectory = null;
-
-	// the log writers for each logger
-	private Map<DataLogger, DataLoggerWriter> logWriters = new HashMap<>();
-
 	/**
 	 * Creates a new <code>CompositeDataLogger</code>.
 	 *
 	 */
 	public CompositeDataLogger() {
-	}
-
-	// adds a logger to logWriters
-	private void addLogWriter(final DataLogger logger) throws IOException {
-
-		assert(logger != null);
-		assert(logDirectory != null);
-
-		// dont bother if no log dir is set
-		if (logDirectory == null)
-			return;
-
-		String logFile = String.format("%s.log", logger.type());
-
-		final FileWriter fileWriter = new FileWriter(
-			new File(logDirectory, logFile)
-		);
-
-		DataLoggerWriter dataWriter = new DataLoggerWriter(fileWriter);
-		logger.addObserver(dataWriter);
-
-		logWriters.put(logger, dataWriter);
-
-	}
-
-	// removes the log writer for the given logger
-	private void removeLogWriter(final DataLogger logger) throws IOException {
-
-		assert(logger != null);
-
-		DataLoggerWriter writer = logWriters.get(logger);
-
-		// remove the log writer
-		if (writer != null) {
-
-			writer.close();
-			logger.removeObserver(writer);
-
-			logWriters.remove(logger);
-
-		}
-
-	}
-
-	// removes all writers from logWriters
-	private void removeAllLogWriters() throws IOException {
-
-		// close all writer streams
-		for (DataLoggerWriter writer : logWriters.values())
-			writer.close();
-
-		logWriters.clear();
-
-	}
-
-	/**
-	 * Sets the directory where each loggers log will be written.
-	 *
-	 * @param dir The log directory (must be a directory).  Can alternatively be
-	 * <code>null</code> to remove the existing log directory setting.
-	 * @throws IOException If error occurs while creating log files for
-	 *         existing loggers.
-	 * @throws IOException If error occurs while removing existing log directory.
-	 */
-	public void setLogDirectory(final File dir) throws IOException {
-
-		assert(dir != null && dir.isDirectory());
-
-		this.logDirectory = dir;
-
-		// clear the existing log writers
-		removeAllLogWriters();
-
-		if (dir != null) {
-
-			// add the logger writers for each existing logger
-			for (DataLogger logger : loggers)
-				addLogWriter(logger);
-
-			// add the composite logger itself
-			addLogWriter(this);
-
-		}
-
-	}
-
-	/**
-	 * Returns the directory in which the log files reside.
-	 *
-	 * @return The log directory (<code>null</code> if not set).
-	 */
-	public File getLogDirectory() {
-		return logDirectory;
 	}
 
 	@Override
@@ -187,8 +89,6 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 			logger.addObserver(this);
 			loggers.add(logger);
 
-			addLogWriter(logger);
-
 		}
 
 	}
@@ -206,9 +106,6 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 		synchronized (loggers) {
 
 			logger.removeObserver(this);
-
-			removeLogWriter(logger);
-
 			loggers.remove(logger);
 
 		}

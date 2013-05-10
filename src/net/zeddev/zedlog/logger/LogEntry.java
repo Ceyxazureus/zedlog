@@ -16,6 +16,10 @@
 
 package net.zeddev.zedlog.logger;
 
+import java.io.Writer;
+import java.io.Reader;
+import java.util.Scanner;
+
 /**
  * A single log record by a <code>DataLogger</code>.
  *
@@ -53,6 +57,34 @@ public class LogEntry {
 
 	public final long getTimestamp() {
 		return timestamp;
+	}
+
+	/**
+	 * Writes the <code>LogEntry</code> to a <code>Tuple</code>.
+	 *
+	 * @return A <code>Tuple</code> containing the data in the <code>LogEntry</code>.
+	 */
+	public void write(final Writer output) {
+
+		assert(output != null);
+
+		
+
+	}
+
+	/**
+	 * Reads the <code>LogEntry</code> from the data <code>Tuple</code>.
+	 *
+	 * @param tuple The <code>Tuple</code> which contains the <code>LogEntry</code>
+	 */
+	public void read(final Reader input) {
+
+		assert(input != null);
+
+		Scanner scanner = new Scanner(input);
+
+		scanner.next(message);
+
 	}
 
 	@Override

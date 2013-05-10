@@ -174,12 +174,6 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
             }
         });
 
-		mitemLogDir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mitemLogDirActionPerformed(evt);
-            }
-        });
-
 		mitemMsgLogFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mitemMsgLogFileActionPerformed(evt);
@@ -237,8 +231,6 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
         menubar = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         mitemSave = new javax.swing.JMenuItem();
-        mitemLogDir = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
         javax.swing.JPopupMenu.Separator jSeparator1 = new javax.swing.JPopupMenu.Separator();
         mitemQuit = new javax.swing.JMenuItem();
         menuLoggers = new javax.swing.JMenu();
@@ -305,17 +297,6 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
         mitemSave.setText("Save");
         mitemSave.setToolTipText("Save the composite logger output.");
         menuFile.add(mitemSave);
-
-        mitemLogDir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        mitemLogDir.setText("Set Log Directory");
-        mitemLogDir.setToolTipText("Set the output log file directory.");
-        menuFile.add(mitemLogDir);
-
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem2.setMnemonic('O');
-        jMenuItem2.setText("Open Log Directory");
-        jMenuItem2.setToolTipText("Open logged data.");
-        menuFile.add(jMenuItem2);
         menuFile.add(jSeparator1);
 
         mitemQuit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
@@ -404,14 +385,14 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(tabs, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
-            .addComponent(toolbar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(toolbar, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(toolbar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tabs, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE))
+                .addComponent(tabs, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE))
         );
 
         getAccessibleContext().setAccessibleName("zedlog");
@@ -433,7 +414,7 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 
 	private void userQuit() {
 
-		if (loggers.getLogDirectory() == null) {
+		/*if (loggers.getLogDirectory() == null) {
 
 			boolean quit = SimpleDialog.yesno(
 				this, "Really Quit?",
@@ -446,7 +427,7 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 				return;
 			}
 
-		}
+		}*/
 
 		logger.info("User quit.");
 
@@ -639,31 +620,6 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 
 	}
 
-	private void mitemLogDirActionPerformed(ActionEvent evt) {
-
-		File logDir = SimpleDialog.selectDir(this);
-		if (logDir != null) {
-
-			logger.info(String.format("Setting log directory to '%s'.", logDir.getPath()));
-
-			try {
-				loggers.setLogDirectory(logDir);
-			} catch (IOException ex) {
-
-				String msg =
-					String.format("Failed to set the log directory to '%s'.", logDir.getPath());
-				logger.error(msg, ex);
-
-				return;
-
-			}
-
-			logger.info(String.format("Log directory set to '%s'.", logDir.getPath()));
-
-		}
-
-	}
-
 	private void mitemLogWindowActionPerformed(ActionEvent evt) {
 		logWindow.setVisible(true);
 	}
@@ -760,7 +716,6 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
     private javax.swing.JButton btnRemove;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenu menuFile;
     private javax.swing.JMenu menuHelp;
     private javax.swing.JMenu menuLoggers;
@@ -772,7 +727,6 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
     private javax.swing.JMenuItem mitemClearAll;
     private javax.swing.JMenuItem mitemHelp;
     private javax.swing.JMenuItem mitemHide;
-    private javax.swing.JMenuItem mitemLogDir;
     private javax.swing.JMenuItem mitemLogWindow;
     private javax.swing.JMenuItem mitemMsgLogFile;
     private javax.swing.JMenuItem mitemQuit;

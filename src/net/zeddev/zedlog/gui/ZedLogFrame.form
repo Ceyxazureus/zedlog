@@ -33,25 +33,6 @@
                 <Property name="toolTipText" type="java.lang.String" value="Save the composite logger output."/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mitemLogDir">
-              <Properties>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Shift+Ctrl+S"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Set Log Directory"/>
-                <Property name="toolTipText" type="java.lang.String" value="Set the output log file directory."/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
-              <Properties>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Shift+Ctrl+O"/>
-                </Property>
-                <Property name="mnemonic" type="int" value="79"/>
-                <Property name="text" type="java.lang.String" value="Open Log Directory"/>
-                <Property name="toolTipText" type="java.lang.String" value="Open logged data."/>
-              </Properties>
-            </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
