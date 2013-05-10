@@ -551,11 +551,11 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 
 	private void userQuit() {
 
-		/*if (loggers.getLogDirectory() == null) {
+		if (loggers.getLogStream() == null) {
 
 			boolean quit = SimpleDialog.yesno(
 				this, "Really Quit?",
-				"There is unsaved log data which could be lost.\n"
+				"The log file has not been set, log data may be lost.\n"
 				+ "Are you sure you want to quit?"
 			);
 
@@ -564,7 +564,7 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 				return;
 			}
 
-		}*/
+		}
 
 		logger.info("User quit.");
 
@@ -705,7 +705,7 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 			btnPause.setText("Record");
 
 			logger.info("Recording paused.");
-			
+
 		}
 
     }
