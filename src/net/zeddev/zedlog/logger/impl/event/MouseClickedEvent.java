@@ -1,3 +1,5 @@
+
+package net.zeddev.zedlog.logger.impl.event;
 /* Copyright (C) 2013  Zachary Scott <zscott.dev@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,35 +16,53 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.zeddev.zedlog.logger.impl;
-
 import java.io.Writer;
 import java.util.Scanner;
-import org.jnativehook.mouse.NativeMouseWheelEvent;
+import org.jnativehook.mouse.NativeMouseEvent;
 
 /**
- * A mouse event describing a mouse wheel movement.
+ * A mouse event describing a button click.
  *
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
-public final class MouseWheelMovedEvent extends MouseEvent {
+public final class MouseClickedEvent extends MouseEvent {
 
-	private int rotation = -1;
+	private int buttonCode = -1;
+	private String button = null;
+	private int clickCount = -1;
 
-	public MouseWheelMovedEvent() {
+	public MouseClickedEvent() {
 	}
 
-	public MouseWheelMovedEvent(final NativeMouseWheelEvent event) {
+	public MouseClickedEvent(final NativeMouseEvent event) {
 		super(event);
-		setRotation(event.getWheelRotation());
+		setButtonCode(event.getButton());
+		setButton(buttonName(event.getButton()));
+		setClickCount(event.getClickCount());
 	}
 
-	public int getRotation() {
-		return rotation;
+	public final int getButtonCode() {
+		return buttonCode;
 	}
 
-	public void setRotation(int rotation) {
-		this.rotation = rotation;
+	public final void setButtonCode(int buttonCode) {
+		this.buttonCode = buttonCode;
+	}
+
+	public final String getButton() {
+		return button;
+	}
+
+	public final void setButton(String button) {
+		this.button = button;
+	}
+
+	public final int getClickCount() {
+		return clickCount;
+	}
+
+	public final void setClickCount(int clickCount) {
+		this.clickCount = clickCount;
 	}
 
 	@Override
@@ -50,7 +70,7 @@ public final class MouseWheelMovedEvent extends MouseEvent {
 
 		assert(output != null);
 
-		output.write(Integer.toString(getRotation()));
+		output.write(Integer.toString(getButtonCode()));
 		output.write("|");
 
 		super.write(output);
@@ -60,7 +80,8 @@ public final class MouseWheelMovedEvent extends MouseEvent {
 	@Override
 	public void read(Scanner scanner) throws Exception {
 
-		setRotation(scanner.nextInt());
+		setButtonCode(scanner.nextInt());
+		setButton(buttonName(getButtonCode()));
 
 		super.read(scanner);
 
@@ -71,23 +92,14 @@ public final class MouseWheelMovedEvent extends MouseEvent {
 
 		StringBuilder msg = new StringBuilder();
 
-		msg.append("Mouse wheel moved - at ");
+		msg.append("Mouse clicked - ");
+		msg.append(getButton());
+		msg.append(" at ");
 		msg.append(posString(getX(), getY()));
-
-		msg.append(" ");
-		msg.append(Math.abs(getRotation()));
-		msg.append(" units");
-
-		if (getRotation() > 0) {
-			msg.append(" down");
-		} else {
-			msg.append(" up");
-		}
-
 		msg.append(".\n");
 
 		return msg.toString();
 
 	}
 
-}
+ }

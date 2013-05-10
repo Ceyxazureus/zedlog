@@ -16,6 +16,7 @@
 
 package net.zeddev.zedlog.logger.impl;
 
+import net.zeddev.zedlog.logger.impl.event.MouseReleasedEvent;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.mouse.NativeMouseEvent;
 import org.jnativehook.mouse.NativeMouseListener;

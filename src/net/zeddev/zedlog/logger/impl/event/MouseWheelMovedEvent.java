@@ -14,35 +14,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.zeddev.zedlog.logger.impl;
+package net.zeddev.zedlog.logger.impl.event;
 
 import java.io.Writer;
 import java.util.Scanner;
-import org.jnativehook.mouse.NativeMouseEvent;
+import org.jnativehook.mouse.NativeMouseWheelEvent;
 
 /**
- * A mouse event describing a button click.
+ * A mouse event describing a mouse wheel movement.
  *
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
-public final class MouseDraggedEvent extends MouseEvent {
+public final class MouseWheelMovedEvent extends MouseEvent {
 
-	private int buttonCode = -1;
+	private int rotation = -1;
 
-	public MouseDraggedEvent() {
+	public MouseWheelMovedEvent() {
 	}
 
-	public MouseDraggedEvent(final NativeMouseEvent event) {
+	public MouseWheelMovedEvent(final NativeMouseWheelEvent event) {
 		super(event);
-		setButtonCode(event.getButton());
+		setRotation(event.getWheelRotation());
 	}
 
-	public final int getButtonCode() {
-		return buttonCode;
+	public int getRotation() {
+		return rotation;
 	}
 
-	public final void setButtonCode(int buttonCode) {
-		this.buttonCode = buttonCode;
+	public void setRotation(int rotation) {
+		this.rotation = rotation;
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public final class MouseDraggedEvent extends MouseEvent {
 
 		assert(output != null);
 
-		output.write(Integer.toString(getButtonCode()));
+		output.write(Integer.toString(getRotation()));
 		output.write("|");
 
 		super.write(output);
@@ -60,7 +60,7 @@ public final class MouseDraggedEvent extends MouseEvent {
 	@Override
 	public void read(Scanner scanner) throws Exception {
 
-		setButtonCode(scanner.nextInt());
+		setRotation(scanner.nextInt());
 
 		super.read(scanner);
 
@@ -71,8 +71,19 @@ public final class MouseDraggedEvent extends MouseEvent {
 
 		StringBuilder msg = new StringBuilder();
 
-		msg.append("Mouse dragged - at ");
+		msg.append("Mouse wheel moved - at ");
 		msg.append(posString(getX(), getY()));
+
+		msg.append(" ");
+		msg.append(Math.abs(getRotation()));
+		msg.append(" units");
+
+		if (getRotation() > 0) {
+			msg.append(" down");
+		} else {
+			msg.append(" up");
+		}
+
 		msg.append(".\n");
 
 		return msg.toString();

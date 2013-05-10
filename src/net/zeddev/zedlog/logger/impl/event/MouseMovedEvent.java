@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.zeddev.zedlog.logger.impl;
+package net.zeddev.zedlog.logger.impl.event;
 
 import org.jnativehook.mouse.NativeMouseEvent;
 

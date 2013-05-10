@@ -26,19 +26,19 @@ import net.zeddev.litelogger.Logger;
 import net.zeddev.zedlog.logger.LogEntry;
 import net.zeddev.zedlog.logger.LogEvent;
 import net.zeddev.zedlog.logger.impl.CompositeDataLogger;
-import net.zeddev.zedlog.logger.impl.KeyEvent;
+import net.zeddev.zedlog.logger.impl.event.KeyEvent;
 import net.zeddev.zedlog.logger.impl.MouseClickLogger;
-import net.zeddev.zedlog.logger.impl.MouseClickedEvent;
-import net.zeddev.zedlog.logger.impl.MouseDraggedEvent;
+import net.zeddev.zedlog.logger.impl.event.MouseClickedEvent;
+import net.zeddev.zedlog.logger.impl.event.MouseDraggedEvent;
 import net.zeddev.zedlog.logger.impl.MouseDraggedLogger;
-import net.zeddev.zedlog.logger.impl.MouseMovedEvent;
+import net.zeddev.zedlog.logger.impl.event.MouseMovedEvent;
 import net.zeddev.zedlog.logger.impl.MouseMovementLogger;
-import net.zeddev.zedlog.logger.impl.MousePressedEvent;
+import net.zeddev.zedlog.logger.impl.event.MousePressedEvent;
 import net.zeddev.zedlog.logger.impl.MousePressedLogger;
-import net.zeddev.zedlog.logger.impl.MouseReleasedEvent;
+import net.zeddev.zedlog.logger.impl.event.MouseReleasedEvent;
 import net.zeddev.zedlog.logger.impl.MouseReleasedLogger;
 import net.zeddev.zedlog.logger.impl.MouseWheelLogger;
-import net.zeddev.zedlog.logger.impl.MouseWheelMovedEvent;
+import net.zeddev.zedlog.logger.impl.event.MouseWheelMovedEvent;
 
 /**
  * Replays/simulates logged <code>LogEvent</code>s.

@@ -1,5 +1,3 @@
-
-package net.zeddev.zedlog.logger.impl;
 /* Copyright (C) 2013  Zachary Scott <zscott.dev@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -16,6 +14,8 @@ package net.zeddev.zedlog.logger.impl;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+package net.zeddev.zedlog.logger.impl.event;
+
 import java.io.Writer;
 import java.util.Scanner;
 import org.jnativehook.mouse.NativeMouseEvent;
@@ -25,20 +25,16 @@ import org.jnativehook.mouse.NativeMouseEvent;
  *
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
-public final class MouseClickedEvent extends MouseEvent {
+public final class MouseDraggedEvent extends MouseEvent {
 
 	private int buttonCode = -1;
-	private String button = null;
-	private int clickCount = -1;
 
-	public MouseClickedEvent() {
+	public MouseDraggedEvent() {
 	}
 
-	public MouseClickedEvent(final NativeMouseEvent event) {
+	public MouseDraggedEvent(final NativeMouseEvent event) {
 		super(event);
 		setButtonCode(event.getButton());
-		setButton(buttonName(event.getButton()));
-		setClickCount(event.getClickCount());
 	}
 
 	public final int getButtonCode() {
@@ -47,22 +43,6 @@ public final class MouseClickedEvent extends MouseEvent {
 
 	public final void setButtonCode(int buttonCode) {
 		this.buttonCode = buttonCode;
-	}
-
-	public final String getButton() {
-		return button;
-	}
-
-	public final void setButton(String button) {
-		this.button = button;
-	}
-
-	public final int getClickCount() {
-		return clickCount;
-	}
-
-	public final void setClickCount(int clickCount) {
-		this.clickCount = clickCount;
 	}
 
 	@Override
@@ -81,7 +61,6 @@ public final class MouseClickedEvent extends MouseEvent {
 	public void read(Scanner scanner) throws Exception {
 
 		setButtonCode(scanner.nextInt());
-		setButton(buttonName(getButtonCode()));
 
 		super.read(scanner);
 
@@ -92,9 +71,7 @@ public final class MouseClickedEvent extends MouseEvent {
 
 		StringBuilder msg = new StringBuilder();
 
-		msg.append("Mouse clicked - ");
-		msg.append(getButton());
-		msg.append(" at ");
+		msg.append("Mouse dragged - at ");
 		msg.append(posString(getX(), getY()));
 		msg.append(".\n");
 
@@ -102,4 +79,4 @@ public final class MouseClickedEvent extends MouseEvent {
 
 	}
 
- }
+}
