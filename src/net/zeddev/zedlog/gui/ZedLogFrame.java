@@ -221,6 +221,9 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
         jMenuItem1 = new javax.swing.JMenuItem();
         tabs = new javax.swing.JTabbedPane();
         javax.swing.JToolBar toolbar = new javax.swing.JToolBar();
+        btnSave = new javax.swing.JButton();
+        btnOpen = new javax.swing.JButton();
+        javax.swing.JToolBar.Separator jSeparator4 = new javax.swing.JToolBar.Separator();
         btnAdd = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
         btnClearAll = new javax.swing.JButton();
@@ -262,19 +265,47 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
         toolbar.setFloatable(false);
         toolbar.setRollover(true);
 
+        btnSave.setIcon(Icons.getInstance().getIcon("save"));
+        btnSave.setMnemonic('S');
+        btnSave.setText("Set Log");
+        btnSave.setToolTipText("Set the log file to which log entries are automatically stored.");
+        btnSave.setFocusable(false);
+        btnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolbar.add(btnSave);
+
+        btnOpen.setIcon(Icons.getInstance().getIcon("open"));
+        btnOpen.setMnemonic('O');
+        btnOpen.setText("Open Log");
+        btnOpen.setToolTipText("Open a previously create log file.");
+        btnOpen.setFocusable(false);
+        btnOpen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnOpen.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolbar.add(btnOpen);
+        toolbar.add(jSeparator4);
+
         btnAdd.setIcon(Icons.getInstance().getIcon("add"));
-        btnAdd.setText("Add");
+        btnAdd.setMnemonic('A');
+        btnAdd.setText("Add ");
         btnAdd.setToolTipText("Add a new logger to ZedLog.");
+        btnAdd.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnAdd.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         toolbar.add(btnAdd);
 
         btnRemove.setIcon(Icons.getInstance().getIcon("remove"));
+        btnRemove.setMnemonic('R');
         btnRemove.setText("Remove");
         btnRemove.setToolTipText("Remove the selected logger from ZedLog.");
+        btnRemove.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnRemove.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         toolbar.add(btnRemove);
 
+        btnClearAll.setIcon(Icons.getInstance().getIcon("clear"));
         btnClearAll.setMnemonic('C');
         btnClearAll.setText("Clear");
         btnClearAll.setToolTipText("Clears all log entries from all loggers.");
+        btnClearAll.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnClearAll.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         toolbar.add(btnClearAll);
         toolbar.add(jSeparator2);
 
@@ -290,6 +321,8 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
         btnHide.setMnemonic('H');
         btnHide.setText("Hide");
         btnHide.setToolTipText("Hide the ZedLog window.");
+        btnHide.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnHide.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         toolbar.add(btnHide);
 
         menuFile.setText("File");
@@ -301,6 +334,7 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
         menuFile.add(mitemSave);
 
         mitemSetLogFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        mitemSetLogFile.setIcon(Icons.getInstance().getIcon("save"));
         mitemSetLogFile.setMnemonic('L');
         mitemSetLogFile.setText("Set Log File");
         mitemSetLogFile.setToolTipText("Set the log file to which log entries are automatically stored.");
@@ -312,6 +346,7 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
         menuFile.add(mitemSetLogFile);
 
         mitemOpenLogFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        mitemOpenLogFile.setIcon(Icons.getInstance().getIcon("open"));
         mitemOpenLogFile.setMnemonic('O');
         mitemOpenLogFile.setText("Open Log File");
         mitemOpenLogFile.setToolTipText("Open a previously create log file.");
@@ -348,6 +383,7 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
         mitemRemove.setToolTipText("Remove the selected logger from ZedLog.");
         menuLoggers.add(mitemRemove);
 
+        mitemClearAll.setIcon(Icons.getInstance().getIcon("clear"));
         mitemClearAll.setText("Clear All");
         menuLoggers.add(mitemClearAll);
 
@@ -408,15 +444,15 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabs, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
+            .addComponent(tabs, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
             .addComponent(toolbar, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(toolbar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(toolbar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tabs, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE))
+                .addComponent(tabs, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE))
         );
 
         getAccessibleContext().setAccessibleName("zedlog");
@@ -448,12 +484,14 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 	}
 
     private void mitemSetLogFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemSetLogFileActionPerformed
-		File logFile = null;
+		File logFile = SimpleDialog.saveFile(this);
 
 		// select and set the new log file
 		try {
-			logFile = SimpleDialog.saveFile(this);
-			loggers.setLogFile(logFile);
+
+			if (logFile != null)
+				loggers.setLogFile(logFile);
+
 		} catch (IOException ex) {
 
 			if (logFile == null) {
@@ -801,8 +839,10 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnClearAll;
     private javax.swing.JButton btnHide;
+    private javax.swing.JButton btnOpen;
     private javax.swing.JButton btnPause;
     private javax.swing.JButton btnRemove;
+    private javax.swing.JButton btnSave;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenu menuFile;
