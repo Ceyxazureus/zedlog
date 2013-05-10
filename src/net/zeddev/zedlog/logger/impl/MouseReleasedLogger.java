@@ -61,60 +61,11 @@ public final class MouseReleasedLogger extends AbstractDataLogger
 	@Override
 	public void nativeMouseReleased(NativeMouseEvent event) {
 
-		MouseReleasedLogger.MouseReleasedEvent clickEvent =
-			new MouseReleasedLogger.MouseReleasedEvent(event);
+		MouseReleasedEvent clickEvent =
+			new MouseReleasedEvent(event);
 
 		LogEntry logEntry = new LogEntry(this, clickEvent.toString(), clickEvent);
 		notifyDataLoggerObservers(this, logEntry);
-
-	}
-
-	/**
-	 * A mouse event describing a button release.
-	 *
-	 * @author Zachary Scott <zscott.dev@gmail.com>
-	 */
-	public static final class MouseReleasedEvent extends MouseEvent {
-
-		private int buttonCode;
-		private String button;
-
-		protected MouseReleasedEvent(final NativeMouseEvent event) {
-			super(event);
-			setButtonCode(event.getButton());
-			setButton(buttonName(event.getButton()));
-		}
-
-		public final int getButtonCode() {
-			return buttonCode;
-		}
-
-		public final void setButtonCode(int buttonCode) {
-			this.buttonCode = buttonCode;
-		}
-
-		public final String getButton() {
-			return button;
-		}
-
-		public final void setButton(String button) {
-			this.button = button;
-		}
-
-		@Override
-		public String toString() {
-
-			StringBuilder msg = new StringBuilder();
-
-			msg.append("Mouse released - ");
-			msg.append(getButton());
-			msg.append(" at ");
-			msg.append(posString(getX(), getY()));
-			msg.append(".\n");
-
-			return msg.toString();
-
-		}
 
 	}
 

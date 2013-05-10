@@ -33,7 +33,9 @@ import net.zeddev.zedlog.logger.impl.MouseDraggedEvent;
 import net.zeddev.zedlog.logger.impl.MouseDraggedLogger;
 import net.zeddev.zedlog.logger.impl.MouseMovedEvent;
 import net.zeddev.zedlog.logger.impl.MouseMovementLogger;
+import net.zeddev.zedlog.logger.impl.MousePressedEvent;
 import net.zeddev.zedlog.logger.impl.MousePressedLogger;
+import net.zeddev.zedlog.logger.impl.MouseReleasedEvent;
 import net.zeddev.zedlog.logger.impl.MouseReleasedLogger;
 import net.zeddev.zedlog.logger.impl.MouseWheelLogger;
 
@@ -159,14 +161,14 @@ public final class ReplayTool {
 
 	}
 
-	private void simMousePressedEvent(Robot robot, MousePressedLogger.MousePressedEvent event) {
+	private void simMousePressedEvent(Robot robot, MousePressedEvent event) {
 
 		robot.mouseMove(event.getX(), event.getY());
 		robot.mousePress(convertMouseButtonCode(event.getButtonCode()));
 
 	}
 
-	private void simMouseReleasedEvent(Robot robot, MouseReleasedLogger.MouseReleasedEvent event) {
+	private void simMouseReleasedEvent(Robot robot, MouseReleasedEvent event) {
 
 		robot.mouseMove(event.getX(), event.getY());
 		robot.mouseRelease(convertMouseButtonCode(event.getButtonCode()));
@@ -194,10 +196,10 @@ public final class ReplayTool {
 				simMouseDragEvent(robot, (MouseDraggedEvent) event);
 			} else if (event instanceof MouseClickedEvent) {
 				simMouseClickEvent(robot, (MouseClickedEvent) event);
-			} else if (event instanceof MousePressedLogger.MousePressedEvent) {
-				simMousePressedEvent(robot, (MousePressedLogger.MousePressedEvent) event);
-			} else if (event instanceof MouseReleasedLogger.MouseReleasedEvent) {
-				simMouseReleasedEvent(robot, (MouseReleasedLogger.MouseReleasedEvent) event);
+			} else if (event instanceof MousePressedEvent) {
+				simMousePressedEvent(robot, (MousePressedEvent) event);
+			} else if (event instanceof MouseReleasedEvent) {
+				simMouseReleasedEvent(robot, (MouseReleasedEvent) event);
 			} else if (event instanceof MouseWheelLogger.MouseWheelMovedEvent) {
 				simMouseWheelEvent(robot, (MouseWheelLogger.MouseWheelMovedEvent) event);
 			} else {
