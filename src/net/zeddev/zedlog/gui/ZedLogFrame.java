@@ -847,8 +847,8 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 	private void mitemHelpActionPerformed(java.awt.event.ActionEvent evt) {
 
 		try {
-			HelpDoc.INSTANCE.showInBrowser();
-		} catch (IOException ex) {
+			HelpDoc.getInstance().showInBrowser();
+		} catch (Exception ex) {
 			logger.error("Cannot open help documentation in the web browser!", ex);
 		}
 

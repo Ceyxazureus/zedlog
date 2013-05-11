@@ -33,6 +33,10 @@ public enum HelpDoc {
 	/** The singleton instance. */
 	INSTANCE;
 
+	public static HelpDoc getInstance() {
+		return INSTANCE;
+	}
+
 	private final Logger logger = Logger.getLogger(this);
 
 	// the main helpdoc html filename
@@ -66,9 +70,8 @@ public enum HelpDoc {
 	// returns a new temporary filename for the given filename
 	private String tempFile(final String filename) {
 
-		return String.format("%s%s%s",
+		return String.format("%s%s",
 			System.getProperty("java.io.tmpdir"),
-			System.getProperty("file.separator"),
 			filename
 		);
 
@@ -99,6 +102,8 @@ public enum HelpDoc {
 
 			} catch (IOException ex) {
 				logger.error(String.format("Cannot create temp file %s", tmpfile), ex);
+			} catch (Exception ex) {
+				logger.error(String.format("Failed to copy resource file %s", helpFile), ex);
 			}
 
 		}

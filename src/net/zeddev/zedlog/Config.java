@@ -58,7 +58,7 @@ public enum Config {
 	 * The documentation resource directory.
 	 *
 	 */
-	public static final String DOCDIR = "/net/zeddev/zedlog/doc/";
+	public static final String DOCDIR = "/net/zeddev/zedlog/doc";
 
 	/**
 	 * The help html file name (relative to <code>Config.HELPDIR</code>).
