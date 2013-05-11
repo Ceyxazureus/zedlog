@@ -16,6 +16,7 @@
 
 package net.zeddev.zedlog.logger.impl;
 
+import net.zeddev.zedlog.logger.impl.event.MouseDraggedEvent;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.mouse.NativeMouseEvent;
 import org.jnativehook.mouse.NativeMouseMotionListener;
@@ -59,34 +60,8 @@ public final class MouseDraggedLogger extends AbstractDataLogger
 		MouseDraggedEvent draggedEvent =
 			new MouseDraggedEvent(event);
 
-		LogEntry logEntry = new LogEntry(draggedEvent.toString(), draggedEvent);
+		LogEntry logEntry = new LogEntry(this, draggedEvent.toString(), draggedEvent);
 		notifyDataLoggerObservers(this, logEntry);
-
-	}
-
-	/**
-	 * A mouse event describing a button click.
-	 *
-	 * @author Zachary Scott <zscott.dev@gmail.com>
-	 */
-	public final class MouseDraggedEvent extends MouseEvent {
-
-		protected MouseDraggedEvent(final NativeMouseEvent event) {
-			super(event);
-		}
-
-		@Override
-		public String toString() {
-
-			StringBuilder msg = new StringBuilder();
-
-			msg.append("Mouse dragged - at ");
-			msg.append(posString(getX(), getY()));
-			msg.append(".\n");
-
-			return msg.toString();
-
-		}
 
 	}
 

@@ -16,6 +16,7 @@
 
 package net.zeddev.zedlog.logger.impl;
 
+import net.zeddev.zedlog.logger.impl.event.MouseClickedEvent;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.mouse.NativeMouseEvent;
 import org.jnativehook.mouse.NativeMouseListener;
@@ -54,7 +55,7 @@ public final class MouseClickLogger extends AbstractDataLogger
 		MouseClickedEvent clickEvent =
 			new MouseClickedEvent(event);
 
-		LogEntry logEntry = new LogEntry(clickEvent.toString(), clickEvent);
+		LogEntry logEntry = new LogEntry(this, clickEvent.toString(), clickEvent);
 		notifyDataLoggerObservers(this, logEntry);
 
 	}
@@ -67,62 +68,6 @@ public final class MouseClickLogger extends AbstractDataLogger
 	@Override
 	public void nativeMouseReleased(NativeMouseEvent event) {
 		// IGNORED
-	}
-
-	/**
-	 * A mouse event describing a button click.
-	 *
-	 * @author Zachary Scott <zscott.dev@gmail.com>
-	 */
-	public final class MouseClickedEvent extends MouseEvent {
-
-		private String button;
-		private int clickCount;
-
-		protected MouseClickedEvent(final NativeMouseEvent event) {
-			super(event);
-			setButton(buttonName(event.getButton()));
-			setClickCount(event.getClickCount());
-		}
-
-		public final String getButton() {
-			return button;
-		}
-
-		public final void setButton(String button) {
-			this.button = button;
-		}
-
-		public final int getClickCount() {
-			return clickCount;
-		}
-
-		public final void setClickCount(int clickCount) {
-			this.clickCount = clickCount;
-		}
-
-		@Override
-		public String toString() {
-
-			StringBuilder msg = new StringBuilder();
-
-			msg.append("Mouse clicked - ");
-			msg.append(getButton());
-			msg.append(" at ");
-			msg.append(posString(getX(), getY()));
-
-			if (getClickCount() > 1) {
-				msg.append(" ");
-				msg.append(getClickCount());
-				msg.append(" times.\n");
-			} else {
-				msg.append(".\n");
-			}
-
-			return msg.toString();
-
-		}
-
 	}
 
 }

@@ -1,0 +1,30 @@
+
+=pod
+
+=head1 Changes in ZedLog
+
+=head2 v0.2
+
+=over 4
+
+=item * Added initial replay simulation tool.
+
+=item * Saving and opening log files.
+
+=item * Added record/pause button.
+
+=item * Separate mouse pressed & released loggers.
+
+=item * More polished GUI and a new icon set.
+
+=back
+
+=head2 v0.1 - Released 2-May-2013
+
+Initial version.
+
+=head2 Author
+
+ Zachary Scott <zscott.dev@gmail.com>
+
+=cut

@@ -16,6 +16,7 @@
 
 package net.zeddev.zedlog.logger.impl;
 
+import net.zeddev.zedlog.logger.impl.event.MouseMovedEvent;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.mouse.NativeMouseEvent;
 import org.jnativehook.mouse.NativeMouseMotionListener;
@@ -53,7 +54,7 @@ public final class MouseMovementLogger extends AbstractDataLogger
 
 		MouseMovedEvent moveEvent = new MouseMovedEvent(event);
 
-		LogEntry logEntry = new LogEntry(moveEvent.toString(), moveEvent);
+		LogEntry logEntry = new LogEntry(this, moveEvent.toString(), moveEvent);
 		notifyDataLoggerObservers(this, logEntry);
 
 	}
@@ -61,32 +62,6 @@ public final class MouseMovementLogger extends AbstractDataLogger
 	@Override
 	public void nativeMouseDragged(NativeMouseEvent nme) {
 		// IGNORED
-	}
-
-	/**
-	 * A mouse event describing a mouse movement.
-	 *
-	 * @author Zachary Scott <zscott.dev@gmail.com>
-	 */
-	public final class MouseMovedEvent extends MouseEvent {
-
-		protected MouseMovedEvent(final NativeMouseEvent event) {
-			super(event);
-		}
-
-		@Override
-		public String toString() {
-
-			StringBuilder msg = new StringBuilder();
-
-			msg.append("Mouse moved - at ");
-			msg.append(posString(getX(), getY()));
-			msg.append(".\n");
-
-			return msg.toString();
-
-		}
-
 	}
 
 }

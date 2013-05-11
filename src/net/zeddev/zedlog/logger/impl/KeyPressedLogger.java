@@ -16,6 +16,7 @@
 
 package net.zeddev.zedlog.logger.impl;
 
+import net.zeddev.zedlog.logger.impl.event.KeyEvent;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
@@ -51,10 +52,10 @@ public final class KeyPressedLogger extends AbstractDataLogger implements Native
 	@Override
 	public void nativeKeyPressed(NativeKeyEvent event) {
 
-		KeyEvent keyEvent = new KeyEvent(KeyEvent.Type.RELEASED, event.getKeyCode(), event.getKeyChar());
+		KeyEvent keyEvent = new KeyEvent(KeyEvent.Type.PRESSED, event.getKeyCode(), event.getKeyChar());
 		String key = NativeKeyEvent.getKeyText(event.getKeyCode());
 
-		LogEntry logEntry = new LogEntry(String.format("%s ", key), keyEvent);
+		LogEntry logEntry = new LogEntry(this, String.format("%s ", key), keyEvent);
 		notifyDataLoggerObservers(this, logEntry);
 
 	}

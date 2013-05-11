@@ -16,6 +16,7 @@
 
 package net.zeddev.zedlog.logger.impl;
 
+import net.zeddev.zedlog.logger.impl.event.KeyEvent;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.jnativehook.keyboard.NativeKeyListener;
@@ -60,7 +61,7 @@ public final class CharTypedLogger extends AbstractDataLogger implements NativeK
 	@Override
 	public void nativeKeyTyped(NativeKeyEvent event) {
 
-		KeyEvent keyEvent = new KeyEvent(KeyEvent.Type.RELEASED, event.getKeyCode(), event.getKeyChar());
+		KeyEvent keyEvent = new KeyEvent(KeyEvent.Type.TYPED, -1, event.getKeyChar());
 		String logMsg;
 
 		// add spacing if not alphanumeric char
@@ -73,7 +74,7 @@ public final class CharTypedLogger extends AbstractDataLogger implements NativeK
 			logMsg = Character.toString(ch);
 		}
 
-		LogEntry logEntry = new LogEntry(logMsg, keyEvent);
+		LogEntry logEntry = new LogEntry(this, logMsg, keyEvent);
 		notifyDataLoggerObservers(this, logEntry);
 
 	}

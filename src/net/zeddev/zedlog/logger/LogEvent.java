@@ -16,6 +16,9 @@
 
 package net.zeddev.zedlog.logger;
 
+import java.io.Writer;
+import java.util.Scanner;
+
 /**
  * A single event which is logged by a <code>DataLogger</code>.
  *
@@ -23,6 +26,40 @@ package net.zeddev.zedlog.logger;
  */
 public abstract class LogEvent {
 
-	// NOTE Has no methods, here purley as a parent to all events
+	/**
+	 * Writes the <code>LogEvent</code> to the given output stream.
+	 * The format should be as follows:
+	 * <ul>
+	 * <li>Fields should be separated by a single vertical bar (<code>|</code></li>
+	 * <li>Should contain only readable characters.</li>
+	 * <li>Fields should not contain the following characters;
+	 *	<ul>
+	 *		<li>Vertical bars <code>|</code></li>
+	 *		<li>Newlines (both <code>\n</code> and <code>\r</code></li>
+	 *	</ul>
+	 * </li>
+	 * </ul>
+	 *
+	 * @param output The output stream to write to.
+	 * @throws Exception
+	 */
+	public abstract void write(final Writer output) throws Exception;
+
+	/**
+	 * Parses the <code>LogEntry</code> from the given input scanner.
+	 * The delimiter is preset and should not be modified.
+	 *
+	 * @param scanner The scanner to be read from.
+	 * @throws Exception
+	 */
+	public abstract void read(final Scanner scanner) throws Exception;
+
+	/**
+	 * Returns a human-readable name for the event type.
+	 * Must be unique among all events.
+	 *
+	 * @return The type of the event.
+	 */
+	public abstract String type();
 
 }

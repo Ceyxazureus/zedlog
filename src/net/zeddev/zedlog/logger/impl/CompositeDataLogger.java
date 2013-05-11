@@ -16,18 +16,25 @@
 
 package net.zeddev.zedlog.logger.impl;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.regex.Pattern;
 import net.zeddev.litelogger.Logger;
 import net.zeddev.zedlog.logger.AbstractDataLogger;
 import net.zeddev.zedlog.logger.DataLogger;
 import net.zeddev.zedlog.logger.DataLoggerObserver;
 import net.zeddev.zedlog.logger.LogEntry;
+import net.zeddev.zedlog.logger.LogEvent;
 
 /**
  * A collection of multiple <code>DataLogger</code>'s.
@@ -38,14 +45,13 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 
 	private final Logger logger = Logger.getLogger(this);
 
-	private StringBuilder log = new StringBuilder();
+	// each log entry made by the children loggers
+	private final List<LogEntry> logEntries = new ArrayList<>();
 
-	private List<DataLogger> loggers = new ArrayList<>();
+	private final List<DataLogger> loggers = new ArrayList<>();
 
-	private File logDirectory = null;
-
-	// the log writers for each logger
-	private Map<DataLogger, DataLoggerWriter> logWriters = new HashMap<>();
+	// the output stream in which to write log entries
+	private Writer logstream = null;
 
 	/**
 	 * Creates a new <code>CompositeDataLogger</code>.
@@ -54,97 +60,17 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	public CompositeDataLogger() {
 	}
 
-	// adds a logger to logWriters
-	private void addLogWriter(final DataLogger logger) throws IOException {
+	@Override
+	public void shutdown() {
 
-		assert(logger != null);
-		assert(logDirectory != null);
-
-		// dont bother if no log dir is set
-		if (logDirectory == null)
-			return;
-
-		String logFile = String.format("%s.log", logger.type());
-
-		final FileWriter fileWriter = new FileWriter(
-			new File(logDirectory, logFile)
-		);
-
-		DataLoggerWriter dataWriter = new DataLoggerWriter(fileWriter);
-		logger.addObserver(dataWriter);
-
-		logWriters.put(logger, dataWriter);
-
-	}
-
-	// removes the log writer for the given logger
-	private void removeLogWriter(final DataLogger logger) throws IOException {
-
-		assert(logger != null);
-
-		DataLoggerWriter writer = logWriters.get(logger);
-
-		// remove the log writer
-		if (writer != null) {
-
-			writer.close();
-			logger.removeObserver(writer);
-
-			logWriters.remove(logger);
-
+		try {
+			closeLogStream();
+		} catch (IOException ex) {
+			logger.warning("Failed to close log file/stream properly!", ex);
 		}
 
-	}
+		logger.debug("CompositeLogger shutdown.");
 
-	// removes all writers from logWriters
-	private void removeAllLogWriters() throws IOException {
-
-		// close all writer streams
-		for (DataLoggerWriter writer : logWriters.values())
-			writer.close();
-
-		logWriters.clear();
-
-	}
-
-	/**
-	 * Sets the directory where each loggers log will be written.
-	 *
-	 * @param dir The log directory (must be a directory).  Can alternatively be
-	 * <code>null</code> to remove the existing log directory setting.
-	 * @throws IOException If error occurs while creating log files for
-	 *         existing loggers.
-	 * @throws IOException If error occurs while removing existing log directory.
-	 */
-	public void setLogDirectory(final File dir) throws IOException {
-
-		assert(dir != null && dir.isDirectory());
-
-		this.logDirectory = dir;
-
-		// clear the existing log writers
-		removeAllLogWriters();
-
-		if (dir != null) {
-
-			// add the logger writers for each existing logger
-			for (DataLogger logger : loggers)
-				addLogWriter(logger);
-
-			// add the composite logger itself
-			addLogWriter(this);
-
-		}
-
-	}
-
-	/**
-	 * Returns the directory in which the log files reside.
-	 *
-	 * @return The log directory (<code>null</code> if not set).
-	 */
-	public File getLogDirectory() {
-		return logDirectory;
 	}
 
 	@Override
@@ -160,8 +86,13 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	 * @return The <code>DataLogger</code> at the given index.
 	 */
 	public DataLogger getLogger(int index) {
+
 		assert(index >= 0 && index < loggers.size());
-		return loggers.get(index);
+
+		synchronized (loggers) {
+			return loggers.get(index);
+		}
+
 	}
 
 	/**
@@ -174,10 +105,14 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 
 		assert(logger != null);
 
-		logger.addObserver(this);
-		loggers.add(logger);
+		synchronized (loggers) {
 
-		addLogWriter(logger);
+			logger.setRecording(isRecording());
+
+			logger.addObserver(this);
+			loggers.add(logger);
+
+		}
 
 	}
 
@@ -191,10 +126,12 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 
 		assert(logger != null);
 
-		logger.removeObserver(this);
-		loggers.remove(logger);
+		synchronized (loggers) {
 
-		removeLogWriter(logger);
+			logger.removeObserver(this);
+			loggers.remove(logger);
+
+		}
 
 	}
 
@@ -208,36 +145,205 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 		loggers.remove(index);
 	}
 
-	private DataLogger lastToNotify = null;
+	/**
+	 * Clears all log entries and the log files.
+	 *
+	 * @throws IOException If an error occurs when the log files are closed.
+	 */
+	public void clearAll() throws IOException {
+
+		logEntries.clear();
+
+	}
+
+	/**
+	 * Returns the children <code>DataLogger</code>s.
+	 *
+	 * @return The children <code>DataLogger</code>s.
+	 */
+	public List<DataLogger> getLoggers() {
+		return new ArrayList<>(loggers);
+	}
+
+	/**
+	 * Returns a list of all entries made by children loggers.
+	 *
+	 * @return A list of all entries made by children loggers.
+	 */
+	public List<LogEntry> logEntries() {
+		return new ArrayList<>(logEntries);
+	}
+
+	/**
+	 * Returns the output stream in which log entries are written.
+	 *
+	 * @return The log output stream (may be <code>null</code>).
+	 */
+	public Writer getLogStream() {
+		return logstream;
+	}
+
+	/**
+	 * Sets the output stream in which log entries are written.
+	 *
+	 * @param logstream The new output stream (<code>null</code> indicates none).
+	 */
+	public void setLogStream(Writer logstream) {
+		this.logstream = logstream;
+	}
+
+	/**
+	 * Closes the output log stream.
+	 *
+	 * @throws IOException
+	 */
+	public void closeLogStream() throws IOException {
+
+		if (logstream != null) {
+			logstream.flush();
+			logstream.close();
+		}
+
+	}
+
+	/**
+	 * Sets the log file to which log entries are stored.
+	 *
+	 * @param file The log file (must be a valid filename and
+	 * cannot be <code>null</code>).
+	 */
+	public void setLogFile(File file) throws IOException {
+		assert(file != null);
+		setLogStream(new FileWriter(file));
+	}
+
+	/**
+	 * Opens the given log file and reads the log entries.
+	 * Implies clearing of the currently held log entries.
+	 *
+	 * @param file The file in which to read (file must exist and
+	 * cannot be <code>null</code>).
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws Exception
+	 */
+	public void openLogFile(File file)
+			throws FileNotFoundException, IOException, ClassNotFoundException,
+			InstantiationException, IllegalAccessException, Exception {
+
+		assert(file != null);
+
+		// first thing, close the old log stream
+		closeLogStream();
+
+		try (BufferedReader input = new BufferedReader(new FileReader(file))) {
+
+			// read each log entry one-by-one
+			String line = input.readLine();
+			while (line != null) {
+
+				Scanner scanner = new Scanner(line);
+				scanner.useDelimiter(Pattern.quote("|"));
+
+				// read the single log entry
+				LogEntry logEntry = new LogEntry();
+				logEntry.read(scanner);
+
+				notifyLog(null, logEntry);
+
+				line = input.readLine();
+
+			}
+
+		}
+
+	}
+
+	// writes the log entry to the log stream
+	private void writeLogEntry(LogEntry logEntry) {
+
+		Writer logstream = getLogStream();
+
+		if (logstream != null) {
+
+			try {
+
+				// write the log entry
+				logEntry.write(getLogStream());
+				logstream.write("\n");
+
+				logstream.flush();
+
+			} catch (Exception ex) {
+				logger.error("Failed to write log entry!", ex);
+			}
+
+		}
+
+	}
 
 	@Override
 	public void notifyLog(final DataLogger logger, final LogEntry logEntry) {
 
-		assert(logger != null);
 		assert(logEntry != null);
 
-		// add newline to separate different logger messages
-		if (lastToNotify == null) {
-			lastToNotify = logger;
-		} else if (logger != lastToNotify) {
+		if (isRecording()) {
 
-			// dont append if already a newline
-			if (log.charAt(log.length()-1) != '\n')
-				log.append("\n");
+			logEntries.add(logEntry); // TODO optimise using fast(er) list implementation
 
-			lastToNotify = logger;
+			writeLogEntry(logEntry);
+
+			notifyDataLoggerObservers(logger, logEntry);
 
 		}
 
-		log.append(logEntry);
+	}
 
-		notifyDataLoggerObservers(logger, logEntry);
+	@Override
+	public final void setRecording(boolean recording) {
+
+		synchronized (loggers) {
+
+			// set for all children
+			for (DataLogger logger : loggers)
+				logger.setRecording(recording);
+
+			super.setRecording(recording);
+
+		}
 
 	}
 
 	@Override
 	public String toString() {
+
+		final StringBuilder log = new StringBuilder();
+		DataLogger lastLogger = null;
+
+		for (LogEntry logEntry : logEntries) {
+
+			// add newline to separate different logger messages
+			if (lastLogger == null) {
+				lastLogger = logEntry.getParent();
+			} else if (logger != lastLogger) {
+
+				// dont append if already a newline
+				if (log.charAt(log.length()-1) != '\n')
+					log.append("\n");
+
+				lastLogger = logEntry.getParent();
+
+			}
+
+			log.append(logEntry);
+
+		}
+
 		return log.toString();
+
 	}
 
 }

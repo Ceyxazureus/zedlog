@@ -14,8 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.zeddev.zedlog.logger.impl;
+package net.zeddev.zedlog.logger.impl.event;
 
+import java.io.Reader;
+import java.io.Writer;
+import java.util.Scanner;
 import net.zeddev.zedlog.logger.LogEvent;
 import org.jnativehook.mouse.NativeMouseEvent;
 
@@ -24,10 +27,13 @@ import org.jnativehook.mouse.NativeMouseEvent;
  *
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
-public class MouseEvent extends LogEvent {
+public abstract class MouseEvent extends LogEvent {
 
    private int x, y;
-   private long timestamp = System.currentTimeMillis();
+
+   protected MouseEvent() {
+	   x = y = -1;
+   }
 
    protected MouseEvent(final NativeMouseEvent event) {
 	   setX(event.getX());
@@ -48,10 +54,6 @@ public class MouseEvent extends LogEvent {
 
    public final void setY(int y) {
 	   this.y = y;
-   }
-
-   public final long timeOccured() {
-	   return timestamp;
    }
 
 	/**
@@ -106,6 +108,25 @@ public class MouseEvent extends LogEvent {
 		pos.append(")");
 
 		return pos.toString();
+
+	}
+
+	@Override
+	public void write(Writer output) throws Exception {
+
+		assert(output != null);
+
+		output.write(Integer.toString(getX()));
+		output.write("|");
+		output.write(Integer.toString(getY()));
+
+	}
+
+	@Override
+	public void read(Scanner scanner) throws Exception {
+
+		setX(scanner.nextInt());
+		setY(scanner.nextInt());
 
 	}
 

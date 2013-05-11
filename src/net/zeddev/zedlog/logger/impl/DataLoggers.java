@@ -44,6 +44,8 @@ public class DataLoggers {
 			new KeyPressedLogger(),
 			new KeyReleasedLogger(),
 			new MouseClickLogger(),
+			new MousePressedLogger(),
+			new MouseReleasedLogger(),
 			new MouseMovementLogger(),
 			new MouseDraggedLogger(),
 			new MouseWheelLogger()
@@ -88,6 +90,8 @@ public class DataLoggers {
 	 *	<li>"keyPressed" - <code>KeyPressedLogger</code>.</li>
 	 *  <li>"KeyReleased" - <code>CharTypedLogger</code>.</li>
 	 *  <li>"MouseClick" - <code>MouseClickLogger</code>.</li>
+	 *	<li>"MousePressed" - <code>MousePressedLogger</code>.</li>
+	 *	<li>"MouseReleased" - <code>MouseReleasedLogger</code>.</li>
 	 *  <li>"MouseMovement" - <code>MouseMovementLogger</code>.</li>
 	 *  <li>"MouseDrag" - <code>MouseDraggedLogger</code>.</li>
 	 *  <li>"MouseWheel" - <code>MouseWheelLogger</code>.</li>

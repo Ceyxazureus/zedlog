@@ -33,10 +33,10 @@ public enum Config {
 	public final int VERSION_MAJOR = 0;
 
 	/** Minor version number.  */
-	public final int VERSION_MINOR = 1;
+	public final int VERSION_MINOR = 2;
 
 	/** The phase of version development (alpha, beta, rc etc.). */
-	public final String VERSION_PHASE = "dev";
+	public final String VERSION_PHASE = "beta";
 
 	/** The version as a string. */
 	public final String VERSION = "v" + VERSION_MAJOR + "." + VERSION_MINOR + VERSION_PHASE;
@@ -50,6 +50,9 @@ public enum Config {
 	/** A short description about the program. */
 	public final String DESCRIPTION =
 		"A robust cross-platform input logging tool (AKA a key logger).";
+
+	/** The GUI icon directory. */
+	public static final String ICON_DIR = "/net/zeddev/zedlog/gui/icons";
 
 	/**
 	 * The documentation resource directory.

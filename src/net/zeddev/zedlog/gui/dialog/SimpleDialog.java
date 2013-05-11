@@ -23,7 +23,18 @@ import javax.swing.JOptionPane;
 import net.zeddev.litelogger.Logger;
 
 /**
- * Provides some common, simple dialogs.
+ * Provides some common swing dialogs.
+ * Supported dialogs include the following;
+ * <ul>
+ * <li>message - A simple message box.</li>
+ * <li>warning - A warning message box.</li>
+ * <li>error - A error message box.</li>
+ * <li>okcancel - A confirmation dialog.</li>
+ * <li>yesno - A another confirmation dialog.</li>
+ * <li>saveFile - A save file chooser dialog.</li>
+ * <li>openFile - An open file chooser dialog.</li>
+ * <li>selectDir - A directory chooser dialog</li>
+ * </ul>
  *
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
@@ -129,6 +140,31 @@ public final class SimpleDialog {
 	}
 
 	/**
+	 * Opens a open-file chooser dialog.
+	 *
+	 * @param parent The parent frame (can be <code>null</code>).
+	 * @return The selected file (or <code>null</code> if error).
+	 */
+	public static File openFile(final Frame parent) {
+
+		JFileChooser fileChooser = new JFileChooser();
+		int ret = fileChooser.showOpenDialog(parent);
+
+		if (ret == JFileChooser.APPROVE_OPTION) {
+
+			return fileChooser.getSelectedFile();
+
+		} else if (ret == JFileChooser.ERROR_OPTION) {
+			logger.warning("Error occured with file chooser when opening file.");
+			return null;
+		} else {
+			logger.info("User cancelled choosing file.");
+			return null;
+		}
+
+	}
+
+	/**
 	 * Opens a directory chooser dialog.
 	 *
 	 * @param parent The parent frame (can be <code>null</code>).
@@ -139,7 +175,7 @@ public final class SimpleDialog {
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 
-		int ret = fileChooser.showSaveDialog(parent);
+		int ret = fileChooser.showDialog(parent, "Select");
 		if (ret == JFileChooser.APPROVE_OPTION) {
 
 			return fileChooser.getSelectedFile();

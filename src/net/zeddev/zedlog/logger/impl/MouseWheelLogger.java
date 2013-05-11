@@ -16,6 +16,7 @@
 
 package net.zeddev.zedlog.logger.impl;
 
+import net.zeddev.zedlog.logger.impl.event.MouseWheelMovedEvent;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.mouse.NativeMouseWheelEvent;
 import org.jnativehook.mouse.NativeMouseWheelListener;
@@ -54,56 +55,8 @@ public final class MouseWheelLogger extends AbstractDataLogger
 		MouseWheelMovedEvent wheelEvent =
 			new MouseWheelMovedEvent(event);
 
-		LogEntry logEntry = new LogEntry(wheelEvent.toString(), wheelEvent);
+		LogEntry logEntry = new LogEntry(this, wheelEvent.toString(), wheelEvent);
 		notifyDataLoggerObservers(this, logEntry);
-
-	}
-
-	/**
-	 * A mouse event describing a mouse wheel movement.
-	 *
-	 * @author Zachary Scott <zscott.dev@gmail.com>
-	 */
-	public final class MouseWheelMovedEvent extends MouseEvent {
-
-		private int rotation;
-
-		protected MouseWheelMovedEvent(final NativeMouseWheelEvent event) {
-			super(event);
-			setRotation(event.getWheelRotation());
-		}
-
-		public int getRotation() {
-			return rotation;
-		}
-
-		public void setRotation(int rotation) {
-			this.rotation = rotation;
-		}
-
-		@Override
-		public String toString() {
-
-			StringBuilder msg = new StringBuilder();
-
-			msg.append("Mouse wheel moved - at ");
-			msg.append(posString(getX(), getY()));
-
-			msg.append(" ");
-			msg.append(Math.abs(getRotation()));
-			msg.append(" units");
-
-			if (getRotation() > 0) {
-				msg.append(" down");
-			} else {
-				msg.append(" up");
-			}
-
-			msg.append(".\n");
-
-			return msg.toString();
-
-		}
 
 	}
 
