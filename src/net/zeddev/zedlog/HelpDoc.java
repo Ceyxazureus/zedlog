@@ -70,10 +70,13 @@ public enum HelpDoc {
 	// returns a new temporary filename for the given filename
 	private String tempFile(final String filename) {
 
-		return String.format("%s%s",
-			System.getProperty("java.io.tmpdir"),
-			filename
-		);
+		StringBuilder tmpfile = new StringBuilder();
+		
+		tmpfile.append(System.getProperty("java.io.tmpdir"));
+		tmpfile.append(File.separator);
+		tmpfile.append(filename);
+	
+		return tmpfile.toString();
 
 	}
 
