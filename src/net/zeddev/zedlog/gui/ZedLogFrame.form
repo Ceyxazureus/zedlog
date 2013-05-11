@@ -59,7 +59,7 @@
                 </Property>
                 <Property name="mnemonic" type="int" value="79"/>
                 <Property name="text" type="java.lang.String" value="Open Log File"/>
-                <Property name="toolTipText" type="java.lang.String" value="Open a previously create log file."/>
+                <Property name="toolTipText" type="java.lang.String" value="Open a previously created log file."/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mitemOpenLogFileActionPerformed"/>
@@ -300,7 +300,7 @@
             </Property>
             <Property name="mnemonic" type="int" value="79"/>
             <Property name="text" type="java.lang.String" value="Open Log"/>
-            <Property name="toolTipText" type="java.lang.String" value="Open a previously create log file."/>
+            <Property name="toolTipText" type="java.lang.String" value="Open a previously created log file."/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>

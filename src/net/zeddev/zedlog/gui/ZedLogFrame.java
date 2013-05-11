@@ -282,7 +282,7 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
         btnOpen.setIcon(Icons.getInstance().getIcon("open"));
         btnOpen.setMnemonic('O');
         btnOpen.setText("Open Log");
-        btnOpen.setToolTipText("Open a previously create log file.");
+        btnOpen.setToolTipText("Open a previously created log file.");
         btnOpen.setFocusable(false);
         btnOpen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnOpen.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -360,7 +360,7 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
         mitemOpenLogFile.setIcon(Icons.getInstance().getIcon("open"));
         mitemOpenLogFile.setMnemonic('O');
         mitemOpenLogFile.setText("Open Log File");
-        mitemOpenLogFile.setToolTipText("Open a previously create log file.");
+        mitemOpenLogFile.setToolTipText("Open a previously created log file.");
         mitemOpenLogFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mitemOpenLogFileActionPerformed(evt);
