@@ -110,7 +110,7 @@ public final class DataLoggerNotificationThread extends Thread {
 	private void notifyObservers(LogEntry logEntry) {
 
 		synchronized (observers) {
-
+			
 			for (DataLoggerObserver observer : observers)
 				observer.notifyLog(dataLogger, logEntry);
 
@@ -132,10 +132,9 @@ public final class DataLoggerNotificationThread extends Thread {
 					notifyObservers(logSpool.remove());
 
 			}
-			try {
-				//Thread.yield();
 
-				Thread.sleep(10);
+			try {
+				Thread.sleep(WAIT_CYCLE);
 			} catch (InterruptedException ex) {	}
 
 		}
