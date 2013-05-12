@@ -22,19 +22,16 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Reader;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
 import java.util.regex.Pattern;
 import net.zeddev.litelogger.Logger;
 import net.zeddev.zedlog.logger.AbstractDataLogger;
 import net.zeddev.zedlog.logger.DataLogger;
 import net.zeddev.zedlog.logger.DataLoggerObserver;
 import net.zeddev.zedlog.logger.LogEntry;
-import net.zeddev.zedlog.logger.LogEvent;
 
 /**
  * A collection of multiple <code>DataLogger</code>'s.
@@ -63,6 +60,8 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 
 	@Override
 	public void shutdown() {
+
+		super.shutdown();
 
 		try {
 			closeLogStream();
