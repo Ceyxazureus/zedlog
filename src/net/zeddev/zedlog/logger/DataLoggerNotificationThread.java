@@ -88,12 +88,7 @@ public final class DataLoggerNotificationThread extends Thread {
 	public void notifyEvent(LogEntry logEntry) {
 
 		synchronized (logSpool) {
-
-			boolean succeeded = logSpool.offer(logEntry);
-
-			if (!succeeded)
-				logger.warning("Event queue overflow for %s", null, dataLogger.type());
-
+			logSpool.offer(logEntry);
 		}
 
 	}
@@ -110,7 +105,7 @@ public final class DataLoggerNotificationThread extends Thread {
 	private void notifyObservers(LogEntry logEntry) {
 
 		synchronized (observers) {
-			
+
 			for (DataLoggerObserver observer : observers)
 				observer.notifyLog(dataLogger, logEntry);
 
