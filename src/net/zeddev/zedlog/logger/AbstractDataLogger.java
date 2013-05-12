@@ -28,7 +28,7 @@ import java.util.List;
  */
 public abstract class AbstractDataLogger implements DataLogger {
 
-	private List<DataLoggerObserver> observers = new ArrayList<>();
+	private final List<DataLoggerObserver> observers = new ArrayList<>();
 
 	// whether or not to record the log entries
 	private boolean recording = true;
@@ -60,7 +60,7 @@ public abstract class AbstractDataLogger implements DataLogger {
 		synchronized (observers) {
 			observers.remove(observer);
 		}
-		
+
 	}
 
 	/**
