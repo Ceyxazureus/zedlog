@@ -71,6 +71,8 @@ public enum Config {
 
 		// set the logger level
 		Logger.setLevelThreshold(LogLevel.CONFIG);
+		// DEBUG
+		//Logger.setLevelThreshold(LogLevel.ALL);
 
 	}
 

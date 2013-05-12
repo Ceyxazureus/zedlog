@@ -34,6 +34,9 @@ public class ZedLog implements UncaughtExceptionHandler {
 
 	private final Logger logger = Logger.getLogger(this);
 
+	// the main GUI frame
+	private ZedLogFrame zedlogFrame = null;
+
 	private void die() {
 		logger.info("Dying!");
 		System.exit(1);
@@ -61,6 +64,10 @@ public class ZedLog implements UncaughtExceptionHandler {
 			Thread.currentThread().getName(),
 			Thread.currentThread().getId()
 		));
+
+		// shutdown the GUI
+		if (zedlogFrame != null)
+			zedlogFrame.shutdown();
 
 		// remove the native event hook
 		if (GlobalScreen.isNativeHookRegistered())
@@ -154,10 +161,8 @@ public class ZedLog implements UncaughtExceptionHandler {
 
 				initNativeHook();
 
-				final ZedLogFrame zedlogFrame = new ZedLogFrame();
-
+				zedlogFrame = new ZedLogFrame();
 				zedlogFrame.setVisible(true);
-				zedlogFrame.shutdown();
 
 			}
 

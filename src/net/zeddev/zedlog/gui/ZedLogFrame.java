@@ -91,7 +91,12 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 	 *
 	 */
 	public void shutdown() {
+
+		logger.info("Shutting down GUI.");
+
 		loggers.shutdown();
+		setVisible(false);
+
 	}
 
 	@Override
