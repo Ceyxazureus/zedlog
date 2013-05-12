@@ -42,6 +42,7 @@ public final class MouseWheelLogger extends AbstractDataLogger
 
 	@Override
 	public void shutdown() {
+		super.shutdown();
 		GlobalScreen.getInstance().removeNativeMouseWheelListener(this);
 	}
 

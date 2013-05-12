@@ -46,6 +46,7 @@ public final class CharTypedLogger extends AbstractDataLogger implements NativeK
 
 	@Override
 	public void shutdown() {
+		super.shutdown();
 		GlobalScreen.getInstance().removeNativeKeyListener(this);
 	}
 

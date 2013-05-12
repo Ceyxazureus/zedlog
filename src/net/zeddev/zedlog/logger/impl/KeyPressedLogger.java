@@ -46,6 +46,7 @@ public final class KeyPressedLogger extends AbstractDataLogger implements Native
 
 	@Override
 	public void shutdown() {
+		super.shutdown();
 		GlobalScreen.getInstance().removeNativeKeyListener(this);
 	}
 

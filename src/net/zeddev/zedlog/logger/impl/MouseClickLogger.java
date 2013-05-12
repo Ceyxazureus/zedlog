@@ -42,6 +42,7 @@ public final class MouseClickLogger extends AbstractDataLogger
 
 	@Override
 	public void shutdown() {
+		super.shutdown();
 		GlobalScreen.getInstance().removeNativeMouseListener(this);
 	}
 
