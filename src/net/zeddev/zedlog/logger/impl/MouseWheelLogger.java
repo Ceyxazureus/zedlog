@@ -36,6 +36,7 @@ public final class MouseWheelLogger extends AbstractDataLogger
 	 *
 	 */
 	public MouseWheelLogger() {
+		super();
 		GlobalScreen.getInstance().addNativeMouseWheelListener(this);
 	}
 

@@ -35,6 +35,7 @@ public final class CharTypedLogger extends AbstractDataLogger implements NativeK
 	 *
 	 */
 	public CharTypedLogger() {
+		super();
 		GlobalScreen.getInstance().addNativeKeyListener(this);
 	}
 

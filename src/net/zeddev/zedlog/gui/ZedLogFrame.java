@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import net.zeddev.litelogger.LogLevel;
 import net.zeddev.litelogger.Logger;
 import net.zeddev.litelogger.handlers.MsgBoxLogHandler;
 import net.zeddev.litelogger.handlers.WindowLogHandler;
@@ -78,7 +79,7 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 		initLoggers();
 
 		// add the gui logger handlers
-		Logger.addHandler(new MsgBoxLogHandler());
+		Logger.addHandler(new MsgBoxLogHandler(LogLevel.WARNING));
 		Logger.addHandler(logWindow);
 
 		GlobalScreen.getInstance().addNativeMouseListener(this);

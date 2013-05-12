@@ -58,6 +58,7 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	 *
 	 */
 	public CompositeDataLogger() {
+		super();
 	}
 
 	@Override

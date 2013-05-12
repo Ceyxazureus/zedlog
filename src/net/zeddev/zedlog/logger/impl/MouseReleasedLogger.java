@@ -36,6 +36,7 @@ public final class MouseReleasedLogger extends AbstractDataLogger
 	 *
 	 */
 	public MouseReleasedLogger() {
+		super();
 		GlobalScreen.getInstance().addNativeMouseListener(this);
 	}
 

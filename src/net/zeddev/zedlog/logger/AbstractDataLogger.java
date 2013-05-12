@@ -30,8 +30,19 @@ public abstract class AbstractDataLogger implements DataLogger {
 
 	private final List<DataLoggerObserver> observers = new ArrayList<>();
 
+	// the thread responsible for notificating observers of log events
+	private final DataLoggerNotificationThread notifyThread;
+
 	// whether or not to record the log entries
 	private boolean recording = true;
+
+	protected AbstractDataLogger() {
+
+		// start the notification thread
+		notifyThread = new DataLoggerNotificationThread(this, observers);
+		notifyThread.start();
+
+	}
 
 	// just a precaution in case shutdown() is not called
 	@Override
@@ -42,7 +53,10 @@ public abstract class AbstractDataLogger implements DataLogger {
 
 	@Override
 	public void shutdown() {
-		// NOTE by default, do nothing on shutdown
+
+		// stop the notify thread
+		notifyThread.shutdown();
+
 	}
 
 	@Override
@@ -74,12 +88,7 @@ public abstract class AbstractDataLogger implements DataLogger {
 		if (isRecording()) {
 			// XXX notify observers only if recording
 
-			synchronized (observers) {
-
-				for (DataLoggerObserver observer : observers)
-					observer.notifyLog(logger, logEntry);
-
-			}
+			notifyThread.notifyEvent(logEntry);
 
 		}
 

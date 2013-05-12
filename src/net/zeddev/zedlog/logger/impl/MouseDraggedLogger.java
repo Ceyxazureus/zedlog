@@ -36,6 +36,7 @@ public final class MouseDraggedLogger extends AbstractDataLogger
 	 *
 	 */
 	public MouseDraggedLogger() {
+		super();
 		GlobalScreen.getInstance().addNativeMouseMotionListener(this);
 	}
 

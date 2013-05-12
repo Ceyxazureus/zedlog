@@ -36,6 +36,7 @@ public final class MouseClickLogger extends AbstractDataLogger
 	 *
 	 */
 	public MouseClickLogger() {
+		super();
 		GlobalScreen.getInstance().addNativeMouseListener(this);
 	}
 
