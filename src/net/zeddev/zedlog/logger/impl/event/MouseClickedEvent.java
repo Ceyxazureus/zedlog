@@ -1,5 +1,3 @@
-
-package net.zeddev.zedlog.logger.impl.event;
 /* Copyright (C) 2013  Zachary Scott <zscott.dev@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -15,6 +13,8 @@ package net.zeddev.zedlog.logger.impl.event;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+package net.zeddev.zedlog.logger.impl.event;
 
 import java.io.Writer;
 import java.util.Scanner;
