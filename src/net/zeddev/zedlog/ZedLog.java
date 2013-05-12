@@ -89,9 +89,6 @@ public class ZedLog implements UncaughtExceptionHandler {
 		// add global uncaught exception handler
 		Thread.setDefaultUncaughtExceptionHandler(this);
 
-		// add the gui logger handler
-		Logger.addHandler(new MsgBoxLogHandler());
-
 		// initalise the GUI look and feel
 		try {
 
