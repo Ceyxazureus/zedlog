@@ -3,7 +3,7 @@
 
 =head1 Changes in ZedLog
 
-=head2 v0.2 - Released 11-May-2013
+=head2 v0.2 - Released 13-May-2013
 
 =over 4
 
