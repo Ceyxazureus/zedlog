@@ -2,6 +2,8 @@
 TODO list for ZedLog
 ~~~~~~~~~~~~~~~~~~~~
 
+ * Add D4 scripting
+    -> Event handling
  * Add a cli
 	-> add loggers
 	-> hide on startup
