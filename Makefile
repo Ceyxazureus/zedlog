@@ -65,7 +65,9 @@ RSRC_DOCS_SRC = $(SRC_DIR)/$(PACKAGE_DIR)/$(RSRC_DOCS)
 RSRC_DOCS_DEST = $(BIN_DIR)/$(PACKAGE_DIR)/$(RSRC_DOCS)
 
 # external library JARs
-LIBS := $(LIB_DIR)/JNativeHook.jar:$(LIB_DIR)/litelogger-v0.1beta.jar
+LIBS := JNativeHook.jar litelogger-v0.1beta.jar
+LIBS := $(addprefix $(LIB_DIR)/, $(LIBS))
+LIBS_CLASSPATH = $(shell ./classpathify.pl $(LIBS))
 
 # the jar executable
 JAR_FILE = $(BIN_DIR)/$(NAME)-$(VERSION).jar
@@ -141,7 +143,8 @@ $(DIST_FILE): $(DIST_FILES)
 $(BIN_DIR)/%.class: $(SRC_DIR)/%.java
 	@echo ">>>>> Compiling $< <<<<<"
 	-mkdir $(BIN_DIR) 2>/dev/null 
-	$(JAVAC) -classpath $(LIBS):$(BIN_DIR) -sourcepath $(SRC_DIR) -d $(BIN_DIR) $< >/dev/null
+	@echo $(LIBS_CLASSPATH)
+	$(JAVAC) -classpath $(LIBS_CLASSPATH):$(BIN_DIR) -sourcepath $(SRC_DIR) -d $(BIN_DIR) $< >/dev/null
 
 # html documentation
 %.html: %.pod
