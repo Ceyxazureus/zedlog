@@ -3,7 +3,17 @@
 
 =head1 Changes in ZedLog
 
-=head2 v0.2 - Released 13-May-2013
+=head2 v0.2beta2 - Upcoming
+
+=over 4
+
+=item * Removed GUI Builder dependancy
+
+=item * General code cleanup/refactoring.
+
+=back
+
+=head2 v0.2beta - Released 13-May-2013
 
 =over 4
 
@@ -19,7 +29,7 @@
 
 =back
 
-=head2 v0.1 - Released 2-May-2013
+=head2 v0.1beta - Released 2-May-2013
 
 Initial version.
 
