@@ -17,6 +17,7 @@ package net.zeddev.zedlog.logger.impl.event;
 
 import java.io.Writer;
 import java.util.Scanner;
+
 import org.jnativehook.mouse.NativeMouseEvent;
 
 /**
