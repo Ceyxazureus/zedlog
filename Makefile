@@ -67,7 +67,7 @@ RSRC_DOCS_DEST = $(BIN_DIR)/$(PACKAGE_DIR)/$(RSRC_DOCS)
 # external library JARs
 LIBS := JNativeHook.jar litelogger-v0.1beta.jar
 LIBS := $(addprefix $(LIB_DIR)/, $(LIBS))
-LIBS_CLASSPATH = $(shell ./classpathify.pl $(LIBS))
+LIBS_CLASSPATH = $(shell perl classpathify.pl $(LIBS))
 
 # the jar executable
 JAR_FILE = $(BIN_DIR)/$(NAME)-$(VERSION).jar
@@ -97,8 +97,10 @@ POD2HTML_FLAGS = --noindex
 DIST_NAME = $(NAME)-$(VERSION)
 DIST_FILE = $(DIST_NAME).tar.bz2
 
+SCRIPTS = zedlog.sh zedlog.bat
+
 DIST_FILES = $(JAR_FILE) $(LIB_DIR) README.html COPYING_GPL.html CHANGES.html \
-zedlog.sh zedlog.bat 
+$(SCRIPTS)
 
 ##### BUILD TARGETS  ###########################################################
 
@@ -120,7 +122,7 @@ resources:
 rebuild: clean build
 
 clean:
-	-rm $(DIST_FILE) $(DIST_NAME) $(BIN_DIR)/* $(DOC_OUTPUT) *.tmp -r 2> /dev/null
+	-rm $(DIST_FILE) $(DIST_NAME) $(BIN_DIR)/* $(DOC_OUTPUT) $(SCRIPTS) *.tmp  -r 2> /dev/null
 
 dist: clean $(DIST_FILE)
 
@@ -146,6 +148,17 @@ $(BIN_DIR)/%.class: $(SRC_DIR)/%.java
 	@echo $(LIBS_CLASSPATH)
 	$(JAVAC) -classpath $(LIBS_CLASSPATH):$(BIN_DIR) -sourcepath $(SRC_DIR) -d $(BIN_DIR) $< >/dev/null
 
+# build batch (windows) script
+%.bat: 
+	@echo ">>>>> Building $@ Script <<<<<"
+	./build-scripts.pl bat $(JAR_FILE) $(MAIN_CLASS) $(LIBS) > $@
+
+# build bash (linux + mac osx) script
+%.sh: 
+	@echo ">>>>> Building $@ Script <<<<<"
+	./build-scripts.pl sh $(JAR_FILE) $(MAIN_CLASS) $(LIBS) > $@
+	chmod +x $@
+	
 # html documentation
 %.html: %.pod
 	@echo ">>>>> Converting $< to HTML ($@) <<<<<"
