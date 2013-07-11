@@ -110,7 +110,7 @@ public class LogEntry {
 	 */
 	public void read(final Scanner scanner)
 			throws ClassNotFoundException, InstantiationException,
-			       IllegalAccessException, Exception {
+				   IllegalAccessException, Exception {
 
 		setMessage(String.format("%s\n", scanner.next()));
 		setTimestamp(scanner.nextLong());

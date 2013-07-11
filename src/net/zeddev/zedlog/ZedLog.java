@@ -169,7 +169,7 @@ public final class ZedLog implements UncaughtExceptionHandler {
 
 	}
 
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 
 		ZedLog zedlog = new ZedLog();
 		zedlog.init();
@@ -179,6 +179,6 @@ public final class ZedLog implements UncaughtExceptionHandler {
 
 		zedlog.shutdown();
 
-    }
+	}
 
 }

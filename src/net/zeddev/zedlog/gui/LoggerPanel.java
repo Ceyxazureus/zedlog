@@ -51,10 +51,10 @@ public final class LoggerPanel extends JPanel implements DataLoggerObserver {
 	private void initComponents() {
 
 		txtLogEntries.setEditable(false);
-	    
-	    txtLogEntries.setColumns(20);
-	    txtLogEntries.setRows(5);
-	    txtLogEntries.setLineWrap(true);
+		
+		txtLogEntries.setColumns(20);
+		txtLogEntries.setRows(5);
+		txtLogEntries.setLineWrap(true);
 		
 	}
 	
@@ -65,12 +65,12 @@ public final class LoggerPanel extends JPanel implements DataLoggerObserver {
 		
 		JScrollPane scrollLogEntries = new javax.swing.JScrollPane();
 
-	    scrollLogEntries.setDoubleBuffered(true);
-	    scrollLogEntries.setEnabled(false);
-	    
-	    scrollLogEntries.setViewportView(txtLogEntries);
-	    
-	    add(scrollLogEntries);
+		scrollLogEntries.setDoubleBuffered(true);
+		scrollLogEntries.setEnabled(false);
+		
+		scrollLogEntries.setViewportView(txtLogEntries);
+		
+		add(scrollLogEntries);
 		
 	}
 	
@@ -134,6 +134,6 @@ public final class LoggerPanel extends JPanel implements DataLoggerObserver {
 	}
 
 	// form elements
-    private JTextArea txtLogEntries = new JTextArea();
-    
+	private JTextArea txtLogEntries = new JTextArea();
+	
 }

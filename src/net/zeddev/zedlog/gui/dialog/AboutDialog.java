@@ -49,7 +49,7 @@ public final class AboutDialog extends javax.swing.JDialog {
 		setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 		setModal(true);
 		setResizable(false);
-        
+		
 		// centre on screen
 		setLocationRelativeTo(null);
 
@@ -72,10 +72,10 @@ public final class AboutDialog extends javax.swing.JDialog {
 		
 		// add okay button listener
 		btnOkay.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent event) {
-                btnOkayActionPerformed(event);
-            }
-        });
+			public void actionPerformed(java.awt.event.ActionEvent event) {
+				btnOkayActionPerformed(event);
+			}
+		});
 		
 	}
 	
@@ -119,19 +119,19 @@ public final class AboutDialog extends javax.swing.JDialog {
 		
 	}
 
-    private void btnOkayActionPerformed(java.awt.event.ActionEvent evt) {
-        setVisible(false);
-        dispose();
-    }
-    
-    // the spacing between components
-    private final static int SPACING = 10;
+	private void btnOkayActionPerformed(java.awt.event.ActionEvent evt) {
+		setVisible(false);
+		dispose();
+	}
+	
+	// the spacing between components
+	private final static int SPACING = 10;
 
-    // form elements
-    private JButton btnOkay = new JButton("Okay");
-    private JLabel lblCopyright = new JLabel();
-    private JLabel lblDesc = new JLabel();
-    private JLabel lblIcon = new JLabel();
-    private JLabel lblTitle = new JLabel();
+	// form elements
+	private JButton btnOkay = new JButton("Okay");
+	private JLabel lblCopyright = new JLabel();
+	private JLabel lblDesc = new JLabel();
+	private JLabel lblIcon = new JLabel();
+	private JLabel lblTitle = new JLabel();
 
 }

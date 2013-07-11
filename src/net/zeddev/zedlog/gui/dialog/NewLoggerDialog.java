@@ -48,8 +48,8 @@ public final class NewLoggerDialog extends JDialog {
 		
 		setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 		
-        setTitle("Add Logger");
-        setName("");
+		setTitle("Add Logger");
+		setName("");
 		
 		// center on screen
 		setLocationRelativeTo(null);
@@ -64,16 +64,16 @@ public final class NewLoggerDialog extends JDialog {
 		initTypes();
 		
 		btnCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelActionPerformed(evt);
-            }
-        });
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				btnCancelActionPerformed(evt);
+			}
+		});
 		
 		btnOkay.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOkayActionPerformed(evt);
-            }
-        });
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				btnOkayActionPerformed(evt);
+			}
+		});
 		
 	}
 
@@ -156,26 +156,26 @@ public final class NewLoggerDialog extends JDialog {
 
 	}
 
-    private void btnOkayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkayActionPerformed
-        setVisible(false);
-    }
+	private void btnOkayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkayActionPerformed
+		setVisible(false);
+	}
 
-    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        
-    	setVisible(false);
-    	dispose();
-    	
+	private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+		
+		setVisible(false);
+		dispose();
+		
 		cancelledFlag = true;
 
-    }
+	}
 
-    // the spacing between components
-    private final static int SPACING = 10;
-    
-    // form elements
-    private final JButton btnCancel = new JButton("Cancel");
-    private final JButton btnOkay = new JButton("Okay");
-    private final JComboBox cboType = new JComboBox();
-    private final JLabel lblType = new JLabel();
+	// the spacing between components
+	private final static int SPACING = 10;
+	
+	// form elements
+	private final JButton btnCancel = new JButton("Cancel");
+	private final JButton btnOkay = new JButton("Okay");
+	private final JComboBox cboType = new JComboBox();
+	private final JLabel lblType = new JLabel();
 
 }

@@ -31,16 +31,16 @@ public final class DataLoggerNotificationThread extends Thread {
 	/** The size (max) of the event queue for the notification thread. */
 	public static final int QUEUE_SIZE = 25;
 		// NOTE: The queue size also determines the delay times in event dispatch.
-		//       See WAIT_CYCLE below for more info.
+		//	   See WAIT_CYCLE below for more info.
 
 	/** The delay in-between processing events on the queue (in milliseconds). */
 	public static final int WAIT_CYCLE = 1000 / (QUEUE_SIZE * 4);
 		// NOTE: Calculated using th above formulae to avoid losing events on the
-		//       queue if posible.  It is still resonable XXX a  for response time.
+		//	   queue if posible.  It is still resonable XXX a  for response time.
 		// NOTE: The timing of these event dispatch is not critical as the exact
-		//       time the event was received is logged in the LogEntry class.  So
-		//       this is just an optimisation to provide tolerable response
-		//       times.
+		//	   time the event was received is logged in the LogEntry class.  So
+		//	   this is just an optimisation to provide tolerable response
+		//	   times.
 
 	private final Logger logger = Logger.getLogger(this);
 

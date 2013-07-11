@@ -66,7 +66,7 @@ public class ReplayToolDialog extends JDialog implements ReplayToolObserver {
 		
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		
-        setTitle("Replay Events Tool");
+		setTitle("Replay Events Tool");
 		
 		setLocationRelativeTo(null);
 
@@ -77,43 +77,43 @@ public class ReplayToolDialog extends JDialog implements ReplayToolObserver {
 		
 		// add window listener
 		addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
+			public void windowClosing(java.awt.event.WindowEvent evt) {
+				formWindowClosing(evt);
+			}
+		});
 		
 		// setup the progress bar limits
 		progressBar.setMaximum(logEntries.size());
 		progressBar.setMinimum(0);
 		
-        progressBar.setEnabled(false);
+		progressBar.setEnabled(false);
 
-        lblCurrent.setText(" ");
+		lblCurrent.setText(" ");
 		
-        btnRunTimed.setMnemonic('T');
-        btnRunTimed.setToolTipText("Replay the events, with original timing.");
-        btnRunTimed.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRunTimedActionPerformed(evt);
-            }
-        });
-        
-        btnClose.setMnemonic('C');
-        btnClose.setToolTipText("Close the replay tool.");
-        btnClose.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCloseActionPerformed(evt);
-            }
-        });
-        
-        btnRun.setMnemonic('R');
-        btnRun.setToolTipText("Replay events as-fast-as-possible.");
-        btnRun.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRunActionPerformed(evt);
-            }
-        });
-        
+		btnRunTimed.setMnemonic('T');
+		btnRunTimed.setToolTipText("Replay the events, with original timing.");
+		btnRunTimed.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				btnRunTimedActionPerformed(evt);
+			}
+		});
+		
+		btnClose.setMnemonic('C');
+		btnClose.setToolTipText("Close the replay tool.");
+		btnClose.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				btnCloseActionPerformed(evt);
+			}
+		});
+		
+		btnRun.setMnemonic('R');
+		btnRun.setToolTipText("Replay events as-fast-as-possible.");
+		btnRun.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				btnRunActionPerformed(evt);
+			}
+		});
+		
 	}
 	
 	// adds a component to the next 'line' on the GUI
@@ -167,8 +167,8 @@ public class ReplayToolDialog extends JDialog implements ReplayToolObserver {
 		
 	}
 	
-    private void btnRunTimedActionPerformed(ActionEvent event) {
-    	
+	private void btnRunTimedActionPerformed(ActionEvent event) {
+		
 		if (btnRunTimed.isSelected()) {
 
 			progressBar.setValue(0);
@@ -183,7 +183,7 @@ public class ReplayToolDialog extends JDialog implements ReplayToolObserver {
 			tool.stop();
 		}
 
-    }
+	}
 
 	private void shutdown() {
 		
@@ -194,17 +194,17 @@ public class ReplayToolDialog extends JDialog implements ReplayToolObserver {
 		
 	}
 
-    private void btnCloseActionPerformed(ActionEvent event) {
+	private void btnCloseActionPerformed(ActionEvent event) {
 		shutdown();
-    }
+	}
 
-    private void formWindowClosing(WindowEvent event) {
+	private void formWindowClosing(WindowEvent event) {
 		shutdown();
-    }
+	}
 
-    private void btnRunActionPerformed(ActionEvent event) {
-    	
-        if (btnRun.isSelected()) {
+	private void btnRunActionPerformed(ActionEvent event) {
+		
+		if (btnRun.isSelected()) {
 
 			progressBar.setValue(0);
 
@@ -218,7 +218,7 @@ public class ReplayToolDialog extends JDialog implements ReplayToolObserver {
 			tool.stop();
 		}
 
-    }
+	}
 
 	@Override
 	public void replayedEvent(LogEvent event) {
@@ -242,13 +242,13 @@ public class ReplayToolDialog extends JDialog implements ReplayToolObserver {
 	}
 	
 	// the spacing between components
-    private final static int SPACING = 10;
+	private final static int SPACING = 10;
 
-    // form elements
-    private JButton btnClose = new JButton("Close");
-    private JToggleButton btnRun = new JToggleButton("Run");
-    private JToggleButton btnRunTimed = new JToggleButton("Run Timed");
-    private JLabel lblCurrent = new JLabel();
-    private JProgressBar progressBar = new JProgressBar();
+	// form elements
+	private JButton btnClose = new JButton("Close");
+	private JToggleButton btnRun = new JToggleButton("Run");
+	private JToggleButton btnRunTimed = new JToggleButton("Run Timed");
+	private JLabel lblCurrent = new JLabel();
+	private JProgressBar progressBar = new JProgressBar();
 
 }
