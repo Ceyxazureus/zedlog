@@ -57,12 +57,6 @@ import org.jnativehook.GlobalScreen;
 import org.jnativehook.mouse.NativeMouseEvent;
 import org.jnativehook.mouse.NativeMouseListener;
 
-/* TODO
- *  -> Handle accellarators/shortcuts better
- *  	-> Use a system which will allow for configuration (at a later date).
- *  -> Add I18N measures (using Java Bundle systems).
- */
-
 /**
  * The main GUI frame.
  *
