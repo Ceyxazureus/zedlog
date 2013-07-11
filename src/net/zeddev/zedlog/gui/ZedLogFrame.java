@@ -41,9 +41,9 @@ import javax.swing.WindowConstants;
 
 import net.zeddev.litelogger.LogLevel;
 import net.zeddev.litelogger.Logger;
-import net.zeddev.litelogger.handlers.MsgBoxLogHandler;
-import net.zeddev.litelogger.handlers.WindowLogHandler;
-import net.zeddev.litelogger.handlers.WriterLogHandler;
+import net.zeddev.litelogger.builtin.MsgBoxLogHandler;
+import net.zeddev.litelogger.builtin.WindowLogHandler;
+import net.zeddev.litelogger.builtin.WriterLogHandler;
 import net.zeddev.zedlog.Config;
 import net.zeddev.zedlog.HelpDoc;
 import net.zeddev.zedlog.gui.dialog.AboutDialog;
@@ -93,8 +93,8 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 		initLoggers();
 
 		// add the gui logger handlers
-		Logger.addHandler(new MsgBoxLogHandler(LogLevel.WARNING));
-		Logger.addHandler(logWindow);
+		Logger.addObserver(new MsgBoxLogHandler(LogLevel.WARNING));
+		Logger.addObserver(logWindow);
 
 		GlobalScreen.getInstance().addNativeMouseListener(this);
 
@@ -810,13 +810,13 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 
 				// close the old log file
 				if (msgLogFile != null) {
-					Logger.removeHandler(msgLogFile);
+					Logger.removeObserver(msgLogFile);
 					msgLogFile.close();
 				}
 
 				// add the log handler
 				msgLogFile = new WriterLogHandler(new FileWriter(file));
-				Logger.addHandler(msgLogFile);
+				Logger.addObserver(msgLogFile);
 
 			} catch (IOException ex) {
 				logger.error(String.format("Error setting program log file to '%s'.", file.getPath()), ex);

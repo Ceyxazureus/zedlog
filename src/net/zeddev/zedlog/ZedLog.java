@@ -17,12 +17,14 @@ package net.zeddev.zedlog;
 
 import java.awt.EventQueue;
 import java.lang.Thread.UncaughtExceptionHandler;
+
 import javax.swing.UnsupportedLookAndFeelException;
+
+import net.zeddev.litelogger.Logger;
+import net.zeddev.zedlog.gui.ZedLogFrame;
+
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
-import net.zeddev.zedlog.gui.ZedLogFrame;
-import net.zeddev.litelogger.Logger;
-import net.zeddev.litelogger.handlers.MsgBoxLogHandler;
 
 /**
  * ZedLog application class.
