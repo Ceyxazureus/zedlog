@@ -58,9 +58,6 @@ import org.jnativehook.mouse.NativeMouseEvent;
 import org.jnativehook.mouse.NativeMouseListener;
 
 /* TODO
- *  -> Break into section (i.e. event handlers, initialisation etc.)
- *  	-> Organise  event handlers better.
- *  -> Clean-up and sort out initComponents, initListeners and buildMenuBar methods
  *  -> Handle accellarators/shortcuts better
  *  	-> Use a system which will allow for configuration (at a later date).
  *  -> Add I18N measures (using Java Bundle systems).
@@ -155,7 +152,7 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 
 	}
 
-	/* --------  GUI INITIALISATION -------- */
+	/* --------  GUI INITIALISATION  -------- */
 	
 	// initialises the GUI components
 	private void initComponents() {
@@ -507,7 +504,7 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 		
 	}
 	
-	/* --------  END GUI INITIALISATION -------- */
+	/* --------  END GUI INITIALISATION  -------- */
 
 	private void setLogFile() {
 
@@ -698,7 +695,7 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 
 	}
 	
-	/* -------- EVENT HANDLERS -------- */
+	/* --------  EVENT HANDLERS  -------- */
 	
 	private void formWindowClosing(WindowEvent evt) {
 		userQuit();
@@ -887,9 +884,9 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 		// IGNORED
 	}
 
-	/* -------- END EVENT HANDLERS -------- */
+	/* --------  END EVENT HANDLERS  -------- */
 	
-	/* -------- FORM ELEMENTS -------- */
+	/* --------  FORM ELEMENTS  -------- */
 	
 	private JButton btnSave = new JButton();
 	private JButton btnOpen = new JButton();
@@ -924,6 +921,6 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 	
 	private JTabbedPane tabs = new JTabbedPane();
 	
-	/* -------- END FORM ELEMENTS -------- */
+	/* --------  END FORM ELEMENTS  -------- */
 	
 }

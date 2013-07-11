@@ -56,6 +56,8 @@ public final class NewLoggerDialog extends JDialog {
 
 	}
 	
+	/* --------  GUI INITIALISATION  -------- */
+	
 	// initialises the GUI components
 	private void initComponents() {
 		
@@ -137,6 +139,8 @@ public final class NewLoggerDialog extends JDialog {
 		
 	}
 
+	/* --------  END GUI INITIALISATION  -------- */
+	
 	/**
 	 * Builds a {@code DataLogger} from the user input.
 	 *
@@ -156,6 +160,8 @@ public final class NewLoggerDialog extends JDialog {
 
 	}
 
+	/* --------  EVENT HANDLING  -------- */
+	
 	private void btnOkayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkayActionPerformed
 		setVisible(false);
 	}
@@ -168,14 +174,19 @@ public final class NewLoggerDialog extends JDialog {
 		cancelledFlag = true;
 
 	}
+	
+	/* --------  END EVENT HANDLING  -------- */
 
 	// the spacing between components
 	private final static int SPACING = 10;
 	
-	// form elements
+	/* --------  FORM ELEMENTS  -------- */
+	
 	private final JButton btnCancel = new JButton("Cancel");
 	private final JButton btnOkay = new JButton("Okay");
 	private final JComboBox cboType = new JComboBox();
 	private final JLabel lblType = new JLabel();
 
+	/* --------  END FORM ELEMENTS  -------- */
+	
 }

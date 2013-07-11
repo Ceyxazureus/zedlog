@@ -55,6 +55,8 @@ public final class AboutDialog extends javax.swing.JDialog {
 
 	}
 	
+	/* --------  GUI INITIALISATION  -------- */
+	
 	// initialises the GUI components
 	private void initComponents() {
 		
@@ -118,20 +120,29 @@ public final class AboutDialog extends javax.swing.JDialog {
 		pack();
 		
 	}
+	
+	/* --------  END GUI INITIALISATION  -------- */
+	
+	/* --------  EVENT HANDLING  -------- */
 
 	private void btnOkayActionPerformed(java.awt.event.ActionEvent evt) {
 		setVisible(false);
 		dispose();
 	}
 	
+	/* --------  END EVENT HANDLING -------- */
+	
 	// the spacing between components
 	private final static int SPACING = 10;
 
-	// form elements
+	/* --------  FORM ELEMENTS  -------- */
+	
 	private JButton btnOkay = new JButton("Okay");
 	private JLabel lblCopyright = new JLabel();
 	private JLabel lblDesc = new JLabel();
 	private JLabel lblIcon = new JLabel();
 	private JLabel lblTitle = new JLabel();
+	
+	/* --------  END FORM ELEMENTS  -------- */
 
 }

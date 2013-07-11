@@ -71,6 +71,8 @@ public class ReplayToolDialog extends JDialog implements ReplayToolObserver {
 		setLocationRelativeTo(null);
 
 	}
+	
+	/* --------  GUI INITIALISATION  -------- */
 
 	// initialises the GUI components
 	private void initComponents() {
@@ -167,6 +169,19 @@ public class ReplayToolDialog extends JDialog implements ReplayToolObserver {
 		
 	}
 	
+	/* --------  END GUI INITIALISATION  -------- */
+	
+	private void shutdown() {
+		
+		tool.removeObserver(this);
+		tool.stop();
+		
+		dispose();
+		
+	}
+	
+	/* --------  EVENT HANDLING  -------- */
+	
 	private void btnRunTimedActionPerformed(ActionEvent event) {
 		
 		if (btnRunTimed.isSelected()) {
@@ -183,15 +198,6 @@ public class ReplayToolDialog extends JDialog implements ReplayToolObserver {
 			tool.stop();
 		}
 
-	}
-
-	private void shutdown() {
-		
-		tool.removeObserver(this);
-		tool.stop();
-		
-		dispose();
-		
 	}
 
 	private void btnCloseActionPerformed(ActionEvent event) {
@@ -219,6 +225,8 @@ public class ReplayToolDialog extends JDialog implements ReplayToolObserver {
 		}
 
 	}
+	
+	/* --------  END EVENT HANDLING  -------- */
 
 	@Override
 	public void replayedEvent(LogEvent event) {
@@ -244,11 +252,14 @@ public class ReplayToolDialog extends JDialog implements ReplayToolObserver {
 	// the spacing between components
 	private final static int SPACING = 10;
 
-	// form elements
+	/* --------  FORM ELEMENTS  -------- */
+	
 	private JButton btnClose = new JButton("Close");
 	private JToggleButton btnRun = new JToggleButton("Run");
 	private JToggleButton btnRunTimed = new JToggleButton("Run Timed");
 	private JLabel lblCurrent = new JLabel();
 	private JProgressBar progressBar = new JProgressBar();
 
+	/* --------  END FORM ELEMENTS  -------- */
+	
 }

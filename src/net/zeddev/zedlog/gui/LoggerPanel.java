@@ -46,6 +46,8 @@ public final class LoggerPanel extends JPanel implements DataLoggerObserver {
 		buildForm();
 		
 	}
+	
+	/* --------  GUI INITIALISATION -------- */
 
 	// initialises the GUI components
 	private void initComponents() {
@@ -73,6 +75,8 @@ public final class LoggerPanel extends JPanel implements DataLoggerObserver {
 		add(scrollLogEntries);
 		
 	}
+	
+	/* --------  END GUI INITIALISATION -------- */
 	
 	public JTextArea getTxtLogEntries() {
 		return txtLogEntries;
