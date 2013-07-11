@@ -10,7 +10,7 @@
                                                     |___/ 
 
 
-=head1 ZedLog v0.2beta
+=head1 ZedLog v0.2beta1
 
 ZedLog is a robust cross-platform input logging tool (AKA a key 
 logger).  It is based on a flexible data logging system which makes it 
@@ -30,6 +30,9 @@ following;
 =back
 
 =head2 Getting Started
+
+ZedLog can be started by running either the C<zedlog.bat> script for Windows or
+C<zedlog.sh> for Linux and Mac OSX.
 
 The ZedLog GUI is fairly intuitive but there is also full usage doc-
 umentation under the help menu (or just press F1).
