@@ -36,10 +36,7 @@ import net.zeddev.zedlog.gui.Icons;
  */
 public final class AboutDialog extends javax.swing.JDialog {
 
-	/**
-	 * Creates new form {@code AboutDialog}.
-	 * 
-	 */
+	/** Creates new form {@code AboutDialog}. */
 	public AboutDialog(Frame parent, boolean modal) {
 
 		super(parent, modal);

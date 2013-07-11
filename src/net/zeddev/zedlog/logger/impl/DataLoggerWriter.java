@@ -1,3 +1,4 @@
+package net.zeddev.zedlog.logger.impl;
 /* Copyright (C) 2013  Zachary Scott <zscott.dev@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,18 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.zeddev.zedlog.logger.impl;
-
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.Writer;
+
 import net.zeddev.litelogger.Logger;
 import net.zeddev.zedlog.logger.DataLogger;
 import net.zeddev.zedlog.logger.DataLoggerObserver;
 import net.zeddev.zedlog.logger.LogEntry;
 
 /**
- * Writes data logger entries to the given output <code>Writer</code>.
+ * Writes data logger entries to the given output {@code Writer}.
  *
  * @author Zachary Scott <zscott.dev@gmail.com>
  */

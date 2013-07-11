@@ -1,3 +1,4 @@
+package net.zeddev.zedlog.logger.tools;
 /* Copyright (C) 2013  Zachary Scott <zscott.dev@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,12 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.zeddev.zedlog.logger.tools;
-
 import net.zeddev.zedlog.logger.LogEvent;
 
 /**
- * An observer of a <code>ReplayTool</code>'s state.
+ * An observer of a {@code ReplayTool}'s state.
  *
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
@@ -32,10 +31,7 @@ public interface ReplayToolObserver {
 	 */
 	public void replayedEvent(final LogEvent event);
 
-	/**
-	 * Called when the <code>ReplayTool</code> has finished its simulation.
-	 *
-	 */
+	/** Called when the {@code ReplayTool} has finished its simulation. */
 	public void replayFinished();
 
 }

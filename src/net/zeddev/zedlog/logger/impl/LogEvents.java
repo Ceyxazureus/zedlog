@@ -1,3 +1,4 @@
+package net.zeddev.zedlog.logger.impl;
 /* Copyright (C) 2013  Zachary Scott <zscott.dev@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,18 +15,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.zeddev.zedlog.logger.impl;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import net.zeddev.litelogger.Logger;
 import net.zeddev.zedlog.logger.LogEvent;
-import net.zeddev.zedlog.logger.impl.event.*;
+import net.zeddev.zedlog.logger.impl.event.KeyEvent;
+import net.zeddev.zedlog.logger.impl.event.MouseClickedEvent;
+import net.zeddev.zedlog.logger.impl.event.MouseDraggedEvent;
+import net.zeddev.zedlog.logger.impl.event.MouseMovedEvent;
+import net.zeddev.zedlog.logger.impl.event.MousePressedEvent;
+import net.zeddev.zedlog.logger.impl.event.MouseReleasedEvent;
+import net.zeddev.zedlog.logger.impl.event.MouseWheelMovedEvent;
 
 /**
- * A simple factory to produce <code>LogEvent</code>.
+ * A simple factory to produce {@code LogEvent}.
  *
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
@@ -64,12 +70,12 @@ public class LogEvents {
 	}
 
 	/**
-	 * Creates a new <code>LogEvent</code> of the given type.
-	 * for a full list of types see <code>typeList()</code>.
+	 * Creates a new {@code LogEvent} of the given type.
+	 * for a full list of types see {@code typeList()}.
 	 *
-	 * @param type The type of the <code>LogEvent</code> (must be one of those given by
-	 * <code>typeList()</code>.
-	 * @return The new <code>LogEvent</code> instance.  Or <code>null</code> if
+	 * @param type The type of the {@code LogEvent} (must be one of those given by
+	 * {@code typeList()}.
+	 * @return The new {@code LogEvent} instance.  Or {@code null} if
 	 * the given type is not known.
 	 */
 	public static LogEvent newLogEvent(String type) {
@@ -92,20 +98,20 @@ public class LogEvents {
 	}
 
 	/**
-	 * Returns the list of available <code>LogEvent</code> types producable by
-	 * <code>newLogEvent()</code>.
+	 * Returns the list of available {@code LogEvent} types producable by
+	 * {@code newLogEvent()}.
 	 * The currently supported types are;
 	 * <ul>
-	 *	<li>"KeyEvent" - <code>KeyEvent</code>.</li>
-	 *	<li>"MouseClicked" - <code>MouseClickedEvent</code>.</li>
-	 *  <li>"MouseDragged" - <code>MouseDraggedEvent</code>.</li>
-	 *  <li>"MouseMoved" - <code>MouseMovedEvent</code>.</li>
-	 *  <li>"MousePressed" - <code>MousePressedEvent</code>.</li>
-	 *  <li>"MouseReleased" - <code>MouseReleasedEvent</code>.</li>
-	 *  <li>"MouseWheelMoved" - <code>MouseWheelMovedEvent</code>.</li>
+	 *	<li>"KeyEvent" - {@code KeyEvent}.</li>
+	 *	<li>"MouseClicked" - {@code MouseClickedEvent}.</li>
+	 *  <li>"MouseDragged" - {@code MouseDraggedEvent}.</li>
+	 *  <li>"MouseMoved" - {@code MouseMovedEvent}.</li>
+	 *  <li>"MousePressed" - {@code MousePressedEvent}.</li>
+	 *  <li>"MouseReleased" - {@code MouseReleasedEvent}.</li>
+	 *  <li>"MouseWheelMoved" - {@code MouseWheelMovedEvent}.</li>
 	 * </ul>
 	 *
-	 * @return The list of available <code>LogEvent</code> types.
+	 * @return The list of available {@code LogEvent} types.
 	 */
 	public static List<String> typeList() {
 		return new ArrayList<>(TYPES);

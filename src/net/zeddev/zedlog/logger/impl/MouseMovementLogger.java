@@ -1,3 +1,4 @@
+package net.zeddev.zedlog.logger.impl;
 /* Copyright (C) 2013  Zachary Scott <zscott.dev@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,27 +15,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.zeddev.zedlog.logger.impl;
-
+import net.zeddev.zedlog.logger.AbstractDataLogger;
+import net.zeddev.zedlog.logger.LogEntry;
 import net.zeddev.zedlog.logger.impl.event.MouseMovedEvent;
+
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.mouse.NativeMouseEvent;
 import org.jnativehook.mouse.NativeMouseMotionListener;
-import net.zeddev.zedlog.logger.AbstractDataLogger;
-import net.zeddev.zedlog.logger.LogEntry;
 
 /**
- * A <code>DataLogger</code> for mouse movements events.
+ * A {@code DataLogger} for mouse movements events.
  *
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
 public final class MouseMovementLogger extends AbstractDataLogger
 		implements NativeMouseMotionListener {
 
-	/**
-	 * Creates a new <code>MouseMovementLogger</code>.
-	 *
-	 */
+	/** Creates a new {@code MouseMovementLogger}. */
 	public MouseMovementLogger() {
 		super();
 		GlobalScreen.getInstance().addNativeMouseMotionListener(this);

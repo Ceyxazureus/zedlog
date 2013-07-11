@@ -1,3 +1,4 @@
+package net.zeddev.zedlog.logger.impl.event;
 /* Copyright (C) 2013  Zachary Scott <zscott.dev@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,12 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.zeddev.zedlog.logger.impl.event;
-
-import java.io.Reader;
 import java.io.Writer;
 import java.util.Scanner;
+
 import net.zeddev.zedlog.logger.LogEvent;
+
 import org.jnativehook.mouse.NativeMouseEvent;
 
 /**
@@ -90,13 +90,7 @@ public abstract class MouseEvent extends LogEvent {
 
 	}
 
-	/**
-	 * Returns a string contained the given position.
-	 *
-	 * @param x
-	 * @param y
-	 * @return A string contained the given position.
-	 */
+	/** Returns a string contained the given position. */
 	protected String posString(int x, int y) {
 
 		StringBuilder pos = new StringBuilder();

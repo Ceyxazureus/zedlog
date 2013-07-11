@@ -35,11 +35,15 @@ public enum Config {
 	/** Minor version number.  */
 	public final int VERSION_MINOR = 2;
 
+	/** Version build (minor-minor version).  */
+	public final int VERSION_BUILD = 1;
+	
 	/** The phase of version development (alpha, beta, rc etc.). */
 	public final String VERSION_PHASE = "beta";
 
 	/** The version as a string. */
-	public final String VERSION = "v" + VERSION_MAJOR + "." + VERSION_MINOR + VERSION_PHASE;
+	public final String VERSION = 
+			"v" + VERSION_MAJOR + "." + VERSION_MINOR + VERSION_PHASE + VERSION_BUILD;
 
 	/** Official program name. */
 	public final String NAME = "ZedLog";
@@ -54,16 +58,11 @@ public enum Config {
 	/** The GUI icon directory. */
 	public static final String ICON_DIR = "/net/zeddev/zedlog/gui/icons";
 
-	/**
-	 * The documentation resource directory.
-	 *
-	 */
+	/** The documentation resource directory. */
 	public static final String DOCDIR = "/net/zeddev/zedlog/doc";
 
-	/**
-	 * The help html file name (relative to <code>Config.HELPDIR</code>).
-	 * i.e. Needs to be loaded using <code>Class.getResource()</code>.
-	 *
+	/** The help html file name (relative to {@code Config.HELPDIR}).
+	 * i.e. Needs to be loaded using {@code Class.getResource()}.
 	 */
 	public static final String HELPDOC = "helpdoc.html";
 

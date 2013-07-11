@@ -1,3 +1,4 @@
+package net.zeddev.zedlog.logger;
 /* Copyright (C) 2013  Zachary Scott <zscott.dev@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,10 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.zeddev.zedlog.logger;
-
 /**
- * An interface to notify observers when a <Code>DataLogger</code> makes a log/record.
+ * An interface to notify observers when a {@code DataLogger} makes a log/record.
  *
  * @author Zachary Scott <zscott.dev@gmail.com>
  */

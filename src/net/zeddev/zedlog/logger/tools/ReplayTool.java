@@ -1,3 +1,4 @@
+package net.zeddev.zedlog.logger.tools;
 /* Copyright (C) 2013  Zachary Scott <zscott.dev@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -13,8 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-package net.zeddev.zedlog.logger.tools;
 
 import java.awt.AWTException;
 import java.awt.Robot;
@@ -41,8 +40,8 @@ import net.zeddev.zedlog.logger.impl.MouseWheelLogger;
 import net.zeddev.zedlog.logger.impl.event.MouseWheelMovedEvent;
 
 /**
- * Replays/simulates logged <code>LogEvent</code>s.
- * Uses <code>java.awt.Robot</code> to simulate mouse moves, clicks and key
+ * Replays/simulates logged {@code LogEvent}s.
+ * Uses {@code java.awt.Robot} to simulate mouse moves, clicks and key
  * presses.
  *
  * @author Zachary Scott <zscott.dev@gmail.com>
@@ -60,9 +59,9 @@ public final class ReplayTool {
 	private boolean running = false;
 
 	/**
-	 * Creates a new <code>ReplayTool</code> for the given <code>LogEntry</code> set.
+	 * Creates a new {@code ReplayTool} for the given {@code LogEntry} set.
 	 *
-	 * @param logEntries The <code>LogEntry</code> list in which to replay.
+	 * @param logEntries The {@code LogEntry} list in which to replay.
 	 */
 	public ReplayTool(final List<LogEntry> logEntries) {
 		this.logEntries = logEntries;
@@ -70,16 +69,16 @@ public final class ReplayTool {
 	}
 
 	/**
-	 * Creates a new <code>ReplayTool</code> for the given <code>CompositeDataLogger</code>.
+	 * Creates a new {@code ReplayTool</code> for the given <code>CompositeDataLogger}.
 	 *
-	 * @param loggers The <code>CompositeDataLogger</code> in which to replay.
+	 * @param loggers The {@code CompositeDataLogger} in which to replay.
 	 */
 	public ReplayTool(final CompositeDataLogger loggers) {
 		this(loggers.logEntries());
 	}
 
 	/**
-	 * Adds a <code>ReplayToolObserver</code>.
+	 * Adds a {@code ReplayToolObserver}.
 	 *
 	 * @param observer The observer to be added to the list.
 	 */
@@ -89,7 +88,7 @@ public final class ReplayTool {
 	}
 
 	/**
-	 * Removes the given <code>ReplayToolObserver</code>.
+	 * Removes the given {@code ReplayToolObserver}.
 	 *
 	 * @param observer The observer to be removed
 	 */
@@ -223,21 +222,15 @@ public final class ReplayTool {
 
 	}
 
-	/**
-	 * Returns a <code>Runnable</code>, which replays the events, timed the same
+	/** Returns a {@code Runnable}, which replays the events, timed the same
 	 * as the original events.
-	 *
-	 * @returns
 	 */
 	public Runnable replayTimed() {
 		return new ReplayTimed();
 	}
 
-	/**
-	 * Returns a <code>Runnable</code> which replays the events, as fast as
+	/** Returns a {@code Runnable} which replays the events, as fast as
 	 * possible.
-	 *
-	 * @return
 	 */
 	public Runnable replayFast() {
 		return new ReplayFast();
@@ -331,10 +324,8 @@ public final class ReplayTool {
 
 	}
 
-	/**
-	 * Stops replaying.
+	/** Stops replaying.
 	 * Thread safe.
-	 *
 	 */
 	public void stop() {
 		running = false;

@@ -81,10 +81,7 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 	// the program log output file
 	private WriterLogHandler msgLogFile = null;
 
-	/**
-	 * Creates new form {@code ZedLogFrame}.
-	 *
-	 */
+	/** Creates new form {@code ZedLogFrame}. */
 	public ZedLogFrame() {
 
 		initComponents();

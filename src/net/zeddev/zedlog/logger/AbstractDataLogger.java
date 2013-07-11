@@ -1,3 +1,4 @@
+package net.zeddev.zedlog.logger;
 /* Copyright (C) 2013  Zachary Scott <zscott.dev@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,15 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.zeddev.zedlog.logger;
-
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
- * Provides a skeletal implementation of <code>DataLogger</code>.
- * Lightens the burden of implementing a <code>DataLogger</code>.
+ * Provides a skeletal implementation of {@code DataLogger}.
+ * Lightens the burden of implementing a {@code DataLogger}.
  *
  * @author Zachary Scott <zscott.dev@gmail.com>
  */

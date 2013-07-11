@@ -51,11 +51,7 @@ public class ReplayToolDialog extends JDialog implements ReplayToolObserver {
 	
 	private final ReplayTool tool;
 
-	/**
-	 * Creates new form {@code ReplayToolDialog}.
-	 *
-	 * @param loggers The
-	 */
+	/** Creates new form {@code ReplayToolDialog}. */
 	public ReplayToolDialog(final Frame parent, final CompositeDataLogger loggers) {
 
 		super(parent, true);

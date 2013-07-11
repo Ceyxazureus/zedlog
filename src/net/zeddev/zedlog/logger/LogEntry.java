@@ -1,3 +1,4 @@
+package net.zeddev.zedlog.logger;
 /* Copyright (C) 2013  Zachary Scott <zscott.dev@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,14 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.zeddev.zedlog.logger;
-
 import java.io.Writer;
 import java.util.Scanner;
+
 import net.zeddev.zedlog.logger.impl.LogEvents;
 
 /**
- * A single log record by a <code>DataLogger</code>.
+ * A single log record by a {@code DataLogger}.
  *
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
@@ -33,8 +33,9 @@ public class LogEntry {
 	private long timestamp = System.currentTimeMillis();
 
 	/**
-	 * Creates a new <code>LogEntry</code> with the given details.
+	 * Creates a new {@code LogEntry} with the given details.
 	 *
+	 * @param parent the parent logger, which created the {@code LogEntry}.
 	 * @param message The logged message.
 	 */
 	public LogEntry(final DataLogger parent, final String message, final LogEvent event) {
@@ -43,10 +44,7 @@ public class LogEntry {
 		this.event = event;
 	}
 
-	/**
-	 * Creates a new, empty <code>LogEntry</code>.
-	 *
-	 */
+	/** Creates a new, empty {@code LogEntry}. */
 	public LogEntry() {
 	}
 
@@ -83,9 +81,9 @@ public class LogEntry {
 	}
 
 	/**
-	 * Writes the <code>LogEntry</code> to a <code>Tuple</code>.
+	 * Writes the {@code LogEntry} to a {@code Tuple}.
 	 *
-	 * @return A <code>Tuple</code> containing the data in the <code>LogEntry</code>.
+	 * @return A {@code Tuple} containing the data in the {@code LogEntry}.
 	 */
 	public void write(final Writer output) throws Exception {
 
@@ -102,7 +100,7 @@ public class LogEntry {
 	}
 
 	/**
-	 * Reads the <code>LogEntry</code> from the given input.
+	 * Reads the {@code LogEntry} from the given input.
 	 *
 	 * @param scanner The input scanner in which to be parsed.
 	 * @throws ClassNotFoundException

@@ -1,3 +1,4 @@
+package net.zeddev.zedlog.logger.impl.event;
 /* Copyright (C) 2013  Zachary Scott <zscott.dev@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,12 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.zeddev.zedlog.logger.impl.event;
-
-import java.io.Reader;
 import java.io.Writer;
 import java.util.Scanner;
+
 import net.zeddev.zedlog.logger.LogEvent;
+
 import org.jnativehook.keyboard.NativeKeyEvent;
 
 /**
@@ -29,7 +29,7 @@ import org.jnativehook.keyboard.NativeKeyEvent;
  */
 public class KeyEvent extends LogEvent {
 
-	/** The type of <code>KeyEvent</code>. */
+	/** The type of {@code KeyEvent}. */
 	public static enum Type {
 
 		PRESSED("pressed"), RELEASED("released"), TYPED("typed");

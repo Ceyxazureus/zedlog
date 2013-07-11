@@ -1,3 +1,4 @@
+package net.zeddev.zedlog;
 /* Copyright (C) 2013  Zachary Scott <zscott.dev@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,8 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.zeddev.zedlog;
-
 import java.awt.EventQueue;
 import java.lang.Thread.UncaughtExceptionHandler;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -30,7 +29,7 @@ import net.zeddev.litelogger.handlers.MsgBoxLogHandler;
  *
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
-public class ZedLog implements UncaughtExceptionHandler {
+public final class ZedLog implements UncaughtExceptionHandler {
 
 	private final Logger logger = Logger.getLogger(this);
 

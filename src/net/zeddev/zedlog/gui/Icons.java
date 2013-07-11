@@ -32,7 +32,7 @@ public enum Icons {
 
 	INSTANCE;
 
-	/** The extention which all icons must have (<code>.png</code>). */
+	/** The extention which all icons must have ({@code .png}). */
 	public static final String EXT = ".png";
 
 	private final Logger logger = Logger.getLogger(this);
@@ -58,7 +58,7 @@ public enum Icons {
 	 * Returns the icon instance for the given name.
 	 *
 	 * @param name The name of the icon (the name of the icon file without extention).
-	 * @return The <code>Icon</code> instance.
+	 * @return The {@code Icon} instance.
 	 */
 	public Icon getIcon(final String name) {
 

@@ -1,3 +1,4 @@
+package net.zeddev.zedlog.logger.impl;
 /* Copyright (C) 2013  Zachary Scott <zscott.dev@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,20 +15,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.zeddev.zedlog.logger.impl;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import net.zeddev.zedlog.logger.DataLogger;
 
 /**
- * A simple factory which produces concrete <code>DataLogger</code>s.
+ * A simple factory which produces concrete {@code DataLogger}s.
  *
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
-public class DataLoggers {
+public final class DataLoggers {
 
 	// the cached logger instances
 	private static final Map<String, DataLogger> LOGGERS = new HashMap<>();
@@ -63,11 +63,11 @@ public class DataLoggers {
 	}
 
 	/**
-	 * Produces new <code>DataLogger<code> instances based on the given type.
-	 * See <code>typeList()</code> for full list.
+	 * Produces new {@code DataLogger{@code  instances based on the given type.
+	 * See {@code typeList()} for full list.
 	 *
-	 * @param type The type of the new <code>DataLogger</code>.
-	 * @return The new <code>DataLogger</code> instance.
+	 * @param type The type of the new {@code DataLogger}.
+	 * @return The new {@code DataLogger} instance.
 	 */
 	public static DataLogger newDataLogger(String type) {
 
@@ -82,22 +82,22 @@ public class DataLoggers {
 	}
 
 	/**
-	 * Returns all available <code>DataLogger</code> types that can be used with
-	 * <code>newDataLogger()</code>.
+	 * Returns all available {@code DataLogger} types that can be used with
+	 * {@code newDataLogger()}.
 	 * The currently supported types are;
 	 * <ul>
-	 *	<li>"CharTyped" - <code>CharTypedLogger</code>.</li>
-	 *	<li>"keyPressed" - <code>KeyPressedLogger</code>.</li>
-	 *  <li>"KeyReleased" - <code>CharTypedLogger</code>.</li>
-	 *  <li>"MouseClick" - <code>MouseClickLogger</code>.</li>
-	 *	<li>"MousePressed" - <code>MousePressedLogger</code>.</li>
-	 *	<li>"MouseReleased" - <code>MouseReleasedLogger</code>.</li>
-	 *  <li>"MouseMovement" - <code>MouseMovementLogger</code>.</li>
-	 *  <li>"MouseDrag" - <code>MouseDraggedLogger</code>.</li>
-	 *  <li>"MouseWheel" - <code>MouseWheelLogger</code>.</li>
+	 *	<li>"CharTyped" - {@code CharTypedLogger}.</li>
+	 *	<li>"keyPressed" - {@code KeyPressedLogger}.</li>
+	 *  <li>"KeyReleased" - {@code CharTypedLogger}.</li>
+	 *  <li>"MouseClick" - {@code MouseClickLogger}.</li>
+	 *	<li>"MousePressed" - {@code MousePressedLogger}.</li>
+	 *	<li>"MouseReleased" - {@code MouseReleasedLogger}.</li>
+	 *  <li>"MouseMovement" - {@code MouseMovementLogger}.</li>
+	 *  <li>"MouseDrag" - {@code MouseDraggedLogger}.</li>
+	 *  <li>"MouseWheel" - {@code MouseWheelLogger}.</li>
 	 * </ul>
 	 *
-	 * @return The list of available <code>DataLogger</code> types.
+	 * @return The list of available {@code DataLogger} types.
 	 */
 	public static List<String> typeList() {
 		return new ArrayList<>(TYPES);

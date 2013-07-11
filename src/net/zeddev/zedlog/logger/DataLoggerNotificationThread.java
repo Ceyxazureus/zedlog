@@ -1,3 +1,4 @@
+package net.zeddev.zedlog.logger;
 /* Copyright (C) 2013  Zachary Scott <zscott.dev@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,15 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.zeddev.zedlog.logger;
-
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
+
 import net.zeddev.litelogger.Logger;
 
 /**
- * The thread which notifies a <code>DataLogger</code>'s observers of an event.
+ * The thread which notifies a {@code DataLogger}'s observers of an event.
  *
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
@@ -56,12 +56,12 @@ public final class DataLoggerNotificationThread extends Thread {
 	private boolean running = false;
 
 	/**
-	 * Creates a new <code>DataLoggerNotificationThread</code> which handles
-	 * asynchronous event dispatch for <code>DataLogger</code>s.
+	 * Creates a new {@code DataLoggerNotificationThread} which handles
+	 * asynchronous event dispatch for {@code DataLogger}s.
 	 *
-	 * @param dataLogger The parent data logger (must not be <code>null</code>).
+	 * @param dataLogger The parent data logger (must not be {@code null}).
 	 * @param observers The list of observers for the given data logger (must
-	 * not be <code>null</code>).
+	 * not be {@code null}).
 	 */
 	public DataLoggerNotificationThread(DataLogger dataLogger, List<DataLoggerObserver> observers) {
 
@@ -81,7 +81,7 @@ public final class DataLoggerNotificationThread extends Thread {
 	}
 
 	/**
-	 * Notifies observers of the given <code>LogEntry</code> asynchronously.
+	 * Notifies observers of the given {@code LogEntry} asynchronously.
 	 *
 	 * @param logEntry The logged event.
 	 */
@@ -93,10 +93,7 @@ public final class DataLoggerNotificationThread extends Thread {
 
 	}
 
-	/**
-	 * Shuts the notification thread down.
-	 *
-	 */
+	/** Shuts the notification thread down. */
 	public void shutdown() {
 		running = false;
 	}

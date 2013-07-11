@@ -77,13 +77,13 @@ public final class SimpleDialog {
 	}
 
 	/**
-	 * Displays a confirmation box with <code>Okay</code> and <code>Cancel</code>
+	 * Displays a confirmation box with {@code Okay</code> and <code>Cancel}
 	 * options.
 	 *
 	 * @param parent The parent of the message box.
 	 * @param title The title of the message box.
 	 * @param msg The question to be confirmed to be displayed.
-	 * @return Whether the user pressed <code>Okay</code> or not.
+	 * @return Whether the user pressed {@code Okay} or not.
 	 */
 	public static boolean okcancel(Frame parent, String title, String msg) {
 
@@ -96,13 +96,13 @@ public final class SimpleDialog {
 	}
 
 	/**
-	 * Displays a confirmation box with <code>Yes</code> and <code>No</code>
+	 * Displays a confirmation box with {@code Yes</code> and <code>No}
 	 * options.
 	 *
 	 * @param parent The parent of the message box.
 	 * @param title The title of the message box.
 	 * @param msg The question to be confirmed to be displayed.
-	 * @return Whether the user pressed <code>Yes</code> or not.
+	 * @return Whether the user pressed {@code Yes} or not.
 	 */
 	public static boolean yesno(Frame parent, String title, String msg) {
 
@@ -117,8 +117,8 @@ public final class SimpleDialog {
 	/**
 	 * Opens a save-file chooser dialog.
 	 *
-	 * @param parent The parent frame (can be <code>null</code>).
-	 * @return The selected file (or <code>null</code> if error).
+	 * @param parent The parent frame (can be {@code null}).
+	 * @return The selected file (or {@code null} if error).
 	 */
 	public static File saveFile(final Frame parent) {
 
@@ -142,8 +142,8 @@ public final class SimpleDialog {
 	/**
 	 * Opens a open-file chooser dialog.
 	 *
-	 * @param parent The parent frame (can be <code>null</code>).
-	 * @return The selected file (or <code>null</code> if error).
+	 * @param parent The parent frame (can be {@code null}).
+	 * @return The selected file (or {@code null} if error).
 	 */
 	public static File openFile(final Frame parent) {
 
@@ -167,8 +167,8 @@ public final class SimpleDialog {
 	/**
 	 * Opens a directory chooser dialog.
 	 *
-	 * @param parent The parent frame (can be <code>null</code>).
-	 * @return The selected directory (or <code>null</code> if error).
+	 * @param parent The parent frame (can be {@code null}).
+	 * @return The selected directory (or {@code null} if error).
 	 */
 	public static File selectDir(final Frame parent) {
 

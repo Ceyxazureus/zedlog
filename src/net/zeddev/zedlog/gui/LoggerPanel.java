@@ -34,10 +34,7 @@ public final class LoggerPanel extends JPanel implements DataLoggerObserver {
 
 	private final DataLogger logger;
 
-	/**
-	 * Creates new form {@code LoggerPanel}.
-	 *
-	 */
+	/** Creates new form {@code LoggerPanel}. */
 	public LoggerPanel(final DataLogger logger) {
 
 		super();

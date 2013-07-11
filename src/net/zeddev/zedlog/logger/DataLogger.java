@@ -1,3 +1,4 @@
+package net.zeddev.zedlog.logger;
 /* Copyright (C) 2013  Zachary Scott <zscott.dev@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,8 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.zeddev.zedlog.logger;
-
 /**
  * A generic data log interface.
  *
@@ -24,37 +23,33 @@ package net.zeddev.zedlog.logger;
 public interface DataLogger {
 
 	/**
-	 * Returns the type name of the <code>DataLogger</code>.
+	 * Returns the type name of the {@code DataLogger}.
 	 * Must not have any spaces, for example "KeyLogger" or "MouseLogger".
 	 *
-	 * @return The type name of the <code>DataLogger</code>.
+	 * @return The type name of the {@code DataLogger}.
 	 */
 	public String type();
 
-	// Depreciated 2013.05.01
+	// Deprecated 2013.05.01
 	// /**
-	//  * Returns all log entries in this <code>DataLog</code>.
+	//  * Returns all log entries in this {@code DataLog}.
 	//  *
-	//  * @return All current entries in this log (never <code>null</code>).
+	//  * @return All current entries in this log (never {@code null}).
 	//  */
 	// public List<LogEntry> logEntries();
 
-	/**
-	 * Shuts-down the <code>DataLog</code> (and any resources it may consume).
-	 *
-	 *
-	 */
+	/** Shuts-down the {@code DataLog} (and any resources it may consume). */
 	public void shutdown();
 
 	/**
-	 * Adds a <code>DataLoggerObserver</code>.
+	 * Adds a {@code DataLoggerObserver}.
 	 *
 	 * @param observer The observer to be added to the list.
 	 */
 	public void addObserver(final DataLoggerObserver observer);
 
 	/**
-	 * Removes a <code>DataLoggerObserver</code>.
+	 * Removes a {@code DataLoggerObserver}.
 	 *
 	 * @param observer The observer to remove from the list.
 	 */

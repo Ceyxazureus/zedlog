@@ -1,3 +1,4 @@
+package net.zeddev.zedlog.logger.impl;
 /* Copyright (C) 2013  Zachary Scott <zscott.dev@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,8 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.zeddev.zedlog.logger.impl;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -27,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
+
 import net.zeddev.litelogger.Logger;
 import net.zeddev.zedlog.logger.AbstractDataLogger;
 import net.zeddev.zedlog.logger.DataLogger;
@@ -34,7 +34,7 @@ import net.zeddev.zedlog.logger.DataLoggerObserver;
 import net.zeddev.zedlog.logger.LogEntry;
 
 /**
- * A collection of multiple <code>DataLogger</code>'s.
+ * A collection of multiple {@code DataLogger}'s.
  *
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
@@ -50,10 +50,7 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	// the output stream in which to write log entries
 	private Writer logstream = null;
 
-	/**
-	 * Creates a new <code>CompositeDataLogger</code>.
-	 *
-	 */
+	/** Creates a new {@code CompositeDataLogger}. */
 	public CompositeDataLogger() {
 		super();
 	}
@@ -79,11 +76,11 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	}
 
 	/**
-	 * Returns the <code>DataLogger</code> at the given index in the
-	 * <code>CompositeDataLogger</code>.
+	 * Returns the {@code DataLogger} at the given index in the
+	 * {@code CompositeDataLogger}.
 	 *
 	 * @param index The index of the logger to get.
-	 * @return The <code>DataLogger</code> at the given index.
+	 * @return The {@code DataLogger} at the given index.
 	 */
 	public DataLogger getLogger(int index) {
 
@@ -96,7 +93,7 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	}
 
 	/**
-	 * Adds a new <code>DataLogger</code>.
+	 * Adds a new {@code DataLogger}.
 	 *
 	 * @param logger The logger to add.
 	 * @throws IOException If exception occurs while establishing log file.
@@ -117,7 +114,7 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	}
 
 	/**
-	 * Removes the given <code>DataLogger</code>.
+	 * Removes the given {@code DataLogger}.
 	 *
 	 * @param logger The logger to be removed.
 	 * @throws IOException If error occured when closing log file for the logger.
@@ -136,9 +133,9 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	}
 
 	/**
-	 * Removes the <code>DataLogger</code> at the given index.
+	 * Removes the {@code DataLogger} at the given index.
 	 *
-	 * @param index The index of the <code>DataLogger</code> to be removed.
+	 * @param index The index of the {@code DataLogger} to be removed.
 	 */
 	public void removeLogger(int index) {
 		assert(index >= 0 && index < loggers.size());
@@ -157,9 +154,9 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	}
 
 	/**
-	 * Returns the children <code>DataLogger</code>s.
+	 * Returns the children {@code DataLogger}s.
 	 *
-	 * @return The children <code>DataLogger</code>s.
+	 * @return The children {@code DataLogger}s.
 	 */
 	public List<DataLogger> getLoggers() {
 		return new ArrayList<>(loggers);
@@ -177,7 +174,7 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	/**
 	 * Returns the output stream in which log entries are written.
 	 *
-	 * @return The log output stream (may be <code>null</code>).
+	 * @return The log output stream (may be {@code null}).
 	 */
 	public Writer getLogStream() {
 		return logstream;
@@ -186,7 +183,7 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	/**
 	 * Sets the output stream in which log entries are written.
 	 *
-	 * @param logstream The new output stream (<code>null</code> indicates none).
+	 * @param logstream The new output stream ({@code null} indicates none).
 	 */
 	public void setLogStream(Writer logstream) {
 		this.logstream = logstream;
@@ -210,7 +207,7 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	 * Sets the log file to which log entries are stored.
 	 *
 	 * @param file The log file (must be a valid filename and
-	 * cannot be <code>null</code>).
+	 * cannot be {@code null}).
 	 */
 	public void setLogFile(File file) throws IOException {
 		assert(file != null);
@@ -222,7 +219,7 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	 * Implies clearing of the currently held log entries.
 	 *
 	 * @param file The file in which to read (file must exist and
-	 * cannot be <code>null</code>).
+	 * cannot be {@code null}).
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 * @throws ClassNotFoundException

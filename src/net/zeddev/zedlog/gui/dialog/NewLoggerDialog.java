@@ -38,9 +38,7 @@ public final class NewLoggerDialog extends JDialog {
 
 	private boolean cancelledFlag = false;
 
-	/**
-	 * Creates new form NewLoggerDialog
-	 */
+	/** Creates new form {@code NewLoggerDialog}. */
 	public NewLoggerDialog(Frame parent, boolean modal) {
 
 		super(parent, modal);
