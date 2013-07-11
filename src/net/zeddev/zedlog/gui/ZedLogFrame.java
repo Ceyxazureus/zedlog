@@ -108,7 +108,55 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 		GlobalScreen.getInstance().addNativeMouseListener(this);
 
 	}
+	
+	/** Shuts-down the ZedLog frame. */
+	public void shutdown() {
 
+		logger.info("Shutting down GUI.");
+
+		loggers.shutdown();
+		
+		setVisible(false);
+		dispose();
+
+	}
+
+	@Override
+	public void finalize() throws Throwable {
+		super.finalize();
+		shutdown();
+	}
+
+	private void initLoggers() {
+		loggers = new CompositeDataLogger();
+		addLoggerTab(loggers);
+	}
+
+	// removes the logger tabs from the frame
+	private void removeLoggerTabs() {
+
+		// remove the logger tabs
+		while (tabs.getTabCount() > 0)
+			tabs.remove(0);
+
+	}
+
+	// re-initialise the loggers display
+	private void reInitLoggersView() {
+
+		removeLoggerTabs();
+
+		// re-add the composite logger tab
+		addLoggerTab(loggers);
+
+		// re-add the composite loggers children loggers
+		for (DataLogger logger : loggers.getLoggers())
+			addLoggerTab(logger);
+
+	}
+
+	/* --------  GUI INITIALISATION -------- */
+	
 	// initialises the GUI components
 	private void initComponents() {
 
@@ -217,12 +265,6 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
                 formWindowClosing(evt);
             }
         });
-
-		btnHide.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                btnHideActionPerformed(event);
-            }
-        });
 		
 		btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -260,6 +302,18 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
             }
         });
 		
+		btnHide.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                btnHideActionPerformed(event);
+            }
+        });
+		
+		mitemSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemSaveActionPerformed(evt);
+            }
+        });
+		
 		mitemOpenLogFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mitemOpenLogFileActionPerformed(evt);
@@ -271,10 +325,10 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
                 mitemSetLogFileActionPerformed(evt);
             }
         });
-
-		mitemHide.addActionListener(new java.awt.event.ActionListener() {
+		
+		mitemQuit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mitemHideActionPerformed(evt);
+                mitemQuitActionPerformed(evt);
             }
         });
 
@@ -295,16 +349,16 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
                 mitemClearAllActionPerformed(evt);
             }
         });
+		
+		mitemHide.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemHideActionPerformed(evt);
+            }
+        });
 
 		mitemReplay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mitemReplayActionPerformed(evt);
-            }
-        });
-
-		mitemSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mitemSaveActionPerformed(evt);
             }
         });
 
@@ -317,12 +371,6 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 		mitemLogWindow.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mitemLogWindowActionPerformed(evt);
-            }
-        });
-
-        mitemQuit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mitemQuitActionPerformed(evt);
             }
         });
 
@@ -345,6 +393,8 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 		
 		JMenuBar menubar = new JMenuBar();
 		
+		// ---- file menu ----
+		
 		menuFile.setText("File");
 		
 		menuFile.add(mitemSave);
@@ -357,6 +407,8 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
         menuFile.add(mitemQuit);
 
         menubar.add(menuFile);
+        
+        // ---- loggers menu ----
 
         menuLoggers.setMnemonic('L');
         menuLoggers.setText("Loggers");
@@ -369,6 +421,8 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 
         menubar.add(menuLoggers);
 
+        // ---- tools menu ----
+        
         menuTools.setMnemonic('T');
         menuTools.setText("Tools");
 
@@ -390,6 +444,8 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 
         menubar.add(menuTools);
 
+        // ---- help menu ----
+        
         menuHelp.setMnemonic('H');
         menuHelp.setText("Help");
 
@@ -400,6 +456,7 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 
         menubar.add(menuHelp);
 
+        // set the frames menubar
         setJMenuBar(menubar);
 		
 	}
@@ -450,52 +507,7 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 		
 	}
 	
-	/**
-	 * Shuts-down the ZedLog frame.
-	 *
-	 */
-	public void shutdown() {
-
-		logger.info("Shutting down GUI.");
-
-		loggers.shutdown();
-		setVisible(false);
-
-	}
-
-	@Override
-	public void finalize() throws Throwable {
-		super.finalize();
-		shutdown();
-	}
-
-	private void initLoggers() {
-		loggers = new CompositeDataLogger();
-		addLoggerTab(loggers);
-	}
-
-	// removes the logger tabs from the frame
-	private void removeLoggerTabs() {
-
-		// remove the logger tabs
-		while (tabs.getTabCount() > 0)
-			tabs.remove(0);
-
-	}
-
-	// re-initialise the loggers display
-	private void reInitLoggersView() {
-
-		removeLoggerTabs();
-
-		// re-add the composite logger tab
-		addLoggerTab(loggers);
-
-		// re-add the composite loggers children loggers
-		for (DataLogger logger : loggers.getLoggers())
-			addLoggerTab(logger);
-
-	}
+	/* --------  END GUI INITIALISATION -------- */
 
 	private void setLogFile() {
 
@@ -517,115 +529,7 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 		}
 
 	}
-
-    private void mitemSetLogFileActionPerformed(java.awt.event.ActionEvent evt) {
-		setLogFile();
-
-    }
-
-	private void openLogFile() {
-
-		File logFile = SimpleDialog.openFile(this);
-		if (logFile == null) return;
-
-		// select and set the new log file
-		try {
-
-			logger.info("Opening log file %s.", null, logFile.toString());
-
-			// re-initialise the composite logger
-			removeLoggerTabs();
-			initLoggers();
-
-			loggers.openLogFile(logFile);
-
-		} catch (FileNotFoundException ex) {
-			logger.error("Log file %s does not exist!", ex, logFile.getPath());
-		} catch (IOException ex) {
-			logger.error("Failed to open log file %s.", ex, logFile.getPath());
-		} catch (Exception ex) {
-
-			logger.error(
-				"Failed to read the log file %s.  It may be corrupt.",
-				ex, logFile.getPath()
-			);
-
-		}
-
-		logger.info("Log file %s opened successfully.", null, logFile.getPath());
-
-	}
-
-    private void mitemOpenLogFileActionPerformed(java.awt.event.ActionEvent evt) {
-        openLogFile();
-
-    }
-
-    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {
-		setLogFile();
-
-    }
-
-    private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {
-        openLogFile();
-
-    }
-
-	private void addLoggerTab(final DataLogger logger) {
-
-		assert(logger != null);
-
-		// create logger panel view
-		LoggerPanel loggerPanel = new LoggerPanel(logger);
-
-		// add a logger panel tab for the new logger
-		tabs.add(logger.type(), loggerPanel);
-
-	}
-
-	private void userQuit() {
-
-		if (loggers.getLogStream() == null) {
-
-			boolean quit = SimpleDialog.yesno(
-				this, "Really Quit?",
-				"The log file has not been set, log data may be lost.\n"
-				+ "Are you sure you want to quit?"
-			);
-
-			if (!quit) {
-				logger.info("Quit cancelled.");
-				return;
-			}
-
-		}
-
-		logger.info("User quit.");
-
-		setVisible(false);
-		System.exit(0);
-
-	}
-
-	private void formWindowClosing(WindowEvent evt) {
-		userQuit();
-	}
-
-	// show or hide the ZedLog frame
-	private void showHide() {
-
-		boolean show = !isVisible();
-
-		setVisible(show);
-
-		// give the window focus
-		if (show) {
-			toFront();
-			requestFocus();
-		}
-
-	}
-
+	
 	private void addDataLogger() {
 
 		NewLoggerDialog dialog = new NewLoggerDialog(this, true);
@@ -687,19 +591,7 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 		}
 
 	}
-
-	private void btnHideActionPerformed(final ActionEvent event) {
-		showHide();
-    }
-
-	private void btnAddActionPerformed(final ActionEvent event) {
-		addDataLogger();
-    }
-
-	private void btnRemoveActionPerformed(final ActionEvent event) {
-		removeDataLogger();
-    }
-
+	
 	private void clearAll() {
 
 		try {
@@ -713,16 +605,130 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 		logger.info("Cleared data loggers.");
 
 	}
+	
+	// show or hide the ZedLog frame
+	private void showHide() {
 
-	private void btnClearAllActionPerformed(final ActionEvent event) {
-		clearAll();
+		boolean show = !isVisible();
+
+		setVisible(show);
+
+		// give the window focus
+		if (show) {
+			toFront();
+			requestFocus();
+		}
+
+	}
+	
+	private void openLogFile() {
+
+		File logFile = SimpleDialog.openFile(this);
+		if (logFile == null) return;
+
+		// select and set the new log file
+		try {
+
+			logger.info("Opening log file %s.", null, logFile.toString());
+
+			// re-initialise the composite logger
+			removeLoggerTabs();
+			initLoggers();
+
+			loggers.openLogFile(logFile);
+
+		} catch (FileNotFoundException ex) {
+			logger.error("Log file %s does not exist!", ex, logFile.getPath());
+		} catch (IOException ex) {
+			logger.error("Failed to open log file %s.", ex, logFile.getPath());
+		} catch (Exception ex) {
+
+			logger.error(
+				"Failed to read the log file %s.  It may be corrupt.",
+				ex, logFile.getPath()
+			);
+
+		}
+
+		logger.info("Log file %s opened successfully.", null, logFile.getPath());
+
+	}
+
+	private void userQuit() {
+
+		if (loggers.getLogStream() == null) {
+
+			boolean quit = SimpleDialog.yesno(
+				this, "Really Quit?",
+				"The log file has not been set, log data may be lost.\n"
+				+ "Are you sure you want to quit?"
+			);
+
+			if (!quit) {
+				logger.info("Quit cancelled.");
+				return;
+			}
+
+		}
+
+		logger.info("User quit.");
+
+		setVisible(false);
+		System.exit(0);
+
+	}
+	
+	private void addLoggerTab(final DataLogger logger) {
+
+		assert(logger != null);
+
+		// create logger panel view
+		LoggerPanel loggerPanel = new LoggerPanel(logger);
+
+		// add a logger panel tab for the new logger
+		tabs.add(logger.type(), loggerPanel);
+
+	}
+	
+	private void saveToFile(File saveFile) throws IOException {
+
+		FileWriter output = new FileWriter(saveFile);
+		output.write(loggers.toString());
+		output.close();
+
+	}
+	
+	/* -------- EVENT HANDLERS -------- */
+	
+	private void formWindowClosing(WindowEvent evt) {
+		userQuit();
+	}
+	
+	private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {
+		setLogFile();
     }
 
-	private void mitemClearAllActionPerformed(final ActionEvent event) {
-		clearAll();
+    private void btnOpenActionPerformed(java.awt.event.ActionEvent evt) {
+        openLogFile();
+    }
+	
+    private void btnAddActionPerformed(final ActionEvent event) {
+		addDataLogger();
     }
 
-	private void btnPauseActionPerformed(final ActionEvent event) {
+	private void btnRemoveActionPerformed(final ActionEvent event) {
+		removeDataLogger();
+    }
+    
+    private void btnClearAllActionPerformed(final ActionEvent event) {
+		clearAll();
+    }
+    
+    private void btnHideActionPerformed(final ActionEvent event) {
+		showHide();
+    }
+    
+    private void btnPauseActionPerformed(final ActionEvent event) {
 
 		loggers.setRecording(!loggers.isRecording());
 
@@ -742,32 +748,7 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 
     }
 
-	private void saveToFile(File saveFile) throws IOException {
-
-		FileWriter output = new FileWriter(saveFile);
-		output.write(loggers.toString());
-		output.close();
-
-	}
-
-	private void mitemHideActionPerformed(ActionEvent evt) {
-		showHide();
-	}
-
-	private void mitemAddActionPerformed(ActionEvent evt) {
-		addDataLogger();
-	}
-
-	private void mitemRemoveActionPerformed(ActionEvent evt) {
-		removeDataLogger();
-	}
-
-	private void mitemReplayActionPerformed(ActionEvent evt) {
-		ReplayToolDialog replayTool = new ReplayToolDialog(this, loggers);
-		replayTool.setVisible(true);
-	}
-
-	private void mitemSaveActionPerformed(ActionEvent evt) {
+    private void mitemSaveActionPerformed(ActionEvent evt) {
 
 		File saveFile = SimpleDialog.saveFile(this);
 		if (saveFile != null) {
@@ -788,8 +769,38 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 
 	}
 
-	private void mitemLogWindowActionPerformed(ActionEvent evt) {
-		logWindow.setVisible(true);
+	private void mitemSetLogFileActionPerformed(java.awt.event.ActionEvent evt) {
+		setLogFile();
+    }
+	
+    private void mitemOpenLogFileActionPerformed(java.awt.event.ActionEvent evt) {
+        openLogFile();
+
+    }
+    
+    private void mitemQuitActionPerformed(ActionEvent evt) {
+		userQuit();
+	}
+	
+	private void mitemAddActionPerformed(ActionEvent evt) {
+		addDataLogger();
+	}
+	
+	private void mitemRemoveActionPerformed(ActionEvent evt) {
+		removeDataLogger();
+	}
+
+	private void mitemClearAllActionPerformed(final ActionEvent event) {
+		clearAll();
+    }
+
+	private void mitemHideActionPerformed(ActionEvent evt) {
+		showHide();
+	}
+
+	private void mitemReplayActionPerformed(ActionEvent evt) {
+		ReplayToolDialog replayTool = new ReplayToolDialog(this, loggers);
+		replayTool.setVisible(true);
 	}
 
 	private void mitemMsgLogFileActionPerformed(ActionEvent evt) {
@@ -831,10 +842,10 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 
 	}
 
-	private void mitemQuitActionPerformed(ActionEvent evt) {
-		userQuit();
+	private void mitemLogWindowActionPerformed(ActionEvent evt) {
+		logWindow.setVisible(true);
 	}
-
+	
 	private void mitemAboutActionPerformed(java.awt.event.ActionEvent evt) {
 
 		logger.info("Displaying 'About' infobox.");
@@ -876,32 +887,43 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 		// IGNORED
 	}
 
-	// form elements
+	/* -------- END EVENT HANDLERS -------- */
+	
+	/* -------- FORM ELEMENTS -------- */
+	
+	private JButton btnSave = new JButton();
+	private JButton btnOpen = new JButton();
     private JButton btnAdd = new JButton();
+    private JButton btnRemove = new JButton();
     private JButton btnClearAll = new JButton();
     private JButton btnHide = new JButton();
-    private JButton btnOpen = new JButton();
     private JButton btnPause = new JButton();
-    private JButton btnRemove = new JButton();
-    private JButton btnSave = new JButton();
+    
     private JMenu menuFile = new JMenu();
-    private JMenu menuHelp = new JMenu();
     private JMenu menuLoggers = new JMenu();
-    private JMenu menuProgramLog = new JMenu();
     private JMenu menuTools = new JMenu();
-    private JMenuItem mitemAbout = new JMenuItem();
-    private JMenuItem mitemAdd = new JMenuItem();
-    private JMenuItem mitemClearAll = new JMenuItem();
-    private JMenuItem mitemHelp = new JMenuItem();
-    private JMenuItem mitemHide = new JMenuItem();
-    private JMenuItem mitemLogWindow = new JMenuItem();
-    private JMenuItem mitemMsgLogFile = new JMenuItem();
-    private JMenuItem mitemOpenLogFile = new JMenuItem();
-    private JMenuItem mitemQuit = new JMenuItem();
-    private JMenuItem mitemRemove = new JMenuItem();
-    private JMenuItem mitemReplay = new JMenuItem();
+    private JMenu menuProgramLog = new JMenu();
+    private JMenu menuHelp = new JMenu();
+    
     private JMenuItem mitemSave = new JMenuItem();
     private JMenuItem mitemSetLogFile = new JMenuItem();
+    private JMenuItem mitemOpenLogFile = new JMenuItem();
+    private JMenuItem mitemQuit = new JMenuItem();
+    
+    private JMenuItem mitemAdd = new JMenuItem();
+    private JMenuItem mitemRemove = new JMenuItem();
+    private JMenuItem mitemClearAll = new JMenuItem();
+    
+    private JMenuItem mitemHide = new JMenuItem();
+    private JMenuItem mitemReplay = new JMenuItem();
+    private JMenuItem mitemMsgLogFile = new JMenuItem();
+    private JMenuItem mitemLogWindow = new JMenuItem();
+    
+    private JMenuItem mitemAbout = new JMenuItem();
+    private JMenuItem mitemHelp = new JMenuItem();
+    
     private JTabbedPane tabs = new JTabbedPane();
+    
+    /* -------- END FORM ELEMENTS -------- */
     
 }
