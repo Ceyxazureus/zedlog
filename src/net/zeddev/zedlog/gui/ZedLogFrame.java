@@ -17,6 +17,7 @@ package net.zeddev.zedlog.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -30,6 +31,7 @@ import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -62,12 +64,12 @@ import org.jnativehook.mouse.NativeMouseListener;
  *
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
-public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouseListener {
+public final class ZedLogFrame extends JFrame implements NativeMouseListener {
 
 	private final Logger logger = Logger.getLogger(this);
 	private final WindowLogHandler logWindow = new WindowLogHandler();
 
-	private CompositeDataLogger loggers;
+	private final CompositeDataLogger loggers;
 
 	// the program log output file
 	private WriterLogHandler msgLogFile = null;
@@ -78,7 +80,9 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 	
 	public ZedLogFrame(CompositeDataLogger loggers) {
 
-		initLoggers(loggers);
+		// initialise the encapsulated loggers
+		this.loggers = loggers;
+		initLoggerTabs();
 		
 		initComponents();
 		buildForm();
@@ -110,22 +114,31 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 
 		loggers.shutdown();
 		
-		setVisible(false);
-		dispose();
+		// dispose the window, in own thread to avoid deadlock
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				dispose();
+			}
+		});
 
 	}
 
 	@Override
 	public void finalize() throws Throwable {
 		super.finalize();
+		
 		shutdown();
+		
 	}
 
-	private void initLoggers(CompositeDataLogger loggers) {
-		
-		this.loggers = loggers;
+	// initialise the loggers tabs
+	private void initLoggerTabs() {
 		
 		addLoggerTab(loggers);
+		
+		// add tab for each existing logger
+		for (DataLogger dataLogger : loggers.getLoggers())
+			addLoggerTab(dataLogger);
 		
 	}
 
@@ -143,12 +156,20 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 
 		removeLoggerTabs();
 
-		// re-add the composite logger tab
-		addLoggerTab(loggers);
+		initLoggerTabs();
 
-		// re-add the composite loggers children loggers
-		for (DataLogger logger : loggers.getLoggers())
-			addLoggerTab(logger);
+	}
+	
+	// adds a tab for the given data logger
+	private void addLoggerTab(final DataLogger logger) {
+
+		assert(logger != null);
+
+		// create logger panel view
+		LoggerPanel loggerPanel = new LoggerPanel(logger);
+
+		// add a logger panel tab for the new logger
+		tabs.add(logger.type(), loggerPanel);
 
 	}
 
@@ -631,7 +652,7 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 			// re-initialise the composite logger
 			removeLoggerTabs();
 			loggers.clearAll();
-			initLoggers(loggers);
+			initLoggerTabs();
 
 			loggers.openLogFile(logFile);
 
@@ -673,18 +694,6 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 
 		setVisible(false);
 		System.exit(0);
-
-	}
-	
-	private void addLoggerTab(final DataLogger logger) {
-
-		assert(logger != null);
-
-		// create logger panel view
-		LoggerPanel loggerPanel = new LoggerPanel(logger);
-
-		// add a logger panel tab for the new logger
-		tabs.add(logger.type(), loggerPanel);
 
 	}
 	
