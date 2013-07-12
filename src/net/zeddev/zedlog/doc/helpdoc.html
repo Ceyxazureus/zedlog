@@ -87,344 +87,379 @@ img {
 	margin-right: auto; 
 }
 
+.sidebar {
+	width: 300px;
+	height: 100%;
+	position: fixed;
+	left: 0px;
+	border: 1px solid black;
+}
+
+.content {
+	margin-left: 320px;
+	margin-right: auto;
+}
+
+.spacer {
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100px;
+	position: fixed;
+	display: block;	
+}
+
 -->	
 </style>
 		
 	</head>
 	<body>
 		
-		<img src="icon.png" />
-		<h1>ZedLog</h1>
-
-		<h2>Table of Contents</h2>
-		<ul>
-			<li><a href="#about" >About ZedLog</a></li>
-			<li><a href="#license" >License</a></li>
-		</ul>
-		<h3>Basics</h3>
-		<ul>
-			<li><a href="#start" >Getting Started</a></li>
-			<li><a href="#add" >Adding a Logger</a></li>
-			<li><a href="#view" >Viewing Logged Data</a></li>
-			<li><a href="#clear" >Clearing the Logged Data</a></li>
-			<li><a href="#remove" >Removing a Logger</a></li>
-			<li><a href="#pause" >Pausing</a></li>
-		</ul>
-		<h3>Saving Logs</h3>
-		<ul>
-			<li><a href="#save" >Saving a Log to File</a></li>
-			<li><a href="#setlog" >Set Log File</a></li>
-			<li><a href="#openlog" >Open Log File</a></li>
-		</ul>
-		<h3>Advanced</h3>
-		<ul>
-			<li><a href="#hide" >Hiding ZedLog</a></li>
-			<li><a href="#replay" >Replay Simulation Tool</a></li>
-			<li><a href="#stdconfig" >A Good, General Configuration</a></li>
-			<li><a href="#shortcuts" >Keyboard/Mouse Shortcuts</a></li>
-		</ul>
+	<div>
+	
+		<div class="spacer" ></div>
+	
+		<div class="sidebar" >
 		
-		<br /><hr />
+			<img src="icon.png" />
+			
+			<h1>ZedLog</h1>
+	
+			<h2>Table of Contents</h2>
+			<ul>
+				<li><a href="#about" >About ZedLog</a></li>
+				<li><a href="#license" >License</a></li>
+			</ul>
+			<h3>Basics</h3>
+			<ul>
+				<li><a href="#start" >Getting Started</a></li>
+				<li><a href="#add" >Adding a Logger</a></li>
+				<li><a href="#view" >Viewing Logged Data</a></li>
+				<li><a href="#clear" >Clearing the Logged Data</a></li>
+				<li><a href="#remove" >Removing a Logger</a></li>
+				<li><a href="#pause" >Pausing</a></li>
+			</ul>
+			<h3>Saving Logs</h3>
+			<ul>
+				<li><a href="#save" >Saving a Log to File</a></li>
+				<li><a href="#setlog" >Set Log File</a></li>
+				<li><a href="#openlog" >Open Log File</a></li>
+			</ul>
+			<h3>Advanced</h3>
+			<ul>
+				<li><a href="#hide" >Hiding ZedLog</a></li>
+				<li><a href="#replay" >Replay Simulation Tool</a></li>
+				<li><a href="#stdconfig" >A Good, General Configuration</a></li>
+				<li><a href="#shortcuts" >Keyboard/Mouse Shortcuts</a></li>
+			</ul>
 		
-		<h3 id="about" >About ZedLog</h3>
+		</div>
 		
-		<img src="About.png" />
+		<div class="content" >
 		
-		<p>
-		ZedLog is a robust cross-platform input logging tool (AKA a key 
-        logger).  It is based on a flexible data logging system which makes it 
-        easy to get the required data.  The current features include the 
-        following;
-		</p>
-
-		<ul>
-			<li>Logging all keyboard and mouse events.</li>
-			<li>Replay simulation tool.</li>
-			<li>Logging to file.</li>
-			<li>Hiding in background.</li>
-		</ul>
+			<h3 id="about" >About ZedLog</h3>
+			
+			<img src="About.png" />
+			
+			<p>
+			ZedLog is a robust cross-platform input logging tool (AKA a key 
+			logger).  It is based on a flexible data logging system which makes it 
+			easy to get the required data.  The current features include the 
+			following;
+			</p>
+	
+			<ul>
+				<li>Logging all keyboard and mouse events.</li>
+				<li>Replay simulation tool.</li>
+				<li>Logging to file.</li>
+				<li>Hiding in background.</li>
+			</ul>
+			
+			<h3 id="license" >License</h3>
+			
+			<p>
+			<code>Copyright &copy; 2013 Zachary Scott &lt;zscott.dev@gmail.com&gt;</code>
+			</p>
+			<p>
+			This program is free software: you can redistribute it and/or modify it 
+			under the terms of the GNU General Public License as published by the 
+			Free Software Foundation, either version 3 of the License, or (at your 
+			option) any later version.
+			</p>
+			<p>
+			This program is distributed in the hope that it will be useful, but WITHOUT ANY 
+			WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
+			PARTICULAR PURPOSE. See the GNU General Public License for more details.
+			</p>
+			<p>
+			You should have received a copy of the GNU General Public License along with 
+			this program. If not, see <a href="http://www.gnu.org/licenses/">www.gnu.org</a>.
+			</p>
+			
+			<br /><hr />
+			
+			<h2>The Basics</h2>
+			
+			<h3 id="start" >Getting Started</h3>
+			
+			<p>
+			When you first start ZedLog you will be presented with the following 
+			screen.  This is the main screen from which all functions are available,
+			such as adding/removing loggers.
+			
+			</p>
+			
+			<img src="StartScreen.png" />
+			
+			<h3 id="add" >Adding a Logger</h3>
+			
+			<p>
+			To add a logger click the <code>[Add]</code> button on the screen
+			(or the <code>Loggers > Add Logger</code> menu) which will bring up 
+			the following dialog;
+			</p>
+			
+			<img src="AddLogger.png" />
+			
+			<p>
+			Select the logger type from the drop down list and press <code>[Okay]</code>
+			to add it to ZedLog.  Once you have added the logger it will automatically 
+			start logging, like so:
+			</p>
+			
+			<img src="CharTyped.png" />
+			
+			<p>
+			Multiple loggers can be added in this way to produce a customised
+			'composite' logger, which compiles all log data together.
+			</p>
+			
+			<h3 id="view" >Viewing Logged Data</h3>
+			
+			<p>
+			The logged data can be viewed on the main window.  The default logger
+			is the previously mentioned 'composite' logger, which displays all logged 
+			data.  Such as below:
+			</p>
+			
+			<img src="CompositeLogger.png" />
+			
+			<p>
+			Each logger also has its own tab in the main window which will display 
+			the  data from that logger only.  Such as the following;
+			</p>
+			
+			<img src="CharTypedTab.png" />
+			<br />
+			
+			<img src="MouseClickTab.png" />
+			
+			<h3 id="clear" >Clearing the Logged Data</h3>
+			
+			<p>
+			The data currently held in the logger can be cleared by pressing the 
+			<code>[Clear]</code> button on the main window (or the 
+			<code>Loggers > Clear</code> menu).  Like so;
+			</p>
+			
+			<img src="ClearButton.png" />
+			
+			<p>
+			<b>NOTE:</b> A word of warning; the data is cleared permenantly 
+			(i.e. there is no way to get it back unles you have set a log file) 
+			and ZedLog will not ask you if thats what you want.  It will just 
+			unmercifuly delete all your data!
+			</p>
+			
+			<h3 id="remove" >Removing a Logger</h3>
+			
+			<p>
+			An unwanted logger can be removed simply by selecting the loggers
+			tab and pressing the remove button (or the <code>Loggers > Remove Logger</code>
+			in the menu).
+			</p>
+			
+			<img src="RemoveLogger.png" />
+			
+			<h3 id="pause" >Pausing</h3>
+			
+			<p>
+			The logging can be paused, so that events are not recorded (temporarily of
+			course).  Like so;
+			</p>
+			
+			<img src="PauseButton.png" />
+			
+			<p>
+			Recording can be resumed by pressing the <code>[Record]</code>
+			button (the same button), like so;
+			</p>
+			
+			<img src="RecordButton.png" />
+			
+			<br /><hr />
+			<h2>Saving Logs</h2>
+			
+			<h3 id="save" >Saving a Log to File</h3>
+			
+			<p>
+			The logged data can be saved to a file in two ways.  Firstly the
+			currently logged data can be saved by selecting <code>File > Save</code>
+			in the menu and choosing the file.  Like so;
+			</p>
+			
+			<img src="Save.png" />
+			
+			<p>
+			<b>NOTE:</b> This produced file is a human readabe log file,
+			which CANNOT be opened the same way as the log files produced via 
+			the method below.
+			</p>
+			
+			<h3 id="setlog" >Set Log File</h3>
+			
+			<p>
+			The second way is to set a log file, which automatically saves the
+			log data.  This allows for the log to be saved without explicitly 
+			saving the file.  The log file is set by selecting <code>File > Set Log File</code>
+			in the menu, like so;
+			</p>
+			
+			<img src="SetLogFile.png" />
+			
+			<h3 id="openlog" >Open Log File</h3>
+			
+			<p>
+			You can also open a saved log file by selecting <code>File > Open Log File</code>
+			in the menu, like so;
+			</p>
+			
+			<img src="OpenLogFile.png" />
+			
+			<br /><hr />
+			<h2>Advanced</h2>
+			
+			<h3 id="hide" >Hiding ZedLog</h3>
+			
+			<p>
+			ZedLog has a handy feature which allows you to 'hide' it while still
+			logging.  This can be done by pressing the <code>[Hide]</code> button
+			main window.
+			</p>
+			
+			<img src="Hide.png" />
+			
+			<p>
+			To bring the ZedLog window back you have to middle click (that is 
+			the mouse wheel) in the far upper left corner of the screen.  This
+			trick can also be used to quickly hide ZedLog aswell.
+			</p>
+			
+			<h3 id="replay" >Replay Simulation Tool</h3>
+			
+			<p>
+			ZedLog also now provides a replay simulation tool, which allows
+			for the logged events to be simulated.  That is it will replay 
+			the recorded actions.  The replay tool can be started by selecting 
+			<code>Tools > Replay Events</code> and you will be presented with the
+			following screen;
+			</p>
+			
+			<img src="ReplayTool.png" />
+			
+			<p>
+			Clicking the <code>[Run]</code> button will simulate the events 
+			as fast as possible, while the <code>[Run Timed]</code> will
+			run the simulation with the same timing as the original events.
+			</p>
+			
+			<p>
+			Note that you can also stop the simulation by pressing the button again.
+			</p>
+			
+			<h3 id="stdconfig" >A Good, General Configuration</h3>
+			
+			<p>
+			Below is an example configuration which will provide all of the necessary 
+			keyboard and mouse events to simulate a normal session.  Just as a point
+			of reference.
+			</p>
+			
+			<img src="StandardConfig.png" />
+			
+			<h3 id="shortcuts">Keyboard/Mouse Shortcuts</h3>
+			
+			<table>
+				<tr>
+					<th>Function</th>
+					<th>Shortcut</th>
+				</tr>
+				<tr>
+					<td>Show Help</td>
+					<td>
+						<code>F1</code>
+					</td>
+				</tr>
+				<tr>
+					<td>Add Logger</td>
+					<td>
+						<code>Ctrl + Plus</code>
+					</td>
+				</tr>
+				<tr>
+					<td>Remove Logger</td>
+					<td>
+						<code>Ctrl + Minus</code>
+					</td>
+				</tr>
+				<tr>
+					<td>Save Log</td>
+					<td>
+						<code>Ctrl + S</code>
+					</td>
+				</tr>
+				<tr>
+					<td>Set Log File</td>
+					<td>
+						<code>Ctrl + Shift + S</code>
+					</td>
+				</tr>
+				<tr>
+					<td>Open Log File</td>
+					<td>
+						<code>Ctrl + O</code>
+					</td>
+				</tr>
+				<tr>
+					<td>Replay Simulation Tool</td>
+					<td>
+						<code>Ctrl + R</code>
+					</td>
+				</tr>
+				<tr>
+					<td>Show/Hide ZedLog</td>
+					<td>
+						Middle click (mouse) in top left corner of screen.
+					</td>
+				</tr>
+				<tr>
+					<td>Quit</td>
+					<td>
+						<code>Ctrl + Q</code>
+					</td>
+				</tr>
+			</table>
+			
+			<br /> <hr />
+			<center>
+				<code style="font-size: 16px;" >
+					Copyright &copy; 2013, Zachary Scott &lt;zscott.dev@gmail.com&gt;
+				</code>
+			</center>
 		
-		<h3 id="license" >License</h3>
+		</div>
 		
-		<p>
-		<code>Copyright &copy; 2013 Zachary Scott &lt;zscott.dev@gmail.com&gt;</code>
-		</p>
-		<p>
-		This program is free software: you can redistribute it and/or modify it 
-		under the terms of the GNU General Public License as published by the 
-		Free Software Foundation, either version 3 of the License, or (at your 
-		option) any later version.
-		</p>
-		<p>
-		This program is distributed in the hope that it will be useful, but WITHOUT ANY 
-		WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
-		PARTICULAR PURPOSE. See the GNU General Public License for more details.
-		</p>
-		<p>
-		You should have received a copy of the GNU General Public License along with 
-		this program. If not, see <a href="http://www.gnu.org/licenses/">www.gnu.org</a>.
-		</p>
-		
-		<br /><hr />
-		
-		<h2>The Basics</h2>
-		
-		<h3 id="start" >Getting Started</h3>
-		
-		<p>
-		When you first start ZedLog you will be presented with the following 
-		screen.  This is the main screen from which all functions are available,
-		such as adding/removing loggers.
-		
-		</p>
-		
-		<img src="StartScreen.png" />
-		
-		<h3 id="add" >Adding a Logger</h3>
-		
-		<p>
-		To add a logger click the <code>[Add]</code> button on the screen
-		(or the <code>Loggers > Add Logger</code> menu) which will bring up 
-		the following dialog;
-		</p>
-		
-		<img src="AddLogger.png" />
-		
-		<p>
-		Select the logger type from the drop down list and press <code>[Okay]</code>
-		to add it to ZedLog.  Once you have added the logger it will automatically 
-		start logging, like so:
-		</p>
-		
-		<img src="CharTyped.png" />
-		
-		<p>
-		Multiple loggers can be added in this way to produce a customised
-		'composite' logger, which compiles all log data together.
-		</p>
-		
-		<h3 id="view" >Viewing Logged Data</h3>
-		
-		<p>
-		The logged data can be viewed on the main window.  The default logger
-		is the previously mentioned 'composite' logger, which displays all logged 
-		data.  Such as below:
-		</p>
-		
-		<img src="CompositeLogger.png" />
-		
-		<p>
-		Each logger also has its own tab in the main window which will display 
-		the  data from that logger only.  Such as the following;
-		</p>
-		
-		<img src="CharTypedTab.png" />
-		<br />
-		
-		<img src="MouseClickTab.png" />
-		
-		<h3 id="clear" >Clearing the Logged Data</h3>
-		
-		<p>
-		The data currently held in the logger can be cleared by pressing the 
-		<code>[Clear]</code> button on the main window (or the 
-		<code>Loggers > Clear</code> menu).  Like so;
-		</p>
-		
-		<img src="ClearButton.png" />
-		
-		<p>
-		<b>NOTE:</b> A word of warning; the data is cleared permenantly 
-		(i.e. there is no way to get it back unles you have set a log file) 
-		and ZedLog will not ask you if thats what you want.  It will just 
-		unmercifuly delete all your data!
-		</p>
-		
-		<h3 id="remove" >Removing a Logger</h3>
-		
-		<p>
-		An unwanted logger can be removed simply by selecting the loggers
-		tab and pressing the remove button (or the <code>Loggers > Remove Logger</code>
-		in the menu).
-		</p>
-		
-		<img src="RemoveLogger.png" />
-		
-		<h3 id="pause" >Pausing</h3>
-		
-		<p>
-		The logging can be paused, so that events are not recorded (temporarily of
-		course).  Like so;
-		</p>
-		
-		<img src="PauseButton.png" />
-		
-		<p>
-		Recording can be resumed by pressing the <code>[Record]</code>
-		button (the same button), like so;
-		</p>
-		
-		<img src="RecordButton.png" />
-		
-		<br /><hr />
-		<h2>Saving Logs</h2>
-		
-		<h3 id="save" >Saving a Log to File</h3>
-		
-		<p>
-		The logged data can be saved to a file in two ways.  Firstly the
-		currently logged data can be saved by selecting <code>File > Save</code>
-		in the menu and choosing the file.  Like so;
-		</p>
-		
-		<img src="Save.png" />
-		
-		<p>
-		<b>NOTE:</b> This produced file is a human readabe log file,
-		which CANNOT be opened the same way as the log files produced via 
-		the method below.
-		</p>
-		
-		<h3 id="setlog" >Set Log File</h3>
-		
-		<p>
-		The second way is to set a log file, which automatically saves the
-		log data.  This allows for the log to be saved without explicitly 
-		saving the file.  The log file is set by selecting <code>File > Set Log File</code>
-		in the menu, like so;
-		</p>
-		
-		<img src="SetLogFile.png" />
-		
-		<h3 id="openlog" >Open Log File</h3>
-		
-		<p>
-		You can also open a saved log file by selecting <code>File > Open Log File</code>
-		in the menu, like so;
-		</p>
-		
-		<img src="OpenLogFile.png" />
-		
-		<br /><hr />
-		<h2>Advanced</h2>
-		
-		<h3 id="hide" >Hiding ZedLog</h3>
-		
-		<p>
-		ZedLog has a handy feature which allows you to 'hide' it while still
-		logging.  This can be done by pressing the <code>[Hide]</code> button
-		main window.
-		</p>
-		
-		<img src="Hide.png" />
-		
-		<p>
-		To bring the ZedLog window back you have to middle click (that is 
-		the mouse wheel) in the far upper left corner of the screen.  This
-		trick can also be used to quickly hide ZedLog aswell.
-		</p>
-		
-		<h3 id="replay" >Replay Simulation Tool</h3>
-		
-		<p>
-		ZedLog also now provides a replay simulation tool, which allows
-		for the logged events to be simulated.  That is it will replay 
-		the recorded actions.  The replay tool can be started by selecting 
-		<code>Tools > Replay Events</code> and you will be presented with the
-		following screen;
-		</p>
-		
-		<img src="ReplayTool.png" />
-		
-		<p>
-		Clicking the <code>[Run]</code> button will simulate the events 
-		as fast as possible, while the <code>[Run Timed]</code> will
-		run the simulation with the same timing as the original events.
-		</p>
-		
-		<p>
-		Note that you can also stop the simulation by pressing the button again.
-		</p>
-		
-		<h3 id="stdconfig" >A Good, General Configuration</h3>
-		
-		<p>
-		Below is an example configuration which will provide all of the necessary 
-		keyboard and mouse events to simulate a normal session.  Just as a point
-		of reference.
-		</p>
-		
-		<img src="StandardConfig.png" />
-		
-		<h3 id="shortcuts">Keyboard/Mouse Shortcuts</h3>
-		
-		<table>
-			<tr>
-				<th>Function</th>
-				<th>Shortcut</th>
-			</tr>
-			<tr>
-				<td>Show Help</td>
-				<td>
-					<code>F1</code>
-				</td>
-			</tr>
-			<tr>
-				<td>Add Logger</td>
-				<td>
-					<code>Ctrl + Plus</code>
-				</td>
-			</tr>
-			<tr>
-				<td>Remove Logger</td>
-				<td>
-					<code>Ctrl + Minus</code>
-				</td>
-			</tr>
-			<tr>
-				<td>Save Log</td>
-				<td>
-					<code>Ctrl + S</code>
-				</td>
-			</tr>
-			<tr>
-				<td>Set Log File</td>
-				<td>
-					<code>Ctrl + Shift + S</code>
-				</td>
-			</tr>
-			<tr>
-				<td>Open Log File</td>
-				<td>
-					<code>Ctrl + O</code>
-				</td>
-			</tr>
-			<tr>
-				<td>Replay Simulation Tool</td>
-				<td>
-					<code>Ctrl + R</code>
-				</td>
-			</tr>
-			<tr>
-				<td>Show/Hide ZedLog</td>
-				<td>
-					Middle click (mouse) in top left corner of screen.
-				</td>
-			</tr>
-			<tr>
-				<td>Quit</td>
-				<td>
-					<code>Ctrl + Q</code>
-				</td>
-			</tr>
-		</table>
-		
-		<br /> <hr />
-		<center>
-			<code>
-				Copyright &copy; 2013, Zachary Scott &lt;zscott.dev@gmail.com&gt;
-			</code>
-		</center>
+	</div>
 		
 	</body>
 	
