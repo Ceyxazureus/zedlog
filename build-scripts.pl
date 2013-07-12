@@ -67,7 +67,7 @@ sub buildsh {
 	print "$copyright \n";
 
 	print "CLASSPATH=\"$CLASS_PATH\" \n";
-	print "java -classpath \"\$CLASSPATH\" \"$MAIN_CLASS\" \n";
+	print "java -classpath \"\$CLASSPATH\" \"$MAIN_CLASS\" \$\@ \n";
 	
 	print "\n";
 	
@@ -84,7 +84,7 @@ sub buildbat {
 	print "\@ECHO OFF \n\n";
 
 	print "SET CLASSPATH=\"$CLASS_PATH\" \n";
-	print "java -classpath \"\%CLASSPATH\%\" \"$MAIN_CLASS\" \n";
+	print "java -classpath \"\%CLASSPATH\%\" \"$MAIN_CLASS\" \%* \n";
 	
 	print "\n";
 	
