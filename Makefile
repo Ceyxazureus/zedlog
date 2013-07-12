@@ -108,7 +108,7 @@ $(SCRIPTS)
 
 all: build doc
 
-build: $(JAR_FILE)
+build: $(JAR_FILE) $(SCRIPTS)
 
 doc: $(DOC_OUTPUT)
 
