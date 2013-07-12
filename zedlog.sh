@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
  
-CLASSPATH="bin/zedlog-v0.2beta1.jar:lib/JNativeHook.jar:lib/litelogger-v0.1beta.jar" 
+CLASSPATH="bin/zedlog-v0.2beta2.jar:lib/JNativeHook.jar:lib/litelogger-v0.1beta.jar" 
 java -classpath "$CLASSPATH" "net.zeddev.zedlog.ZedLog" 
 
 1

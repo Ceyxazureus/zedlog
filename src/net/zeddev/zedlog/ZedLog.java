@@ -97,6 +97,10 @@ public final class ZedLog implements UncaughtExceptionHandler {
 		// add global uncaught exception handler
 		Thread.setDefaultUncaughtExceptionHandler(this);
 
+		// enable anti-aliases fonts
+		System.setProperty("awt.useSystemAAFontSettings", "on");
+		System.setProperty("swing.aatext", "true");
+		
 		// initalise the GUI look and feel
 		try {
 
