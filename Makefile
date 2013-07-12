@@ -16,7 +16,7 @@
 ##### PROJECT DETAILS  #########################################################
 
 NAME = zedlog
-VERSION = v0.2beta1
+VERSION = v0.2beta2
 
 ##### BUILD TOOLS  #############################################################
 
@@ -138,6 +138,8 @@ $(DIST_FILE): $(DIST_FILES)
 	@echo ">>>>> Creating $@ <<<<<"
 	mkdir $(DIST_NAME)
 	cp -r $^ $(DIST_NAME)
+	mkdir $(DIST_NAME)/$(BIN_DIR)
+	mv $(DIST_NAME)/$(notdir $(JAR_FILE)) $(DIST_NAME)/$(JAR_FILE) # move JAR back to bin dir
 	$(TAR) c $(DIST_NAME) | $(BZIP2) > $@
 	rm -r $(DIST_NAME)
 
