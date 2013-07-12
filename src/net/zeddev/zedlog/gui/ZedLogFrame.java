@@ -72,9 +72,14 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 	// the program log output file
 	private WriterLogHandler msgLogFile = null;
 
-	/** Creates new form {@code ZedLogFrame}. */
 	public ZedLogFrame() {
+		this(new CompositeDataLogger());
+	}
+	
+	public ZedLogFrame(CompositeDataLogger loggers) {
 
+		initLoggers(loggers);
+		
 		initComponents();
 		buildForm();
 
@@ -90,12 +95,10 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 		// center on screen
 		setLocationRelativeTo(null);
 
-		initLoggers();
-
 		// add the gui logger handlers
 		Logger.addObserver(new MsgBoxLogHandler(LogLevel.WARNING));
 		Logger.addObserver(logWindow);
-
+		
 		GlobalScreen.getInstance().addNativeMouseListener(this);
 
 	}
@@ -118,9 +121,12 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 		shutdown();
 	}
 
-	private void initLoggers() {
-		loggers = new CompositeDataLogger();
+	private void initLoggers(CompositeDataLogger loggers) {
+		
+		this.loggers = loggers;
+		
 		addLoggerTab(loggers);
+		
 	}
 
 	// removes the logger tabs from the frame
@@ -624,7 +630,8 @@ public final class ZedLogFrame extends javax.swing.JFrame implements NativeMouse
 
 			// re-initialise the composite logger
 			removeLoggerTabs();
-			initLoggers();
+			loggers.clearAll();
+			initLoggers(loggers);
 
 			loggers.openLogFile(logFile);
 
