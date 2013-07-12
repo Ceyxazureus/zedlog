@@ -36,7 +36,7 @@ public enum Config {
 	public final int VERSION_MINOR = 2;
 
 	/** Version build (minor-minor version).  */
-	public final int VERSION_BUILD = 1;
+	public final int VERSION_BUILD = 2;
 	
 	/** The phase of version development (alpha, beta, rc etc.). */
 	public final String VERSION_PHASE = "beta";
