@@ -535,7 +535,7 @@ public final class ZedLogFrame extends JFrame implements NativeMouseListener {
 		try {
 
 			if (logFile == null) {
-				logger.error("Failed to set log file.");
+				logger.info("User cancelled set log file.");
 			} else {
 				loggers.setLogFile(logFile);
 			}
