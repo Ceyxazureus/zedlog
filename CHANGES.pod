@@ -3,11 +3,13 @@
 
 =head1 Changes in ZedLog
 
-=head2 v0.2beta3 - Upcoming
+=head2 v0.2beta3 - Released-July-2013 
 
 =over 4
 
 =item * Added command line interface.
+
+=item * Fixed run scripts.
 
 =back
 
