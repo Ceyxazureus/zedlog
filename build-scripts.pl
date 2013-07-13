@@ -69,6 +69,7 @@ sub buildsh {
 	print "java -classpath \"\$CLASSPATH\" $MAIN_CLASS \$\@ \n";
 	
 	print "\n";
+	print "#";
 	
 }
 
@@ -89,6 +90,7 @@ sub buildbat {
 	print "java -classpath \%CLASSPATH\% $MAIN_CLASS \n";
 	
 	print "\n";
+	print "REM ";
 	
 }
 
@@ -107,10 +109,11 @@ sub buildvbs {
 	print "CLASSPATH = \"$classpath\" \n";
 	print "\n";
 	print "Dim ZEDLOG_CMD \n";
-	print "ZEDLOG_CMD = \"java -classpath \" + CLASSPATH + \" $MAIN_CLASS \n";	
+	print "ZEDLOG_CMD = \"java -classpath \" + CLASSPATH + \" $MAIN_CLASS\" \n";	
 	print "\n";
 	print "CreateObject (\"Wscript.Shell\").Run ZEDLOG_CMD, 0, true \n";
 	print "\n";
+	print "'";
 	
 }
 
