@@ -52,8 +52,6 @@ CLASS_FILES := $(SOURCE:.java=.class)
 SOURCE := $(addprefix $(SRC_DIR)/$(PACKAGE_DIR)/, $(SOURCE))
 CLASS_FILES := $(addprefix $(BIN_DIR)/$(PACKAGE_DIR)/, $(CLASS_FILES))
 
-# resources to be included in the JAR
-
 # icon set resource
 RSRC_ICONS := gui/icons
 RSRC_ICONS_SRC = $(SRC_DIR)/$(PACKAGE_DIR)/$(RSRC_ICONS)
@@ -97,7 +95,7 @@ POD2HTML_FLAGS = --noindex
 DIST_NAME = $(NAME)-$(VERSION)
 DIST_FILE = $(DIST_NAME).tar.bz2
 
-SCRIPTS = zedlog.sh zedlog.bat
+SCRIPTS = zedlog.sh zedlog.bat zedlog.vbs
 
 DIST_FILES = $(JAR_FILE) $(LIB_DIR) README.html COPYING_GPL.html CHANGES.html \
 $(SCRIPTS)
@@ -159,6 +157,12 @@ $(BIN_DIR)/%.class: $(SRC_DIR)/%.java
 %.sh: 
 	@echo ">>>>> Building $@ Script <<<<<"
 	./build-scripts.pl sh $(JAR_FILE) $(MAIN_CLASS) $(LIBS) > $@
+	chmod +x $@
+
+# build visual basic script (Windows)
+%.vbs: 
+	@echo ">>>>> Building $@ Script <<<<<"
+	./build-scripts.pl vbs $(JAR_FILE) $(MAIN_CLASS) $(LIBS) > $@
 	chmod +x $@
 	
 # html documentation

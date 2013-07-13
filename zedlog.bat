@@ -1,4 +1,4 @@
-REM 
+@ECHO OFF 
 REM Copyright (C) 2013  Zachary Scott <zscott.dev@gmail.com>
 REM 
 REM This program is free software: you can redistribute it and/or modify
@@ -12,11 +12,9 @@ REM MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 REM GNU General Public License for more details.
 REM 
 REM You should have received a copy of the GNU General Public License
-REM along with this program.  If not, see <http://www.gnu.org/licenses/>.
- 
-@ECHO OFF 
+REM along with this program.  If not, see <http://www.gnu.org/licenses/>. 
 
-SET CLASSPATH="bin/zedlog-v0.2beta2.jar:lib/JNativeHook.jar:lib/litelogger-v0.1beta.jar" 
-java -classpath "%CLASSPATH%" "net.zeddev.zedlog.ZedLog" %* 
+SET CLASSPATH=bin/zedlog-v0.2beta2.jar;lib/JNativeHook.jar;lib/litelogger-v0.1beta.jar 
+java -classpath %CLASSPATH% net.zeddev.zedlog.ZedLog 
 
 1

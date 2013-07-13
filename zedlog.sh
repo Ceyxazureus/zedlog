@@ -1,5 +1,4 @@
 #!/bin/bash 
-# 
 # Copyright (C) 2013  Zachary Scott <zscott.dev@gmail.com>
 # 
 # This program is free software: you can redistribute it and/or modify
@@ -13,9 +12,9 @@
 # GNU General Public License for more details.
 # 
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
- 
+# along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+
 CLASSPATH="bin/zedlog-v0.2beta2.jar:lib/JNativeHook.jar:lib/litelogger-v0.1beta.jar" 
-java -classpath "$CLASSPATH" "net.zeddev.zedlog.ZedLog" $@ 
+java -classpath "$CLASSPATH" net.zeddev.zedlog.ZedLog $@ 
 
 1

@@ -28,8 +28,8 @@ sub classpathify {
 }
 
 # the copyright notice
-my $COPYRIGHT_NOTICE = '
-Copyright (C) 2013  Zachary Scott <zscott.dev@gmail.com>
+my $COPYRIGHT_NOTICE = 
+'Copyright (C) 2013  Zachary Scott <zscott.dev@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -42,8 +42,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-';
+along with this program.  If not, see <http://www.gnu.org/licenses/>.';
 
 my $SCRIPT_TYPE = shift @ARGV; # either sh or bat
 
@@ -64,10 +63,10 @@ sub buildsh {
 	# add the copyright notice
 	my $copyright = $COPYRIGHT_NOTICE;
 	$copyright =~ s/^(.*)$/# $1/gm;
-	print "$copyright \n";
+	print "$copyright \n\n";
 
 	print "CLASSPATH=\"$CLASS_PATH\" \n";
-	print "java -classpath \"\$CLASSPATH\" \"$MAIN_CLASS\" \$\@ \n";
+	print "java -classpath \"\$CLASSPATH\" $MAIN_CLASS \$\@ \n";
 	
 	print "\n";
 	
@@ -76,16 +75,41 @@ sub buildsh {
 # build the bat script (Windows)
 sub buildbat {
 	
+	print "\@ECHO OFF \n";
+	
 	# add the copyright notice
 	my $copyright = $COPYRIGHT_NOTICE;
 	$copyright =~ s/^(.*)$/REM $1/gm;
-	print "$copyright \n";
-	
-	print "\@ECHO OFF \n\n";
+	print "$copyright \n\n";
 
-	print "SET CLASSPATH=\"$CLASS_PATH\" \n";
-	print "java -classpath \"\%CLASSPATH\%\" \"$MAIN_CLASS\" \%* \n";
+	my $classpath = $CLASS_PATH;
+	$classpath =~ s/:/;/g; # convert to windows format
 	
+	print "SET CLASSPATH=$classpath \n";
+	print "java -classpath \%CLASSPATH\% $MAIN_CLASS \n";
+	
+	print "\n";
+	
+}
+
+# build the visual basic script (Windows)
+sub buildvbs {
+	
+	# add the copyright notice
+	my $copyright = $COPYRIGHT_NOTICE;
+	$copyright =~ s/^(.*)$/' $1/gm;
+	print "$copyright \n\n";
+
+	my $classpath = $CLASS_PATH;
+	$classpath =~ s/:/;/g; # convert to windows format
+	
+	print "Dim CLASSPATH \n";
+	print "CLASSPATH = \"$classpath\" \n";
+	print "\n";
+	print "Dim ZEDLOG_CMD \n";
+	print "ZEDLOG_CMD = \"java -classpath \" + CLASSPATH + \" $MAIN_CLASS \n";	
+	print "\n";
+	print "CreateObject (\"Wscript.Shell\").Run ZEDLOG_CMD, 0, true \n";
 	print "\n";
 	
 }
@@ -95,7 +119,10 @@ if (lc($SCRIPT_TYPE) eq "sh") {
 	print buildsh;
 } elsif (lc($SCRIPT_TYPE) eq "bat") {
 	print buildbat;
+} elsif (lc($SCRIPT_TYPE) eq "vbs") {
+	print buildvbs;
 } else {
 	print STDERR "Unknown script type $SCRIPT_TYPE \n";
 	exit 1;	
 }
+
