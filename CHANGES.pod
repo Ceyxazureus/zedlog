@@ -9,6 +9,8 @@
 
 =item * Added command line interface.
 
+=item * Fixed deadlock problem in shutdown sequence.
+
 =item * Fixed run scripts.
 
 =back
