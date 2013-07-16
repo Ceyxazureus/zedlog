@@ -27,6 +27,9 @@ public interface InstallerUi {
 	/** Displays the initial 'splash' screen. */
 	public void showSplash();
 	
+	/** Ensures that the users agrees to the licensing terms and conditions. */
+	public boolean acceptLicense() throws InstallerException;
+	
 	/** Prompts user for installation data. */
 	public Installer getInstaller() throws InstallerException;
 	
