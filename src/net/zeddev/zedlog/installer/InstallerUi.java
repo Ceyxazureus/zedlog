@@ -15,7 +15,6 @@ package net.zeddev.zedlog.installer;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 /**
  * A common interface for an installer front end.
  * 
@@ -31,5 +30,8 @@ public interface InstallerUi {
 	
 	/** Runs the given installer with a graphical view. */
 	public void install(Installer installer);
+	
+	/** Shows end screen. */
+	public void showFinished();
 	
 }
