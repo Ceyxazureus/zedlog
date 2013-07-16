@@ -15,6 +15,8 @@ package net.zeddev.zedlog.installer;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import net.zeddev.zedlog.installer.Installer.InstallerException;
+
 /**
  * A common interface for an installer front end.
  * 
@@ -26,10 +28,10 @@ public interface InstallerUi {
 	public void showSplash();
 	
 	/** Prompts user for installation data. */
-	public Installer getInstaller();
+	public Installer getInstaller() throws InstallerException;
 	
 	/** Runs the given installer with a graphical view. */
-	public void install(Installer installer);
+	public void install(Installer installer) throws InstallerException;
 	
 	/** Shows end screen. */
 	public void showFinished();
