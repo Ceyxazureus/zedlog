@@ -15,11 +15,6 @@ package net.zeddev.zedlog;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
-import net.zeddev.zedlog.installer.InstallerUi;
-import net.zeddev.zedlog.installer.Logger;
 
 /**
  * ZedLog installer main class. 
@@ -27,40 +22,6 @@ import net.zeddev.zedlog.installer.Logger;
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
 public final class ConsoleInstaller {
-	
-	private static void init() {
-		
-		Logger.info("Initialising ... ");
-		
-		// enable anti-aliases fonts
-		System.setProperty("awt.useSystemAAFontSettings", "on");
-		System.setProperty("swing.aatext", "true");
-		
-		// initialise the GUI look and feel
-		try {
-
-			for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-				
-				if ("Nimbus".equals(info.getName())) {
-					
-					UIManager.setLookAndFeel(info.getClassName());
-					Logger.info("Nimbus look-and-feel set.");
-					
-					break;
-				}
-				
-			}
-
-		} catch (ClassNotFoundException |
-				 InstantiationException |
-				 IllegalAccessException |
-				 UnsupportedLookAndFeelException ex) {
-
-			Logger.error("Unable to set GUI look and feel.", ex);
-
-		}
-		
-	}
 	
 	private static void startUi() {
 		
@@ -80,7 +41,7 @@ public final class ConsoleInstaller {
 	public static void main(String[] args) {
 		
 		init();
-		//startUi();
+		startUi();
 		
 	}
 	
