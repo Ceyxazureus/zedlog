@@ -39,8 +39,7 @@ public final class ConsoleInstaller {
 	}
 	
 	public static void main(String[] args) {
-		
-		init();
+
 		startUi();
 		
 	}
