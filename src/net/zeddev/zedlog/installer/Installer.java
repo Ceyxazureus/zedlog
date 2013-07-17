@@ -21,6 +21,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import net.zeddev.zedlog.Config;
+
 /**
  * An installer.
  * 
@@ -37,7 +39,7 @@ public final class Installer {
 	private String shortcutLink = null;
 	
 	// NOTE instantiated using builder below
-	private Installer() {
+	private Installer() {		
 	}
 	
 	/** Installs the given file. */
@@ -76,13 +78,65 @@ public final class Installer {
 		// the installer being constructed
 		Installer instance = new Installer();
 	
-		// TODO set default values for directories below
-		
 		private File installDir = null;
 		
 		// shortcut details
 		private String shortcutName = null;
 		private File shortcutDir = null;
+		
+		/** Builder installer using the default directories. */
+		public Builder(String name) {
+			
+			assert(name != null && !name.equals(""));
+			name = name.trim();
+			
+			Config CONFIG = Config.INSTANCE;
+			Map<String, String> ENVS = System.getenv();
+			
+			// set the default directories
+			if (CONFIG.isUnix() || CONFIG.isOSX()) {
+				
+				shortcutName = name + ".sh";
+				
+				if (CONFIG.userName().equals("root")) { // install for all users
+					
+					installDir = new File(
+						"/usr/local", name
+					);
+					
+					shortcutDir = new File("/usr/bin");
+					
+				} else { // install to users home dir
+				
+					installDir = new File(
+						System.getProperty("user.home"), name
+					);
+					
+					shortcutDir = new File(
+						System.getProperty("user.home"), "bin"
+					);
+					
+				}
+				
+			} else if (CONFIG.isWindows()) {
+				
+				installDir = new File(
+					ENVS.get("%ProgramFiles%"), name
+				);
+				
+				shortcutDir = new File(
+					ENVS.get("%UserProfile%"), "Desktop"
+				);
+				
+				shortcutName = name + ".lnk";
+				
+			} else {
+				
+				Logger.error("Unsupported operating system %s!", CONFIG.OS);
+				
+			}
+			
+		}
 		
 		/** 
 		 * Add a file to install. 
