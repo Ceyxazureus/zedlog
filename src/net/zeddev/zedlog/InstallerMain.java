@@ -40,12 +40,15 @@ public final class InstallerMain {
 	
 	public static final String COPYRIGHT = "Copyright (C) 2013, Zachary Scott";
 	
+	/** The resource path to the installation files. */
+	public static final String INSTALL_RSRC = "/net/zeddev/zedlog/installrsrc/";
+	
 	public static final String LICENSE_NAME = "GNU GPL";
-	public static final String LICENSE_PATH = CONFIG.DOCDIR + "/" + CONFIG.HELPDOC; // FIXME change to actual license text
+	public static final String LICENSE_PATH = INSTALL_RSRC + "COPYING_GPL.txt";
 	
 	public static final String SHORTCUT_LINK = "/path/to/link/to"; // FIXME
 	
-	/** Installer ewntry point. */
+	/** Installer entry point. */
 	public static void main(String[] args) {
 
 		// initialise the installer
