@@ -76,7 +76,7 @@ public final class Installer {
 	public static class Builder {
 	
 		// the installer being constructed
-		Installer instance = new Installer();
+		private final Installer instance = new Installer();
 	
 		private File installDir = null;
 		
@@ -194,44 +194,60 @@ public final class Installer {
 			return shortcutDir;
 		}
 		
-		/** Returns the built instance. 
-		 * @throws InstallerException
-		 */
-		public Installer instance() throws InstallerException {
+		// checks if valid directory
+		private void checkDir(File dir) throws InstallerException {
 			
-			// first check that instance has been built correctly
+			if (dir.exists() && !dir.isDirectory()) {
+				
+				throw new InstallerException(
+					"%s is not a directory!",
+					dir.getPath()
+				);
+				
+			}
 			
-			if (installDir == null) {
+		}
+		
+		// makes the given directory tree
+		private void mkdirs(File dir) throws InstallerException {
+			
+			if (!dir.exists()) {
 				
-				throw new InstallerException("Install directory not set!!");
+				dir.mkdirs();
 				
-			} else if (instance.files.size() > 0) {
-				
-				throw new InstallerException("Install files not set!");
-				
-			} else if (shortcutName == null ||
-			           shortcutDir == null ||
-			           instance.shortcutLink == null) {
-				
-				if (shortcutName != null) {
+				if (!dir.isDirectory()) {
 					
 					throw new InstallerException(
-						"Shortcut details not set for %s.", shortcutName
+						"Could not create directory; %s.",
+						dir.getPath()
 					);
 					
 				} else {
-					throw new InstallerException("Shortcut details not set.");
+					
+					Logger.info(
+						"Created %s directory.",
+						dir.getPath()
+					);
+					
 				}
 				
 			}
 			
-			// create install directory, if does not exist
-			if (!installDir.exists())
-				installDir.mkdirs();
+		}
+		
+		/** 
+		 * Returns the built installer instance.
+		 *  
+		 * @return the built installer instance (will NOT be {@code null}).
+		 * @throws InstallerException If an error occurred when building the installer.
+		 */
+		public Installer instance() throws InstallerException {
 			
-			// create shortcut directory, if does not exist
-			if (!shortcutDir.exists())
-				shortcutDir.mkdirs();
+			checkDir(installDir);
+			mkdirs(installDir);
+			
+			checkDir(shortcutDir);
+			mkdirs(shortcutDir);
 		
 			return instance;
 			
