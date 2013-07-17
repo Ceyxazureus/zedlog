@@ -43,11 +43,26 @@ public final class ConsoleUi implements InstallerUi {
 	private final String licenseName;
 	private final String license;
 	
+	/**
+	 * Creates a new {@code ConsoleUi} installer user interface.
+	 * 
+	 * @param name The name of the software package being installed (must not be {@code null}).
+	 * @param desc A short one-line description of the software (must not be {@code null}).
+	 * @param copyright A short one-line copyright statement (must not be {@code null}).
+	 * @param licenseName The name of the copying license the software is released under (must not be {@code null}).
+	 * @param licenseLocation The resource path (URL) to the full license terms & conditions (must not be {@code null}).  
+	 */
 	public ConsoleUi(String name,
 	                 String desc, 
 	                 String copyright,
 	                 String licenseName,
 	                 String licenseLocation) {
+		
+		assert(name != null && !name.equals(""));
+		assert(desc != null && !desc.equals(""));
+		assert(copyright != null && !copyright.equals(""));
+		assert(licenseName != null && !licenseName.equals(""));
+		assert(licenseLocation != null && !licenseLocation.equals(""));
 		
 		this.name = name;
 		this.desc = desc;
