@@ -96,8 +96,6 @@ public final class Installer {
 			// set the default directories
 			if (CONFIG.isUnix() || CONFIG.isOSX()) {
 				
-				shortcutName = name + ".sh";
-				
 				if (CONFIG.userName().equals("root")) { // install for all users
 					
 					installDir = new File(
@@ -127,8 +125,6 @@ public final class Installer {
 				shortcutDir = new File(
 					ENVS.get("%UserProfile%"), "Desktop"
 				);
-				
-				shortcutName = name + ".lnk";
 				
 			} else {
 				
