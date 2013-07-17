@@ -15,6 +15,8 @@ package net.zeddev.zedlog;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import java.io.IOException;
+
 import net.zeddev.zedlog.installer.Installer;
 import net.zeddev.zedlog.installer.Installer.InstallerException;
 import net.zeddev.zedlog.installer.InstallerUi;
@@ -32,13 +34,27 @@ public final class InstallerMain {
 
 		Config CONFIG = Config.INSTANCE;
 		
-		InstallerUi ui = new ConsoleUi(
-			CONFIG.FULL_NAME,
-			CONFIG.DESCRIPTION,
-			"Copyright (C) 2013, Zachary Scott",
-			"GNU GPL",
-			"/path/to/license.txt" // FIXME change to actual license text
-		);
+		InstallerUi ui = null;
+		try {
+			
+			ui = new ConsoleUi(
+				CONFIG.FULL_NAME,
+				CONFIG.DESCRIPTION,
+				"Copyright (C) 2013, Zachary Scott",
+				"GNU GPL",
+				CONFIG.DOCDIR + "/" + CONFIG.HELPDOC // FIXME change to actual license text
+			);
+			
+		} catch (IOException ex) {
+			
+			// NOTE should not happen if configured properly
+			
+			Logger.error("Failed to initialise the installer!");
+			Logger.error(ex.getMessage());
+			
+			System.exit(1);
+			
+		}
 		
 		// warn user about installing without root privileges
 		if (CONFIG.isUnix() || CONFIG.isOSX()) {

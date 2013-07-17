@@ -15,13 +15,20 @@ package net.zeddev.zedlog.installer.ui;
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.io.Reader;
+import java.io.StringWriter;
 import java.util.Scanner;
 
 import net.zeddev.zedlog.installer.Installer;
 import net.zeddev.zedlog.installer.Installer.InstallerException;
 import net.zeddev.zedlog.installer.InstallerUi;
+import net.zeddev.zedlog.util.IOUtil;
 
 /**
  * A simple console based installer user interface.
@@ -51,12 +58,13 @@ public final class ConsoleUi implements InstallerUi {
 	 * @param copyright A short one-line copyright statement (must not be {@code null}).
 	 * @param licenseName The name of the copying license the software is released under (must not be {@code null}).
 	 * @param licenseLocation The resource path (URL) to the full license terms & conditions (must not be {@code null}).  
+	 * @throws IOException If failed to load license resource.
 	 */
 	public ConsoleUi(String name,
 	                 String desc, 
 	                 String copyright,
 	                 String licenseName,
-	                 String licenseLocation) {
+	                 String licenseLocation) throws IOException {
 		
 		assert(name != null && !name.equals(""));
 		assert(desc != null && !desc.equals(""));
@@ -69,8 +77,34 @@ public final class ConsoleUi implements InstallerUi {
 		this.copyright = copyright;
 		this.licenseName = licenseName;
 		
-		// TODO read in the license resource file
-		this.license = "PLACEHOLDER LICENSE TEXT";
+		// read in the license resource file		
+		this.license = readLicense(licenseLocation);
+		
+	}
+	
+	// reads the license from resource
+	private String readLicense(String licenseLocation) throws IOException {
+		
+		StringWriter licenseText = new StringWriter();
+		
+		// get the license input stream
+		InputStream licenseStream = getClass().getResourceAsStream(licenseLocation);
+		if (licenseStream == null) {
+			
+			throw new IOException(String.format(
+				"Cannot load license from %s", licenseLocation
+			));
+			
+		}
+		
+		Reader licenseInput = new BufferedReader(
+			new InputStreamReader(licenseStream)
+		);
+		
+		// read in the license file
+		IOUtil.readTo(licenseInput, licenseText);
+		
+		return licenseText.toString();
 		
 	}
 	
@@ -84,6 +118,11 @@ public final class ConsoleUi implements InstallerUi {
 	
 	private static void println() {
 		out.println();
+	}
+	
+	// print without formatting
+	private static void printraw(String str) {
+		out.print(str);
 	}
 	
 	// asks the user a question (i,.e. a prompt)
@@ -149,7 +188,7 @@ public final class ConsoleUi implements InstallerUi {
 		boolean show = yesno(false, "Do you wish to view the full license");
 		if (show) {
 			println();
-			println(license);
+			printraw(license);
 			// TODO use less utility when available
 		}
 		
