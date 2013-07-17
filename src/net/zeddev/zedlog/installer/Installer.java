@@ -16,8 +16,10 @@ package net.zeddev.zedlog.installer;
  */
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * An installer.
@@ -25,29 +27,29 @@ import java.util.List;
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
 public final class Installer {
-
-	private File installDir = null;
+	
+	// the files to be installed
+	private Map<File, String> files = new HashMap<File, String>();
+	//          Dest, Source
 	
 	// binary shortcut details
 	private File shortcutFile = null;
 	private String shortcutLink = null;
-	
-	private List<String> files = new ArrayList<String>();
 	
 	// NOTE instantiated using builder below
 	private Installer() {
 	}
 	
 	/** Installs the given file. */
-	public void install(String url) {
+	public void install(File file) {
 		// TODO
 	}
 	
 	/** Installs all files and the shortcut. */
 	public void installAll() {
 		
-		for (String url : installFiles())
-			install(url);
+		for (File file : installFiles())
+			install(file);
 		
 		installShortcut();
 				
@@ -59,50 +61,93 @@ public final class Installer {
 	}
 	
 	/** The files to be installed. */
-	public List<String> installFiles() {
-		return new ArrayList<String>(files);
+	public Set<File> installFiles() {
+		return files.keySet();
+	}
+	
+	/** The shortcut file to be installed. */
+	public File shortcutFile() {
+		return shortcutFile;
 	}
 	
 	/** Builds a installer instance for the current environment. */
-	public static class InstallerBuilder {
+	public static class Builder {
 	
 		// the installer being constructed
 		Installer instance = new Installer();
 	
+		// TODO set default values for directories below
+		
+		private File installDir = null;
+		
 		// shortcut details
 		private String shortcutName = null;
 		private File shortcutDir = null;
 		
-		/** Add install file. */
-		public void addFile(String file) {
+		/** 
+		 * Add a file to install. 
+		 * 
+		 * @param dest The destination file (must not be {@code null}).
+		 * @param path The source path (resource URL).  Must not be {@code null}.
+		 */
+		public void addFile(String dest, String src) {
 			
-			assert(file != null);
+			assert(dest != null);
+			assert(src != null);
 			
-			instance.files.add(file);
+			instance.files.put(
+				new File(installDir, dest), src
+			);
 			
 		}
 		
+		/** Sets the installation directory. */
+		public void setInstallDir(String path) {
+			
+			assert(path != null && !path.equals(""));
+			
+			installDir = new File(path);
+			
+		}
+		
+		/** The installation directory. */
+		public File getInstallDir() {
+			return installDir;
+		}
+		
 		/** Sets the shortcut details. */
-		public void shortcut(String name, File dir, String link) {
+		public void shortcut(String name, String src) {
 			
 			assert(name != null && !name.equals(""));
-			assert(dir != null && dir.exists() && dir.isDirectory());
-			assert(link != null && !link.equals(""));
+			assert(src != null && !src.equals(""));
 			
 			shortcutName = name;
-			shortcutDir = dir;
-			instance.shortcutLink = link;
+			instance.shortcutLink = src;
 			
+		}
+		
+		/** Sets the shortcut installation directory. */
+		public void setShortcutDir(String path) {
+			
+			assert(path != null && !path.equals(""));
+			
+			shortcutDir = new File(path);
+			
+		}
+		
+		/** The shortcut installation directory. */
+		public File getShortcutDir() {
+			return shortcutDir;
 		}
 		
 		/** Returns the built instance. 
 		 * @throws InstallerException
 		 */
-		public void instance() throws InstallerException {
+		public Installer instance() throws InstallerException {
 			
 			// first check that instance has been built correctly
 			
-			if (instance.installDir == null) {
+			if (installDir == null) {
 				
 				throw new InstallerException("Install directory not set!!");
 				
@@ -127,18 +172,20 @@ public final class Installer {
 			}
 			
 			// create install directory, if does not exist
-			if (!instance.installDir.exists())
-				instance.installDir.mkdirs();
+			if (!installDir.exists())
+				installDir.mkdirs();
 			
 			// create shortcut directory, if does not exist
 			if (!shortcutDir.exists())
 				shortcutDir.mkdirs();
 		
+			return instance;
+			
 		}
 		
 	}
 	
-	/** An exception thrown within a {code Installer}. */
+	/** An exception thrown within a {@code Installer}. */
 	@SuppressWarnings("serial")
 	public static class InstallerException extends Exception {
 		
