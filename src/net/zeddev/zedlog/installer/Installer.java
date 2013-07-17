@@ -119,7 +119,15 @@ public final class Installer {
 		StringBuilder script = new StringBuilder();
 		
 		script.append("#!/bin/bash \n");
+		
+		script.append("cd '");
+		script.append(shortcutLink.getParent());
+		script.append("'");
+		script.append(" \n");
+		
+		script.append("'");
 		script.append(shortcutLink.getAbsolutePath());
+		script.append("'");
 		script.append(" \n");
 		
 		return script.toString();
@@ -277,7 +285,7 @@ public final class Installer {
 			assert(src != null && !src.equals(""));
 			
 			shortcutName = name;
-			instance.shortcutLink = new File(src);
+			instance.shortcutLink = new File(installDir, src);
 			
 		}
 		

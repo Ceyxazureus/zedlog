@@ -75,9 +75,9 @@ public final class InstallerMain {
 		
 		// set the shortcut link
 		if (CONFIG.isWindows()) {
-			SHORTCUT_LINK = INSTALL_RSRC + "zedlog.vbs"; // visual basic script
+			SHORTCUT_LINK = "zedlog.vbs"; // visual basic script
 		} else { // assume unix/linux/macosx
-			SHORTCUT_LINK = INSTALL_RSRC + "zedlog.sh"; // bash script
+			SHORTCUT_LINK = "zedlog.sh"; // bash script
 		}
 		
 	}
