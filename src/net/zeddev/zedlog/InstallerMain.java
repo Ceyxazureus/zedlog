@@ -26,7 +26,7 @@ import net.zeddev.zedlog.installer.ui.ConsoleUi;
  * 
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
-public final class ConsoleInstaller {
+public final class InstallerMain {
 	
 	public static void main(String[] args) {
 
