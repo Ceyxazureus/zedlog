@@ -233,7 +233,7 @@ public final class ConsoleUi implements InstallerUi {
 		println();
 		println(">>>>>  Installing Shortcut  <<<<<");
 		
-		println("Installing %s", installer.shortcutFile());
+		println("Installing %s", installer.shortcutFile().getPath());
 		
 	}
 
@@ -244,8 +244,6 @@ public final class ConsoleUi implements InstallerUi {
 		println(">>>>>  Install Successful  <<<<<");
 		println("%s has been installed successfully!", name);
 		println();
-		
-		// TODO add installation report
 		
 	}
 
