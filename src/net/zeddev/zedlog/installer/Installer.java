@@ -113,7 +113,20 @@ public final class Installer {
 				
 	}
 	
-	// creates a bash script shortcut
+	// creates a vbs script shortcut (Windows)
+	private String vbsShortcut() {
+		
+		StringBuilder script = new StringBuilder();
+		
+		script.append("CreateObject (\"Wscript.Shell\").Run \"");
+		script.append(shortcutLink.getAbsolutePath());
+		script.append("\", 0, true \n");
+		
+		return script.toString();
+		
+	}
+	
+	// creates a bash script shortcut (Unix/Linux/Mac OSX)
 	private String shShortcut() {
 		
 		StringBuilder script = new StringBuilder();
@@ -140,7 +153,7 @@ public final class Installer {
 		String script = "";
 		
 		if (Config.INSTANCE.isWindows()) {
-			// TODO
+			script = vbsShortcut();
 		} else { // assume unix/linux/macosx etc.
 			script = shShortcut();
 		}
