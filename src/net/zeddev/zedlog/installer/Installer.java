@@ -15,13 +15,15 @@ package net.zeddev.zedlog.installer;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.BufferedOutputStream;
-import java.io.FileOutputStream;
+import java.io.Writer;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -41,7 +43,7 @@ public final class Installer {
 	
 	// binary shortcut details
 	private File shortcutFile = null;
-	private String shortcutLink = null;
+	private File shortcutLink = null;
 	
 	// NOTE instantiated using builder below
 	private Installer() {		
@@ -50,7 +52,7 @@ public final class Installer {
 	// handles executable file types
 	private void handleExecutable(File file) {
 		
-		if (file.getPath().matches("\\.(sh|bat|vbs)$"))
+		//if (file.getPath().matches("\\.(sh|bat|vbs)$"))
 			file.setExecutable(true);
 		
 	}
@@ -76,7 +78,7 @@ public final class Installer {
 			OutputStream outFile = new BufferedOutputStream(
 				new FileOutputStream(file)
 			);
-			
+
 			// write the file
 			IOUtil.readTo(
 				getClass().getResourceAsStream(path),
@@ -111,9 +113,58 @@ public final class Installer {
 				
 	}
 	
+	// creates a bash script shortcut
+	private String shShortcut() {
+		
+		StringBuilder script = new StringBuilder();
+		
+		script.append("#!/bin/bash \n");
+		script.append(shortcutLink.getAbsolutePath());
+		script.append(" \n");
+		
+		return script.toString();
+		
+	}
+	
 	/** Installs the binary shortcut. */
-	public void installShortcut() {
-		// TODO
+	public void installShortcut() throws InstallerException {
+		
+		String script = "";
+		
+		if (Config.INSTANCE.isWindows()) {
+			// TODO
+		} else { // assume unix/linux/macosx etc.
+			script = shShortcut();
+		}
+		
+		// create the parent directory (if does not already exist)
+		File parent = new File(shortcutFile.getParent());
+		parent.mkdirs();
+		
+		// write the shortcut script to the shortcut file
+		try {
+			
+			shortcutFile.createNewFile();
+			
+			Writer writer = new BufferedWriter(
+				new FileWriter(shortcutFile)
+			);
+			
+			writer.write(script);
+		
+			writer.close();
+			
+		} catch (IOException ex) {
+			
+			throw new InstallerException(
+				"Failed to create shortcut %s; %s", 
+				shortcutFile.getPath(), ex.getMessage()
+			);
+			
+		}
+		
+		shortcutFile.setExecutable(true);
+		
 	}
 	
 	/** The files to be installed. */
@@ -226,7 +277,7 @@ public final class Installer {
 			assert(src != null && !src.equals(""));
 			
 			shortcutName = name;
-			instance.shortcutLink = src;
+			instance.shortcutLink = new File(src);
 			
 		}
 		

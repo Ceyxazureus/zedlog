@@ -274,6 +274,8 @@ public final class ConsoleUi implements InstallerUi {
 		
 		println("Installing %s", installer.shortcutFile().getPath());
 		
+		installer.installShortcut();
+		
 	}
 
 	@Override
