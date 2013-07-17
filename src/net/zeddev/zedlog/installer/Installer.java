@@ -16,12 +16,17 @@ package net.zeddev.zedlog.installer;
  */
 
 import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 import net.zeddev.zedlog.Config;
+import net.zeddev.zedlog.util.IOUtil;
 
 /**
  * An installer.
@@ -42,13 +47,62 @@ public final class Installer {
 	private Installer() {		
 	}
 	
-	/** Installs the given file. */
-	public void install(File file) {
-		// TODO
+	// handles executable file types
+	private void handleExecutable(File file) {
+		
+		if (file.getPath().matches("\\.(sh|bat|vbs)$"))
+			file.setExecutable(true);
+		
 	}
 	
-	/** Installs all files and the shortcut. */
-	public void installAll() {
+	/** 
+	 * Installs the given file.
+	 * @throws InstallerException If an error occurs during installation of the file.
+	 */
+	public void install(File file) throws InstallerException {
+		
+		assert(file != null);
+		assert(files.containsKey(file));
+		
+		String path = files.get(file);
+		
+		try {
+		
+			// create the parent directory (if does not already exist)
+			File parent = new File(file.getParent());
+			parent.mkdirs();
+			
+			// the output file stream
+			OutputStream outFile = new BufferedOutputStream(
+				new FileOutputStream(file)
+			);
+			
+			// write the file
+			IOUtil.readTo(
+				getClass().getResourceAsStream(path),
+				outFile
+			);
+			
+			outFile.close();
+		
+		} catch (IOException ex) {
+			
+			throw new InstallerException(
+				"Failed to install %s; %s",
+				file.getPath(), ex.getMessage()
+			);
+			
+		}
+		
+		handleExecutable(file);
+		
+	}
+	
+	/** 
+	 * Installs all files and the shortcut. 
+	 * @throws InstallerException If an error occurs during installation of the files.
+	 */
+	public void installAll() throws InstallerException {
 		
 		for (File file : installFiles())
 			install(file);
