@@ -31,7 +31,7 @@ public interface InstallerUi {
 	public void acceptLicense() throws InstallerException;
 	
 	/** Prompts user for installation data. */
-	public Installer getInstaller() throws InstallerException;
+	public Installer.Builder buildInstaller() throws InstallerException;
 	
 	/** Runs the given installer with a graphical view. */
 	public void install(Installer installer) throws InstallerException;
