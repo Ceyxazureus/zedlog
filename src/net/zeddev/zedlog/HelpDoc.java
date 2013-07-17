@@ -19,8 +19,9 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
 import net.zeddev.litelogger.Logger;
-import sun.misc.IOUtils;
+import net.zeddev.zedlog.util.IOUtil;
 
 /**
  * A simple wrapper for the ZedLog help documentation.
@@ -93,11 +94,7 @@ public enum HelpDoc {
 
 				// write the resource to temp file
 				FileOutputStream out = new FileOutputStream(tmpfile);
-				out.write(
-					IOUtils.readFully(
-						getClass().getResourceAsStream(resource), -1, false
-					)
-				);
+				IOUtil.readTo(getClass().getResourceAsStream(resource), out);
 
 				out.flush();
 				out.close();
