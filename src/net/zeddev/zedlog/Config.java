@@ -16,8 +16,7 @@
 
 package net.zeddev.zedlog;
 
-import net.zeddev.litelogger.LogLevel;
-import net.zeddev.litelogger.Logger;
+// NOTE Must NOT depend on any external packages as is used within the installer
 
 /**
  * Configuration for ZedLog.
@@ -68,15 +67,6 @@ public enum Config {
 
 	/** The OS in which the program is running. */
 	public final String OS = System.getProperty("os.name").trim().toLowerCase();
-	
-	static {
-
-		// set the logger level
-		Logger.setLevelThreshold(LogLevel.CONFIG);
-		// DEBUG
-		//Logger.setLevelThreshold(LogLevel.ALL);
-
-	}
 
 	private Config() {
 	}
