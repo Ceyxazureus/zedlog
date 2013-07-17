@@ -245,7 +245,15 @@ public final class Installer {
 			checkDir(shortcutDir);
 			mkdirs(shortcutDir);
 		
-			File shortcut = new File(shortcutDir, shortcutName);
+			// get the shortcut name with the appropriate extension (based on OS)
+			String nameWithExt = shortcutName;
+			if (Config.INSTANCE.isWindows()) {
+				nameWithExt += ".lnk";
+			} else { // assume unix/linux system
+				nameWithExt += ".sh";
+			}
+			
+			File shortcut = new File(shortcutDir, nameWithExt);
 			
 			// check the shortcut is valid
 			if (shortcut.exists()) {
