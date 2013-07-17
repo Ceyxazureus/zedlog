@@ -54,7 +54,7 @@ public final class InstallerMain {
 		// TODO list files automatically from package name
 		
 		// JAR binaries
-		INSTALL_RSRC + "zedlog-" + CONFIG.VERSION + ".jar",
+		INSTALL_RSRC + "bin/zedlog-" + CONFIG.VERSION + ".jar",
 		// libraries
 		INSTALL_RSRC + "lib/JNativeHook.jar",
 		INSTALL_RSRC + "lib/litelogger-v0.1beta.jar",
