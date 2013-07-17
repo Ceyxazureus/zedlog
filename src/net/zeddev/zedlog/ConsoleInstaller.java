@@ -15,32 +15,49 @@ package net.zeddev.zedlog;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import net.zeddev.zedlog.installer.Installer;
+import net.zeddev.zedlog.installer.Installer.InstallerException;
+import net.zeddev.zedlog.installer.InstallerUi;
+import net.zeddev.zedlog.installer.Logger;
+import net.zeddev.zedlog.installer.ui.ConsoleUi;
 
 /**
- * ZedLog installer main class. 
+ * Console based installer for ZedLog.
  * 
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
 public final class ConsoleInstaller {
 	
-	private static void startUi() {
-		
-		/* TODO
-		InstallerUi gui = ...;
-		
-		gui.showSplash();
-		
-		Installer installer = gui.getInstaller();
-		gui.install(installer);
-		
-		gui.showFinished();
-		*/
-		
-	}
-	
 	public static void main(String[] args) {
 
-		startUi();
+		Config CONFIG = Config.INSTANCE;
+		
+		InstallerUi ui = new ConsoleUi(
+			CONFIG.FULL_NAME,
+			CONFIG.DESCRIPTION,
+			"Copyright (C) 2013, Zachary Scott",
+			"GNU GPL",
+			"/path/to/license.txt" // FIXME change to actual license text
+		);
+		
+		// run the installer
+		try {
+			
+			ui.showSplash();
+			
+			ui.acceptLicense();
+			
+			Installer.Builder builder = ui.buildInstaller();
+			builder.shortcut(CONFIG.NAME, "/path/to/link/to"); // FIXME
+			
+			ui.install(builder.instance());
+			
+			ui.showFinished();
+			
+		} catch (InstallerException ex) {
+			Logger.error(ex.getMessage());
+			Logger.error("Installation failed!");
+		}
 		
 	}
 	

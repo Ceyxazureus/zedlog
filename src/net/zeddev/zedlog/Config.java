@@ -66,6 +66,9 @@ public enum Config {
 	 */
 	public static final String HELPDOC = "helpdoc.html";
 
+	/** The OS in which the program is running. */
+	public final String OS = System.getProperty("os.name").trim().toLowerCase();
+	
 	static {
 
 		// set the logger level
@@ -76,6 +79,38 @@ public enum Config {
 	}
 
 	private Config() {
+	}
+	
+	/** The current users name. */
+	public String userName() {
+		return System.getProperty("user.name").toLowerCase();
+	}
+	
+	/** Whether running under *nix (i.e. Unix, Linux, etc.). */
+	public boolean isUnix() {
+		return OS.matches(".*(nix|nux|aix)");
+	}
+	
+	/** Whether running under Windows. */
+	public boolean isWindows() {
+		return OS.matches(".*win.*");
+	}
+	
+	/** Whether running under Mac OSX. */
+	public boolean isOSX() {
+		return OS.matches("os x");
+	}
+	
+	/** Whether running under Mac. */
+	public boolean isMac() {
+		// NOTE Not supported
+		return OS.matches("mac");
+	}
+	
+	/** Whether running under Solaris. */
+	public boolean isSolaris() {
+		// NOTE Not supported!!
+		return OS.matches("solaris|sunos");
 	}
 
 }
