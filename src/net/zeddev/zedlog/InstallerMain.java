@@ -77,7 +77,7 @@ public final class InstallerMain {
 		// warn user about installing without root privileges
 		if (CONFIG.isUnix() || CONFIG.isOSX()) {
 			
-			if (CONFIG.userName() != "root") 
+			if (CONFIG.userName().equals("root")) 
 				Logger.warn("Installer must be run as root to install for all users!");
 			
 		}
