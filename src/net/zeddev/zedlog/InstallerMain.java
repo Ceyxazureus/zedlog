@@ -24,25 +24,40 @@ import net.zeddev.zedlog.installer.Logger;
 import net.zeddev.zedlog.installer.ui.ConsoleUi;
 
 /**
- * Console based installer for ZedLog.
+ * The Java based installer for ZedLog.
  * 
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
 public final class InstallerMain {
 	
+	// the ZedLog configuration
+	private static final Config CONFIG = Config.INSTANCE;
+	
+	// CONFIG Installation configuration.
+	
+	public static final String NAME = CONFIG.FULL_NAME;
+	public static final String DESC = CONFIG.DESCRIPTION;
+	
+	public static final String COPYRIGHT = "Copyright (C) 2013, Zachary Scott";
+	
+	public static final String LICENSE_NAME = "GNU GPL";
+	public static final String LICENSE_PATH = CONFIG.DOCDIR + "/" + CONFIG.HELPDOC; // FIXME change to actual license text
+	
+	public static final String SHORTCUT_LINK = "/path/to/link/to"; // FIXME
+	
+	/** Installer ewntry point. */
 	public static void main(String[] args) {
 
-		Config CONFIG = Config.INSTANCE;
-		
+		// initialise the installer
 		InstallerUi ui = null;
 		try {
 			
 			ui = new ConsoleUi(
-				CONFIG.FULL_NAME,
-				CONFIG.DESCRIPTION,
-				"Copyright (C) 2013, Zachary Scott",
-				"GNU GPL",
-				CONFIG.DOCDIR + "/" + CONFIG.HELPDOC // FIXME change to actual license text
+				NAME,
+				DESC,
+				COPYRIGHT,
+				LICENSE_NAME,
+				LICENSE_PATH
 			);
 			
 		} catch (IOException ex) {
@@ -72,7 +87,7 @@ public final class InstallerMain {
 			ui.acceptLicense();
 			
 			Installer.Builder builder = ui.buildInstaller();
-			builder.shortcut(CONFIG.NAME, "/path/to/link/to"); // FIXME
+			builder.shortcut(CONFIG.NAME, SHORTCUT_LINK);
 			
 			ui.install(builder.instance());
 			
