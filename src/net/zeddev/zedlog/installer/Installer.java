@@ -249,6 +249,32 @@ public final class Installer {
 			checkDir(shortcutDir);
 			mkdirs(shortcutDir);
 		
+			File shortcut = new File(shortcutDir, shortcutName);
+			
+			// check the shortcut is valid
+			if (shortcut.exists()) {
+				
+				if (shortcut.isFile()) {
+					
+					Logger.info(
+						"NOTE: Shortcut file %s already exists!", 
+						shortcut.getPath()
+					);
+					
+				} else {
+					
+					throw new InstallerException(
+						"Shortcut file %s already exists and is not a normal file!",
+						shortcut.getPath()
+					);
+					
+				}
+				
+			}
+			
+			// set shortcut file as it is valid
+			instance.shortcutFile = shortcut;
+			
 			return instance;
 			
 		}
