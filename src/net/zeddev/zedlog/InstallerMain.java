@@ -40,6 +40,14 @@ public final class InstallerMain {
 			"/path/to/license.txt" // FIXME change to actual license text
 		);
 		
+		// warn user about installing without root privileges
+		if (CONFIG.isUnix() || CONFIG.isOSX()) {
+			
+			if (CONFIG.userName() != "root") 
+				Logger.warn("Installer must be run as root to install for all users!");
+			
+		}
+		
 		// run the installer
 		try {
 			
