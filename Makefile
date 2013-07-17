@@ -175,7 +175,7 @@ $(DIST_FILE): $(DIST_FILES)
 $(INSTALLER_JAR): $(INSTALL_FILES) clean_class_files $(INSTALLER_CLASS_FILES)
 	@echo ">>>>> Creating $@ <<<<<"
 	-mkdir $(INSTALLER_BIN_DIR) $(INSTALL_RSRC) 2>/dev/null
-	cp -r $(INSTALL_FILES) $(INSTALL_RSRC) >/dev/null
+	cp -r --parents $(INSTALL_FILES) $(INSTALL_RSRC) >/dev/null
 	$(JAR) -cfe .instjar.tmp $(INSTALLER_MAIN) -C $(BIN_DIR) $(PACKAGE_DIR) $(OTHER_FILES) >/dev/null
 	@mv .instjar.tmp $@
 	
