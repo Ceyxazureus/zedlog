@@ -109,7 +109,7 @@ public final class Installer {
 				} else { // install to users home dir
 				
 					installDir = new File(
-						System.getProperty("user.home"), name
+						new File(System.getProperty("user.home"), "apps"), name
 					);
 					
 					shortcutDir = new File(
