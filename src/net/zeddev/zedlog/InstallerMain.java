@@ -16,6 +16,7 @@ package net.zeddev.zedlog;
  */
 
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 import net.zeddev.zedlog.installer.Installer;
 import net.zeddev.zedlog.installer.Installer.InstallerException;
@@ -46,7 +47,57 @@ public final class InstallerMain {
 	public static final String LICENSE_NAME = "GNU GPL";
 	public static final String LICENSE_PATH = INSTALL_RSRC + "COPYING_GPL.txt";
 	
-	public static final String SHORTCUT_LINK = "/path/to/link/to"; // FIXME
+	public static final String SHORTCUT_LINK;
+	
+	/** The files to be installed. */
+	public static final String[] INSTALL_FILES = {
+		// TODO list files automatically from package name
+		
+		// JAR binaries
+		INSTALL_RSRC + "zedlog-" + CONFIG.VERSION + ".jar",
+		// libraries
+		INSTALL_RSRC + "lib/JNativeHook.jar",
+		INSTALL_RSRC + "lib/litelogger-v0.1beta.jar",
+		
+		// executable scripts
+		INSTALL_RSRC + "zedlog.sh",
+		INSTALL_RSRC + "zedlog.bat",
+		INSTALL_RSRC + "zedlog.vbs",
+		
+		// documentation
+		INSTALL_RSRC + "README.html",
+		INSTALL_RSRC + "COPYING_GPL.html",
+		INSTALL_RSRC + "CHANGES.html"
+		
+	};
+	
+	static {
+		
+		// set the shortcut link
+		if (CONFIG.isWindows()) {
+			SHORTCUT_LINK = INSTALL_RSRC + "zedlog.vbs"; // visual basic script
+		} else { // assume unix/linux/macosx
+			SHORTCUT_LINK = INSTALL_RSRC + "zedlog.sh"; // bash script
+		}
+		
+	}
+	
+	// adds installation files to the installer
+	private static void addFiles(Installer.Builder builder) {
+		
+		// add shortcut
+		builder.shortcut(CONFIG.NAME, SHORTCUT_LINK);
+		
+		// add the installation files
+		for (String path : INSTALL_FILES) {
+			
+			String basename = path.replaceFirst(INSTALL_RSRC, "");
+			
+			builder.addFile(basename, path);
+			
+		}
+		
+	}
 	
 	/** Installer entry point. */
 	public static void main(String[] args) {
@@ -82,6 +133,8 @@ public final class InstallerMain {
 			
 		}
 		
+		// TODO warn about unsupported OS
+		
 		// run the installer
 		try {
 			
@@ -90,7 +143,9 @@ public final class InstallerMain {
 			ui.acceptLicense();
 			
 			Installer.Builder builder = ui.buildInstaller();
-			builder.shortcut(CONFIG.NAME, SHORTCUT_LINK);
+			
+			// add the install files to the installer
+			addFiles(builder);
 			
 			ui.install(builder.instance());
 			
