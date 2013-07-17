@@ -25,6 +25,7 @@ JAVAC = javac
 JAR = jar
 
 # pod documentation tools
+POD2TEXT = pod2text
 POD2HTML = pod2html
 POD2PDF = pod2pdf
 
@@ -40,12 +41,15 @@ SRC_DIR = src
 
 PACKAGE_DIR = net/zeddev/zedlog
 
+INSTALL_RSRC_DIR = installrsrc
+	# the installation resource directory (in the package directory)
+
 ##### CODE COMPILATION  ########################################################
 
 # the main source file (which depends on ALL others)
 SOURCE := ZedLog.java
 
-# the compiled class file names (not including implied classes)
+# the compiled class file name
 CLASS_FILES := $(SOURCE:.java=.class)
 
 # change source and output directories
@@ -100,9 +104,29 @@ SCRIPTS = zedlog.sh zedlog.bat zedlog.vbs
 DIST_FILES = $(JAR_FILE) $(LIB_DIR) README.html COPYING_GPL.html CHANGES.html \
 $(SCRIPTS)
 
+#####  INSTALLER  ##############################################################
+
+# the main installer source file (which depends on ALL others)
+INSTALLER_SOURCE := InstallerMain.java
+
+# the compiled class file name
+INSTALLER_CLASS_FILES := $(INSTALLER_SOURCE:.java=.class)
+
+# change source and output directories
+INSTALLER_SOURCE := $(addprefix $(SRC_DIR)/$(PACKAGE_DIR)/, $(INSTALLER_SOURCE))
+INSTALLER_CLASS_FILES := $(addprefix $(BIN_DIR)/$(PACKAGE_DIR)/, $(INSTALLER_CLASS_FILES))
+
+# the files to be installed, by the installer
+INSTALL_FILES = COPYING_GPL.txt $(DIST_FILES) # defined above in distro archive section
+INSTALL_RSRC = $(BIN_DIR)/$(PACKAGE_DIR)/$(INSTALL_RSRC_DIR)
+
+# the jar executable
+INSTALLER_JAR = $(BIN_DIR)/$(NAME)-$(VERSION)-installer.jar
+INSTALLER_MAIN = net.zeddev.zedlog.InstallerMain 
+
 ##### BUILD TARGETS  ###########################################################
 
-.PHONY: all build doc resources rebuild clean dist
+.PHONY: all build doc resources rebuild clean_class_files clean dist installer
 
 all: build doc
 
@@ -119,10 +143,16 @@ resources:
 
 rebuild: clean build
 
-clean:
-	-rm $(DIST_FILE) $(DIST_NAME) $(BIN_DIR)/* $(DOC_OUTPUT) $(SCRIPTS) *.tmp  -r 2> /dev/null
+# clean compilation output only
+clean_class_files:
+	rm  $(BIN_DIR)/$(PACKAGE_DIR) -r 2> /dev/null
+
+clean: clean_bin
+	-rm $(DIST_FILE) $(DIST_NAME) $(BIN_DIR)/* $(DOC_OUTPUT) $(SCRIPTS) *.tmp -r 2> /dev/null
 
 dist: clean $(DIST_FILE)
+
+installer: rebuild $(INSTALLER_JAR)
 
 # build jar file
 $(JAR_FILE): $(CLASS_FILES) resources $(OTHER_FILES)
@@ -141,6 +171,14 @@ $(DIST_FILE): $(DIST_FILES)
 	$(TAR) c $(DIST_NAME) | $(BZIP2) > $@
 	rm -r $(DIST_NAME)
 
+# build installer jar file
+$(INSTALLER_JAR): $(INSTALL_FILES) clean_class_files $(INSTALLER_CLASS_FILES)
+	@echo ">>>>> Creating $@ <<<<<"
+	-mkdir $(INSTALLER_BIN_DIR) $(INSTALL_RSRC) 2>/dev/null
+	cp -r $(INSTALL_FILES) $(INSTALL_RSRC) >/dev/null
+	$(JAR) -cfe .instjar.tmp $(INSTALLER_MAIN) -C $(BIN_DIR) $(PACKAGE_DIR) $(OTHER_FILES) >/dev/null
+	@mv .instjar.tmp $@
+	
 # build java class file
 $(BIN_DIR)/%.class: $(SRC_DIR)/%.java
 	@echo ">>>>> Compiling $< <<<<<"
@@ -164,6 +202,11 @@ $(BIN_DIR)/%.class: $(SRC_DIR)/%.java
 	@echo ">>>>> Building $@ Script <<<<<"
 	./build-scripts.pl vbs $(JAR_FILE) $(MAIN_CLASS) $(LIBS) > $@
 	chmod +x $@
+
+# text documentation
+%.txt: %.pod
+	@echo ">>>>> Converting $< to ASCII ($@) <<<<<"
+	$(POD2TEXT) $< > $@
 	
 # html documentation
 %.html: %.pod
