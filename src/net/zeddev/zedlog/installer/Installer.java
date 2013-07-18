@@ -245,11 +245,11 @@ public final class Installer {
 			} else if (CONFIG.isWindows()) {
 				
 				installDir = new File(
-					ENVS.get("%ProgramFiles%"), name
+					ENVS.get("ProgramFiles"), name
 				);
 				
 				shortcutDir = new File(
-					ENVS.get("%UserProfile%"), "Desktop"
+					ENVS.get("UserProfile"), "Desktop"
 				);
 				
 			} else {
