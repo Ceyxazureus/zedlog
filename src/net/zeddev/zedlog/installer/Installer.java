@@ -228,7 +228,6 @@ public final class Installer {
 			name = name.trim();
 			
 			Config CONFIG = Config.INSTANCE;
-			Map<String, String> ENVS = System.getenv();
 			
 			// set the default directories
 			if (CONFIG.isUnix() || CONFIG.isOSX()) {
@@ -244,11 +243,12 @@ public final class Installer {
 				} else { // install to users home dir
 				
 					installDir = new File(
-						new File(System.getProperty("user.home"), "apps"), name
+						System.getProperty("user.home"), 
+						String.format(".%s", name) // make hidden dir on unix
 					);
 					
 					shortcutDir = new File(
-						System.getProperty("user.home"), "bin"
+						System.getProperty("user.home"), "Desktop" // works on most Linux X systems
 					);
 					
 				}
@@ -256,11 +256,13 @@ public final class Installer {
 			} else if (CONFIG.isWindows()) {
 				
 				installDir = new File(
-					ENVS.get("ProgramFiles"), name
+					new File(System.getProperty("user.home"), "Apps"), name
+					// NOTE Cannot use ProgamFiles as requires admin privileges
+					//      which cannot be gained from Java (without JNI or something)
 				);
 				
 				shortcutDir = new File(
-					ENVS.get("UserProfile"), "Desktop"
+					System.getProperty("user.home"), "Desktop"
 				);
 				
 			} else {
@@ -386,9 +388,7 @@ public final class Installer {
 			String nameWithExt = shortcutName;
 			if (Config.INSTANCE.isWindows()) {
 				nameWithExt += ".vbs";
-			} else { // assume unix/linux system
-				nameWithExt += ".sh";
-			}
+			} // NOTE no extension on unix, will be executable
 			
 			File shortcut = new File(shortcutDir, nameWithExt);
 			
