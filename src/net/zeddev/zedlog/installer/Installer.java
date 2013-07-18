@@ -118,9 +118,20 @@ public final class Installer {
 		
 		StringBuilder script = new StringBuilder();
 		
-		script.append("CreateObject (\"Wscript.Shell\").Run \"");
-		script.append(shortcutLink.getAbsolutePath());
+		File link = new File(shortcutLink.getAbsolutePath());
+		
+		script.append("Set shell = CreateObject(\"Wscript.Shell\") \n");
+		
+		// move to scripts directory
+		script.append("shell.CurrentDirectory = \"");
+		script.append(link.getParent());
+		script.append("\" \n");
+		
+		// execute the script
+		script.append("shell.Run \"");
+		script.append(link.getName());
 		script.append("\", 0, true \n");
+		script.append(" \n");
 		
 		return script.toString();
 		
@@ -374,7 +385,7 @@ public final class Installer {
 			// get the shortcut name with the appropriate extension (based on OS)
 			String nameWithExt = shortcutName;
 			if (Config.INSTANCE.isWindows()) {
-				nameWithExt += ".lnk";
+				nameWithExt += ".vbs";
 			} else { // assume unix/linux system
 				nameWithExt += ".sh";
 			}
