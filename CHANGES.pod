@@ -2,6 +2,14 @@
 
 =head1 Changes in ZedLog
 
+=head2 v0.2beta4 - Upcoming
+
+=over 4
+
+=item * Added installer framework.
+
+=back
+
 =head2 v0.2beta3 - Released 14-July-2013 
 
 =over 4
