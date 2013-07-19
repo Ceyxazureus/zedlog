@@ -87,6 +87,11 @@ TEST_SOURCE := TestSuite.java
 # the compiled test suite class file name
 TEST_CLASSES := $(TEST_SOURCE:.java=.class)
 
+# the test suite dep libraries (just JUnit)
+TEST_LIBS := junit.jar hamcrest-core.jar
+TEST_LIBS := $(addprefix $(LIB_DIR)/, $(TEST_LIBS))
+TEST_LIBS_CLASSPATH = $(shell perl classpathify.pl $(TEST_LIBS))
+
 # change source and output directories
 TEST_SOURCE := $(addprefix $(TEST_DIR)/$(PACKAGE_DIR)/, $(TEST_SOURCE))
 TEST_CLASSES := $(addprefix $(BIN_DIR)/$(PACKAGE_DIR)/, $(TEST_CLASSES))
@@ -160,7 +165,7 @@ rebuild: clean build
 
 # build and run the test suite
 test : $(TEST_CLASSES)
-	java -classpath $(LIBS_CLASSPATH):$(BIN_DIR) $(TEST_SUITE)
+	java -classpath $(LIBS_CLASSPATH):$(TEST_LIBS_CLASSPATH):$(BIN_DIR) $(TEST_SUITE)
 
 # clean compilation output only
 clean_class_files:
