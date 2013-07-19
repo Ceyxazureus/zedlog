@@ -147,7 +147,7 @@ rebuild: clean build
 clean_class_files:
 	rm  $(BIN_DIR)/$(PACKAGE_DIR) -r 2> /dev/null
 
-clean: clean_bin
+clean: 
 	-rm $(DIST_FILE) $(DIST_NAME) $(BIN_DIR)/* $(DOC_OUTPUT) $(SCRIPTS) *.tmp -r 2> /dev/null
 
 dist: clean $(DIST_FILE)
@@ -182,8 +182,7 @@ $(INSTALLER_JAR): $(INSTALL_FILES) clean_class_files $(INSTALLER_CLASS_FILES)
 # build java class file
 $(BIN_DIR)/%.class: $(SRC_DIR)/%.java
 	@echo ">>>>> Compiling $< <<<<<"
-	-mkdir $(BIN_DIR) 2>/dev/null 
-	@echo $(LIBS_CLASSPATH)
+	-mkdir $(BIN_DIR) 2>/dev/null
 	$(JAVAC) -classpath $(LIBS_CLASSPATH):$(BIN_DIR) -sourcepath $(SRC_DIR) -d $(BIN_DIR) $< >/dev/null
 
 # build batch (windows) script
