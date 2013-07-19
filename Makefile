@@ -67,7 +67,7 @@ RSRC_DOCS_SRC = $(SRC_DIR)/$(PACKAGE_DIR)/$(RSRC_DOCS)
 RSRC_DOCS_DEST = $(BIN_DIR)/$(PACKAGE_DIR)/$(RSRC_DOCS)
 
 # external library JARs
-LIBS := JNativeHook.jar litelogger-v0.1beta.jar
+LIBS := JNativeHook.jar litelogger.jar
 LIBS := $(addprefix $(LIB_DIR)/, $(LIBS))
 LIBS_CLASSPATH = $(shell perl classpathify.pl $(LIBS))
 
