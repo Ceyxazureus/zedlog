@@ -146,7 +146,7 @@ INSTALLER_MAIN = net.zeddev.zedlog.InstallerMain
 
 ##### BUILD TARGETS  ###########################################################
 
-.PHONY: all build doc resources rebuild test clean_class_files clean dist installer
+.PHONY: all build doc resources rebuild test retest clean_class_files clean dist installer
 
 all: build doc
 
@@ -164,8 +164,10 @@ resources:
 rebuild: clean build
 
 # build and run the test suite
-test : $(TEST_CLASSES)
+test : build $(TEST_CLASSES)
 	java -classpath $(LIBS_CLASSPATH):$(TEST_LIBS_CLASSPATH):$(BIN_DIR) $(TEST_SUITE)
+
+retest: clean test
 
 # clean compilation output only
 clean_class_files:
@@ -214,7 +216,7 @@ $(BIN_DIR)/%.class: $(TEST_DIR)/%.java
 	@echo ">>>>> Compiling Test Class $< <<<<<"
 	-mkdir $(BIN_DIR) 2>/dev/null 
 	@echo $(LIBS_CLASSPATH)
-	$(JAVAC) -classpath $(LIBS_CLASSPATH):$(BIN_DIR) -sourcepath $(SRC_DIR):$(TEST_DIR) -d $(BIN_DIR) $< >/dev/null
+	$(JAVAC) -classpath $(LIBS_CLASSPATH):$(TEST_LIBS_CLASSPATH):$(BIN_DIR) -sourcepath $(SRC_DIR):$(TEST_DIR) -d $(BIN_DIR) $< >/dev/null
 
 # build batch (windows) script
 %.bat: 
