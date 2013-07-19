@@ -38,6 +38,7 @@ BIN_DIR = bin
 LIB_DIR = lib
 
 SRC_DIR = src
+TEST_DIR = test
 
 PACKAGE_DIR = net/zeddev/zedlog
 
@@ -77,6 +78,20 @@ MAIN_CLASS = net.zeddev.zedlog.ZedLog
 
 # other files to include in the jar file
 OTHER_FILES = COPYING_GPL.html README.html CHANGES.html
+
+##### TEST SUITE  ##############################################################
+
+# the test suite source
+TEST_SOURCE := TestSuite.java
+
+# the compiled test suite class file name
+TEST_CLASSES := $(TEST_SOURCE:.java=.class)
+
+# change source and output directories
+TEST_SOURCE := $(addprefix $(TEST_DIR)/$(PACKAGE_DIR)/, $(TEST_SOURCE))
+TEST_CLASSES := $(addprefix $(BIN_DIR)/$(PACKAGE_DIR)/, $(TEST_CLASSES))
+
+TEST_SUITE = net.zeddev.zedlog.TestSuite
 
 #####  DOCUMENTATION  ##########################################################
 
@@ -126,11 +141,11 @@ INSTALLER_MAIN = net.zeddev.zedlog.InstallerMain
 
 ##### BUILD TARGETS  ###########################################################
 
-.PHONY: all build doc resources rebuild clean_class_files clean dist installer
+.PHONY: all build doc resources rebuild test clean_class_files clean dist installer
 
 all: build doc
 
-build: $(JAR_FILE) $(SCRIPTS)
+build: test $(JAR_FILE) $(SCRIPTS)
 
 doc: $(DOC_OUTPUT)
 
@@ -142,6 +157,10 @@ resources:
 	cp -r $(RSRC_DOCS_SRC) $(RSRC_DOCS_DEST) >/dev/null
 
 rebuild: clean build
+
+# build and run the test suite
+test : $(TEST_CLASSES)
+	java -classpath $(LIBS_CLASSPATH):$(BIN_DIR) $(TEST_SUITE)
 
 # clean compilation output only
 clean_class_files:
@@ -184,6 +203,13 @@ $(BIN_DIR)/%.class: $(SRC_DIR)/%.java
 	@echo ">>>>> Compiling $< <<<<<"
 	-mkdir $(BIN_DIR) 2>/dev/null
 	$(JAVAC) -classpath $(LIBS_CLASSPATH):$(BIN_DIR) -sourcepath $(SRC_DIR) -d $(BIN_DIR) $< >/dev/null
+
+# build java unit test class
+$(BIN_DIR)/%.class: $(TEST_DIR)/%.java
+	@echo ">>>>> Compiling Test Class $< <<<<<"
+	-mkdir $(BIN_DIR) 2>/dev/null 
+	@echo $(LIBS_CLASSPATH)
+	$(JAVAC) -classpath $(LIBS_CLASSPATH):$(BIN_DIR) -sourcepath $(SRC_DIR):$(TEST_DIR) -d $(BIN_DIR) $< >/dev/null
 
 # build batch (windows) script
 %.bat: 
