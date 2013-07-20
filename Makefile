@@ -165,7 +165,7 @@ rebuild: clean build
 
 # build and run the test suite
 test : build $(TEST_CLASSES)
-	java -classpath $(LIBS_CLASSPATH):$(TEST_LIBS_CLASSPATH):$(BIN_DIR) $(TEST_SUITE)
+	java -ea -classpath $(LIBS_CLASSPATH):$(TEST_LIBS_CLASSPATH):$(BIN_DIR) $(TEST_SUITE)
 
 retest: clean test
 
