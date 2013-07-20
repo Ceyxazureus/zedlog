@@ -19,6 +19,7 @@ import java.io.Writer;
 import java.util.Scanner;
 
 import net.zeddev.zedlog.logger.impl.LogEvents;
+import static net.zeddev.zedlog.util.Assertions.*;
 
 /**
  * A single log record by a {@code DataLogger}.
@@ -39,9 +40,16 @@ public class LogEntry {
 	 * @param message The logged message.
 	 */
 	public LogEntry(final DataLogger parent, final String message, final LogEvent event) {
+		
+		requireNotNull(parent);
+		requireNotNull(message);
+		requireNotEquals(message, "");
+		requireNotNull(event);
+		
 		this.parent = parent;
 		this.message = message;
 		this.event = event;
+		
 	}
 
 	/** Creates a new, empty {@code LogEntry}. */
@@ -49,35 +57,69 @@ public class LogEntry {
 	}
 
 	public DataLogger getParent() {
+		
+		ensureNotNull(parent);
+		
 		return parent;
+		
 	}
 
 	public void setParent(DataLogger parent) {
+		
+		requireNotNull(parent);
+		
 		this.parent = parent;
+		
 	}
 
 	public String getMessage() {
+		
+		ensureNotNull(message);
+		ensureNotEquals(message, "");
+		
 		return message;
+		
 	}
 
 	public void setMessage(String message) {
+		
+		requireNotNull(message);
+		requireNotEquals(message, "");
+		
 		this.message = message;
+		
 	}
 
 	public LogEvent getEvent() {
+		
+		ensureNotNull(event);
+		
 		return event;
+		
 	}
 
 	public void setEvent(LogEvent event) {
+		
+		requireNotNull(event);
+		
 		this.event = event;
+		
 	}
 
 	public long getTimestamp() {
+		
+		ensure(timestamp >= 0);
+		
 		return timestamp;
+		
 	}
 
 	public void setTimestamp(long timestamp) {
+		
+		require(timestamp >= 0);
+		
 		this.timestamp = timestamp;
+		
 	}
 
 	/**
@@ -87,7 +129,7 @@ public class LogEntry {
 	 */
 	public void write(final Writer output) throws Exception {
 
-		assert(output != null);
+		requireNotNull(output);
 
 		output.write(getMessage().replace("\n", ""));
 		output.write("|");
@@ -112,6 +154,8 @@ public class LogEntry {
 			throws ClassNotFoundException, InstantiationException,
 				   IllegalAccessException, Exception {
 
+		requireNotNull(scanner);
+		
 		setMessage(String.format("%s\n", scanner.next()));
 		setTimestamp(scanner.nextLong());
 

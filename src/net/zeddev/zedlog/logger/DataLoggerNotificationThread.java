@@ -20,6 +20,7 @@ import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 
 import net.zeddev.litelogger.Logger;
+import static net.zeddev.zedlog.util.Assertions.*;
 
 /**
  * The thread which notifies a {@code DataLogger}'s observers of an event.
@@ -67,8 +68,8 @@ public final class DataLoggerNotificationThread extends Thread {
 
 		super();
 
-		assert(dataLogger != null);
-		assert(observers != null);
+		requireNotNull(dataLogger);
+		requireNotNull(observers);
 
 		// initialise the thread
 		setName(String.format("%s notification thread", dataLogger.type()));
@@ -87,6 +88,8 @@ public final class DataLoggerNotificationThread extends Thread {
 	 */
 	public void notifyEvent(LogEntry logEntry) {
 
+		requireNotNull(logEntry);
+		
 		synchronized (logSpool) {
 			logSpool.offer(logEntry);
 		}
@@ -101,6 +104,8 @@ public final class DataLoggerNotificationThread extends Thread {
 	// notifies the loggers observers of the given log entry
 	private void notifyObservers(LogEntry logEntry) {
 
+		requireNotNUll(logEntry);
+		
 		synchronized (observers) {
 
 			for (DataLoggerObserver observer : observers)
