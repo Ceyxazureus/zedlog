@@ -19,13 +19,17 @@ import net.zeddev.zedlog.util.AssertionsTest;
 
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
+import org.junit.runner.RunWith;
 import org.junit.runner.notification.Failure;
+import org.junit.runners.Suite;
+import org.junit.runners.model.InitializationError;
 
 /**
  * Unit test suite for ZedLog.
  * 
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
+@RunWith(TestSuite.SuiteRunner.class)
 public final class TestSuite {
 	
 	// the test cases
@@ -103,6 +107,18 @@ public final class TestSuite {
 		
 		TestSuite testSuite = new TestSuite();
 		testSuite.runClasses(TEST_CLASSES);
+		
+	}
+	
+	/** 
+	 * Test suite runner class used by JUnit to execute.
+	 * Makes life easier when using an IDE.
+	 */
+	public static class SuiteRunner extends Suite {
+		
+		public SuiteRunner(Class<?> setupClass) throws InitializationError {
+	       super(setupClass, TEST_CLASSES);
+	    }
 		
 	}
 	
