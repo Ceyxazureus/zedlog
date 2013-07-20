@@ -104,7 +104,7 @@ public final class DataLoggerNotificationThread extends Thread {
 	// notifies the loggers observers of the given log entry
 	private void notifyObservers(LogEntry logEntry) {
 
-		requireNotNUll(logEntry);
+		requireNotNull(logEntry);
 		
 		synchronized (observers) {
 
