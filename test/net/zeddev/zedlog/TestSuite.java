@@ -74,6 +74,7 @@ public final class TestSuite {
 		
 		runCount += result.getRunCount();
 		runTime += result.getRunTime();
+		failCount += result.getFailureCount();
 		
 	}
 	
