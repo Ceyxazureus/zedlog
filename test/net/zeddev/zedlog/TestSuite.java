@@ -16,6 +16,7 @@ package net.zeddev.zedlog;
  */
 
 import net.zeddev.zedlog.util.AssertionsTest;
+import net.zeddev.zedlog.util.IOUtilTest;
 
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
@@ -34,7 +35,8 @@ public final class TestSuite {
 	
 	// the test cases
 	public static final Class[] TEST_CLASSES = {
-		AssertionsTest.class
+		AssertionsTest.class,
+		IOUtilTest.class
 	};
 	
 	// the test state
