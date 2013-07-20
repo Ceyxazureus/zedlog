@@ -47,8 +47,49 @@ INSTALL_RSRC_DIR = installrsrc
 
 ##### CODE COMPILATION  ########################################################
 
-# the main source file (which depends on ALL others)
-SOURCE := ZedLog.java
+# the main source files
+SOURCE := ZedLog.java \
+Config.java \
+HelpDoc.java \
+InstallerMain.java \
+gui/Icons.java \
+gui/LoggerPanel.java \
+gui/ZedLogFrame.java \
+gui/dialog/AboutDialog.java \
+gui/dialog/NewLoggerDialog.java \
+gui/dialog/ReplayToolDialog.java \
+gui/dialog/SimpleDialog.java \
+logger/AbstractDataLogger.java \
+logger/DataLogger.java \
+logger/DataLoggerNotificationThread.java \
+logger/DataLoggerObserver.java \
+logger/LogEntry.java \
+logger/LogEvent.java \
+logger/impl/CharTypedLogger.java \
+logger/impl/CompositeDataLogger.java \
+logger/impl/DataLoggers.java \
+logger/impl/DataLoggerWriter.java \
+logger/impl/KeyPressedLogger.java \
+logger/impl/KeyReleasedLogger.java \
+logger/impl/LogEvents.java \
+logger/impl/MouseClickLogger.java \
+logger/impl/MouseDraggedLogger.java \
+logger/impl/MouseMovementLogger.java \
+logger/impl/MousePressedLogger.java \
+logger/impl/MouseReleasedLogger.java \
+logger/impl/MouseWheelLogger.java \
+logger/impl/event/KeyEvent.java \
+logger/impl/event/MouseClickedEvent.java \
+logger/impl/event/MouseDraggedEvent.java \
+logger/impl/event/MouseEvent.java \
+logger/impl/event/MouseMovedEvent.java \
+logger/impl/event/MousePressedEvent.java \
+logger/impl/event/MouseReleasedEvent.java \
+logger/impl/event/MouseWheelMovedEvent.java \
+logger/tools/ReplayTool.java \
+logger/tools/ReplayToolObserver.java \
+util/Assertions.java \
+util/IOUtil.java
 
 # the compiled class file name
 CLASS_FILES := $(SOURCE:.java=.class)
@@ -82,7 +123,9 @@ OTHER_FILES = COPYING_GPL.html README.html CHANGES.html
 ##### TEST SUITE  ##############################################################
 
 # the test suite source
-TEST_SOURCE := TestSuite.java
+TEST_SOURCE := TestSuite.java \
+util/AssertionsTest.java \
+util/IOUtilTest.java
 
 # the compiled test suite class file name
 TEST_CLASSES := $(TEST_SOURCE:.java=.class)
@@ -126,8 +169,12 @@ $(SCRIPTS)
 
 #####  INSTALLER  ##############################################################
 
-# the main installer source file (which depends on ALL others)
-INSTALLER_SOURCE := InstallerMain.java
+# the main installer source files
+INSTALLER_SOURCE := InstallerMain.java \
+installer/Installer.java \
+installer/InstallerUi.java \
+installer/Logger.java \
+installer/ui/ConsoleUi.java
 
 # the compiled class file name
 INSTALLER_CLASS_FILES := $(INSTALLER_SOURCE:.java=.class)
