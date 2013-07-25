@@ -15,9 +15,12 @@ package net.zeddev.zedlog;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import net.zeddev.litelogger.Logger;
 import net.zeddev.zedlog.util.AssertionsTest;
 import net.zeddev.zedlog.util.IOUtilTest;
 
+import org.jnativehook.GlobalScreen;
+import org.jnativehook.NativeHookException;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.RunWith;
@@ -32,6 +35,8 @@ import org.junit.runners.model.InitializationError;
  */
 @RunWith(TestSuite.SuiteRunner.class)
 public final class TestSuite {
+	
+	private static final Logger logger = Logger.getLogger(TestSuite.class);
 	
 	// the test cases
 	public static final Class[] TEST_CLASSES = {
@@ -106,10 +111,41 @@ public final class TestSuite {
 		
 	}
 	
+	// initialises the JNativeHook lib
+	private static void initNativeHook() {
+
+		try {
+			GlobalScreen.registerNativeHook();
+		} catch (NativeHookException ex) {
+			logger.fatal("Unable to secure native hook!", ex);
+			System.exit(1);
+		}
+
+	}
+	
+	// shuts down the test suite app
+	private static void shutdown() {
+		
+		logger.info(String.format(
+			"Shutting down in thread - %s (#%d).",
+			Thread.currentThread().getName(),
+			Thread.currentThread().getId()
+		));
+
+		// remove the native event hook
+		if (GlobalScreen.isNativeHookRegistered())
+			GlobalScreen.unregisterNativeHook();
+
+	}
+	
 	public static void main(String[] args) {
+		
+		initNativeHook();
 		
 		TestSuite testSuite = new TestSuite();
 		testSuite.runClasses(TEST_CLASSES);
+		
+		shutdown();
 		
 	}
 	
