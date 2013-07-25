@@ -16,6 +16,7 @@ package net.zeddev.zedlog;
  */
 
 import net.zeddev.litelogger.Logger;
+import net.zeddev.zedlog.logger.KeyDataLoggers;
 import net.zeddev.zedlog.util.AssertionsTest;
 import net.zeddev.zedlog.util.IOUtilTest;
 
@@ -41,7 +42,8 @@ public final class TestSuite {
 	// the test cases
 	public static final Class[] TEST_CLASSES = {
 		AssertionsTest.class,
-		IOUtilTest.class
+		IOUtilTest.class,
+		KeyDataLoggers.class
 	};
 	
 	// the test state
