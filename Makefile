@@ -197,7 +197,7 @@ INSTALLER_MAIN = net.zeddev.zedlog.InstallerMain
 
 all: build doc
 
-build: test $(JAR_FILE) $(SCRIPTS)
+build: $(JAR_FILE) $(SCRIPTS)
 
 doc: $(DOC_OUTPUT)
 
