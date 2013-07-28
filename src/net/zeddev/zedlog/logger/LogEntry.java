@@ -21,6 +21,8 @@ import java.util.Scanner;
 import net.zeddev.zedlog.logger.impl.LogEvents;
 import static net.zeddev.zedlog.util.Assertions.*;
 
+import org.w3c.dom.*;
+
 /**
  * A single log record by a {@code DataLogger}.
  *
@@ -121,12 +123,39 @@ public class LogEntry {
 		this.timestamp = timestamp;
 		
 	}
+	
+	public void toXML(Element parent) throws Exception {
+		
+		requireNotNull(parent);
 
+		Document doc = parent.getOwnerDocument();
+		Element entry = doc.createElement("entry");
+		
+		entry.setAttribute("msg", getMessage().replace("\n", ""));
+		entry.setAttribute("timestamp", Long.toString(getTimestamp()));
+		entry.setAttribute("type", getEvent().type());
+		
+		// add the logged event
+		getEvent().toXML(entry);
+		
+		parent.appendChild(entry);
+		
+	}
+
+	public void fromXML(Element parent) throws Exception {
+		
+		requireNotNull(parent);
+
+		// TODO implement me
+		
+	}
+	
 	/**
 	 * Writes the {@code LogEntry} to a {@code Tuple}.
 	 *
 	 * @return A {@code Tuple} containing the data in the {@code LogEntry}.
 	 */
+	@Deprecated
 	public void write(final Writer output) throws Exception {
 
 		requireNotNull(output);
@@ -138,7 +167,7 @@ public class LogEntry {
 		output.write(getEvent().type());
 		output.write("|");
 		getEvent().write(output);
-
+		
 	}
 
 	/**
@@ -150,6 +179,7 @@ public class LogEntry {
 	 * @throws IllegalAccessException
 	 * @throws Exception
 	 */
+	@Deprecated
 	public void read(final Scanner scanner)
 			throws ClassNotFoundException, InstantiationException,
 				   IllegalAccessException, Exception {
