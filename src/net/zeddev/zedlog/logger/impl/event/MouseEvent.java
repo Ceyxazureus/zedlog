@@ -22,6 +22,9 @@ import net.zeddev.zedlog.logger.LogEvent;
 
 import org.jnativehook.mouse.NativeMouseEvent;
 
+import org.w3c.dom.*;
+import static net.zeddev.zedlog.util.Assertions.*;
+
 /**
  * A generic mouse event.
  *
@@ -102,6 +105,24 @@ public abstract class MouseEvent extends LogEvent {
 		pos.append(")");
 
 		return pos.toString();
+
+	}
+	
+	@Override
+	public void toXML(Element parent) throws Exception {
+		
+		requireNotNull(parent);
+		
+		// TODO implement me
+
+	}
+
+	@Override
+	public void fromXML(Element parent) throws Exception {
+		
+		requireNotNull(parent);
+		
+		// TODO implement me
 
 	}
 

@@ -20,6 +20,9 @@ import java.util.Scanner;
 
 import org.jnativehook.mouse.NativeMouseWheelEvent;
 
+import org.w3c.dom.*;
+import static net.zeddev.zedlog.util.Assertions.*;
+
 /**
  * A mouse event describing a mouse wheel movement.
  *
@@ -48,6 +51,24 @@ public final class MouseWheelMovedEvent extends MouseEvent {
 	@Override
 	public String type() {
 		return "MouseWheelMoved";
+	}
+	
+	@Override
+	public void toXML(Element parent) throws Exception {
+		
+		requireNotNull(parent);
+		
+		// TODO implement me
+
+	}
+
+	@Override
+	public void fromXML(Element parent) throws Exception {
+		
+		requireNotNull(parent);
+		
+		// TODO implement me
+
 	}
 
 	@Override

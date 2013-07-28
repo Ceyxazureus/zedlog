@@ -17,6 +17,9 @@ package net.zeddev.zedlog.logger.impl.event;
 
 import org.jnativehook.mouse.NativeMouseEvent;
 
+import org.w3c.dom.*;
+import static net.zeddev.zedlog.util.Assertions.*;
+
 /**
  * A mouse event describing a mouse movement.
  *

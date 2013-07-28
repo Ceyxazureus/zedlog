@@ -20,6 +20,9 @@ import java.util.Scanner;
 
 import org.jnativehook.mouse.NativeMouseEvent;
 
+import org.w3c.dom.*;
+import static net.zeddev.zedlog.util.Assertions.*;
+
 /**
  * A mouse event describing a button press.
  *
@@ -58,6 +61,24 @@ public final class MousePressedEvent extends MouseEvent {
 	@Override
 	public String type() {
 		return "MousePressed";
+	}
+	
+	@Override
+	public void toXML(Element parent) throws Exception {
+		
+		requireNotNull(parent);
+		
+		// TODO implement me
+
+	}
+
+	@Override
+	public void fromXML(Element parent) throws Exception {
+		
+		requireNotNull(parent);
+		
+		// TODO implement me
+
 	}
 
 	@Override

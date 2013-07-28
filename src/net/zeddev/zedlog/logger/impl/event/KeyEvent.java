@@ -17,10 +17,10 @@ package net.zeddev.zedlog.logger.impl.event;
 
 import java.io.Writer;
 import java.util.Scanner;
-
 import net.zeddev.zedlog.logger.LogEvent;
-
 import org.jnativehook.keyboard.NativeKeyEvent;
+import org.w3c.dom.*;
+import static net.zeddev.zedlog.util.Assertions.*;
 
 /**
  * A key pressed, released or typed event.
@@ -88,7 +88,32 @@ public class KeyEvent extends LogEvent {
 	public String type() {
 		return "KeyEvent";
 	}
+	
+	@Override
+	public void toXML(Element parent) throws Exception {
+		
+		requireNotNull(parent);
 
+		Document doc = parent.getOwnerDocument();
+		Element event = doc.createElement("event");
+		
+		parent.setAttribute("type", getEventType().toString());
+		parent.setAttribute("keycode", Integer.toString(getKeyCode()));
+		parent.setAttribute("char", Short.toString((short) getChar()));
+		
+		parent.appendChild(event);
+		
+	}
+
+	@Override
+	public void fromXML(Element parent) throws Exception {
+		
+		requireNotNull(parent);
+
+		// TODO implement me
+		
+	}
+	
 	@Override
 	public void write(Writer output) throws Exception {
 
