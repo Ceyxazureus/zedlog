@@ -125,8 +125,9 @@ OTHER_FILES = COPYING_GPL.html README.html CHANGES.html
 # the test suite source
 TEST_SOURCE := TestSuite.java \
 util/AssertionsTest.java \
-util/IOUtilTest.java \ 
-logger/KeyDataLoggers.java
+util/IOUtilTest.java \
+logger/KeyDataLoggers.java \
+logger/MouseDataLoggers.java
 
 # the compiled test suite class file name
 TEST_CLASSES := $(TEST_SOURCE:.java=.class)
