@@ -1,3 +1,4 @@
+package net.zeddev.zedlog.gui;
 /* Copyright (C) 2013  Zachary Scott <zscott.dev@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,14 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package net.zeddev.zedlog.gui;
-
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import net.zeddev.litelogger.Logger;
 import net.zeddev.zedlog.Config;
+import static net.zeddev.zedlog.util.Assertions.*;
 
 /**
  * Manages GUI icons.
@@ -61,6 +61,9 @@ public enum Icons {
 	 * @return The {@code Icon} instance.
 	 */
 	public Icon getIcon(final String name) {
+		
+		requireNotNull(name != null);
+		requireNotEquals(name, "");
 
 		if (!icons.containsKey(name))
 			icons.put(name, loadIcon(name));

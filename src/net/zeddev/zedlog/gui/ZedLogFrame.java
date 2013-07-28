@@ -55,6 +55,8 @@ import net.zeddev.zedlog.gui.dialog.SimpleDialog;
 import net.zeddev.zedlog.logger.DataLogger;
 import net.zeddev.zedlog.logger.impl.CompositeDataLogger;
 
+import static net.zeddev.zedlog.util.Assertions.*;
+
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.mouse.NativeMouseEvent;
 import org.jnativehook.mouse.NativeMouseListener;
@@ -79,6 +81,8 @@ public final class ZedLogFrame extends JFrame implements NativeMouseListener {
 	}
 	
 	public ZedLogFrame(CompositeDataLogger loggers) {
+		
+		requireNotNull(loggers);
 
 		// initialise the encapsulated loggers
 		this.loggers = loggers;
