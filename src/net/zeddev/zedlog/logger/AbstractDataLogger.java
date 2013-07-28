@@ -17,6 +17,7 @@ package net.zeddev.zedlog.logger;
 
 import java.util.ArrayList;
 import java.util.List;
+import static net.zeddev.zedlog.util.Assertions.*;
 
 /**
  * Provides a skeletal implementation of {@code DataLogger}.
@@ -60,6 +61,8 @@ public abstract class AbstractDataLogger implements DataLogger {
 	@Override
 	public void addObserver(DataLoggerObserver observer) {
 
+		requireNotNull(observer);
+		
 		synchronized (observers) {
 			observers.add(observer);
 		}
@@ -69,6 +72,8 @@ public abstract class AbstractDataLogger implements DataLogger {
 	@Override
 	public void removeObserver(DataLoggerObserver observer) {
 
+		requireNotNull(observer);
+		
 		synchronized (observers) {
 			observers.remove(observer);
 		}
@@ -83,6 +88,9 @@ public abstract class AbstractDataLogger implements DataLogger {
 	 */
 	protected void notifyDataLoggerObservers(final DataLogger logger, final LogEntry logEntry) {
 
+		requireNotNull(logger);
+		requireNotNull(logEntry);
+		
 		if (isRecording()) {
 			// XXX notify observers only if recording
 

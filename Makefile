@@ -38,6 +38,7 @@ BIN_DIR = bin
 LIB_DIR = lib
 
 SRC_DIR = src
+TEST_DIR = test
 
 PACKAGE_DIR = net/zeddev/zedlog
 
@@ -46,8 +47,49 @@ INSTALL_RSRC_DIR = installrsrc
 
 ##### CODE COMPILATION  ########################################################
 
-# the main source file (which depends on ALL others)
-SOURCE := ZedLog.java
+# the main source files
+SOURCE := ZedLog.java \
+Config.java \
+HelpDoc.java \
+InstallerMain.java \
+gui/Icons.java \
+gui/LoggerPanel.java \
+gui/ZedLogFrame.java \
+gui/dialog/AboutDialog.java \
+gui/dialog/NewLoggerDialog.java \
+gui/dialog/ReplayToolDialog.java \
+gui/dialog/SimpleDialog.java \
+logger/AbstractDataLogger.java \
+logger/DataLogger.java \
+logger/DataLoggerNotificationThread.java \
+logger/DataLoggerObserver.java \
+logger/LogEntry.java \
+logger/LogEvent.java \
+logger/impl/CharTypedLogger.java \
+logger/impl/CompositeDataLogger.java \
+logger/impl/DataLoggers.java \
+logger/impl/DataLoggerWriter.java \
+logger/impl/KeyPressedLogger.java \
+logger/impl/KeyReleasedLogger.java \
+logger/impl/LogEvents.java \
+logger/impl/MouseClickLogger.java \
+logger/impl/MouseDraggedLogger.java \
+logger/impl/MouseMovementLogger.java \
+logger/impl/MousePressedLogger.java \
+logger/impl/MouseReleasedLogger.java \
+logger/impl/MouseWheelLogger.java \
+logger/impl/event/KeyEvent.java \
+logger/impl/event/MouseClickedEvent.java \
+logger/impl/event/MouseDraggedEvent.java \
+logger/impl/event/MouseEvent.java \
+logger/impl/event/MouseMovedEvent.java \
+logger/impl/event/MousePressedEvent.java \
+logger/impl/event/MouseReleasedEvent.java \
+logger/impl/event/MouseWheelMovedEvent.java \
+logger/tools/ReplayTool.java \
+logger/tools/ReplayToolObserver.java \
+util/Assertions.java \
+util/IOUtil.java
 
 # the compiled class file name
 CLASS_FILES := $(SOURCE:.java=.class)
@@ -78,6 +120,29 @@ MAIN_CLASS = net.zeddev.zedlog.ZedLog
 # other files to include in the jar file
 OTHER_FILES = COPYING_GPL.html README.html CHANGES.html
 
+##### TEST SUITE  ##############################################################
+
+# the test suite source
+TEST_SOURCE := TestSuite.java \
+util/AssertionsTest.java \
+util/IOUtilTest.java \
+logger/KeyDataLoggers.java \
+logger/MouseDataLoggers.java
+
+# the compiled test suite class file name
+TEST_CLASSES := $(TEST_SOURCE:.java=.class)
+
+# the test suite dep libraries (just JUnit)
+TEST_LIBS := junit.jar hamcrest-core.jar
+TEST_LIBS := $(addprefix $(LIB_DIR)/, $(TEST_LIBS))
+TEST_LIBS_CLASSPATH = $(shell perl classpathify.pl $(TEST_LIBS))
+
+# change source and output directories
+TEST_SOURCE := $(addprefix $(TEST_DIR)/$(PACKAGE_DIR)/, $(TEST_SOURCE))
+TEST_CLASSES := $(addprefix $(BIN_DIR)/$(PACKAGE_DIR)/, $(TEST_CLASSES))
+
+TEST_SUITE = net.zeddev.zedlog.TestSuite
+
 #####  DOCUMENTATION  ##########################################################
 
 # the raw pod documentation to build
@@ -106,8 +171,12 @@ $(SCRIPTS)
 
 #####  INSTALLER  ##############################################################
 
-# the main installer source file (which depends on ALL others)
-INSTALLER_SOURCE := InstallerMain.java
+# the main installer source files
+INSTALLER_SOURCE := InstallerMain.java \
+installer/Installer.java \
+installer/InstallerUi.java \
+installer/Logger.java \
+installer/ui/ConsoleUi.java
 
 # the compiled class file name
 INSTALLER_CLASS_FILES := $(INSTALLER_SOURCE:.java=.class)
@@ -126,7 +195,7 @@ INSTALLER_MAIN = net.zeddev.zedlog.InstallerMain
 
 ##### BUILD TARGETS  ###########################################################
 
-.PHONY: all build doc resources rebuild clean_class_files clean dist installer
+.PHONY: all build doc resources rebuild test retest clean_class_files clean dist installer
 
 all: build doc
 
@@ -142,6 +211,12 @@ resources:
 	cp -r $(RSRC_DOCS_SRC) $(RSRC_DOCS_DEST) >/dev/null
 
 rebuild: clean build
+
+# build and run the test suite
+test : build $(TEST_CLASSES)
+	java -ea -classpath $(LIBS_CLASSPATH):$(TEST_LIBS_CLASSPATH):$(BIN_DIR) $(TEST_SUITE)
+
+retest: clean test
 
 # clean compilation output only
 clean_class_files:
@@ -184,6 +259,13 @@ $(BIN_DIR)/%.class: $(SRC_DIR)/%.java
 	@echo ">>>>> Compiling $< <<<<<"
 	-mkdir $(BIN_DIR) 2>/dev/null
 	$(JAVAC) -classpath $(LIBS_CLASSPATH):$(BIN_DIR) -sourcepath $(SRC_DIR) -d $(BIN_DIR) $< >/dev/null
+
+# build java unit test class
+$(BIN_DIR)/%.class: $(TEST_DIR)/%.java
+	@echo ">>>>> Compiling Test Class $< <<<<<"
+	-mkdir $(BIN_DIR) 2>/dev/null 
+	@echo $(LIBS_CLASSPATH)
+	$(JAVAC) -classpath $(LIBS_CLASSPATH):$(TEST_LIBS_CLASSPATH):$(BIN_DIR) -sourcepath $(SRC_DIR):$(TEST_DIR) -d $(BIN_DIR) $< >/dev/null
 
 # build batch (windows) script
 %.bat: 

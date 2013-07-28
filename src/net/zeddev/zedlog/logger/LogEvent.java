@@ -42,6 +42,7 @@ public abstract class LogEvent {
 	 * @param output The output stream to write to.
 	 * @throws Exception
 	 */
+	@Deprecated
 	public abstract void write(final Writer output) throws Exception;
 
 	/**
@@ -51,6 +52,7 @@ public abstract class LogEvent {
 	 * @param scanner The scanner to be read from.
 	 * @throws Exception
 	 */
+	@Deprecated
 	public abstract void read(final Scanner scanner) throws Exception;
 
 	/**

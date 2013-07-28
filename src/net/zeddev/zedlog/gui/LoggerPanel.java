@@ -24,6 +24,7 @@ import javax.swing.JTextArea;
 import net.zeddev.zedlog.logger.DataLogger;
 import net.zeddev.zedlog.logger.DataLoggerObserver;
 import net.zeddev.zedlog.logger.LogEntry;
+import static net.zeddev.zedlog.util.Assertions.*;
 
 /**
  * {@code DataLogger} view component.
@@ -38,6 +39,8 @@ public final class LoggerPanel extends JPanel implements DataLoggerObserver {
 	public LoggerPanel(final DataLogger logger) {
 
 		super();
+		
+		requireNotNull(logger);
 
 		this.logger = logger;
 		logger.addObserver(this);
