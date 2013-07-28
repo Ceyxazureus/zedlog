@@ -18,13 +18,33 @@ package net.zeddev.zedlog.logger;
 import java.io.Writer;
 import java.util.Scanner;
 
+import org.w3c.dom.Element;
+
 /**
  * A single event which is logged by a {@code DataLogger}.
  *
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
 public abstract class LogEvent {
-
+	
+	/** 
+	 * Converts the {@code LogEvent} to a given DOM XML node.
+	 * i.e. {@link org.w3c.dom.Element}.
+	 *
+	 * @param parent The XML (DOM) element to update (must not be {@code null}).
+	 * @throws Exception
+	 */
+	public abstract void toXML(Element parent) throws Exception;
+	
+	/**
+	 * Reads {@code LogEvent} from the given DOM XML node.
+	 * i.e. {@link org.w3c.dom.Element}.
+	 *
+	 * @param doc The XML (DOM) element to read (must not be {@code null}).
+	 * @throws Exception
+	 */
+	public abstract void fromXML(Element parent) throws Exception;
+	
 	/**
 	 * Writes the {@code LogEvent} to the given output stream.
 	 * The format should be as follows:
