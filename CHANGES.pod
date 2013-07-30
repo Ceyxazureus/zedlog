@@ -6,7 +6,12 @@
 
 =over 4
 
+=item * Changed log format to use XML. INCOMPLETE
+
 =item * Added installer framework.
+
+=item * Minor refactoring of codebase and addition of unit testing for logger
+components.
 
 =back
 

@@ -2,9 +2,7 @@
 TODO list for ZedLog
 ~~~~~~~~~~~~~~~~~~~~
 
- * Add Installer
- 	-> Use Java
- 	-> MUST BE crossplatform (i.e. a JAR) using ENV vars
+ * Add unit test for new LogEntry toXML() & fromXML() methods.
  * Handle accelerators/shortcuts better
  	-> Use a system which will allow for configuration (at a later date).
  * Add I18N measures (using Java Bundle systems).
