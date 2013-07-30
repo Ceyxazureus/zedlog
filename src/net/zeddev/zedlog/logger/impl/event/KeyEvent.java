@@ -93,6 +93,7 @@ public class KeyEvent extends LogEvent {
 	public void toXML(Element parent) throws Exception {
 		
 		requireNotNull(parent);
+		requireEquals(parent.getTagName(), "event");
 
 		Document doc = parent.getOwnerDocument();
 		
