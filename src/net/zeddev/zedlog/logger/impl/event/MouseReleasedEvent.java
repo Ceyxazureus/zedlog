@@ -66,9 +66,13 @@ public final class MouseReleasedEvent extends MouseEvent {
 	@Override
 	public void toXML(Element parent) throws Exception {
 		
-		requireNotNull(parent);
-		
 		super.toXML(parent);
+		
+		requireNotNull(parent);
+		requireEquals(parent.getTagName(), "event");
+		
+		parent.setAttribute("bcode", Integer.toString(getButtonCode()));
+		parent.setAttribute("bname", getButton());
 
 	}
 

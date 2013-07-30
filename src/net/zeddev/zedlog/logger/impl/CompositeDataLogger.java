@@ -303,7 +303,6 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 				StreamResult result = new StreamResult(logFile);
 				
 				// output the XML
-				doc.normalizeDocument();
 				transformer.transform(source, result);
 
 			} catch (Exception ex) {

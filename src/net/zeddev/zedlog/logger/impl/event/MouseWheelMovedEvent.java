@@ -56,9 +56,12 @@ public final class MouseWheelMovedEvent extends MouseEvent {
 	@Override
 	public void toXML(Element parent) throws Exception {
 		
-		requireNotNull(parent);
-		
 		super.toXML(parent);
+		
+		requireNotNull(parent);
+		requireEquals(parent.getTagName(), "event");
+		
+		parent.setAttribute("rot", Integer.toString(getRotation()));
 
 	}
 
