@@ -153,8 +153,34 @@ public class LogEntry {
 	public void fromXML(Element parent) throws Exception {
 		
 		requireNotNull(parent);
+		requireEquals(parent.getTagName(), "entry");
 
-		// TODO implement me
+		setMessage(parent.getAttribute("msg"));
+		
+		setTimestamp(Long.parseLong(
+			parent.getAttribute("timestamp")
+		));
+		
+		// handle the log event
+		NodeList events = parent.getElementsByTagName("event");
+		if (events.getLength() >= 1) {
+			
+			Element event = (Element) events.item(0);
+			
+			// create log event of correct type
+			String type = parent.getAttribute("type");
+			setEvent(LogEvents.newLogEvent(type));
+			
+			// read the log event from XML
+			getEvent().fromXML(event);
+		
+		} else {
+			// NOTE: should not happen as all LogEntrys have LogEvents
+			
+			event = null;
+			require(false);
+			
+		}
 		
 	}
 	

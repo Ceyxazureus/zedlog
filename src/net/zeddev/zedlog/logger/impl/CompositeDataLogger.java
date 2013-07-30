@@ -22,6 +22,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -39,6 +40,7 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.*;
 import javax.xml.transform.stream.*;
 import org.w3c.dom.*;
+import org.xml.sax.SAXException;
 
 /**
  * A collection of multiple {@code DataLogger}'s.
@@ -206,6 +208,27 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	public File getLogFile() {
 		return logFile;
 	}
+	
+	// returns the xml document used to log data logger entries
+	private Document getXmlDoc() throws ParserConfigurationException {
+
+		// create xml document object if does not already exist
+		if (xmlLog == null) {
+			
+			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+			
+			xmlLog = docBuilder.newDocument();
+			
+			// create the root element in the document
+			Element root = xmlLog.createElement("entries");
+			xmlLog.appendChild(root);
+			
+		}
+		
+		return xmlLog;
+		
+	}
 
 	/**
 	 * Opens the given log file and reads the log entries.
@@ -221,12 +244,37 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	 * @throws Exception
 	 */
 	public void openLogFile(File file)
-			throws FileNotFoundException, IOException, ClassNotFoundException,
-			InstantiationException, IllegalAccessException, Exception {
+			throws ParserConfigurationException, SAXException,
+			ClassNotFoundException, InstantiationException, 
+			IllegalAccessException, Exception {
 
-		throw new UnsupportedOperationException("XML version of openLogFile() not yet implemented!");
-		//TODO implement xml version of openLogFile()
+		requireNotNull(file);
+		require(file.exists());
+				
+		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 		
+		Document doc = docBuilder.parse(file);
+		doc.getDocumentElement().normalize();
+		
+		// handle each entry
+		NodeList entries = doc.getElementsByTagName("entry");
+		for (int i = 0; i < entries.getLength(); i++) {
+			Node nodeEntry  = entries.item(i);
+			
+			if (nodeEntry.getNodeType() == Node.ELEMENT_NODE) {
+				
+				Element entry = (Element) nodeEntry;
+				
+				LogEntry logEntry = new LogEntry();
+				logEntry.fromXML(entry);
+
+				notifyLog(null, logEntry);
+				
+			}
+			
+		}
+				
 		/* Removed 2013-07-30
 		assert(file != null);
 
@@ -254,27 +302,6 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 
 		}*/
 
-	}
-	
-	// returns the xml document used to log data logger entries
-	private Document getXmlDoc() throws ParserConfigurationException {
-
-		// create xml document object if does not already exist
-		if (xmlLog == null) {
-			
-			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-			
-			xmlLog = docBuilder.newDocument();
-			
-			// create the root element in the document
-			Element root = xmlLog.createElement("entries");
-			xmlLog.appendChild(root);
-			
-		}
-		
-		return xmlLog;
-		
 	}
 	
 	// writes the log entry to XML
