@@ -679,7 +679,7 @@ public final class ZedLogFrame extends JFrame implements NativeMouseListener {
 
 	private void userQuit() {
 
-		if (loggers.getLogStream() == null) {
+		if (loggers.getLogFile() == null) {
 
 			boolean quit = SimpleDialog.yesno(
 				this, "Really Quit?",

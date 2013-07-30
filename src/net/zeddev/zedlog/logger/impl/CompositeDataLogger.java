@@ -32,6 +32,13 @@ import net.zeddev.zedlog.logger.AbstractDataLogger;
 import net.zeddev.zedlog.logger.DataLogger;
 import net.zeddev.zedlog.logger.DataLoggerObserver;
 import net.zeddev.zedlog.logger.LogEntry;
+import static net.zeddev.zedlog.util.Assertions.*;
+
+import javax.xml.parsers.*;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.*;
+import javax.xml.transform.stream.*;
+import org.w3c.dom.*;
 
 /**
  * A collection of multiple {@code DataLogger}'s.
@@ -47,9 +54,12 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 
 	private final List<DataLogger> loggers = new ArrayList<>();
 
-	// the output stream in which to write log entries
-	private Writer logstream = null;
+	// the output file to write log files
+	private File logFile = null;
 
+	// the xml document used to log data logger entries
+	private Document xmlLog = null;
+	
 	/** Creates a new {@code CompositeDataLogger}. */
 	public CompositeDataLogger() {
 		super();
@@ -59,12 +69,13 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	public void shutdown() {
 
 		super.shutdown();
-
+		
+		/*
 		try {
 			closeLogStream();
 		} catch (IOException ex) {
 			logger.warning("Failed to close log file/stream properly!", ex);
-		}
+		}*/
 
 		logger.debug("CompositeLogger shutdown.");
 
@@ -161,7 +172,7 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	public List<DataLogger> getLoggers() {
 		return new ArrayList<>(loggers);
 	}
-
+	
 	/**
 	 * Returns a list of all entries made by children loggers.
 	 *
@@ -172,46 +183,28 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	}
 
 	/**
-	 * Returns the output stream in which log entries are written.
-	 *
-	 * @return The log output stream (may be {@code null}).
-	 */
-	public Writer getLogStream() {
-		return logstream;
-	}
-
-	/**
-	 * Sets the output stream in which log entries are written.
-	 *
-	 * @param logstream The new output stream ({@code null} indicates none).
-	 */
-	public void setLogStream(Writer logstream) {
-		this.logstream = logstream;
-	}
-
-	/**
-	 * Closes the output log stream.
-	 *
-	 * @throws IOException
-	 */
-	public void closeLogStream() throws IOException {
-
-		if (logstream != null) {
-			logstream.flush();
-			logstream.close();
-		}
-
-	}
-
-	/**
 	 * Sets the log file to which log entries are stored.
 	 *
 	 * @param file The log file (must be a valid filename and
 	 * cannot be {@code null}).
 	 */
 	public void setLogFile(File file) throws IOException {
-		assert(file != null);
-		setLogStream(new FileWriter(file));
+		
+		requireNotNull(file);
+		
+		if (file.exists()) {
+			require(file.isFile());
+		} else {
+			file.createNewFile();
+		}
+		
+		this.logFile = file;
+		
+	}
+	
+	/** Returns the xml log file. */
+	public File getLogFile() {
+		return logFile;
 	}
 
 	/**
@@ -231,6 +224,10 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 			throws FileNotFoundException, IOException, ClassNotFoundException,
 			InstantiationException, IllegalAccessException, Exception {
 
+		throw new UnsupportedOperationException("XML version of openLogFile() not yet implemented!");
+		//TODO implement xml version of openLogFile()
+		
+		/* Removed 2013-07-30
 		assert(file != null);
 
 		// first thing, close the old log stream
@@ -255,31 +252,68 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 
 			}
 
-		}
+		}*/
 
 	}
+	
+	// returns the xml document used to log data logger entries
+	private Document getXmlDoc() throws ParserConfigurationException {
 
-	// writes the log entry to the log stream
-	private void writeLogEntry(LogEntry logEntry) {
+		// create xml document object if does not already exist
+		if (xmlLog == null) {
+			
+			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+			
+			xmlLog = docBuilder.newDocument();
+			
+			// create the root element in the document
+			Element root = xmlLog.createElement("entries");
+			xmlLog.appendChild(root);
+			
+		}
+		
+		return xmlLog;
+		
+	}
+	
+	// writes the log entry to XML
+	private void writeXmlLogEntry(LogEntry logEntry) {
 
-		Writer logstream = getLogStream();
-
-		if (logstream != null) {
+		if (logFile != null) {
 
 			try {
 
+				Document doc = getXmlDoc();
+				checkNotNull(doc);
+				
+				// the root element (i.e. an <entries>)
+				Element root = doc.getDocumentElement();
+				checkNotNull(root);
+				
 				// write the log entry
-				logEntry.write(getLogStream());
-				logstream.write("\n");
-
-				logstream.flush();
+				logEntry.toXML(root); // encode the log entry
+				
+				// the transformer which will update the XML source on disk
+				TransformerFactory transformerFactory = TransformerFactory.newInstance();
+				Transformer transformer = transformerFactory.newTransformer();
+				
+				// the XML input/output objects
+				DOMSource source = new DOMSource(doc);
+				StreamResult result = new StreamResult(logFile);
+				
+				// output the XML
+				doc.normalizeDocument();
+				transformer.transform(source, result);
 
 			} catch (Exception ex) {
+			
 				logger.error("Failed to write log entry!", ex);
+			
 			}
 
 		}
-
+		
 	}
 
 	@Override
@@ -291,7 +325,7 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 
 			logEntries.add(logEntry); // TODO optimise using fast(er) list implementation
 
-			writeLogEntry(logEntry);
+			writeXmlLogEntry(logEntry);
 
 			notifyDataLoggerObservers(logger, logEntry);
 
