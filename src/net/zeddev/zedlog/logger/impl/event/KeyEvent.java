@@ -95,13 +95,10 @@ public class KeyEvent extends LogEvent {
 		requireNotNull(parent);
 
 		Document doc = parent.getOwnerDocument();
-		Element event = doc.createElement("event");
 		
-		event.setAttribute("type", getEventType().toString());
-		event.setAttribute("keycode", Integer.toString(getKeyCode()));
-		event.setAttribute("char", Short.toString((short) getChar()));
-		
-		parent.appendChild(event);
+		parent.setAttribute("type", getEventType().toString());
+		parent.setAttribute("keycode", Integer.toString(getKeyCode()));
+		parent.setAttribute("char", Short.toString((short) getChar()));
 		
 	}
 

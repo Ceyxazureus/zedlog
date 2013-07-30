@@ -58,7 +58,7 @@ public final class MouseDraggedEvent extends MouseEvent {
 		
 		requireNotNull(parent);
 		
-		// TODO implement me
+		super.toXML(parent);
 
 	}
 

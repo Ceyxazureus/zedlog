@@ -136,7 +136,15 @@ public class LogEntry {
 		entry.setAttribute("type", getEvent().type());
 		
 		// add the logged event
-		getEvent().toXML(entry);
+		if (getEvent() != null) {
+			
+			Element event = doc.createElement("event");
+			
+			getEvent().toXML(event);
+			
+			entry.appendChild(event);
+		
+		}
 		
 		parent.appendChild(entry);
 		

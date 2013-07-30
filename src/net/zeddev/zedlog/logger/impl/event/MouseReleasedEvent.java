@@ -68,7 +68,7 @@ public final class MouseReleasedEvent extends MouseEvent {
 		
 		requireNotNull(parent);
 		
-		// TODO implement me
+		super.toXML(parent);
 
 	}
 

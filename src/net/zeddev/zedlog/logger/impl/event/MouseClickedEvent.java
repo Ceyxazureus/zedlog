@@ -77,8 +77,8 @@ public final class MouseClickedEvent extends MouseEvent {
 	public void toXML(Element parent) throws Exception {
 		
 		requireNotNull(parent);
-		
-		// TODO implement me
+
+		super.toXML(parent);
 
 	}
 
