@@ -127,7 +127,7 @@ public final class MouseClickedEvent extends MouseEvent {
 		msg.append(getButton());
 		msg.append(" at ");
 		msg.append(posString(getX(), getY()));
-		msg.append(".\n");
+		msg.append(".");
 
 		return msg.toString();
 

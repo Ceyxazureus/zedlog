@@ -47,7 +47,7 @@ public final class MouseMovedEvent extends MouseEvent {
 
 		msg.append("Mouse moved - at ");
 		msg.append(posString(getX(), getY()));
-		msg.append(".\n");
+		msg.append(".");
 
 		return msg.toString();
 

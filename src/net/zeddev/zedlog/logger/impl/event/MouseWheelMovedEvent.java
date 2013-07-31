@@ -113,7 +113,7 @@ public final class MouseWheelMovedEvent extends MouseEvent {
 			msg.append(" up");
 		}
 
-		msg.append(".\n");
+		msg.append(".");
 
 		return msg.toString();
 

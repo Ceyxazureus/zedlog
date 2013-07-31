@@ -24,6 +24,8 @@ import javax.swing.JTextArea;
 import net.zeddev.zedlog.logger.DataLogger;
 import net.zeddev.zedlog.logger.DataLoggerObserver;
 import net.zeddev.zedlog.logger.LogEntry;
+import net.zeddev.zedlog.logger.LogEvent;
+import net.zeddev.zedlog.logger.impl.event.MouseEvent;
 import static net.zeddev.zedlog.util.Assertions.*;
 
 /**
@@ -95,7 +97,7 @@ public final class LoggerPanel extends JPanel implements DataLoggerObserver {
 		shutdown();
 	}
 
-	private DataLogger lastToNotify = null;
+	private LogEvent lastToNotify = null;
 
 	private void addLog(final DataLogger logger, final LogEntry logEntry) {
 
@@ -103,19 +105,24 @@ public final class LoggerPanel extends JPanel implements DataLoggerObserver {
 
 		// add newline to separate different logger messages
 		if (lastToNotify == null) {
-			lastToNotify = logger;
-		} else if (logger != lastToNotify) {
+			lastToNotify = logEntry.getEvent();
+		} else if (lastToNotify.type().equals(logEntry.getEvent().type())) {
 
 			// dont append if already a newline
 			if (logEntries.charAt(logEntries.length()-1) != '\n')
 				logEntries.append("\n");
 
-			lastToNotify = logger;
+			lastToNotify = logEntry.getEvent();
 
 		}
 
-		logEntries.append(logEntry.getMessage());
-
+		// add newline to mouse events (for aesthetics)
+		String entryText = logEntry.toString();
+		if (logEntry.getEvent() instanceof MouseEvent)
+			entryText += "\n";
+		
+		logEntries.append(entryText);
+		
 		getTxtLogEntries().setText(logEntries.toString());
 
 		// move the end of the text area

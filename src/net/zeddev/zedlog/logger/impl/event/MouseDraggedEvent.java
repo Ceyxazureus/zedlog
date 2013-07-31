@@ -102,7 +102,7 @@ public final class MouseDraggedEvent extends MouseEvent {
 
 		msg.append("Mouse dragged - at ");
 		msg.append(posString(getX(), getY()));
-		msg.append(".\n");
+		msg.append(".");
 
 		return msg.toString();
 
