@@ -39,6 +39,27 @@ public class KeyEvent extends LogEvent {
 		private Type(String type) {
 			this.type = type;
 		}
+		
+		/** Returns the {@code Type} with the given name. */
+		public static Type getByName(String typeName) {
+			
+			requireNotNull(typeName);
+			
+			if (typeName.equals("pressed")) {
+				return PRESSED;
+			} else if (typeName.equals("released")) {
+				return RELEASED;
+			} else if (typeName.equals("typed")) {
+				return TYPED;
+			} else {
+				
+				throw new IllegalArgumentException(
+					String.format("Unknown key event type %s.", typeName)
+				);
+				
+			}
+			
+		}
 
 		@Override
 		public String toString() {
@@ -95,8 +116,6 @@ public class KeyEvent extends LogEvent {
 		requireNotNull(parent);
 		requireEquals(parent.getTagName(), "event");
 
-		Document doc = parent.getOwnerDocument();
-		
 		parent.setAttribute("type", getEventType().toString());
 		parent.setAttribute("keycode", Integer.toString(getKeyCode()));
 		parent.setAttribute("char", Short.toString((short) getChar()));
@@ -107,8 +126,20 @@ public class KeyEvent extends LogEvent {
 	public void fromXML(Element parent) throws Exception {
 		
 		requireNotNull(parent);
-
-		// TODO implement me
+		requireEquals(parent.getTagName(), "event");
+		System.out.println(parent.getTagName());
+		setEventType(Type.getByName(
+			parent.getAttribute("type")
+		));
+		System.out.println(getEventType().toString());
+		setKeyCode(Integer.parseInt(
+			parent.getAttribute("keycode")
+		));
+		System.out.println(getKeyCode());
+		setChar((char) Short.parseShort(
+			parent.getAttribute("char")
+		));
+		System.out.println(getChar());
 		
 	}
 	
