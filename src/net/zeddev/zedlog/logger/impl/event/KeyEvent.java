@@ -127,19 +127,18 @@ public class KeyEvent extends LogEvent {
 		
 		requireNotNull(parent);
 		requireEquals(parent.getTagName(), "event");
-		System.out.println(parent.getTagName());
+		
 		setEventType(Type.getByName(
 			parent.getAttribute("type")
 		));
-		System.out.println(getEventType().toString());
+		
 		setKeyCode(Integer.parseInt(
 			parent.getAttribute("keycode")
 		));
-		System.out.println(getKeyCode());
+		
 		setChar((char) Short.parseShort(
 			parent.getAttribute("char")
 		));
-		System.out.println(getChar());
 		
 	}
 	
