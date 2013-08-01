@@ -18,6 +18,7 @@ package net.zeddev.zedlog.logger;
 import java.io.Writer;
 import java.util.Scanner;
 
+import net.zeddev.litelogger.Logger;
 import net.zeddev.zedlog.logger.impl.LogEvents;
 import static net.zeddev.zedlog.util.Assertions.*;
 
@@ -29,6 +30,8 @@ import org.w3c.dom.*;
  * @author Zachary Scott <zscott.dev@gmail.com>
  */
 public class LogEntry {
+	
+	private static final Logger logger = Logger.getLogger(LogEntry.class);
 
 	private DataLogger parent = null;
 	private String message = null;
@@ -175,10 +178,18 @@ public class LogEntry {
 			getEvent().fromXML(event);
 		
 		} else {
-			// NOTE: should not happen as all LogEntrys have LogEvents
 			
 			event = null;
-			require(false);
+			
+			// NOTE: Is actually an error as all LogEntrys have LogEvents,
+			//       but we will ignore and hope for the best :-/
+			
+			logger.warning(
+				"Read log entry from XML without nested event! \n" + 
+				"Log entry message - %s",
+				null,
+				getMessage()
+			);
 			
 		}
 		
