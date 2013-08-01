@@ -124,9 +124,18 @@ public abstract class MouseEvent extends LogEvent {
 	public void fromXML(Element parent) throws Exception {
 		
 		requireNotNull(parent);
+		requireEquals(parent.getTagName(), "event");
+		System.out.println(parent.getTagName());
+		// NOTE type is implied when instantiated
 		
-		// TODO implement me
+		setX(Integer.parseInt(
+			parent.getAttribute("x")
+		));
 
+		setX(Integer.parseInt(
+			parent.getAttribute("y")
+		));
+		
 	}
 
 	@Override
