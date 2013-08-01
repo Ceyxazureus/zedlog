@@ -55,7 +55,6 @@ public final class MouseDraggedEvent extends MouseEvent {
 
 	@Override
 	public void toXML(Element parent) throws Exception {
-		
 		super.toXML(parent);
 		
 		requireNotNull(parent);
@@ -67,10 +66,14 @@ public final class MouseDraggedEvent extends MouseEvent {
 
 	@Override
 	public void fromXML(Element parent) throws Exception {
+		super.fromXML(parent);
 		
 		requireNotNull(parent);
+		requireEquals(parent.getTagName(), "entry");
 		
-		// TODO implement me
+		setButtonCode(Integer.parseInt(
+			parent.getAttribute("bcode")
+		));
 
 	}
 	
