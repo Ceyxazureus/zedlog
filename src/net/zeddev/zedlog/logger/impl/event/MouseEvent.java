@@ -125,7 +125,7 @@ public abstract class MouseEvent extends LogEvent {
 		
 		requireNotNull(parent);
 		requireEquals(parent.getTagName(), "event");
-		System.out.println(parent.getTagName());
+		
 		// NOTE type is implied when instantiated
 		
 		setX(Integer.parseInt(
