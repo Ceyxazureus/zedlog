@@ -21,6 +21,8 @@ import java.util.Scanner;
 import org.jnativehook.mouse.NativeMouseEvent;
 
 import org.w3c.dom.*;
+
+import net.zeddev.zedlog.logger.impl.event.MouseEvent;
 import static net.zeddev.zedlog.util.Assertions.*;
 
 /**
@@ -89,11 +91,21 @@ public final class MouseClickedEvent extends MouseEvent {
 
 	@Override
 	public void fromXML(Element parent) throws Exception {
+		super.fromXML(parent);
 		
 		requireNotNull(parent);
+		requireEquals(parent.getTagName(), "entry");
 		
-		// TODO implement me
+		setButtonCode(Integer.parseInt(
+			parent.getAttribute("bcode")
+		));
 
+		setButton(parent.getAttribute("bname"));
+		
+		setClickCount(Integer.parseInt(
+			parent.getAttribute("clicks")
+		));
+		
 	}
 	
 	@Override
