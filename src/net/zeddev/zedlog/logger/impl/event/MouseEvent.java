@@ -132,7 +132,7 @@ public abstract class MouseEvent extends LogEvent {
 			parent.getAttribute("x")
 		));
 
-		setX(Integer.parseInt(
+		setY(Integer.parseInt(
 			parent.getAttribute("y")
 		));
 		
