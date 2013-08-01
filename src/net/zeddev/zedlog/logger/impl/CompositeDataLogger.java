@@ -69,16 +69,8 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 
 	@Override
 	public void shutdown() {
-
 		super.shutdown();
 		
-		/*
-		try {
-			closeLogStream();
-		} catch (IOException ex) {
-			logger.warning("Failed to close log file/stream properly!", ex);
-		}*/
-
 		logger.debug("CompositeLogger shutdown.");
 
 	}
