@@ -71,6 +71,16 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	public void shutdown() {
 		super.shutdown();
 		
+		// flush the log file
+		try {
+			
+			if (getLogFile() != null)
+				flushXmlLog();
+		
+		} catch (Exception ex) {
+			logger.error("Failed to write xml log file!", ex);	
+		}
+		
 		logger.debug("CompositeLogger shutdown.");
 
 	}
@@ -202,7 +212,7 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	}
 	
 	// returns the xml document used to log data logger entries
-	private Document getXmlDoc() throws ParserConfigurationException {
+	private Document getXmlLog() throws ParserConfigurationException {
 
 		// create xml document object if does not already exist
 		if (xmlLog == null) {
@@ -296,40 +306,61 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 
 	}
 	
+	// flushes the XML log document to the disk
+	private void flushXmlLog() throws Exception {
+	
+		requireNotNull(getLogFile());
+		
+		Document doc = getXmlLog();
+		checkNotNull(doc);
+		
+		// the transformer which will update the XML source on disk
+		TransformerFactory transformerFactory = TransformerFactory.newInstance();
+		Transformer transformer = transformerFactory.newTransformer();
+		
+		// the XML input/output objects
+		DOMSource source = new DOMSource(doc);
+		StreamResult result = new StreamResult(getLogFile());
+		
+		// update the XML file
+		transformer.transform(source, result);
+		
+	}
+	
+	// the number of log entries before flushing to disk
+	private static final int LOG_FLUSH_THRESHOLD = 10;
+	private int logEntrysSinceFlush = 0; // the current count of log entries since last flush
+	
 	// writes the log entry to XML
-	private void writeXmlLogEntry(LogEntry logEntry) {
+	private void writeXmlLogEntry(final LogEntry logEntry) {
 
-		if (logFile != null) {
-
+		requireNotNull(logEntry);
+		
+		// dont write to file if not set
+		if (getLogFile() != null) {
+		
 			try {
-
-				Document doc = getXmlDoc();
+				
+				Document doc = getXmlLog();
 				checkNotNull(doc);
 				
-				// the root element (i.e. an <entries>)
 				Element root = doc.getDocumentElement();
 				checkNotNull(root);
 				
-				// write the log entry
-				logEntry.toXML(root); // encode the log entry
+				// encode the log entry
+				logEntry.toXML(root);
+				logEntrysSinceFlush++;
 				
-				// the transformer which will update the XML source on disk
-				TransformerFactory transformerFactory = TransformerFactory.newInstance();
-				Transformer transformer = transformerFactory.newTransformer();
+				// flush log to disk
+				if (logEntrysSinceFlush >= LOG_FLUSH_THRESHOLD) {
+					flushXmlLog();
+					logEntrysSinceFlush = 0;
+				}
 				
-				// the XML input/output objects
-				DOMSource source = new DOMSource(doc);
-				StreamResult result = new StreamResult(logFile);
-				
-				// output the XML
-				transformer.transform(source, result);
-
 			} catch (Exception ex) {
-			
-				logger.error("Failed to write log entry!", ex);
-			
+				 logger.error("Failed encode log entry to XML!", ex);
 			}
-
+			
 		}
 		
 	}
