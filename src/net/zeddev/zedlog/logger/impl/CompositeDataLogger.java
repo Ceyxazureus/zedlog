@@ -23,6 +23,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 
+import java.util.Map;
+import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -123,7 +125,7 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 
 			logger.addObserver(this);
 			loggers.add(logger);
-
+			
 		}
 
 	}
@@ -287,6 +289,57 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 		
 	}
 	
+	// updates the list of loggers in the given xml element 
+	private void updateLoggersInXmlLog(Element parent) throws Exception {
+		
+		requireNotNull(parent != null);
+		assert requireEquals(parent.getTagName(), "loggers");
+		
+		// the set of data loggers currently in the XML document
+		Map<String, Element> dataLoggerSet = new HashMap<>();
+		
+		// populate the data logger set
+		NodeList loggerNodes = parent.getElementsByTagName("logger");
+		for (int i = 0; i < loggerNodes.getLength(); i++) {
+			if (loggerNodes.item(i) instanceof Element) { // weed out all non-logger nodes
+				Element loggerElement = (Element) loggerNodes.item(i);
+				
+				dataLoggerSet.put(
+					loggerElement.getAttribute("type"),
+					loggerElement
+				);
+				
+			}
+			
+		}
+		
+		// remove loggers not longer in the composite logger
+		for (String loggerType : dataLoggerSet.keySet()) {
+			
+			DataLogger logger = DataLoggers.newDataLogger(loggerType); 
+				// NOTE actually returns cached version 
+			
+			if (!loggers.contains(logger))
+				parent.removeChild(dataLoggerSet.get(loggerType));
+			
+		}
+		
+		// update the logger elements not in the data logger set
+		for (DataLogger logger : loggers) {
+			
+			if (!dataLoggerSet.containsKey(logger.type())) {
+			
+				Element loggerElement = getXmlLog().createElement("logger");
+				loggerElement.setAttribute("type", logger.type());
+				
+				parent.appendChild(loggerElement);
+				
+			}
+			
+		}
+		
+	}
+	
 	// flushes the XML log document to the disk
 	private void flushXmlLog() throws Exception {
 	
@@ -294,6 +347,13 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 		
 		Document doc = getXmlLog();
 		checkNotNull(doc);
+		
+		Element root = doc.getDocumentElement();
+		checkNotNull(root);		
+
+		// update the loggers list in 
+		Element loggers = firstXmlElement(root, "loggers");
+		updateLoggersInXmlLog(loggers);
 		
 		// the transformer which will update the XML source on disk
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
