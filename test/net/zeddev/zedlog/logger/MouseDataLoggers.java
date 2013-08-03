@@ -42,6 +42,63 @@ import static org.junit.Assert.*;
  */
 public final class MouseDataLoggers {
 	
+	// the AWT robot used to simulate mouse events
+	private final Robot robot;
+	
+	public MouseDataLoggers() throws Exception {
+		robot = new Robot();
+	}
+	
+	// simulates a mouse button click
+	private void mouseClick(int button) {
+		
+		mousePress(button);
+		mouseRelease(button);
+		
+	}
+	
+	// simulates a mouse button press
+	private void mousePress(int button) {
+		
+		robot.mousePress(button);
+		robot.delay(10);
+		
+	}
+	
+	// simulates a mouse button press
+	private void mouseRelease(int button) {
+		
+		robot.mouseRelease(button);
+		robot.delay(10);
+		
+	}
+	
+	// simulates a mouse button press
+	private void mouseMove(int x, int y) {
+		
+		robot.mouseMove(x, y);
+		robot.delay(10);
+		
+	}
+	
+	// simulates a mouse wheel movement
+	private void mouseWheel(int rot) {
+		
+		robot.mouseWheel(rot);
+		robot.delay(10);
+		
+	}
+	
+	// simulates a mouse drag event
+	private void mouseDrag(int button, int x, int y) {
+	
+		robot.mousePress(button);
+		robot.mouseMove(x, y); 
+		robot.mouseRelease(button);
+		robot.delay(10);
+		
+	}
+	
 	/** Tests the {@link net.zeddev.zedlog.logger.impl.MouseClickLogger}. */
 	@Test
 	public void testMouseClick() throws Throwable {
@@ -51,7 +108,6 @@ public final class MouseDataLoggers {
 		// the observer which receives events
 		TestObserver observer = new TestObserver(thelogger) {
 			public void notifyLog(DataLogger logger, LogEntry logEntry) {
-				
 				super.notifyLog(logger, logEntry);
 				
 				assertEquals(logEntry.getEvent().type(), "MouseClicked");
@@ -61,14 +117,9 @@ public final class MouseDataLoggers {
 		
 		thelogger.addObserver(observer);
 		
-		Robot robot = new Robot();
+		mouseClick(InputEvent.BUTTON1_MASK);
 		
-		// simulate character press
-		robot.mousePress(InputEvent.BUTTON1_MASK);
-		robot.delay(10);
-		robot.mouseRelease(InputEvent.BUTTON1_MASK);
-		
-		robot.delay(100); 
+		Thread.sleep(100); 
 		// NOTE Must delay here as events are dispatched on a different thread
 		
 		assertEquals(observer.count, 1);
@@ -84,7 +135,6 @@ public final class MouseDataLoggers {
 		// the observer which receives events
 		TestObserver observer = new TestObserver(thelogger) {
 			public void notifyLog(DataLogger logger, LogEntry logEntry) {
-				
 				super.notifyLog(logger, logEntry);
 				
 				assertEquals(logEntry.getEvent().type(), "MousePressed");
@@ -94,18 +144,44 @@ public final class MouseDataLoggers {
 		
 		thelogger.addObserver(observer);
 		
-		Robot robot = new Robot();
+		mousePress(InputEvent.BUTTON1_MASK);
 		
-		// simulate character press
-		robot.mousePress(InputEvent.BUTTON1_MASK);
-		
-		robot.delay(100); 
+		Thread.sleep(100); 
 		// NOTE Must delay here as events are dispatched on a different thread
 		
 		assertEquals(observer.count, 1);
 		
 		// release button after check for press
-		robot.mouseRelease(InputEvent.BUTTON1_MASK);
+		mouseRelease(InputEvent.BUTTON1_MASK);
+		
+	}
+	
+	/** Tests the {@link net.zeddev.zedlog.logger.impl.MouseClickLogger}. */
+	@Test
+	public void testMouseRelease() throws Throwable {
+		
+		final DataLogger thelogger = new MouseReleasedLogger();
+
+		// the observer which receives events
+		TestObserver observer = new TestObserver(thelogger) {
+			public void notifyLog(DataLogger logger, LogEntry logEntry) {
+				super.notifyLog(logger, logEntry);
+				
+				assertEquals(logEntry.getEvent().type(), "MouseReleased");
+				
+			}
+		};
+		
+		thelogger.addObserver(observer);
+		
+		Robot robot = new Robot();
+		
+		mouseClick(InputEvent.BUTTON1_MASK);
+		
+		Thread.sleep(100); 
+		// NOTE Must delay here as events are dispatched on a different thread
+		
+		assertEquals(observer.count, 1);
 		
 	}
 	
@@ -118,7 +194,6 @@ public final class MouseDataLoggers {
 		// the observer which receives events
 		TestObserver observer = new TestObserver(thelogger) {
 			public void notifyLog(DataLogger logger, LogEntry logEntry) {
-				
 				super.notifyLog(logger, logEntry);
 				
 				assertEquals(logEntry.getEvent().type(), "MouseMoved");
@@ -128,11 +203,9 @@ public final class MouseDataLoggers {
 		
 		thelogger.addObserver(observer);
 		
-		// move the mouse about
-		Robot robot = new Robot();
-		robot.mouseMove(200, 200); // NOTE assumes mouse is not already at pos :-/
+		mouseMove(200, 200); // NOTE assumes mouse is not already at pos :-/
 		
-		robot.delay(100); 
+		Thread.sleep(100); 
 		// NOTE Must delay here as events are dispatched on a different thread
 		
 		assertEquals(observer.count, 1);
@@ -148,7 +221,6 @@ public final class MouseDataLoggers {
 		// the observer which receives events
 		TestObserver observer = new TestObserver(thelogger) {
 			public void notifyLog(DataLogger logger, LogEntry logEntry) {
-				
 				super.notifyLog(logger, logEntry);
 				
 				assertEquals(logEntry.getEvent().type(), "MouseDragged");
@@ -158,13 +230,9 @@ public final class MouseDataLoggers {
 		
 		thelogger.addObserver(observer);
 		
-		// simulate mouse drag
-		Robot robot = new Robot();
-		robot.mousePress(InputEvent.BUTTON1_MASK);
-		robot.mouseMove(200, 200); // NOTE assumes mouse is not already at pos :-/
-		robot.mouseRelease(InputEvent.BUTTON1_MASK);
+		mouseDrag(InputEvent.BUTTON1_MASK, 200, 200); // NOTE assumes mouse is not already at pos :-/
 		
-		robot.delay(100); 
+		Thread.sleep(100); 
 		// NOTE Must delay here as events are dispatched on a different thread
 		
 		assertEquals(observer.count, 1);
@@ -180,7 +248,6 @@ public final class MouseDataLoggers {
 		// the observer which receives events
 		TestObserver observer = new TestObserver(thelogger) {
 			public void notifyLog(DataLogger logger, LogEntry logEntry) {
-				
 				super.notifyLog(logger, logEntry);
 				
 				assertEquals(logEntry.getEvent().type(), "MouseWheelMoved");
@@ -190,44 +257,9 @@ public final class MouseDataLoggers {
 		
 		thelogger.addObserver(observer);
 		
-		// simulate mouse wheel movement
-		Robot robot = new Robot();
-		robot.mouseWheel(1);
+		mouseWheel(1);
 		
-		robot.delay(100); 
-		// NOTE Must delay here as events are dispatched on a different thread
-		
-		assertEquals(observer.count, 1);
-		
-	}
-	
-	/** Tests the {@link net.zeddev.zedlog.logger.impl.MouseClickLogger}. */
-	@Test
-	public void testMouseRelease() throws Throwable {
-		
-		final DataLogger thelogger = new MouseReleasedLogger();
-
-		// the observer which receives events
-		TestObserver observer = new TestObserver(thelogger) {
-			public void notifyLog(DataLogger logger, LogEntry logEntry) {
-				
-				super.notifyLog(logger, logEntry);
-				
-				assertEquals(logEntry.getEvent().type(), "MouseReleased");
-				
-			}
-		};
-		
-		thelogger.addObserver(observer);
-		
-		Robot robot = new Robot();
-		
-		// simulate character press
-		robot.mousePress(InputEvent.BUTTON1_MASK);
-		robot.delay(10);
-		robot.mouseRelease(InputEvent.BUTTON1_MASK);
-		
-		robot.delay(100); 
+		Thread.sleep(100); 
 		// NOTE Must delay here as events are dispatched on a different thread
 		
 		assertEquals(observer.count, 1);
