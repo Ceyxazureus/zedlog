@@ -47,9 +47,8 @@ public final class KeyDataLoggers {
 	// simulates a typing a key
 	private void typeChar(int keycode) {
 		
-		robot.keyPress(keycode);
-		robot.delay(10);
-		robot.keyRelease(keycode);
+		keyPress(keycode);
+		keyRelease(keycode);
 		
 	}
 	
@@ -82,7 +81,7 @@ public final class KeyDataLoggers {
 		
 		typeChar(KeyEvent.VK_A);
 		
-		robot.delay(100); 
+		Thread.sleep(100); 
 		// NOTE Must delay here as events are dispatched on a different thread
 		
 		assertEquals(observer.count, 1);
@@ -102,7 +101,7 @@ public final class KeyDataLoggers {
 		
 		keyPress(KeyEvent.VK_A);
 		
-		robot.delay(100); 
+		Thread.sleep(100); 
 			// NOTE Must delay here as events are dispatched on a different thread
 		
 		assertEquals(observer.count, 1);
@@ -128,7 +127,7 @@ public final class KeyDataLoggers {
 		robot.keyPress(KeyEvent.VK_A);
 		robot.keyRelease(KeyEvent.VK_A);
 		
-		robot.delay(100); 
+		Thread.sleep(100); 
 			// NOTE Must delay here as events are dispatched on a different thread
 		
 		assertEquals(observer.count, 1);
