@@ -223,8 +223,16 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 			xmlLog = docBuilder.newDocument();
 			
 			// create the root element in the document
-			Element root = xmlLog.createElement("entries");
+			Element root = xmlLog.createElement("zedlog");
 			xmlLog.appendChild(root);
+			
+			// create the loggers element/section
+			Element loggers = xmlLog.createElement("loggers");
+			root.appendChild(loggers);
+			
+			// create the root element in the document
+			Element entries = xmlLog.createElement("entries");
+			root.appendChild(entries);
 			
 		}
 		
@@ -276,34 +284,7 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 			}
 			
 		}
-				
-		/* Removed 2013-07-30
-		assert(file != null);
-
-		// first thing, close the old log stream
-		closeLogStream();
-
-		try (BufferedReader input = new BufferedReader(new FileReader(file))) {
-
-			// read each log entry one-by-one
-			String line = input.readLine();
-			while (line != null) {
-
-				Scanner scanner = new Scanner(line);
-				scanner.useDelimiter(Pattern.quote("|"));
-
-				// read the single log entry
-				LogEntry logEntry = new LogEntry();
-				logEntry.read(scanner);
-
-				notifyLog(null, logEntry);
-
-				line = input.readLine();
-
-			}
-
-		}*/
-
+		
 	}
 	
 	// flushes the XML log document to the disk
@@ -331,6 +312,24 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	private static final int LOG_FLUSH_THRESHOLD = 10;
 	private int logEntrysSinceFlush = 0; // the current count of log entries since last flush
 	
+	// Returns the first XML element with the given name, in the given parent element
+	private static Element firstXmlElement(Element parent, String tagname) {
+	
+		requireNotNull(parent);
+		requireNotNull(tagname);
+		requireNotEquals(tagname, "");
+		
+		NodeList elements = parent.getElementsByTagName(tagname);
+		check(elements.getLength() > 0);
+		// TODO check properly
+		
+		Element first = (Element) elements.item(0);
+		ensureNotNull(first);
+		
+		return first;
+		
+	}
+	
 	// writes the log entry to XML
 	private void writeXmlLogEntry(final LogEntry logEntry) {
 
@@ -347,8 +346,11 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 				Element root = doc.getDocumentElement();
 				checkNotNull(root);
 				
+				Element entries = firstXmlElement(root, "entries");
+				checkNotNull(entries);
+				
 				// encode the log entry
-				logEntry.toXML(root);
+				logEntry.toXML(entries);
 				logEntrysSinceFlush++;
 				
 				// flush log to disk
