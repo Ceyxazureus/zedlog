@@ -70,7 +70,7 @@ public final class MouseWheelMovedEvent extends MouseEvent {
 		super.fromXML(parent);
 		
 		requireNotNull(parent);
-		requireEquals(parent.getTagName(), "entry");
+		requireEquals(parent.getTagName(), "event");
 		
 		setRotation(Integer.parseInt(
 			parent.getAttribute("rot")

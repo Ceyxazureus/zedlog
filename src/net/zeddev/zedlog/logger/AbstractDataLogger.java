@@ -88,7 +88,6 @@ public abstract class AbstractDataLogger implements DataLogger {
 	 */
 	protected void notifyDataLoggerObservers(final DataLogger logger, final LogEntry logEntry) {
 
-		requireNotNull(logger);
 		requireNotNull(logEntry);
 		
 		if (isRecording()) {

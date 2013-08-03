@@ -69,7 +69,7 @@ public final class MouseDraggedEvent extends MouseEvent {
 		super.fromXML(parent);
 		
 		requireNotNull(parent);
-		requireEquals(parent.getTagName(), "entry");
+		requireEquals(parent.getTagName(), "event");
 		
 		setButtonCode(Integer.parseInt(
 			parent.getAttribute("bcode")
