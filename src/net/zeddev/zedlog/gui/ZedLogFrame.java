@@ -653,12 +653,12 @@ public final class ZedLogFrame extends JFrame implements NativeMouseListener {
 
 			logger.info("Opening log file %s.", null, logFile.toString());
 
+			loggers.openLogFile(logFile);
+			
 			// re-initialise the composite logger
 			removeLoggerTabs();
 			loggers.clearAll();
 			initLoggerTabs();
-
-			loggers.openLogFile(logFile);
 
 		} catch (FileNotFoundException ex) {
 			logger.error("Log file %s does not exist!", ex, logFile.getPath());
