@@ -269,14 +269,28 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 		Document doc = docBuilder.parse(file);
 		doc.getDocumentElement().normalize();
 		
-		// handle each entry
+		// add each data logger
+		NodeList loggerNodes = doc.getElementsByTagName("logger");
+		for (int i = 0; i < loggerNodes.getLength(); i++) {
+			if (loggerNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
+				
+				Element loggerElement = (Element) loggerNodes.item(i);
+				
+				String loggerType = loggerElement.getAttribute("type");
+				addLogger(
+					DataLoggers.newDataLogger(loggerType)
+				);
+				
+			}
+			
+		}
+		
+		// handle each log entry
 		NodeList entries = doc.getElementsByTagName("entry");
 		for (int i = 0; i < entries.getLength(); i++) {
-			Node nodeEntry  = entries.item(i);
-			
-			if (nodeEntry.getNodeType() == Node.ELEMENT_NODE) {
+			if (entries.item(i).getNodeType() == Node.ELEMENT_NODE) {
 				
-				Element entry = (Element) nodeEntry;
+				Element entry = (Element) entries.item(i);
 				
 				LogEntry logEntry = new LogEntry();
 				logEntry.fromXML(entry);
