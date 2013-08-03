@@ -35,6 +35,40 @@ import static org.junit.Assert.*;
  */
 public final class KeyDataLoggers {
 	
+	// the AWT robot used to simulate events
+	private Robot robot;
+	
+	public KeyDataLoggers() throws Exception {
+	
+		 robot = new Robot();
+		
+	}
+	
+	// simulates a typing a key
+	private void typeChar(int keycode) {
+		
+		robot.keyPress(keycode);
+		robot.delay(10);
+		robot.keyRelease(keycode);
+		
+	}
+	
+	// simulates a key press
+	private void keyPress(int keycode) {
+		
+		robot.keyPress(KeyEvent.VK_A);
+		robot.delay(10);
+		
+	}
+	
+	// simulates a key release
+	private void keyRelease(int keycode) {
+		
+		robot.keyRelease(KeyEvent.VK_A);
+		robot.delay(10);
+		
+	}
+	
 	/** Tests the {@link net.zeddev.zedlog.logger.impl.CharTypedLogger}. */
 	@Test
 	public void testCharTyped() throws Throwable {
@@ -46,11 +80,7 @@ public final class KeyDataLoggers {
 		
 		thelogger.addObserver(observer);
 		
-		// simulate character press
-		Robot robot = new Robot();
-		robot.keyPress(KeyEvent.VK_A);
-		robot.delay(100);
-		robot.keyRelease(KeyEvent.VK_A);
+		typeChar(KeyEvent.VK_A);
 		
 		robot.delay(100); 
 		// NOTE Must delay here as events are dispatched on a different thread
@@ -70,16 +100,14 @@ public final class KeyDataLoggers {
 		
 		thelogger.addObserver(observer);
 		
-		// simulate character press
-		Robot robot = new Robot();
-		robot.keyPress(KeyEvent.VK_A);
+		keyPress(KeyEvent.VK_A);
 		
 		robot.delay(100); 
 			// NOTE Must delay here as events are dispatched on a different thread
 		
 		assertEquals(observer.count, 1);
 		
-		robot.keyRelease(KeyEvent.VK_A);
+		keyRelease(KeyEvent.VK_A);
 			// release once checked.
 		
 	}
