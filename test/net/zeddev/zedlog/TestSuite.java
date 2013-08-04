@@ -16,8 +16,8 @@ package net.zeddev.zedlog;
  */
 
 import net.zeddev.litelogger.Logger;
-import net.zeddev.zedlog.logger.KeyDataLoggers;
-import net.zeddev.zedlog.logger.MouseDataLoggers;
+import net.zeddev.zedlog.logger.impl.KeyDataLoggers;
+import net.zeddev.zedlog.logger.impl.MouseDataLoggers;
 import net.zeddev.zedlog.util.AssertionsTest;
 import net.zeddev.zedlog.util.IOUtilTest;
 
