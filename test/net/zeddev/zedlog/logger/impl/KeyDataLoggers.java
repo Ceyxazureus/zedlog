@@ -1,4 +1,4 @@
-package net.zeddev.zedlog.logger;
+package net.zeddev.zedlog.logger.impl;
 /* Copyright (C) 2013  Zachary Scott <zscott.dev@gmail.com>
 *
 * This program is free software: you can redistribute it and/or modify
@@ -18,12 +18,10 @@ package net.zeddev.zedlog.logger;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
 
-import net.zeddev.zedlog.logger.impl.CharTypedLogger;
-import net.zeddev.zedlog.logger.impl.KeyPressedLogger;
-import net.zeddev.zedlog.logger.impl.KeyReleasedLogger;
-
 import org.junit.Test;
 import static org.junit.Assert.*;
+
+import org.w3c.dom.*;
 
 /**
  * Unit test for key {@link net.zeddev.zedlog.logger.DataLogger} (i.e.

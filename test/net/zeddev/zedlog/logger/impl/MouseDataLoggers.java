@@ -1,4 +1,4 @@
-package net.zeddev.zedlog.logger;
+package net.zeddev.zedlog.logger.impl;
 /* Copyright (C) 2013  Zachary Scott <zscott.dev@gmail.com>
 *
 * This program is free software: you can redistribute it and/or modify
@@ -18,13 +18,6 @@ package net.zeddev.zedlog.logger;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.awt.event.InputEvent;
-
-import net.zeddev.zedlog.logger.impl.MouseClickLogger;
-import net.zeddev.zedlog.logger.impl.MousePressedLogger;
-import net.zeddev.zedlog.logger.impl.MouseReleasedLogger;
-import net.zeddev.zedlog.logger.impl.MouseMovementLogger;
-import net.zeddev.zedlog.logger.impl.MouseDraggedLogger;
-import net.zeddev.zedlog.logger.impl.MouseWheelLogger;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
