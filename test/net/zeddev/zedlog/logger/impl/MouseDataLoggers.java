@@ -19,6 +19,10 @@ import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.awt.event.InputEvent;
 
+import net.zeddev.zedlog.logger.DataLogger;
+import net.zeddev.zedlog.logger.DataLoggerObserver;
+import net.zeddev.zedlog.logger.LogEntry;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 
