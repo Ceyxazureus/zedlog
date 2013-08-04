@@ -126,6 +126,8 @@ OTHER_FILES = COPYING_GPL.html README.html CHANGES.html
 TEST_SOURCE := TestSuite.java \
 util/AssertionsTest.java \
 util/IOUtilTest.java \
+logger/LogEntryTest.java \
+logger/LogEventsTest.java \
 logger/impl/KeyDataLoggers.java \
 logger/impl/MouseDataLoggers.java
 
