@@ -15,13 +15,13 @@ package net.zeddev.zedlog;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import java.awt.event.KeyEvent;
 import net.zeddev.litelogger.Logger;
 import net.zeddev.zedlog.logger.LogEntryTest;
 import net.zeddev.zedlog.logger.impl.CompositeDataLoggerTest;
 import net.zeddev.zedlog.logger.impl.KeyDataLoggers;
 import net.zeddev.zedlog.logger.impl.MouseDataLoggers;
-import net.zeddev.zedlog.logger.impl.event.MouseClickedEvent;
+import net.zeddev.zedlog.logger.impl.event.KeyEventTest;
+import net.zeddev.zedlog.logger.impl.event.MouseClickedEventTest;
 import net.zeddev.zedlog.logger.impl.event.MouseDraggedEventTest;
 import net.zeddev.zedlog.logger.impl.event.MouseMovedEventTest;
 import net.zeddev.zedlog.logger.impl.event.MousePressedEventTest;
@@ -57,8 +57,8 @@ public final class TestSuite {
 		KeyDataLoggers.class,
 		MouseDataLoggers.class,
 		CompositeDataLoggerTest.class,
-		KeyEvent.class,
-		MouseClickedEvent.class,
+		KeyEventTest.class,
+		MouseClickedEventTest.class,
 		MouseDraggedEventTest.class,
 		MouseMovedEventTest.class,
 		MousePressedEventTest.class,
