@@ -35,11 +35,13 @@ public class MouseClickedEventTest {
 	@Test
 	public void testMouseClickedEvent() throws Throwable {
 		
-		KeyEvent inst = new KeyEvent(KeyEvent.Type.TYPED, 1, 'a');
+		MouseClickedEvent inst = new MouseClickedEvent(
+			new NativeMouseEvent(1, 2, 3, 4, 5, 6)
+		);;
 		
-		assertEquals(inst.getEventType(), KeyEvent.Type.TYPED);
-		assertEquals(inst.getKeyCode(), 1);
-		assertEquals(inst.getChar(), 'a');
+		assertEquals(inst.getButton(), "no button");
+		assertEquals(inst.getButtonCode(), 0);
+		assertEquals(inst.getClickCount(), 6);
 		
 	}
 	
