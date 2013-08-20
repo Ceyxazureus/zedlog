@@ -20,6 +20,7 @@ import net.zeddev.litelogger.Logger;
 import net.zeddev.zedlog.logger.LogEntryTest;
 import net.zeddev.zedlog.logger.impl.KeyDataLoggers;
 import net.zeddev.zedlog.logger.impl.MouseDataLoggers;
+import net.zeddev.zedlog.logger.impl.event.MouseClickedEvent;
 import net.zeddev.zedlog.util.AssertionsTest;
 import net.zeddev.zedlog.util.IOUtilTest;
 
@@ -49,7 +50,8 @@ public final class TestSuite {
 		LogEntryTest.class,
 		KeyDataLoggers.class,
 		MouseDataLoggers.class,
-		KeyEvent.class
+		KeyEvent.class,
+		MouseClickedEvent.class
 	};
 	
 	// the test state
