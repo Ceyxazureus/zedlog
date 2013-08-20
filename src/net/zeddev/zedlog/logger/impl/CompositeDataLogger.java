@@ -158,6 +158,12 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 		assert(index >= 0 && index < loggers.size());
 		loggers.remove(index);
 	}
+	
+	/** Whether the {@code CompopsiteDataLogger} contains the given logger. */
+	public boolean containsLogger(DataLogger logger) {
+		requireNotNull(logger);
+		return loggers.contains(logger);
+	}
 
 	/**
 	 * Clears all log entries and the log files.
