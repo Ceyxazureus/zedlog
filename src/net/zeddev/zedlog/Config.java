@@ -1,3 +1,4 @@
+package net.zeddev.zedlog;
 /* Copyright (C) 2013  Zachary Scott <zscott.dev@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -13,8 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-package net.zeddev.zedlog;
 
 // NOTE Must NOT depend on any external packages as is used within the installer
 
@@ -35,7 +34,7 @@ public enum Config {
 	public final int VERSION_MINOR = 2;
 
 	/** Version build (minor-minor version).  */
-	public final int VERSION_BUILD = 3;
+	public final int VERSION_BUILD = 4;
 	
 	/** The phase of version development (alpha, beta, rc etc.). */
 	public final String VERSION_PHASE = "beta";
