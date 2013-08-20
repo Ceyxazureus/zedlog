@@ -21,6 +21,7 @@ import java.util.Scanner;
 import net.zeddev.litelogger.Logger;
 import net.zeddev.zedlog.logger.impl.LogEvents;
 import static net.zeddev.zedlog.util.Assertions.*;
+import net.zeddev.zedlog.util.HashUtil;
 
 import org.w3c.dom.*;
 
@@ -248,6 +249,33 @@ public class LogEntry {
 	@Override
 	public String toString() {
 		return getMessage();
+	}
+	
+	@Override
+	public boolean equals(Object object) {
+		
+		if (object != null && object instanceof LogEntry) {
+			
+			LogEntry other = (LogEntry) object;
+			
+			return getParent().equals(other.getParent()) &&
+			       getEvent().equals(other.getEvent()) &&
+			       getMessage().equals(other.getMessage()) &&
+			       getTimestamp() == other.getTimestamp();
+			
+		}
+		
+		return false;
+		
+	}
+
+	@Override
+	public int hashCode() {
+		
+		return HashUtil.hashAll(
+			getParent(), getEvent(), getMessage(), getTimestamp()
+		);
+		
 	}
 
 }
