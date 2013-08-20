@@ -89,7 +89,8 @@ logger/impl/event/MouseWheelMovedEvent.java \
 logger/tools/ReplayTool.java \
 logger/tools/ReplayToolObserver.java \
 util/Assertions.java \
-util/IOUtil.java
+util/IOUtil.java \
+util/HashUtil.java
 
 # the compiled class file name
 CLASS_FILES := $(SOURCE:.java=.class)
@@ -126,10 +127,9 @@ OTHER_FILES = COPYING_GPL.html README.html CHANGES.html
 TEST_SOURCE := TestSuite.java \
 util/AssertionsTest.java \
 util/IOUtilTest.java \
-logger/LogEntryTest.java \
-logger/LogEventsTest.java \
 logger/impl/KeyDataLoggers.java \
-logger/impl/MouseDataLoggers.java
+logger/impl/MouseDataLoggers.java \
+logger/impl/event/KeyEventTest.java
 
 # the compiled test suite class file name
 TEST_CLASSES := $(TEST_SOURCE:.java=.class)
