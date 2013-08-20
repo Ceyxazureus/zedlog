@@ -21,6 +21,11 @@ import net.zeddev.zedlog.logger.LogEntryTest;
 import net.zeddev.zedlog.logger.impl.KeyDataLoggers;
 import net.zeddev.zedlog.logger.impl.MouseDataLoggers;
 import net.zeddev.zedlog.logger.impl.event.MouseClickedEvent;
+import net.zeddev.zedlog.logger.impl.event.MouseDraggedEventTest;
+import net.zeddev.zedlog.logger.impl.event.MouseMovedEventTest;
+import net.zeddev.zedlog.logger.impl.event.MousePressedEventTest;
+import net.zeddev.zedlog.logger.impl.event.MouseReleasedEventTest;
+import net.zeddev.zedlog.logger.impl.event.MouseWheelMovedEventTest;
 import net.zeddev.zedlog.util.AssertionsTest;
 import net.zeddev.zedlog.util.IOUtilTest;
 
@@ -51,7 +56,12 @@ public final class TestSuite {
 		KeyDataLoggers.class,
 		MouseDataLoggers.class,
 		KeyEvent.class,
-		MouseClickedEvent.class
+		MouseClickedEvent.class,
+		MouseDraggedEventTest.class,
+		MouseMovedEventTest.class,
+		MousePressedEventTest.class,
+		MouseReleasedEventTest.class,
+		MouseWheelMovedEventTest.class
 	};
 	
 	// the test state
