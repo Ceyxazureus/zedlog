@@ -101,7 +101,7 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	 */
 	public DataLogger getLogger(int index) {
 
-		assert(index >= 0 && index < loggers.size());
+		require(index >= 0 && index < loggers.size());
 
 		synchronized (loggers) {
 			return loggers.get(index);
@@ -117,7 +117,7 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	 */
 	public void addLogger(final DataLogger logger) throws IOException {
 
-		assert(logger != null);
+		requireNotNull(logger);
 
 		synchronized (loggers) {
 
@@ -138,7 +138,7 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	 */
 	public void removeLogger(final DataLogger logger) throws IOException {
 
-		assert(logger != null);
+		requireNotNull(logger);
 
 		synchronized (loggers) {
 
@@ -155,7 +155,7 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	 * @param index The index of the {@code DataLogger} to be removed.
 	 */
 	public void removeLogger(int index) {
-		assert(index >= 0 && index < loggers.size());
+		require(index >= 0 && index < loggers.size());
 		loggers.remove(index);
 	}
 	
@@ -171,9 +171,7 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	 * @throws IOException If an error occurs when the log files are closed.
 	 */
 	public void clearAll() throws IOException {
-
 		logEntries.clear();
-
 	}
 
 	/**
@@ -450,7 +448,7 @@ public final class CompositeDataLogger extends AbstractDataLogger implements Dat
 	@Override
 	public void notifyLog(final DataLogger logger, final LogEntry logEntry) {
 
-		assert(logEntry != null);
+		requireNotNull(logEntry);
 
 		if (isRecording()) {
 
