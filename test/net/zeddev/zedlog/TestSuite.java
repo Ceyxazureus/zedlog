@@ -15,6 +15,7 @@ package net.zeddev.zedlog;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import java.awt.event.KeyEvent;
 import net.zeddev.litelogger.Logger;
 import net.zeddev.zedlog.logger.LogEntryTest;
 import net.zeddev.zedlog.logger.impl.KeyDataLoggers;
@@ -47,7 +48,8 @@ public final class TestSuite {
 		IOUtilTest.class,
 		LogEntryTest.class,
 		KeyDataLoggers.class,
-		MouseDataLoggers.class
+		MouseDataLoggers.class,
+		KeyEvent.class
 	};
 	
 	// the test state
