@@ -31,6 +31,7 @@ POD2PDF = pod2pdf
 
 TAR = tar
 BZIP2 = bzip2
+ZIP = zip
 
 ##### DIRECTORIES  #############################################################
 
@@ -171,7 +172,7 @@ POD2HTML_FLAGS = --noindex
 #####  DISTRIBUTION ARCHIVE  ###################################################
 
 DIST_NAME = $(NAME)-$(VERSION)
-DIST_FILE = $(DIST_NAME).tar.bz2
+DIST_FILE = $(DIST_NAME).zip
 
 SCRIPTS = zedlog.sh zedlog.bat zedlog.vbs
 
@@ -252,7 +253,7 @@ $(DIST_FILE): $(DIST_FILES)
 	cp -r $^ $(DIST_NAME)
 	mkdir $(DIST_NAME)/$(BIN_DIR)
 	mv $(DIST_NAME)/$(notdir $(JAR_FILE)) $(DIST_NAME)/$(JAR_FILE) # move JAR back to bin dir
-	$(TAR) c $(DIST_NAME) | $(BZIP2) > $@
+	$(ZIP) -r $@ $(DIST_NAME)
 	rm -r $(DIST_NAME)
 
 # build installer jar file
