@@ -2,16 +2,16 @@
 
 =head1 Changes in ZedLog
 
-=head2 v0.3beta - Upcoming
+=head2 v0.2beta4 - Released 21-August-2013
 
 =over 4
 
-=item * Changed to use a portable XML log format. INCOMPLETE
-
-=item * Added installer framework.
+=item * Changed to use a portable XML log format.
 
 =item * Minor refactoring of codebase and addition of unit testing for logger
 components.
+
+=item * Added installer framework.
 
 =back
 

@@ -10,7 +10,7 @@
                                                     |___/ 
 
 
-=head1 ZedLog v0.2beta3
+=head1 ZedLog v0.2beta4
 
 ZedLog is a robust cross-platform input logging tool (AKA a key 
 logger).  It is based on a flexible data logging system which makes it 
@@ -23,7 +23,7 @@ following;
 
 =item * Replay simulation tool.
 
-=item * Logging to file.
+=item * Logging to file (xml log).
 
 =item * Hiding in background.
 
