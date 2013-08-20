@@ -16,6 +16,7 @@ package net.zeddev.zedlog;
  */
 
 import net.zeddev.litelogger.Logger;
+import net.zeddev.zedlog.logger.LogEntryTest;
 import net.zeddev.zedlog.logger.impl.KeyDataLoggers;
 import net.zeddev.zedlog.logger.impl.MouseDataLoggers;
 import net.zeddev.zedlog.util.AssertionsTest;
@@ -44,6 +45,7 @@ public final class TestSuite {
 	public static final Class[] TEST_CLASSES = {
 		AssertionsTest.class,
 		IOUtilTest.class,
+		LogEntryTest.class,
 		KeyDataLoggers.class,
 		MouseDataLoggers.class
 	};
