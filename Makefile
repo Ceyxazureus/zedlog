@@ -129,7 +129,14 @@ util/AssertionsTest.java \
 util/IOUtilTest.java \
 logger/impl/KeyDataLoggers.java \
 logger/impl/MouseDataLoggers.java \
-logger/impl/event/KeyEventTest.java
+logger/impl/CompositeDataLoggerTest.java \
+logger/impl/event/KeyEventTest.java \
+logger/impl/event/MouseClickedEventTest.java \
+logger/impl/event/MouseDraggedEventTest.java \
+logger/impl/event/MouseMovedEventTest.java \
+logger/impl/event/MousePressedEventTest.java \
+logger/impl/event/MouseReleasedEventTest.java \
+logger/impl/event/MouseWheelMovedEventTest.java
 
 # the compiled test suite class file name
 TEST_CLASSES := $(TEST_SOURCE:.java=.class)
