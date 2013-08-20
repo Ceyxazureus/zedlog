@@ -22,6 +22,7 @@ import org.jnativehook.mouse.NativeMouseEvent;
 
 import org.w3c.dom.*;
 import static net.zeddev.zedlog.util.Assertions.*;
+import net.zeddev.zedlog.util.HashUtil;
 
 /**
  * A mouse event describing a button click.
@@ -109,6 +110,30 @@ public final class MouseDraggedEvent extends MouseEvent {
 
 		return msg.toString();
 
+	}
+
+	@Override
+	public int hashCode() {
+		
+		return HashUtil.hashAll(
+			super.hashCode(), getButtonCode()
+		);
+		
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final MouseDraggedEvent other = (MouseDraggedEvent) obj;
+		if (this.buttonCode != other.buttonCode) {
+			return false;
+		}
+		return super.equals(obj);
 	}
 
 }

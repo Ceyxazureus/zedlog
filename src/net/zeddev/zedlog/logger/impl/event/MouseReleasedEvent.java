@@ -16,12 +16,14 @@ package net.zeddev.zedlog.logger.impl.event;
  */
 
 import java.io.Writer;
+import java.util.Objects;
 import java.util.Scanner;
 
 import org.jnativehook.mouse.NativeMouseEvent;
 
 import org.w3c.dom.*;
 import static net.zeddev.zedlog.util.Assertions.*;
+import net.zeddev.zedlog.util.HashUtil;
 
 /**
  * A mouse event describing a button release.
@@ -126,6 +128,33 @@ public final class MouseReleasedEvent extends MouseEvent {
 
 		return msg.toString();
 
+	}
+
+	@Override
+	public int hashCode() {
+		
+		return HashUtil.hashAll(
+			super.hashCode(), getButtonCode(), getButton()
+		);
+		
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final MouseReleasedEvent other = (MouseReleasedEvent) obj;
+		if (this.buttonCode != other.buttonCode) {
+			return false;
+		}
+		if (!Objects.equals(this.button, other.button)) {
+			return false;
+		}
+		return super.equals(obj);
 	}
 
 }

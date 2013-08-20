@@ -24,6 +24,7 @@ import org.jnativehook.mouse.NativeMouseEvent;
 
 import org.w3c.dom.*;
 import static net.zeddev.zedlog.util.Assertions.*;
+import net.zeddev.zedlog.util.HashUtil;
 
 /**
  * A generic mouse event.
@@ -155,6 +156,33 @@ public abstract class MouseEvent extends LogEvent {
 		setX(scanner.nextInt());
 		setY(scanner.nextInt());
 
+	}
+
+	@Override
+	public int hashCode() {
+		
+		return HashUtil.hashAll(
+			super.hashCode(), getX(), getY()
+		);
+		
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final MouseEvent other = (MouseEvent) obj;
+		if (this.x != other.x) {
+			return false;
+		}
+		if (this.y != other.y) {
+			return false;
+		}
+		return true;
 	}
 
 }

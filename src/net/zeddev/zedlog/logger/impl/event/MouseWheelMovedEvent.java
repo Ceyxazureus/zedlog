@@ -22,6 +22,7 @@ import org.jnativehook.mouse.NativeMouseWheelEvent;
 
 import org.w3c.dom.*;
 import static net.zeddev.zedlog.util.Assertions.*;
+import net.zeddev.zedlog.util.HashUtil;
 
 /**
  * A mouse event describing a mouse wheel movement.
@@ -121,6 +122,30 @@ public final class MouseWheelMovedEvent extends MouseEvent {
 
 		return msg.toString();
 
+	}
+
+	@Override
+	public int hashCode() {
+		
+		return HashUtil.hashAll(
+			super.hashCode(), getRotation()
+		);
+		
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final MouseWheelMovedEvent other = (MouseWheelMovedEvent) obj;
+		if (this.rotation != other.rotation) {
+			return false;
+		}
+		return super.equals(obj);
 	}
 
 }

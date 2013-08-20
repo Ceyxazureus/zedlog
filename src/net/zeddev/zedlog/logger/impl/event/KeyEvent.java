@@ -21,6 +21,7 @@ import net.zeddev.zedlog.logger.LogEvent;
 import org.jnativehook.keyboard.NativeKeyEvent;
 import org.w3c.dom.*;
 import static net.zeddev.zedlog.util.Assertions.*;
+import net.zeddev.zedlog.util.HashUtil;
 
 /**
  * A key pressed, released or typed event.
@@ -187,6 +188,36 @@ public class KeyEvent extends LogEvent {
 			return String.format("%s %s", NativeKeyEvent.getKeyText(keyCode), eventType.toString());
 		}
 
+	}
+
+	@Override
+	public int hashCode() {
+		
+		return HashUtil.hashAll(
+			getEventType(), getKeyCode(), getChar()
+		);
+		
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final KeyEvent other = (KeyEvent) obj;
+		if (this.eventType != other.eventType) {
+			return false;
+		}
+		if (this.keyCode != other.keyCode) {
+			return false;
+		}
+		if (this.ch != other.ch) {
+			return false;
+		}
+		return true;
 	}
 
 }
