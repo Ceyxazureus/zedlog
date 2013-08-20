@@ -16,6 +16,7 @@ package net.zeddev.zedlog.logger;
  */
 
 import java.io.Writer;
+import java.util.Objects;
 import java.util.Scanner;
 
 import net.zeddev.litelogger.Logger;
@@ -63,11 +64,7 @@ public class LogEntry {
 	}
 
 	public DataLogger getParent() {
-		
-		ensureNotNull(parent);
-		
 		return parent;
-		
 	}
 
 	public void setParent(DataLogger parent) {
@@ -250,23 +247,26 @@ public class LogEntry {
 	public String toString() {
 		return getMessage();
 	}
-	
+
 	@Override
-	public boolean equals(Object object) {
-		
-		if (object != null && object instanceof LogEntry) {
-			
-			LogEntry other = (LogEntry) object;
-			
-			return getParent().equals(other.getParent()) &&
-			       getEvent().equals(other.getEvent()) &&
-			       getMessage().equals(other.getMessage()) &&
-			       getTimestamp() == other.getTimestamp();
-			
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
 		}
-		
-		return false;
-		
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final LogEntry other = (LogEntry) obj;
+		if (!Objects.equals(this.message, other.message)) {
+			return false;
+		}
+		if (!Objects.equals(this.event, other.event)) {
+			return false;
+		}
+		if (this.timestamp != other.timestamp) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override
