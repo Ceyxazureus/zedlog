@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Created-By: Zachary Scott <zscott.dev@gmail.com>
+Main-Class: net.zeddev.zedlog.ZedLog
+Class-Path: lib/JNativeHook.jar lib/litelogger.jar

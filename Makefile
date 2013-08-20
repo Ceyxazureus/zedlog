@@ -119,6 +119,9 @@ LIBS_CLASSPATH = $(shell perl classpathify.pl $(LIBS))
 JAR_FILE = $(BIN_DIR)/$(NAME)-$(VERSION).jar
 MAIN_CLASS = net.zeddev.zedlog.ZedLog 
 
+# the manifest used in the JAR
+MANIFEST = Manifest
+
 # other files to include in the jar file
 OTHER_FILES = COPYING_GPL.html README.html CHANGES.html
 
@@ -243,7 +246,7 @@ installer: rebuild $(INSTALLER_JAR)
 $(JAR_FILE): $(CLASS_FILES) resources $(OTHER_FILES)
 	@echo ">>>>> Creating $@ <<<<<"
 	-mkdir $(BIN_DIR) 2>/dev/null
-	$(JAR) -cfe .jar.tmp $(MAIN_CLASS) -C $(BIN_DIR) . $(OTHER_FILES) >/dev/null
+	$(JAR) -cfm .jar.tmp $(MANIFEST) -C $(BIN_DIR) . $(OTHER_FILES) >/dev/null
 	@mv .jar.tmp $@
 
 # build distribution archive
