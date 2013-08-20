@@ -18,6 +18,7 @@ package net.zeddev.zedlog;
 import java.awt.event.KeyEvent;
 import net.zeddev.litelogger.Logger;
 import net.zeddev.zedlog.logger.LogEntryTest;
+import net.zeddev.zedlog.logger.impl.CompositeDataLoggerTest;
 import net.zeddev.zedlog.logger.impl.KeyDataLoggers;
 import net.zeddev.zedlog.logger.impl.MouseDataLoggers;
 import net.zeddev.zedlog.logger.impl.event.MouseClickedEvent;
@@ -55,6 +56,7 @@ public final class TestSuite {
 		LogEntryTest.class,
 		KeyDataLoggers.class,
 		MouseDataLoggers.class,
+		CompositeDataLoggerTest.class,
 		KeyEvent.class,
 		MouseClickedEvent.class,
 		MouseDraggedEventTest.class,
